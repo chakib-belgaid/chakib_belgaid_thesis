@@ -15,23 +15,25 @@ This is the chapter where i will put all the works related to the a successful t
 % \end{abstract}
 
 
-\section{Introduction}
+% \section{Introduction}
 %\lettrine[nindent=0em,lines=3]{C} 
-To conduct robust evaluations, practitioners often try to ensure reproducible environmental conditions in order to properly benchmark their software systems.
-In this area, reproducibility might be achieved by ensuring the same execution settings of physical nodes, virtual machines, clusters or cloud environments.
-Recently, the research community has been investigating typical "crimes" in systems benchmarking and established guidelines for conducting robust and reproducible evaluations~\cite{DBLP:journals/corr/abs-1801-02381}.
+% To conduct robust evaluations, practitioners often try to ensure reproducible environmental conditions in order to properly benchmark their software systems.
+% 
+% Recently, the research community has been investigating typical "crimes" in systems benchmarking and established guidelines for conducting robust and reproducible evaluations~\cite{DBLP:journals/corr/abs-1801-02381}.
 
-In theory, using identical CPU, same memory configuration, similar storage and networking capabilities, should favour reproducible experiments.
-However, when it comes to measuring the energy consumption of a system, applying acknowledged guidelines and carefully repeating the same benchmark can nonetheless lead to different energy footprints not only on homogeneous nodes, but even within a single node.
-This difference---also called \emph{energy variation} (EV)---has become a serious threat to the accuracy of experimental evaluations.
+% In theory, using identical CPU, same memory configuration, similar storage and networking capabilities, should favour reproducible experiments.
+% However, when it comes to measuring the energy consumption of a system, applying acknowledged guidelines and carefully repeating the same benchmark can nonetheless lead to different energy footprints not only on homogeneous nodes, but even within a single node.
+% This difference---also called \emph{energy variation} (EV)---has become a serious threat to the accuracy of experimental evaluations.
 
-Figure~\ref{fig:motivation} illustrates this variation problem as a violin plot of $20$ executions of the benchmark \emph{Conjugate Gradient} (\textsf{CG}) taken from the \emph{NAS Parallel Benchmarks} (NBP) suite~\cite{Bailey:1991:NPB:125826.125925}, on $4$ nodes of an homogeneous cluster (the cluster \textsf{Dahu} described in Table~\ref{table:g5k}) at 50\,\% workload.
-One can observe a large variation of the energy consumption, not only among homogeneous nodes, but also at the scale of a single node, reaching up to $25\,\%$ in this example.
+% Figure~\ref{fig:motivation} illustrates this variation problem as a violin plot of $20$ executions of the benchmark \emph{Conjugate Gradient} (\textsf{CG}) taken from the \emph{NAS Parallel Benchmarks} (NBP) suite~\cite{Bailey:1991:NPB:125826.125925}, on $4$ nodes of an homogeneous cluster (the cluster \textsf{Dahu} described in Table~\ref{table:g5k}) at 50\,\% workload.
+% One can observe a large variation of the energy consumption, not only among homogeneous nodes, but also at the scale of a single node, reaching up to $25\,\%$ in this example.
 
-\begin{figure}%[!htb]
-    \center{\includegraphics[width=.9\linewidth]{imgs/motivation}}
-    \caption{CPU energy variation for the benchmark \textsf{CG}}\label{fig:motivation}
-\end{figure}
+% \begin{figure}%[!htb]
+%     \center{\includegraphics[width=.9\linewidth]{imgs/motivation}}
+%     \caption{CPU energy variation for the benchmark \textsf{CG}}\label{fig:motivation}
+% \end{figure}
+
+% TODO Should I add the hardware mitigation  for energy variation ? 
 
 Most of the state of the art has been investigating this power consumption issue from a hardware perspective~\cite{borkar_designing_2005,tschanz_adaptive_2002} and reported that the causes of such energy variations are CMOS manufacturing process of transistors in a chip, differences in node assembly and data center hot spots.
 Additionally, \cite{heinrich_predicting} described it as a combination of parameters, mentioning a list of candidate factors, such as the thermal effect or the CPU frequency, but failing to deliver a deeper analysis of these factors.
@@ -39,9 +41,9 @@ Additionally, \cite{heinrich_predicting} described it as a combination of parame
 Unfortunately, hardware factors can be hardly tuned to tame the energy variation that can be observed in systems benchmarking.
 For example, managing the CPU temperature or a server position in a cluster, are not actions that one can easily do, especially on the modern data centers and cloud platforms.
 Therefore, the goal of this paper is to investigate the spectrum of factors that can cause or increase the variability of energy consumption in systems benchmarking, and to propose effective guidelines to control such factors in order to mitigate this variability.
-While this paper does not question the benefits of established CPU features, like C-states or Turbo~Boost, it delivers a deeper analysis of the effects they may introduce on a wide set of experiments and nodes.
-By quantifying potential energy variations induced by controllable factors, we intend to identify the proper configurations that minimize energy variations, depending on the workload characteristics.
-These guidelines aim at supporting practitioners in conducting robust system benchmarks and reporting reproducible energy consumption, rather than recommending production-scale practices or solutions to reduce the power consumption of a given system.
+% While this paper does not question the benefits of established CPU features, like C-states or Turbo~Boost, it delivers a deeper analysis of the effects they may introduce on a wide set of experiments and nodes.
+% By quantifying potential energy variations induced by controllable factors, we intend to identify the proper configurations that minimize energy variations, depending on the workload characteristics.
+% These guidelines aim at supporting practitioners in conducting robust system benchmarks and reporting reproducible energy consumption, rather than recommending production-scale practices or solutions to reduce the power consumption of a given system.
 % 
 % The key contributions of this paper can therefore be summarized as:
 % \begin{enumerate}
@@ -86,7 +88,7 @@ This result was recently assessed by~\cite{wang_potential_2018}, where the rack 
 Beyond hardware components, the accuracy of power meters has also been questioned.
 Inadomi~\emph{et~al.}~\cite{inadomi_analyzing_2015} used three different power measurement tools: RAPL, Power Insight\footnote{\url{https://www.itssolution.com/products/trellis-power-insight-application}} and BGQ EMON.
 All of the three tools recorded the same $10\,\%$ of energy variation, that was supposedly related to the manufacturing process.
-
+%% this is to prove that the problem is REAL !!! 
 \paragraph{Mitigating Energy Variations.}
 Acknowledging the energy variation problem on processors, some papers proposed contributions to reduce and mitigate this variation.
 In~\cite{inadomi_analyzing_2015}, the authors introduced a variation-aware algorithm that improves application performance under a power constraint by determining module-level (individual processor and associated DRAM) power allocation, with up to $5.4\times$ speedup.
@@ -99,10 +101,10 @@ In~\cite{chasapis_runtime-guided_2016}, the researchers showed how a parallel sy
 In~\cite{marathe_empirical_2017_m}, the authors highlight the increase of energy variation across the latest Intel micro-architectures by a factor of $4$ from Sandy~Bridge to Broadwell, a $15\,\%$ of run-to-run variation within the same processor and the increase of the inter-cores variation from $2.5\,\%$ to $5\,\%$ due to hardware-enforced constraints, concluding with some recommendations for Broadwell usage, such as running one hyper-thread per core.
 \note{this might be interesting for greeFaaS}
 
-\paragraph{Objective.}
-The aim of our paper is not to reproduce all the exposed results and explored paths.
-Instead, we intend to check some of these results on latest hardware components, and to consider new potential controllable factors that could also contribute to the energy variation.
-We also aim to provide practitioners with guidelines to conduct robust experiments in a controlled environment, thus reducing the variation overhead to share trustable results and build credible comparisons.
+% \paragraph{Objective.}
+% The aim of our paper is not to reproduce all the exposed results and explored paths.
+% Instead, we intend to check some of these results on latest hardware components, and to consider new potential controllable factors that could also contribute to the energy variation.
+% We also aim to provide practitioners with guidelines to conduct robust experiments in a controlled environment, thus reducing the variation overhead to share trustable results and build credible comparisons.
 
 \section{Research Questions}\label{sec:research_qs}
 Worth saying, we are aware that part of the energy consumption variation is due to chip manufacturing differences or some of the previously discussed enforced factors, such as the thermal effect or the servers placement.
@@ -674,3 +676,8 @@ Some of these factors, like the C-states usage, can reduce the energy variation 
 
 We believe that our approach can also be used to study/discover other potential variability factors, and extend our results to alternative CPU generations/brands.
 Most importantly, this should motivate future works on creating a better knowledge on the variability due to CPU manufacturing process and other factors.
+
+
+\subsection{Testing Protocol}
+the results of this protocil can be found in the project of the continious integrtation that was made by the intern Mamadou to give a feedback about the evolution of the energyconsumption within time
+
