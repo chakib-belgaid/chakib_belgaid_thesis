@@ -44,7 +44,7 @@ Special notice to \href{https://github.com/powerapi-ng/virtualwatts}{virtualwatt
 \subsection{Docker and energy}
 Now that we have chosen to go with the containers technorolgy to encapsulate our tests. What would be the impact of this solution on the energy consumption of our tests.
 
-Based on the studies of \cite{eddie_antonio_santos_how_nodate}, who analysed the impact of adding the docker layer on the energy consumption.
+Based on the studies of \cite{santos2018does}, who analysed the impact of adding the docker layer on the energy consumption.
 In their experement. Eddie Antonio et al run multiple benchmarks with and without docker. and compared their energy consumption and execution time.
 The first step was to see the impact of docker deamon while there is no work. to see the impact of the orchestrator alone. Later they had the experiment with the following benchmarks
 \begin{itemize}
@@ -55,7 +55,7 @@ The first step was to see the impact of docker deamon while there is no work. to
 The following figures represents the energy consumption of the system while it is idle. As we can see  in figure \ref{fig:docker_idle} Docker braught arround 1000joules overhead.
 \begin{figure}
     \center{\includegraphics[width=.5\linewidth]{imgs/docker_vs_vm_energy_paper/idle_energy}}
-    \caption{energy consumption of Idle system with and without docker \cite{eddie_antonio_santos_how_nodate}}\label{fig:docker_idle}
+    \caption{energy consumption of Idle system with and without docker \cite{santos2018does}}\label{fig:docker_idle}
 \end{figure}
 In the other hand as we can see in figure \ref{fig:docker_reddis}. docker increased the execution time of the benchmark by 50 seconds which caused an increase in energy since they are highly correlated.
 The authors also highlated the fact that this increase of energy consumption is due to the docker deamon and not the fact that the application is in a container. Moreover they estimted the price of this extra energy and it was less than 0.15\$ in the worst case. Which is non significant compared to the advantages that docker bring for isolation and reproducibility.\\
@@ -68,7 +68,7 @@ The average power consumption is higher with only \textbf{2Watts} and it is due 
 \begin{figure}
     \includegraphics[width=.5\linewidth]{imgs/docker_vs_vm_energy_paper/reddis_time}
     \includegraphics[width=.5\linewidth]{imgs/docker_vs_vm_energy_paper/reddis_energy}
-    \caption{execution time and energy consumption of Redis  with and without docker \cite{eddie_antonio_santos_how_nodate}}\label{fig:docker_reddis}
+    \caption{execution time and energy consumption of Redis  with and without docker \cite{santos2018does}}\label{fig:docker_reddis}
 \end{figure}
 
 %  basically just rephrase the paper 

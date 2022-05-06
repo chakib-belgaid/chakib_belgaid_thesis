@@ -66,7 +66,7 @@ As an example, Figure~\ref{fig:topo} illustrates a detailed topology of a node b
 Our choice for the benchmarks was based on two creterions.
 
 First, \textbf{scalability} : We wanted to gather the highest possible amount insights (regarding time spent for the experiment, therefore we wanted some benchmarks who can scale according to the number of PUs and can fulfill different scenarios.
-Second creterion is \textbf{representativeness} : as menstionned in the challenges, a workload has to be representative otherwise the experiment would be inconsistent \cite{evaluate_Collaboratory}.
+Second creterion is \textbf{representativeness} : as menstionned in the challenges, a workload has to be representative otherwise the experiment would be inconsistent \cite{stephen_evaluate_2012}.
 To satisfy those creterions we went through state of the art and looked for the most used benchmarks for testing the performance of the hardware, and then we selected the scallable ones.
 Our candidate is  emph{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NPB:125826.125925}: one of the most used benchmarks for \emph{HPC}. We used the applications (\textsf{LU}), the \emph{Conjugate Gradient} (\textsf{CG}) and \emph{Embarrassingly Parallel} (\textsf{EP}) computation-intensive benchmarks in our experiments, with the \textsf{C} data class.
 Further more we have used other applications to validate our results using more applications such as \texttt{Stress-ng v0.10.0},\footnote{\url{https://kernel.ubuntu.com/~cking/stress-ng}} \texttt{pbzip2 v1.1.9},\footnote{\url{https://launchpad.net/pbzip2/}} \texttt{linpack}\footnote{\url{http://www.netlib.org/linpack}} and \texttt{sha256 v8.26}\footnote{\url{https://linux.die.net/man/1/sha256sum}}.
