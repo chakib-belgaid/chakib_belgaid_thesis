@@ -1,7 +1,9 @@
 % this sections containes all the references for each section : 
 
 % 1. group articles by field 
-hello my world!!
+
+
+
 
 \section{testing}
 
@@ -74,32 +76,78 @@ reducing the energy consumption in parallel systems \cite{chasapis2016runtime}
 %\\\ https://www.cpubenchmark.net/compare/Intel-i7-12700KF-vs-Intel-i7-12700F/4608vs4692 | hardware benchmarking 
 \section{energy consumption}
 
-
+to be able to reduce the energy cost of running programs we should first be able to estame this energy consumption.
+many studies have been conducted to estimate a such energy consumption. that varries from static analysis of the source code to enfere it's energy consumption like \citeauthor{pereira_helping_2017} where they provided a tool to highlight the most energy consuming parts of the code \cite{pereira_helping_2017}.the main advantage of this apporach is to be able to estimate the energy consumption of a program without running it. however. unlike the conplexity of programs, the energy consumption is highly related the execusion environment. Therefor, Static analysis might not represent the real behaviour of the same program when it is run in the production environment.
+To treat the problem of representativeness, many researchers tend to measure the energy consumption of the programs while they are running them. Hence we will get more accurate results.
+there is a variety of tools to measure such energy, and they cover a large spectrium of usage depends on how \textbf{accurate} and \textbf{pricise} those results are needed to be in tone hand, and the price that practinoners are ready to pay for a such accuray/pricision.
+Below we will present some tools that are well known in the literature and discuss their main advantages / drawbacks for our case.
 \subsection{hardware tools}
 
-WattsUp Pro \cite{hirst2013watts}
+% TODO Add : diagram of the possible point where we can measure the energy 
+
+% depends on the scientific usage there are two apporaches :
+% 1. extern one or independent : when the most of researchs are using
+% the benifits of this is the simplicity of instalation however we pay the price either with a lack of temporal resolution ( low frequency ) or the spatial granularity
+% ( most of them measure the energy consumption of the whole machine )
+% 2. dedicated one , they are based on the instrumentation of some parts of the computer , however they have a high cost and they are defficult to scale since they require an instrumentation of the execusion environment.
+according to \citeauthor{hackenberg2014hdeem} there are four main creterions to evaluate an energy measurement tool \cite{hackenberg2014hdeem}
+\begin{itemize}
+    \item \em{spatial granularity}: the more specific the target of monitoring we are able to measure, the more efficient we can do optimization since we will know what causes the pitfalls of the energy consumption.
+    \item \em{temporal granularity}: same as spatial granularity, temporal granularity helps us to identif the sequence of code that need to be optimized.
+    \item \em{scalability}: this is mainly related to the cost of the tools and the ease of their integration for our system.
+    \item  \em{accuracy}:to elimanate extra hazards and get more representative measurement.
+\end{itemize}
+
+We believe that accuracy can be extracted from those creterions since it is a result of the combaination of the two first ones. therefore, we will focus more on the first 3 creterions from later on.
+In the follwong section we will discuss some of the well known tools that are used in literature.
+
+% TODO : add a triangle to classify all those tools 
+
+Nowdays, most of the high performance computing systems (HPC) implements a tool to report the energy consumption of the nodes for the sake of monitoring and administration. Those tools are mainly integrated withing the power suply units (PSU) or the power distributuin units (PDU). then , they provide an interface and a log to follow the history of the energy consumption. Despite their scalability and ease of integration. such tools lack both in spatial and temporal granularity since they monitor the whole energy of the nodes, and most of the times they have a very low sampling frequency. most of those tools are provided directly by the manufacturers. such as \em{IBM EnergyScale technology} \cite{mccreary2007energyscale} \cite{caldeira2014ibm} \cite{caldeiraibm} or \em{Dell poweredge} \cite{lovicott2009thermal}, MEGware Cluststafe \cite{breitbart2015case}
+As we said earlier the true purpose of those tools is more monitoring than analysing the energy consumption.
+%% add something to link with wattsup pro 
+WattsUp Pro, is a device that can be installed  between the  powerer source of the machine and the system under test. it allows a sampling frequency up to 1Hz and has a internal memory to store a wide variety of data, such as the maximum voltage, current.. etc that later can be exported via USB port for personal usage or lined to some graph programs like Logger Pro or LabQuest.The main advantage of this tool is the ability to monitor the energy consumption from a different device which will reduce the risk of interference with the energy consumption of the test % a revoir 
+\cite{hirst2013watts}
+
+despite his high temporal granularity  , wattsup pro lacks in term of spatial granularity since it monitors the energy consumption of the whole system.
+To have a finer granularity we need to isolate the energy consumption of each component.
+.
+For this we will need more intrusive tools such.
+
+%% THIS IS FOR GPU %%% 
+% GPU TESLA \cite{burtscher2014measuring}
+
+% NVML\cite{fahad2019comparative}
+%%%% 
+
+PowerMon and its upgradded version powerMon2 \cite{bedard2010powermon} are based on an microcontroler chip that can monitor up to 6 channel ( 8 for powermon2) simultanetly. therefore we are able to monitor the powerconsumption of 4 devices at the same time. the frequency sample of this tool is up to 50Hz with an accuracy of 1.2\%. Powermore2 comes with smaller size that can fit within 3.5 inches rack drive.
+
+PowerInsight \cite{laros2013powerinsight} is another finegrained measurement tool that is based on an ARM bagelbone processor \cite{coley2012beaglebone} which is able to measure up to 30 channel simultanetly with a frequency of 1KHz per channel.
+
+on the other hand GreenMiner \cite{hindle2014greenminer}, %%i dont think that  mobile measurement will be relevent for my case 
+
+powerpack \cite{ge2009powerpack} in the other hand is an api that synchronizes the data gathered from other monitoring tools such as Watt’s Up Pro, NI and RadioShack pro and the lines of code %% maybe remove this one from the list because it is not well known.
+
+other monitor tools have been relized by the manufactures such as IBM Power executive \cite{koomey2011growth} which allows their customer to monitor the power consumption and thermal behaviour of the of BladeCenter systems in the datacenter.
 
 
-PowerMon \cite{bedard2010powermon}
 
-PowerInsight \cite{laros2013powerinsight}
+%% TODO : add diagram where the distribution of the energy consumption is more related to the CPU rather than other tools - u can cite the tools dedicated to the GPU since it is is included in the software aggregators ? power api, pythoules ...etc 
 
-GreenMiner \cite{hindle2014greenminer}
+as we see in % two diagrams one for research the other one for power usage 
+The CPU is the part responsible of the most energy consumption of softwares. hence the finner we go to measure this energy consumption the better it is for our work.
+Fortunately, Intel and later AMD proposed a tool that estimate the power consumption of different part of the CPI based on counter performances. RAPL (RUnning Average Power Limit) \cite{hackenberg2013power} \cite{hackenberg2015energy} is a set of registers that was introduced by intel in their CPU since Sandy bridge generation, and later it was fllowed by AMD since Family 17h Zen.
+It is capable of monitoring different components of CPU , such as DRAM, Cores , and the integrated GPU for desktop processors.
 
-powerpack \cite{ge2009powerpack}
+%% TODO :ADD figure of RAPL + references 
 
-hdeem \cite{hackenberg2014hdeem}
+The advanage of a such apporach is that the absence of any intrusive measurement tools. further more they have a high temporal granurality with a sampling frequency up to 1KHz \cite{ilsche_power_2015}.
 
-PDU ,RAPL ,AMD \cite{hackenberg2013power}
-
-Intel RAPL Haswell \cite{hackenberg2015energy}
-
-GPU TESLA \cite{burtscher2014measuring}
-
-NVML\cite{fahad2019comparative}
+with similar approach we can find NVIDIA reporting tools such as GPU TESLA \cite{burtscher2014measuring} and the NVML library \cite{fahad2019comparative}
 
 
 \subsection{software tools}
+Now that we got our hands on a precise tools that allows us to monitor
 
 powerapi \cite{colmant2018next}
 
@@ -212,7 +260,7 @@ performance \cite{mishra2021web}
 
 
 
-cros compiler bencharking \cite{yet2016cross}
+cross compiler bencharking \cite{yet2016cross}
 
 \subsection{python}
 
