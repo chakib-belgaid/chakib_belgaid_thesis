@@ -1,10 +1,13 @@
-\section{Introduction} :
-As we have seen in the state of the art \textbf{JAVA} is one of the most popular programming languages. Furthermore if we take into consediration the Legacy applications Java becomes the most used programming langues. In addition to its popularity java exhebits an interesting behaviour when it comes to the energy consumption and performances, basically Java applications can be at the same time one of the greenest and energy hungry. As we have seen in the previous chapter. the wrong set of parameter can drive java applications from the top langauge to the bottom just by using the wrong parameters. Therefore we wanted to dig deeper into this aspect of java and study its runtime.
-This Chapter will be focused on the impact of the runtime of java applications on the energy consumption.
+\section{Introduction}
+As reported in the state of the art, Java is one of the most popular programming languages adopted by practitioners.%ROMAIN: Add source
+Furthermore, if we take into consideration legacy applications, Java becomes the most used programming langues.%ROMAIN: Add source
+In addition to its popularity, Java exhibits an interesting behaviour when it comes to energy consumption and performances, basically Java applications can be at the same time one of the most energy efficient or hungry solution.
+As we have seen in the previous chapter, an inappropriate combination of parameters can drive Java applications from the top language to the bottom just by setting the wrong parameters.
+Therefore, we wanted to dig deeper into this aspect of Java and study its runtime.
+This chapter thus focuses on the impact of the runtime of Java applications on the energy consumption.
 
 \subsection{Goal}
-In this section we will investigate the following research questions
-
+In this section, we will investigate the following research questions:
 \begin{compactenum}[\indent\bf RQ\,1:]
     %  TODO : generalize this format of Rq  to all the thesis 
     \item \emph{What is the impact of existing JVM distributions on the energy consumption of Java-based software services?}
@@ -14,8 +17,6 @@ In this section we will investigate the following research questions
 To answer those research question we will run an empirical study to highlight the impact of this runtime.
 
 \subsection{definition of the JVM}
-
-
 \begin{figure}%[ht]
     \centering
     \includegraphics[width=\linewidth]{imgs/Jvm_architecture}
@@ -26,14 +27,14 @@ To answer those research question we will run an empirical study to highlight th
 \section{Experimental Protocol}\label{sec:meth}
 To investigate the effect that could have the JVM distribution choice and/or parameters on software energy consumption, we conducted a wide set of experiments on a cluster of machines and using several established Java benchmarks and JVM configurations.
 
-\subsection{Measurement Conexts}
+\subsection{Measurement Contexts}
 
 \noindent\textbf{Software Settings.}
-For the sake of reproducibility,each experiment is run within a docker container based on SDKMAN image and alpline docker.
+For the sake of reproducibility, each experiment runs within a Docker container based on SDKMAN image and Alpline docker.
 
 \vspace{6pt}
 \noindent\textbf{Hardware Settings.}
-To report on reproducible measurements, we used the cluster \textsf{Dahu} of the G5K platform~\cite{grid5000} for most of our experiments.
+To report on reproducible measurements, we used the cluster \textsf{Dahu} from the G5K platform~\cite{grid5000} for most of our experiments.
 This cluster is composed of $32$ identical compute nodes, which are equipped with $2$ Intel Xeon\,Gold\,6130 and 192\,GB of RAM.
 Our experimental protocol enforces that the software under test is the only process executed on the node configured with a very minimal Linux Debian\,9 (4.9.0 kernel version).
 The minimal OS configuration ensures that only mandatory services and daemons are kept active to conduct robust experiments and reduce the factors that can affect the energy consumption measurements during our experiments~\cite{opaper}.
@@ -127,12 +128,16 @@ The benchmarks we picked from both suites exercise a broad range of programming 
 \end{table*}
 
 \subsection{metrics and measurement}
-Since the goal of this study is the green aspect Java virtual machines. our main metric will be the Energy consumption of the job done by each configuration. In addition to the energy consumption we collected extra metrics that helps us to explain the reasons behind the behaviour of each exeperemnt. Those extra metrics are
+Since the goal of this study is the green aspect Java virtual machines, our key metric will be the energy consumption of the job completed by each configuration.
+In addition to the energy consumption, we collected additional metrics to explain the reasons behind the behaviour of each experiment.
+Those extra metrics are:
 \begin{itemize}
-    \item execution time
-    \item number of threads
+    \item execution time,
+    \item number of threads.
 \end{itemize}
-Our protocol allow the user to record extra metrics such as the energy consumptionf of the memery the cpu usage ..etc.However, we focus only the the previous metrics
+
+% Our protocol allow the user to record extra metrics, such as the energy consumption of the memory, the CPU usage, etc.
+% However, we focus only the the previous metrics.
 
 \noindent\textbf{Energy Measurements.}
 We used Intel\,RAPL as a physical power~meter to analyze the energy consumption of the CPU package and the DRAM.
@@ -145,9 +150,7 @@ All of our experiments are available for use/reproducibility from our anonymous 
 
 
 \noindent\textbf{Number of threads.}
-To collect then number of active threads used by the an exeperiment we use the program top and record during fixed intervals
-
-
+To collect the number of active threads used by the an experiment, we use the command \texttt{top} and record at fixed intervals.
 
 \section{Experiments \& Results}\label{sec:exp}
 \subsection{Energy Impact of JVM Distributions}
@@ -171,9 +174,9 @@ As \textsc{GraalVM} adopts a different strategy focused on LTS support, one can 
 
 Interestingly, this convergence of distributions has been observed since Java\,11 and coincides with the adoption of DCE\,VM by \textsc{HotSpot}.
 Ultimately, 3 clusters of JVMs that encompass JVMs with similar energy consumption can be seen through \Cref{fig:JVMs}: \textsc{J9}, the \textsc{HotSpot} and its variants, and \textsc{GraalVM}.
-Additional detailed figures to illustrate the evolution of energy consumption per benchmark/JVM are made available from the anonymous repository.\footnote{\url{https://anonymous.4open.science/r/jvm-comparaison-213E/Readme.md}}
+Additional detailed figures to illustrate the evolution of energy consumption per benchmark/JVM are made available from the online repository.\footnote{\url{https://anonymous.4open.science/r/jvm-comparaison-213E/Readme.md}}
 
-Then, Figure~\ref{hotspot8} depicts the evolution of the energy consumption of the 12 benchmarks, when executed on the \textsc{HotSpot} JVM.
+Then, Figure~\ref{hotspot8} depicts the evolution of the energy consumption of the $12$ benchmarks, when executed on the \textsc{HotSpot} JVM.
 \Cref{fig:hotspot8} reports on the energy consumption variation of individual benchmarks, using to \textsc{HotSpot-8}\ as the baseline.
 Our results show that the JVM version can severely impact the energy consumption of the application.
 However, unlike \Cref{fig:JVMs}, one can observe that, depending on applications, latest JVM versions can consume less energy (60\% less energy for \textsf{Scrabble}) or more energy (25\% more energy for the \textsf{Neo4J}).
@@ -231,7 +234,7 @@ For example, the introduction of \texttt{VarHandle} to allow low-level access to
 % The full results can be found through the anonymous link[footnote].
 % Hence, Only 2 JVMs  gave energy consumption results that are different enough to be distinguished from the OpenJDK (GraalVM and J9).
 
-Given that the wide set of distributions and versions seems to highlight 3 classes of energy behaviors, the remainder of this paper considers the following distributions as relevant samples of JVM to be further evaluated: \textsf{20.2.0.r11-grl} (\textsc{GraalVM}), \textsf{15.0.1-open} (\textsc{HotSpot-15}), \textsf{15.0.21.j9} (\textsc{J9}).
+Given that the wide set of distributions and versions seems to highlight 3 classes of energy behaviors, the remainder of this chapter considers the following distributions as relevant samples of JVM to be further evaluated: \textsf{20.2.0.r11-grl} (\textsc{GraalVM}), \textsf{15.0.1-open} (\textsc{HotSpot-15}), \textsf{15.0.21.j9} (\textsc{J9}).
 We also decided to keep the \textsf{8.0.275-open} (\textsc{HotSpot-8}) as a baseline JVM for some figures to highlight the evolution of energy consumption over time/versions.
 
 \Cref{fig:all_benchs} further explores the comparison of energy efficiency of the JVM distributions per benchmark.
@@ -580,7 +583,7 @@ We thus gave a lot of attention on how long the benchmark is running for the har
 Experiments ran at least 30 times to compute the average consumption and the associated standard deviation, therefore reasoning over reasonable dispersion around the average.
 
 How generalizable are our results? We believe that our study conclusions and guideline remain empirical, as we do not intend to generalize any result we obtained for some JVM or benchmark.
-We provide practioners with some prerequisites to check before software deployment to reduce the software energy footprint by considering the JVM and its settings.
+We provide practitioners with some prerequisites to check before software deployment to reduce the software energy footprint by considering the JVM and its settings.
 
 \section{Conclusion}
 The results of our investigations showed that many JVMs share energy efficiencies and can grouped into 3 classes: \textsc{HotSpot}, J9, and \textsc{GraalVM}.
