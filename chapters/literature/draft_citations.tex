@@ -5,7 +5,7 @@
 
 
 
-\section{testing}
+\section{benchmarking}
 
 this is \cite{arcuri_practical_2011}
 
@@ -101,7 +101,6 @@ according to \citeauthor{hackenberg2014hdeem} there are four main creterions to 
 We believe that accuracy can be extracted from those creterions since it is a result of the combaination of the two first ones. therefore, we will focus more on the first 3 creterions from later on.
 In the follwong section we will discuss some of the well known tools that are used in literature.
 
-% TODO : add a triangle to classify all those tools 
 
 Nowdays, most of the high performance computing systems (HPC) implements a tool to report the energy consumption of the nodes for the sake of monitoring and administration. Those tools are mainly integrated withing the power suply units (PSU) or the power distributuin units (PDU). then , they provide an interface and a log to follow the history of the energy consumption. Despite their scalability and ease of integration. such tools lack both in spatial and temporal granularity since they monitor the whole energy of the nodes, and most of the times they have a very low sampling frequency. most of those tools are provided directly by the manufacturers. such as \em{IBM EnergyScale technology} \cite{mccreary2007energyscale} \cite{caldeira2014ibm} \cite{caldeiraibm} or \em{Dell poweredge} \cite{lovicott2009thermal}, MEGware Cluststafe \cite{breitbart2015case}
 As we said earlier the true purpose of those tools is more monitoring than analysing the energy consumption.
@@ -291,3 +290,23 @@ defintion \cite{wang1993grpc}
 comparaison \cite{chamas2017comparing}
 
 emprical study \cite{de2021empirical}
+
+
+
+\section{Conclusion}
+As we have seen in the state of the art, many methodes have been proposed to reduce the energy footprint of the the ICT,which they can be applied in deffirent parts of the lifecycle of the program, from consumption to the execution. Furthermore, the execution phase took attention of many researchers because it's the part where the most energy is consumed. This thesis will focus on that aspect as well. However, unlike the most work that have been done on the hardware aspect, we will target the software impact on this energy, starting from the choice of the programming language up to how to tune some features of a frameworks in order to make the software consumes less energy.To do so we use the emprical apporach due to it's concinstency for the moment.Unlike the perfromance which essentialy related to the complexity of the algorithm, the energy consumption is more impacted by the hardware.
+Therefore, to optimize the enrgy consumption we choose a spiral methode. based on 3 phases:
+\begin{enumerate}
+    \item execute the code
+    \item measure the program
+    \item infere the guidelines
+\end{enumerate}
+
+
+\begin{figure}[!hbt]
+    \center{\includegraphics[scale=0.3]{images/greenbenchmarkcycle}}
+    \caption{the spiral methode of energy optimization }\label{fig:spirals}
+\end{figure}
+the aim of this work is to present a set of guidelines to create a benchmarking system to to measure the energy consumption of different programs.
+After that, we will use this system to compare the energy consumption of different programming languages. We will extend the work of \citeauthor{pereira2017energy} to a closer distance to production environment by comparing a set of usecases. starting by GRPC framework, and a set of Web Framewroks. Finally we will discuss the impact of the execution environment on the energy consumption of two of the most famous programming languages JAVA and Python. and present how can tunning the Virtual Machine can reduce the energy consumption.
+
