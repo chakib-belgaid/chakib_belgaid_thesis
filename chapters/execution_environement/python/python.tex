@@ -1,15 +1,216 @@
 \section{python}
 
 \subsection{Introduction}
-% reasons why we have chosen python 
 
+When it comes to developing software systems, one can notice that---except Perl---dynamic programming languages have taken over compiled languages along the last decade in terms of developers popularity (cf. Figure~\ref{fig:pypl}).
+However, it remains unclear if this class of dynamic programming languages can reasonably compete with compiled ones when it comes to power efficiency.
+
+\begin{figure}[htbp]
+    \includegraphics[width=\linewidth]{imgs/programminglanguangespopularity.png}
+    \caption{PYPL Popularity of Programming Languages~\cite{noauthor_pypl_nodate}}
+    \label{fig:pypl}
+\end{figure}
+
+In particular, Noureddine~\emph{et~al.}~\cite{noureddine_preliminary_2012} in 2012, and then Pereira~\emph{et~al.}~\cite{pereira_energy_2017} in 2017, conducted empirical power measurements on this topic, and both concluded that compiled programming languages overcome dynamic ones when it comes to power consumption.
+According to their experiments, an interpreted programming language like Python can impose up to a $7,588\,\%$ energy overhead compared to C~\cite{pereira_energy_2017} (cf. Figure~\ref{fig:hannoi}).
+% However, the operational conditions under which these measurements may threaten the validity of their results.
+
+\begin{figure}[htbp]
+    \includegraphics[width=\linewidth]{imgs/hannoiimplementation.png}
+    \caption{Energy consumption of a recursive implementation of Tower of Hanoi program in different languages~\cite{noureddine_preliminary_2012}}
+    \label{fig:hannoi}
+\end{figure}
 \subsection{python popularity}
+
+However, Python seems to attract a large community of developers interested in data analysis, web development, system administration, machine learning---according to a survey conducted in 2018 by JetBrains---\footnote{\url{https://www.jetbrains.com/research/python-developers-survey-2018/}}one can fear that the wide adoption of dynamic programming languages, like Python, in production may critically hamper the power consumption of ICT.
+
+As the popularity of such dynamic programming languages partly builds on the wealth and the diversity of their ecosystem (\emph{e.g.}, the NumPY, SciKit\,Learn, and Panda libraries in Python), one cannot reasonably expect that developers will likely move to an alternative programming language mostly for energy considerations.
+Rather, we believe that a better option consists in leveraging the strength of this rich ecosystem to promote energy-efficient solutions in order to improve the power consumption of legacy software systems.
+
+In this chapter, we therefore explore the oblivious optimizations that can be applied to Python legacy applications in order to reduce their energy footprint.
+As Python is widely adopted by software services deployed in public and private Cloud infrastructures, we believe that our contributions will benefit to wide diversity of legacy systems and not only favorably contribute to reduce the carbon emissions of ICT, but also reduce their cloud invoice for the resources consumed by these services.
+More specifically, this chapter focuses on runtime optimizations that can adopted by developers to leverage the power consumption of Python applications.
+These optimizations include not only alternative interpreters, but also \emph{ahead-of-time} (AOT) compilation and \emph{just-in-time} (JIT) libraries that are maintained by the community.
+
+% The contributions of this chapter can therefore be summarized as:
+% \begin{compactenum}
+%     \item a classification of state-of-the-art Python optimizations,
+%     \item an evaluation of the power efficiency of these optimizations on well-known micro-benchmarks,
+%     \item a comparison of the effective energy efficiency of Python compared to compiled languages,
+%     \item an assessment of the energy speedup of these optimizations on representative applications and workloads.
+% \end{compactenum}
+
+
+
 
 %%%% python is a popular programming language  based TIOBE PYPI   add graphs 
 
 
-\subsection{environements}
-in this section we will describe the chosen python interpreter
+he simplicity, flexibility and the clarity of Python code led this programming language to a huge success. Therefore, a larger community and a wide range of support and libraries that allowed it to touch several fields like data analyses, machine learning, natural language processing, web development, astrophysics etc.
+% python is not efficient 
+% 1 Energy Efficiency Across Programming Languages: How Do Energy, Time, and Memory Relate?
+%  \begin{figure}[hbt]
+%     \includegraphics[width=\linewidth]{figures/hannoiimplementation.png}
+%     \caption{Energy consumption of the recursive implementation of Tower of Hanoi program in different languages (using a base 10 logarithmic scale) \cite{noureddine_preliminary_2012}}      
+%     \label{fig:hannoi}
+% \end{figure} 
+
+However, and according to \cite{pinto_energy_2017,noureddine_preliminary_2012} and [1]. Python tends to be one more energy hungry . In figure \ref{fig:hannoi}, python consumes 30 times more than C or C++. The test was done on an implementation of \fnurl{hannoi test}{ https://en.wikipedia.org/wiki/Tower_of_Hanoi}  30 disks.
+
+Python consume a lot of energy mainly because it is slow in execution. Its Flexibility and simplicity caused it to drop off in performances, because Python gains its flexibility from being a dynamic language, therefore it needs an interpreter to execute its programs, which makes them much slower compared to the other ones that are written in compiled programming languages such as C and C++ or semi-compiled languages like Java.
+
+As shown in Table \ref{fig:clbg}, we can see that in the most of the test cases Python takes more time to execute -the only case that he wasn't the last one was in the benchmark regx-redux where he beaten Go-, and in some cases the gab was huge such as in the n-body test where python took around 100 times more than C++.
+
+\begin{table}[hbt]
+    \begin{tabular}{l|*{5}c}
+                           & C    & C++   & Java & python & Go    \\
+        \hline
+        pidigits           & 1.75 & 1.89  & 3.13 & 3.51   & 2.04  \\
+        reverse-complement & 1.75 & 2.95  & 3.31 & 16.76  & 4.00  \\
+        regx-redux         & 1.45 & 1.66  & 10.5 & 15.56  & 28.69 \\
+        k-nucleotide       & 5.07 & 3.66  & 8.66 & 79.79  & 15.36 \\
+        binary-trees       & 2.55 & 2.63  & 8.28 & 92.72  & 28.90 \\
+        fasta              & 1.32 & 1.33  & 2.32 & 62.88  & 2.07  \\
+        Fannkuch-redux     & 8.72 & 10.62 & 17.9 & 547.23 & 17.82 \\
+        n-body             & 9.17 & 8.24  & 22.0 & 882.00 & 21.00 \\
+        spectral-norm      & 1.99 & 1.98  & 4.27 & 193.86 & 3.95  \\
+        Mandelbort         & 1.64 & 1.51  & 6.96 & 279.68 & 5.47
+    \end{tabular}
+    \caption{Comparison of the execution time between different programming languages using the computer language benchmarks game \cite{noauthor_which_nodate}}
+    \label{fig:clbg}
+\end{table}
+
+
+\subsection{Python Runtimes}
+
+we used the following implementations.
+
+We should explain the methodology we used to select these
+
+\begin{enumerate}
+    \item \textbf{CPython}:\footnote{\fnurl{https://www.python.org/}} a Python interpreter written in C programming language. It is the reference interpreter of Python. CPython compiles the source code into a bytecode and then interprets it. The CPython project still supports both versions of Python 2 and 3;
+    \item \textbf{PyPy}:\footnote{\url{http://pypy.org}} An alternative implementation of the Python interpreter. It is written using \emph{RPython} in order to use the JIT. It compiles the most used portions of the Python code into a binary code for better performance. To benefit from these optimizations, the program has to be executed for at least for few seconds so the JIT has enough time to warm up, the JIT optimization will be applied only the code written by the programmer and not external libraries;
+    \item \textbf{Cython}:\footnote{\url{https://github.com/cython/cython}} a static compiler for Python. It translates the Python code into a C code, and then compiles it using a C compiler. It also support(s) an extended version of the Python language that allows programmers to call \emph{C functions}, declare \emph{C types} and use static types which will help the translation of Python objects into native types, such as integers, float, which often means a better performances, since native C libraries are almost all the time faster than the python written once~\cite{pereira_energy_2017}.
+    \item \textbf{Intel\,Python}:\footnote{\url{https://software.intel.com/en-us/distribution-for-python}} A customized interpreter developed by Intel in order to enhance performances of Python programs. It is dedicated to data sciences, high-Performance computing. It uses some Intel kernel libraries, such as Math Kernel Library (Intel MKL\footnote{\url{https://software.intel.com/en-us/mkl}}) and data analytics acceleration library (Intel DAAL\footnote{\url{https://software.intel.com/en-us/intel-daal}}). It supports both versions of Python;
+    \item \textbf{Active\,Python}:\footnote{\url{https://www.activestate.com/products/activepython/}} developed by the Activestates company, it provides a standardized Python distribution to ensure license compliance, security, compatibility and performance. Therefore, ActivePython has its own built-in packages (more than 300 packages) and supports both versions of Python;
+    \item \textbf{IronPython}:\footnote{\url{https://ironpython.net}} A .Net-based Python interpretation platform written in C\# in order to be used over the .Net vm or mono, it benefits from all the optimizations of .Net virtual machine, such as the JIT and garbage collector mechanisms.
+    \item \textbf{GraalPython}:\footnote{\url{https://github.com/graalvm/graalpython/}} A Python interpreter that is based on GraalVM \footnote{\url{https://www.graalvm.org/docs/why-graal/}} (a universal virtual machine developed by oracle for running applications written in different programming languages). For the time being, it only supports Python~3 and it is still in the experimental stage;
+    \item \textbf{Jython}:\footnote{\url{https://jython.github.io}} Implementation of Python programming language written in Java for the \emph{Java virtual machine} (JVM). Similar to IronPython and GraalPython, it leverages the optimization mechanisms provided by the JVM to enhance the Python programs;
+    \item \textbf{MicroPython}:\footnote{\url{http://micropython.org}} a lightweight Python version dedicated to embedded systems and micro-controllers;
+    \item \textbf{Nuitka}:\footnote{\url{http://nuitka.net/pages/overview.html}} a Python compiler written in Python that generates a binary executable from Python code. It translates the Python code into a C program that is then compiled into a binary executable;
+    \item \textbf{Numba}:\footnote{\url{https://numba.pydata.org}} a library that includes JIT compiler in order to enhance the performances of Python functions using the industry-standard LLVM compiler library;
+    \item \textbf{Shedskin}:\footnote{\url{https://github.com/shedskin/shedskin}} a static transpiler that translates implicitly statically typed python into C++ code.
+    \item \textbf{Hope}~\cite{akeret_hope_2015}: a Python library that aims to introduce JIT compiler into the Python code;
+    \item \textbf{Parakeet}~\cite{DBLP:conf/hotpar/RubinsteynHWS12}: a runtime accelerator for an array-oriented subset of Python;
+    \item \textbf{Stackless\,Python}:\footnote{\url{https://github.com/stackless-dev/stackless/wiki}} an interpreter that focus on enhancing multi-threading programming.
+    \item \textbf{Pyjion}:\footnote{\url{https://github.com/microsoft/pyjion}} JIT API for CPython, same purpose as Parakeet and Hope.
+    \item \textbf{Pyston}:\footnote{\url{https://blog.pyston.org}} performance-oriented Python implementation built using LLVM and modern JIT techniques. the project is funded by dropbox;
+    \item \textbf{Grumpy}:\footnote{\url{https://github.com/google/grumpy}} a source-to-source transpiler that translates the Python code into a Go code that will be compiled to a binary executable. It also offers an interpreter called \emph{grumprun} which can directly execute the Python code. Unfortunately, we cannot use it because the project is already outdated (last commit is in 2017) and it has a lot of limitation in term of supporting the Python language, such as some built-in functions and standard libraries;
+    \item \textbf{Psyco}:\footnote{\url{http://psyco.sourceforge.net}} a JIT compiler for Python;
+    \item \textbf{Unladen\,Swallow}:\footnote{\url{https://unladen-swallow.readthedocs.io/en/latest/}} an attempt to (use) LLVM  as  JIT compiler for CPython.
+\end{enumerate}
+
+
+\subsection{Runtime Classification}
+Before futher proceeding with the list of candidate runtimes for Python applications, we propose a classification according to several criterions:
+\begin{description}
+    \item[\bf Type] refers to the category of runtime infrastructure that supports the execution of a Python application. In particular, we consider 3 types of environments: \emph{Interpreter}, \emph{Compiler} and \emph{Library}. \emph{Interpreter} refers to the class of environment that does not require any preprocessing of Python source code. \emph{Compiler} introduces a compilation phase prior to the execution of the application. Finally, \emph{Library} induces some modification of the source code.
+    \item[\bf Runtime] refers to the technology supporting the execution of a Python application. This technology can refer to the programming language used to program the interpreter, the target language for a compiler or a library.
+    \item[\bf JIT optimisation] refers to the support of \emph{just-in-time} compilation in the runtime infrastructure supporting the execution of the application.
+    \item[\bf GC optimisation] refers to the support of \emph{garbage collection} in the runtime infrastructure supporting the execution of the application.
+    \item[\bf Python version(s)] refers to the list of Python source code versions supported by the runtime environment.
+\end{description}
+
+We should explain the classification of these runtimes
+
+\begin{table}
+    \caption{Classification of Python implementations}
+    \label{fig:python-classes}
+    \center
+    \begin{tabular}{|l|c|c|c|c|c|c|}
+        \hline
+        \multirow{2}{*}{\bf Name} & \multirow{2}{*}{\bf Type} & \multirow{2}{*}{\bf Runtime} & \multicolumn{2}{c|}{\bf Optimisations} & \multicolumn{2}{c|}{\bf Python}                     \\
+        % \cline{1-5} 
+                                  &                           &                              & {\bf JIT}                              & {\bf GC}                        & {\bf 2} & {\bf 3} \\
+        \hline
+        \hline
+        CPython                   & Interpreter               & C                            & \no                                    & \no                             & \yes    & \yes    \\
+        \hline
+        Intel\,Python             & Interpreter               & C                            & \no                                    & \no                             & \yes    & \yes    \\
+        \hline
+        ActivePython              & Interpreter               & C                            & \no                                    & \yes                            & \yes    & \yes    \\
+        \hline
+        PyPy                      & Interpreter               & Python                       & \yes                                   & \yes                            & \yes    & \yes    \\
+        \hline
+        IronPython                & Interpreter               & .Net                         & \yes                                   & \yes                            & \yes    & \yes    \\
+        \hline
+        GraalPython               & Interpreter               & GraalVM                      & \yes                                   & \yes                            & \no     & \yes    \\
+        \hline
+        Jython                    & Interpreter               & Java                         & \yes                                   & \yes                            & \yes    & \no     \\
+        \hline
+        Stackless\,Python         & Interpreter               & python                       & \no                                    & \no                             & \yes    & \no     \\
+        \hline
+        MicroPython               & interpreter               & c                            & \no                                    & \no                             & \no     & \yes    \\
+        \hline
+        Pyston                    & interpreter               & LLVM                         & \yes                                   & \no                             & \yes    & \no     \\
+        \hline
+        Unladen\,Swallow          & Interpreter               & LLVM                         & \yes                                   & \no                             & \yes    & \no     \\
+        \hline
+        Cython                    & Compiler                  & C                            & \no                                    & \no                             & \yes    & \yes    \\
+        \hline
+        Nuitka                    & Compiler                  & C                            & \no                                    & \no                             & \yes    & \yes    \\
+        \hline
+        Shedskin                  & Compiler                  & C++                          & \no                                    & \no                             & \yes    & \yes    \\
+        \hline
+        Grumpy                    & Compiler                  & Go                           & \no                                    & \no                             & \yes    & \yes    \\
+        \hline
+        Numba                     & Library                   & C                            & \yes                                   & \no                             & \yes    & \yes    \\
+        \hline
+        Hope                      & Library                   & python                       & \yes                                   & \no                             & \yes    & \yes    \\
+        \hline
+        Psyco                     & Library                   & python                       & \yes                                   & \no                             & \yes    & \yes    \\
+        \hline
+        Pyjion                    & Library                   & .NET Core                    & \yes                                   & \no                             & \yes    & \yes    \\
+        \hline
+        Parakeet                  & library                   & C                            & -                                      & \no                             & \yes    & \no     \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+
+\begin{table}[hbt]
+    \caption{Classification of Python implementations}
+    \label{fig:pythonimplementations}
+    \center
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+        Version  & Interpreter     & Transpiler/Compiler & Jit library \\
+        \hline
+        \hline
+        Python~2 & Cpython2        & Cython2             & Numba 2     \\
+        % \cline{2-4} 
+                 & Pypy2           & Shesdskin           & Hope        \\
+        % \cline{2-4} 
+                 & Pytson          & Grumpy              & Parakeet    \\
+                 & Ironpython      &                     & Psyco       \\
+                 & Jython          &                     & Pyjion      \\
+        % &  &  &  \\
+                 & Micropython     &                     &             \\
+                 & Pysec           &                     &             \\
+                 & StacklessPython &                     &             \\
+        % \cline{2-4} 
+        \hline
+        Python~3 & Cpython3        & Nuitka              & Numba3      \\
+                 & Pypy3           &                     &             \\
+                 & GraalPython     &                     &             \\
+        \hline
+    \end{tabular}
+\end{table}
+
+There are other implementations that we didn't considerate because either the project aborted many years ago or it has a very limited support for python features.
+After the collection of those implementation we filtered them. in order to keep only the versions that are still maintained and support most of python features.
+and we classified them into 3 categories depending of their integration with the python code.  In the \ref{fig:pythonimplementations} we describe the implementations that we kept and the version of each implementation and its category.
 
 
 \begin{figure}[thb]
@@ -18,6 +219,76 @@ in this section we will describe the chosen python interpreter
     \caption{Python interpeters}
     \label{fig:interpreters}
 \end{figure}
+
+
+
+\subsection{tests preparation}
+
+
+
+To study the behaviour of the python implementation regarding the energy consumption, we have to focus on the effect of the implementation and mitigate the maximum any side effects such as the organisation of the code or any extra consumption due to the operating system or tier libraries.
+Therefore, for each test we took the implementation written in python2 as a reference and tried to use it in other implementations as it is. If it is not supported by python3, we transformed the code using the officiel library  \emph{2to3}\footnote{\url{https://docs.python.org/3.7/library/2to3.html}}.
+In the case of the libraries that use \emph{JIT} adding a decorator to the function that we want to optimize was enough, if there are other changes we assume that they alter the original code which is against our purpose.
+
+Each test is implemented in a Docker container for the several reasons
+\begin{itemize}
+    \item Isolation: each container has only the test program implemented with a single python runtime to remove any interference between different implementations.
+    \item Deplpoyment: to use the testing machine without extra configurations that may alter the behaviour of the os toward the enrgy consumtion
+    \item Reproductibility: One of the most frequent benchmark crimes~\cite{DBLP:journals/corr/abs-1801-02381} in research is the lack of Reproductibility, by using Docker we ensure that each test has an Image that will be accessible in public.
+\end{itemize}
+
+Despite the presence of the official docker images for the most of the runtimes, we prefered to build our own using the same reference image in order to remove any bias due to the Os used in the offical image.We used ArchLinux with the kernel version 4.9.184 as a base image.
+
+\begin{table}[hbt]
+    \begin{tabular}{ll}
+        \hline
+        CPU     & Intel Xeon Gold 6130 (Skylake, 2.10GHz, 2 CPUs/node, 16 cores/CPU)                                                     \\
+        Memory  & 192 GiB                                                                                                                \\
+        Storage & 240 GB SSD SATA Samsung MZ7KM240HMHQ0D3                                                                                \\
+                & 480 GB SSD SATA Samsung MZ7KM480HMHQ0D3                                                                                \\
+                & 4.0 TB HDD SATA Seagate                                                                                                \\
+        Network & eth0/enp24s0f0, Ethernet, configured rate: 10 Gbps, model: Intel Ethernet Controller X710 for 10GbE SFP+, driver: i40e \\
+                & ib0, Omni-Path, configured rate: 100 Gbps, model: Intel Omni-Path HFI Silicon 100 Series [discrete], driver: hfi1      \\
+        \hline
+    \end{tabular}
+    \caption{Testing Machine Configuration }
+    \label{fig:dahuconfig}
+\end{table}
+
+\subsection{experimental setup}
+
+all our tests have been executed in a Dell PowerEdge C6420 server machine. A summary of its hardware is listed in table \ref{fig:dahuconfig}. The machine is equiped with a minimal version of Debian\,9 (4.9.0 kernel version) where we install Docker (version 18.09.5).
+
+
+\begin{figure}[hbt]
+    \includegraphics[width=\linewidth]{imgs/SmartWatts.png}
+    \caption{powerapi architecture}
+    \label{fig:powerapi}
+
+\end{figure}
+\subsection{Power Measurements}
+
+As we know, the energy of a program is the integrale of its power overtime. For us ower case, we used Intel \emph{Running Power Average Limit} (RAPL)~\cite{Khan:2018:RAE:3199681.3177754} to collect the power samples of the running tests,
+
+We used used \textsc{PowerAPI}~\cite{DBLP:journals/jss/ColmantRKSFS18}, to report Data collected by intel Rapl and send it into another machine that we call computing machine. then we calculate the Energy using  the the trapezoidal rule.
+
+
+\ref{fig:trapezrule}
+\begin{figure}[hbt]
+    \centering
+    \begin{equation}
+        E = \int^a_b P(t)dt \simeq \sum^n_{k=1} \frac{P(t_k-1)+P(t_k)}{2}
+    \end{equation}
+    \caption{}
+    \label{fig:trapezrule}
+\end{figure}
+
+
+
+figure \ref{fig:powerapi} shows the architecture of our testing model.
+
+
+The reason of separation between data collection and energy calculation is to minimise any interference with the test so our sensor is a light c program running inside a docker container.
 
 \subsection{benchmarks}
 

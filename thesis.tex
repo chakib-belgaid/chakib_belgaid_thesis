@@ -24,12 +24,43 @@
 \usepackage{gensymb}
 \usepackage{siunitx} 
 \usepackage{booktabs} 
+\usepackage{pgf}
+\usepackage{longtable}
 
 %%%%%%%%%%%%%%%%%%%%%%%% extra commands %%%%%%%%%%%%%%%%%% 
 %%%%%%%%highlighting 
 \newcommand\note[1]{\textcolor{red}{\bf\em{TODO : #1}}}
 \newcommand\best[1]{\textcolor{teal}{\bf #1}}
 \newcommand\wow[1]{\textcolorcolor{orange}{\em #1}}
+\newcommand\yes[0]{\checkmark}
+\newcommand\no[0]{--}
+
+\newcommand\fnurl[2]{%
+\href{#2}{#1}\footnote{\url{#2}}%
+}
+
+
+\newcommand{\todo}[1]{{\color{red}\bf\em TODO: #1}}
+\newcommand{\romain}[1]{{\color{blue}\bf\em Cmt[R]: #1}}
+\newcommand{\reference}[1]{{\color{green}\bf\em ADD Reference: #1}}
+
+
+\newcommand{\expires}{\texttt{Expires}}
+%THIS MEANS RECHECK IT, I CHANGED IT.
+\newcommand{\hl}[1]{\textcolor{red}{#1}}
+%\newcommand{\hl}[1]{#1}
+%THIS MEANS PROBLEM, TEXT IS NOT CLEAR.
+\newcommand{\hll}[1]{\textcolor{orange}{#1}}
+\newcommand{\point}[1]{\par\smallskip\noindent\textbf{#1:}}
+\newcommand{\nrange}[4][]{%
+  \def\@temp@a{#1}%
+  #2=%
+  \ifx\@temp@a\@empty
+  #3, \dots ,#4%
+  \else
+  #3, #1, \dots,#4%
+  \fi
+}
 % ******************************************************************************
 % ******************************* Class Options ********************************
 % *********************** See README for more details **************************
