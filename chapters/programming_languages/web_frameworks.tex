@@ -49,332 +49,332 @@ Other works have been done on the client side, as an example \cite{philippot_cha
 
 
 
-\begin{longtable}{lll}
-    \toprule
-    framework        & language    & alternative implementations                        \\
-    \midrule
-    \endhead
-    \midrule
-    \multicolumn{3}{r}{{Continued on next page}}                                        \\
-    \midrule
-    \endfoot
+% \begin{longtable}{lll}
+%     \toprule
+%     framework        & language    & alternative implementations                        \\
+%     \midrule
+%     \endhead
+%     \midrule
+%     \multicolumn{3}{r}{{Continued on next page}}                                        \\
+%     \midrule
+%     \endfoot
 
-    \bottomrule
-    \endlastfoot
-    pico.v           & V           &                                                    \\
-    dylan            & Dylan       &                                                    \\
-    sinatra-sequel   & Ruby        & postgres passenger-mri postgres-passenger-mri...   \\
-    agoo             & Ruby        &                                                    \\
-    rack             & Ruby        & unicorn falcon                                     \\
-    h2o\_mruby       & Ruby        &                                                    \\
-    rails            & Ruby        & postgresql unicorn                                 \\
-    grape            & Ruby        & unicorn                                            \\
-    roda-sequel      & Ruby        & postgres passenger-mri postgres-passenger-mri...   \\
-    rack-sequel      & Ruby        & postgres passenger-mri postgres-passenger-mri...   \\
-    sinatra          & Ruby        & postgres passenger-mri postgres-passenger-mri...   \\
-    padrino          & Ruby        & unicorn                                            \\
-    ninglex          & Common Lisp &                                                    \\
-    ningle           & Common Lisp &                                                    \\
-    woo              & Common Lisp &                                                    \\
-    grails           & Groovy      &                                                    \\
-    hot              & Groovy      & mongodb postgres mysql                             \\
-    plack            & Perl        & async                                              \\
-    kelp             & Perl        & mongodb                                            \\
-    dancer           & Perl        &                                                    \\
-    mojolicious      & Perl        &                                                    \\
-    web-simple       & Perl        &                                                    \\
-    cowboy           & Erlang      &                                                    \\
-    elli             & Erlang      &                                                    \\
-    chicagoboss      & Erlang      &                                                    \\
-    mochiweb         & Erlang      &                                                    \\
-    opium            & OCaml       & haproxy                                            \\
-    morph            & OCaml       & static                                             \\
-    webmachine       & OCaml       & haproxy                                            \\
-    vertx-web-scala  & Scala       &                                                    \\
-    http4s           & Scala       &                                                    \\
-    akka-http        & Scala       & slick-postgres                                     \\
-    fintrospect      & Scala       &                                                    \\
-    finagle          & Scala       &                                                    \\
-    colossus         & Scala       &                                                    \\
-    finatra          & Scala       &                                                    \\
-    blaze            & Scala       &                                                    \\
-    play2-scala      & Scala       & netty anorm anorm-netty reactivemongo reactiv...   \\
-    finch            & Scala       &                                                    \\
-    scalene          & Scala       &                                                    \\
-    cask             & Scala       &                                                    \\
-    youi             & Scala       &                                                    \\
-    httpbeast        & Nim         &                                                    \\
-    prologue         & Nim         &                                                    \\
-    basolato         & Nim         &                                                    \\
-    jester           & Nim         &                                                    \\
-    falco            & F\#         &                                                    \\
-    frank            & F\#         &                                                    \\
-    suave            & F\#         &                                                    \\
-    giraffe          & F\#         & utf8json utf8direct stripped                       \\
-    zebra            & F\#         & simple                                             \\
-    vapor            & Swift       & fluent sql-kit postgres                            \\
-    swift-nio        & Swift       &                                                    \\
-    perfect          & Swift       & mysql postgresql mongodb                           \\
-    kitura           & Swift       & postgres postgres-orm postgres-orm-codable mo...   \\
-    racket           & Racket      &                                                    \\
-    vsgi             & Vala        &                                                    \\
-    valum            & Vala        &                                                    \\
-    wsgi             & Python      &                                                    \\
-    hug              & Python      &                                                    \\
-    crax             & Python      &                                                    \\
-    falcon           & Python      & py3 pypy2                                          \\
-    uvicorn          & Python      &                                                    \\
-    flask            & Python      & raw pypy pypy2 pypy2-raw nginx-uwsgi               \\
-    responder        & Python      &                                                    \\
-    klein            & Python      &                                                    \\
-    blacksheep       & Python      &                                                    \\
-    apidaora         & Python      & core                                               \\
-    bottle           & Python      & pypy2 raw nginx-uwsgi                              \\
-    japronto         & Python      &                                                    \\
-    api\_hour        & Python      & mysql json dbs plaintext                           \\
-    weppy            & Python      & py3 pypy2 nginx-uwsgi                              \\
-    starlette        & Python      &                                                    \\
-    emmett           & Python      &                                                    \\
-    sanic            & Python      &                                                    \\
-    aiohttp          & Python      & pg-raw                                             \\
-    tornado          & Python      & pypy2 postgresql-raw py3 py3-uvloop                \\
-    uwsgi            & Python      & nginx-uwsgi                                        \\
-    pyramid          & Python      & py2                                                \\
-    morepath         & Python      &                                                    \\
-    vibora           & Python      &                                                    \\
-    web2py           & Python      & optimized                                          \\
-    django           & Python      & postgresql                                         \\
-    cherrypy         & Python      & py3                                                \\
-    eve              & Python      &                                                    \\
-    webware          & Python      &                                                    \\
-    spyne            & Python      & raw nginx-uwsgi                                    \\
-    fastapi          & Python      & orjson                                             \\
-    quart            & Python      & uvicorn                                            \\
-    turbogears       & Python      &                                                    \\
-    m-web-server     & mumps       &                                                    \\
-    urweb            & Ur          & mysql cache mysql-cache                            \\
-    rouille          & Rust        &                                                    \\
-    warp-rust        & Rust        &                                                    \\
-    thruster         & Rust        &                                                    \\
-    ntex             & Rust        & db raw                                             \\
-    iron             & Rust        &                                                    \\
-    actix            & Rust        & core raw diesel pg                                 \\
-    roa              & Rust        & core tokio diesel pg sqlx                          \\
-    saphir           & Rust        &                                                    \\
-    may-minihttp     & Rust        &                                                    \\
-    rocket           & Rust        &                                                    \\
-    tokio-minihttp   & Rust        &                                                    \\
-    nickel           & Rust        &                                                    \\
-    hyper            & Rust        & db                                                 \\
-    gotham           & Rust        &                                                    \\
-    kooby            & Kotlin      &                                                    \\
-    pronghorn        & Kotlin      &                                                    \\
-    http4k           & Kotlin      & apache apache4 jetty ktorcio ktornetty netty ...   \\
-    ktor             & Kotlin      & jetty cio jasync reactivepg                        \\
-    hexagon          & Kotlin      & resin-mongodb jetty-postgresql resin-postgresql    \\
-    elixir-plug-ecto & Elixir      &                                                    \\
-    phoenix          & Elixir      &                                                    \\
-    fiber            & Go          & prefork                                            \\
-    webgo            & Go          &                                                    \\
-    gnet             & Go          &                                                    \\
-    goframe          & Go          &                                                    \\
-    revel            & Go          & fast raw jet qbs                                   \\
-    echo             & Go          &                                                    \\
-    gramework        & Go          &                                                    \\
-    gin              & Go          & scratch                                            \\
-    atreugo          & Go          & prefork                                            \\
-    beego            & Go          & orm-mysql                                          \\
-    kami             & Go          &                                                    \\
-    falcore          & Go          &                                                    \\
-    goji             & Go          &                                                    \\
-    clevergo         & Go          &                                                    \\
-    fasthttp         & Go          & prefork                                            \\
-    aah              & Go          & mysql postgresql                                   \\
-    gearbox          & Go          & prefork                                            \\
-    martini          & Go          &                                                    \\
-    go               & Go          & pgx pgx-easyjson pgx-quicktemplate pgx-prefor...   \\
-    evio             & Go          & stdlib                                             \\
-    chi              & Go          & scratch prefork gojay gojay-prefork sjson sjs...   \\
-    warp             & Haskell     & hasql mysql-haskell                                \\
-    yesod            & Haskell     & mongodb-raw                                        \\
-    wizzardo-inline  & Haskell     &                                                    \\
-    snap             & Haskell     &                                                    \\
-    spock            & Haskell     &                                                    \\
-    ihp              & Haskell     &                                                    \\
-    servant          & Haskell     & beam psql-simple                                   \\
-    stream           & Dart        &                                                    \\
-    start            & Dart        &                                                    \\
-    angel            & Dart        & postgres                                           \\
-    redstone         & Dart        & mongodb                                            \\
-    dart             & Dart        &                                                    \\
-    aqueduct         & Dart        &                                                    \\
-    aspcore-vb-mw    & VB          & ado-pg ado-my                                      \\
-    spider-gazelle   & Crystal     &                                                    \\
-    toro             & Crystal     &                                                    \\
-    onyx             & Crystal     &                                                    \\
-    h2o.cr           & Crystal     &                                                    \\
-    kemal            & Crystal     & concurrent-queries                                 \\
-    lucky            & Crystal     &                                                    \\
-    crystal          & Crystal     & radix                                              \\
-    grip             & Crystal     &                                                    \\
-    orion            & Crystal     &                                                    \\
-    amber            & Crystal     &                                                    \\
-    raze             & Crystal     &                                                    \\
-    collie           & D           & ldc                                                \\
-    vibed            & D           & dmd-pgsql ldc ldc-pgsql                            \\
-    hunt             & D           &                                                    \\
-    macchiato        & Clojure     &                                                    \\
-    aleph            & Clojure     &                                                    \\
-    luminus          & Clojure     &                                                    \\
-    pedestal         & Clojure     &                                                    \\
-    compojure        & Clojure     & raw                                                \\
-    http-kit         & Clojure     & raw                                                \\
-    duct             & Clojure     & mongodb httpkit aleph immutant                     \\
-    reitit           & Clojure     & jdbc async                                         \\
-    nestjs           & TypeScript  & mysql mongo fastify fastify-mysql fastify-mongo    \\
-    typescript-rest  & TypeScript  &                                                    \\
-    deno             & TypeScript  &                                                    \\
-    dropwizard       & Java        & mongodb postgres jdbi-postgres                     \\
-    httpserver       & Java        & postgres                                           \\
-    quarkus          & Java        & pgclient                                           \\
-    jooby            & Java        & netty jaxrs jetty pgclient                         \\
-    undertow         & Java        & postgresql                                         \\
-    tapestry         & Java        &                                                    \\
-    vertx-web        & Java        & mongodb postgres susom-postgres                    \\
-    jlhttp           & Java        & postgres                                           \\
-    voovan           & Java        &                                                    \\
-    play2-java       & Java        & netty ebean-hikaricp ebean-hikaricp-netty jpa...   \\
-    officefloor      & Java        & raw tpr micro thread\_affinity netty spring\_data  \\
-    jersey           & Java        &                                                    \\
-    proteus          & Java        & mysql                                              \\
-    light-4j         & Java        &                                                    \\
-    activeweb        & Java        & jackson                                            \\
-    minijax          & Java        &                                                    \\
-    jetty            & Java        & servlet                                            \\
-    spark            & Java        &                                                    \\
-    grizzly          & Java        & jersey                                             \\
-    servlet          & Java        & lib-native mysql postgresql                        \\
-    tio-mvc          & Java        &                                                    \\
-    baratine         & Java        &                                                    \\
-    servicetalk      & Java        &                                                    \\
-    play1            & Java        &                                                    \\
-    ninja-standalone & Java        &                                                    \\
-    nanohttpd        & Java        &                                                    \\
-    simple-server    & Java        &                                                    \\
-    restexpress      & Java        & mysql-raw                                          \\
-    javalin          & Java        &                                                    \\
-    jawn             & Java        &                                                    \\
-    redkale          & Java        & postgres                                           \\
-    revenj-jvm       & Java        &                                                    \\
-    spring-webflux   & Java        & mongo pgclient rxjdbc jdbc                         \\
-    firenio          & Java        & http-lite                                          \\
-    curacao          & Java        &                                                    \\
-    bayou            & Java        &                                                    \\
-    wizzardo-http    & Java        &                                                    \\
-    netty            & Java        &                                                    \\
-    armeria          & Java        &                                                    \\
-    vertx            & Java        & postgres                                           \\
-    comsat           & Java        & servlet-undertow webactors-netty webactors-un...   \\
-    ratpack          & Java        & jdbc pgclient                                      \\
-    wicket           & Java        &                                                    \\
-    wildfly-ee       & Java        &                                                    \\
-    undertow-jersey  & Java        & hikaricp                                           \\
-    micronaut        & Java        &                                                    \\
-    servlet3         & Java        & sync                                               \\
-    act              & Java        & hibernate-pgsql hibernate-pgsql-rythm hiberna...   \\
-    blade            & Java        &                                                    \\
-    rapidoid         & Java        & mysql postgres http-fast                           \\
-    smart-socket     & Java        &                                                    \\
-    gemini           & Java        & mysql postgres                                     \\
-    greenlightning   & Java        &                                                    \\
-    helidon          & Java        &                                                    \\
-    spring           & Java        & jpa mongo                                          \\
-    codeigniter      & PHP         &                                                    \\
-    fat-free         & PHP         & raw                                                \\
-    php              & PHP         & activerecord raw7-tcp pgsql-raw h2o unit pool...   \\
-    cakephp          & PHP         &                                                    \\
-    ubiquity         & PHP         & workerman swoole swoole-mysql roadrunner road...   \\
-    fuel             & PHP         &                                                    \\
-    sw-fw-less       & PHP         &                                                    \\
-    hyperf           & PHP         & raw micro                                          \\
-    kumbiaphp        & PHP         & raw workerman workerman-mysql                      \\
-    workerman        & PHP         & pgsql async                                        \\
-    lumen            & PHP         & swoole                                             \\
-    peachpie         & PHP         &                                                    \\
-    yii2             & PHP         & raw                                                \\
-    php-ngx          & PHP         & mysql pgsql async                                  \\
-    laravel          & PHP         & swoole                                             \\
-    symfony          & PHP         & raw swoole                                         \\
-    imi              & PHP         & query-builder raw                                  \\
-    webman           & PHP         &                                                    \\
-    phalcon          & PHP         & mongodb micro                                      \\
-    slim             & PHP         &                                                    \\
-    amp              & PHP         &                                                    \\
-    hhvm             & PHP         &                                                    \\
-    spiral           & PHP         &                                                    \\
-    swoole           & PHP         & postgres no-async                                  \\
-    hamlet           & PHP         & swoole workerman                                   \\
-    simps            & PHP         & micro                                              \\
-    one              & PHP         &                                                    \\
-    zend             & PHP         &                                                    \\
-    phpixie          & PHP         &                                                    \\
-    comet            & PHP         & mysql                                              \\
-    nginx            & C           &                                                    \\
-    onion            & C           &                                                    \\
-    duda             & C           &                                                    \\
-    libreactor       & C           & server                                             \\
-    lwan             & C           & lua                                                \\
-    h2o              & C           &                                                    \\
-    facil\_io        & C           &                                                    \\
-    octane           & C           &                                                    \\
-    polkadot         & JavaScript  & mysql postgres mongodb                             \\
-    restify          & JavaScript  &                                                    \\
-    hapi             & JavaScript  & nginx mysql postgres                               \\
-    nodejs           & JavaScript  & chakra mongodb mongodb-raw mysql postgres          \\
-    restana          & JavaScript  &                                                    \\
-    es4x             & JavaScript  &                                                    \\
-    sailsjs          & JavaScript  & postgres                                           \\
-    just             & JavaScript  &                                                    \\
-    fastify          & JavaScript  & mysql postgres                                     \\
-    ringojs          & JavaScript  & convenient                                         \\
-    express          & JavaScript  & chakra mongodb mysql postgres graphql-mysql g...   \\
-    koa              & JavaScript  & mysql postgres                                     \\
-    0http            & JavaScript  &                                                    \\
-    openresty        & Lua         &                                                    \\
-    octopus          & Lua         &                                                    \\
-    lapis            & Lua         &                                                    \\
-    easyrpc          & C\#         &                                                    \\
-    aspcore-mono     & C\#         & pg mw mw-pg mw-my mvc mvc-pg mvc-my                \\
-    servicestack     & C\#         &                                                    \\
-    tetsuweb         & C\#         &                                                    \\
-    beetlex          & C\#         & core core-updb debug                               \\
-    aspcore          & C\#         & pgo ado-pg ado-pg-up pgo-pg pgo-pg-up mw mw-j...   \\
-    revenj           & C\#         &                                                    \\
-    carter           & C\#         &                                                    \\
-    aspnet-mono-ngx  & C\#         & jn ss my my-ef                                     \\
-    genhttp          & C\#         &                                                    \\
-    ben              & C\#         & pg                                                 \\
-    evhttp-sharp     & C\#         &                                                    \\
-    zysocket-v       & C\#         &                                                    \\
-    nancy            & C\#         & netcore                                            \\
-    aspcore-corert   & C\#         &                                                    \\
-    cuehttp          & C++         &                                                    \\
-    libhttpserver    & C++         &                                                    \\
-    ffead-cpp        & C++         & mongo-raw lithium cinatra drogon libreactor h...   \\
-    lithium          & C++         & postgres postgres-batch                            \\
-    wt               & C++         & postgres                                           \\
-    treefrog         & C++         & postgres mongodb                                   \\
-    ulib             & C++         & plaintext\_fit json json\_fit mysql postgres po... \\
-    cppcms           & C++         & postgres                                           \\
-    oatpp            & C++         & no-mp async async-no-mp                            \\
-    poco             & C++         &                                                    \\
-    silicon          & C++         &                                                    \\
-    cutelyst         & C++         & pf-apg pf-pg pf-my thread thread-apg thread-p...   \\
-    drogon           & C++         & core                                               \\
-    cinatra          & C++         &                                                    \\
-    libsniper        & C++         &                                                    \\
-    cpoll\_cppsp     & C++         & raw postgres-raw postgres-raw-threadpool           \\
-\end{longtable}
+%     \bottomrule
+%     \endlastfoot
+%     pico.v           & V           &                                                    \\
+%     dylan            & Dylan       &                                                    \\
+%     sinatra-sequel   & Ruby        & postgres passenger-mri postgres-passenger-mri...   \\
+%     agoo             & Ruby        &                                                    \\
+%     rack             & Ruby        & unicorn falcon                                     \\
+%     h2o\_mruby       & Ruby        &                                                    \\
+%     rails            & Ruby        & postgresql unicorn                                 \\
+%     grape            & Ruby        & unicorn                                            \\
+%     roda-sequel      & Ruby        & postgres passenger-mri postgres-passenger-mri...   \\
+%     rack-sequel      & Ruby        & postgres passenger-mri postgres-passenger-mri...   \\
+%     sinatra          & Ruby        & postgres passenger-mri postgres-passenger-mri...   \\
+%     padrino          & Ruby        & unicorn                                            \\
+%     ninglex          & Common Lisp &                                                    \\
+%     ningle           & Common Lisp &                                                    \\
+%     woo              & Common Lisp &                                                    \\
+%     grails           & Groovy      &                                                    \\
+%     hot              & Groovy      & mongodb postgres mysql                             \\
+%     plack            & Perl        & async                                              \\
+%     kelp             & Perl        & mongodb                                            \\
+%     dancer           & Perl        &                                                    \\
+%     mojolicious      & Perl        &                                                    \\
+%     web-simple       & Perl        &                                                    \\
+%     cowboy           & Erlang      &                                                    \\
+%     elli             & Erlang      &                                                    \\
+%     chicagoboss      & Erlang      &                                                    \\
+%     mochiweb         & Erlang      &                                                    \\
+%     opium            & OCaml       & haproxy                                            \\
+%     morph            & OCaml       & static                                             \\
+%     webmachine       & OCaml       & haproxy                                            \\
+%     vertx-web-scala  & Scala       &                                                    \\
+%     http4s           & Scala       &                                                    \\
+%     akka-http        & Scala       & slick-postgres                                     \\
+%     fintrospect      & Scala       &                                                    \\
+%     finagle          & Scala       &                                                    \\
+%     colossus         & Scala       &                                                    \\
+%     finatra          & Scala       &                                                    \\
+%     blaze            & Scala       &                                                    \\
+%     play2-scala      & Scala       & netty anorm anorm-netty reactivemongo reactiv...   \\
+%     finch            & Scala       &                                                    \\
+%     scalene          & Scala       &                                                    \\
+%     cask             & Scala       &                                                    \\
+%     youi             & Scala       &                                                    \\
+%     httpbeast        & Nim         &                                                    \\
+%     prologue         & Nim         &                                                    \\
+%     basolato         & Nim         &                                                    \\
+%     jester           & Nim         &                                                    \\
+%     falco            & F\#         &                                                    \\
+%     frank            & F\#         &                                                    \\
+%     suave            & F\#         &                                                    \\
+%     giraffe          & F\#         & utf8json utf8direct stripped                       \\
+%     zebra            & F\#         & simple                                             \\
+%     vapor            & Swift       & fluent sql-kit postgres                            \\
+%     swift-nio        & Swift       &                                                    \\
+%     perfect          & Swift       & mysql postgresql mongodb                           \\
+%     kitura           & Swift       & postgres postgres-orm postgres-orm-codable mo...   \\
+%     racket           & Racket      &                                                    \\
+%     vsgi             & Vala        &                                                    \\
+%     valum            & Vala        &                                                    \\
+%     wsgi             & Python      &                                                    \\
+%     hug              & Python      &                                                    \\
+%     crax             & Python      &                                                    \\
+%     falcon           & Python      & py3 pypy2                                          \\
+%     uvicorn          & Python      &                                                    \\
+%     flask            & Python      & raw pypy pypy2 pypy2-raw nginx-uwsgi               \\
+%     responder        & Python      &                                                    \\
+%     klein            & Python      &                                                    \\
+%     blacksheep       & Python      &                                                    \\
+%     apidaora         & Python      & core                                               \\
+%     bottle           & Python      & pypy2 raw nginx-uwsgi                              \\
+%     japronto         & Python      &                                                    \\
+%     api\_hour        & Python      & mysql json dbs plaintext                           \\
+%     weppy            & Python      & py3 pypy2 nginx-uwsgi                              \\
+%     starlette        & Python      &                                                    \\
+%     emmett           & Python      &                                                    \\
+%     sanic            & Python      &                                                    \\
+%     aiohttp          & Python      & pg-raw                                             \\
+%     tornado          & Python      & pypy2 postgresql-raw py3 py3-uvloop                \\
+%     uwsgi            & Python      & nginx-uwsgi                                        \\
+%     pyramid          & Python      & py2                                                \\
+%     morepath         & Python      &                                                    \\
+%     vibora           & Python      &                                                    \\
+%     web2py           & Python      & optimized                                          \\
+%     django           & Python      & postgresql                                         \\
+%     cherrypy         & Python      & py3                                                \\
+%     eve              & Python      &                                                    \\
+%     webware          & Python      &                                                    \\
+%     spyne            & Python      & raw nginx-uwsgi                                    \\
+%     fastapi          & Python      & orjson                                             \\
+%     quart            & Python      & uvicorn                                            \\
+%     turbogears       & Python      &                                                    \\
+%     m-web-server     & mumps       &                                                    \\
+%     urweb            & Ur          & mysql cache mysql-cache                            \\
+%     rouille          & Rust        &                                                    \\
+%     warp-rust        & Rust        &                                                    \\
+%     thruster         & Rust        &                                                    \\
+%     ntex             & Rust        & db raw                                             \\
+%     iron             & Rust        &                                                    \\
+%     actix            & Rust        & core raw diesel pg                                 \\
+%     roa              & Rust        & core tokio diesel pg sqlx                          \\
+%     saphir           & Rust        &                                                    \\
+%     may-minihttp     & Rust        &                                                    \\
+%     rocket           & Rust        &                                                    \\
+%     tokio-minihttp   & Rust        &                                                    \\
+%     nickel           & Rust        &                                                    \\
+%     hyper            & Rust        & db                                                 \\
+%     gotham           & Rust        &                                                    \\
+%     kooby            & Kotlin      &                                                    \\
+%     pronghorn        & Kotlin      &                                                    \\
+%     http4k           & Kotlin      & apache apache4 jetty ktorcio ktornetty netty ...   \\
+%     ktor             & Kotlin      & jetty cio jasync reactivepg                        \\
+%     hexagon          & Kotlin      & resin-mongodb jetty-postgresql resin-postgresql    \\
+%     elixir-plug-ecto & Elixir      &                                                    \\
+%     phoenix          & Elixir      &                                                    \\
+%     fiber            & Go          & prefork                                            \\
+%     webgo            & Go          &                                                    \\
+%     gnet             & Go          &                                                    \\
+%     goframe          & Go          &                                                    \\
+%     revel            & Go          & fast raw jet qbs                                   \\
+%     echo             & Go          &                                                    \\
+%     gramework        & Go          &                                                    \\
+%     gin              & Go          & scratch                                            \\
+%     atreugo          & Go          & prefork                                            \\
+%     beego            & Go          & orm-mysql                                          \\
+%     kami             & Go          &                                                    \\
+%     falcore          & Go          &                                                    \\
+%     goji             & Go          &                                                    \\
+%     clevergo         & Go          &                                                    \\
+%     fasthttp         & Go          & prefork                                            \\
+%     aah              & Go          & mysql postgresql                                   \\
+%     gearbox          & Go          & prefork                                            \\
+%     martini          & Go          &                                                    \\
+%     go               & Go          & pgx pgx-easyjson pgx-quicktemplate pgx-prefor...   \\
+%     evio             & Go          & stdlib                                             \\
+%     chi              & Go          & scratch prefork gojay gojay-prefork sjson sjs...   \\
+%     warp             & Haskell     & hasql mysql-haskell                                \\
+%     yesod            & Haskell     & mongodb-raw                                        \\
+%     wizzardo-inline  & Haskell     &                                                    \\
+%     snap             & Haskell     &                                                    \\
+%     spock            & Haskell     &                                                    \\
+%     ihp              & Haskell     &                                                    \\
+%     servant          & Haskell     & beam psql-simple                                   \\
+%     stream           & Dart        &                                                    \\
+%     start            & Dart        &                                                    \\
+%     angel            & Dart        & postgres                                           \\
+%     redstone         & Dart        & mongodb                                            \\
+%     dart             & Dart        &                                                    \\
+%     aqueduct         & Dart        &                                                    \\
+%     aspcore-vb-mw    & VB          & ado-pg ado-my                                      \\
+%     spider-gazelle   & Crystal     &                                                    \\
+%     toro             & Crystal     &                                                    \\
+%     onyx             & Crystal     &                                                    \\
+%     h2o.cr           & Crystal     &                                                    \\
+%     kemal            & Crystal     & concurrent-queries                                 \\
+%     lucky            & Crystal     &                                                    \\
+%     crystal          & Crystal     & radix                                              \\
+%     grip             & Crystal     &                                                    \\
+%     orion            & Crystal     &                                                    \\
+%     amber            & Crystal     &                                                    \\
+%     raze             & Crystal     &                                                    \\
+%     collie           & D           & ldc                                                \\
+%     vibed            & D           & dmd-pgsql ldc ldc-pgsql                            \\
+%     hunt             & D           &                                                    \\
+%     macchiato        & Clojure     &                                                    \\
+%     aleph            & Clojure     &                                                    \\
+%     luminus          & Clojure     &                                                    \\
+%     pedestal         & Clojure     &                                                    \\
+%     compojure        & Clojure     & raw                                                \\
+%     http-kit         & Clojure     & raw                                                \\
+%     duct             & Clojure     & mongodb httpkit aleph immutant                     \\
+%     reitit           & Clojure     & jdbc async                                         \\
+%     nestjs           & TypeScript  & mysql mongo fastify fastify-mysql fastify-mongo    \\
+%     typescript-rest  & TypeScript  &                                                    \\
+%     deno             & TypeScript  &                                                    \\
+%     dropwizard       & Java        & mongodb postgres jdbi-postgres                     \\
+%     httpserver       & Java        & postgres                                           \\
+%     quarkus          & Java        & pgclient                                           \\
+%     jooby            & Java        & netty jaxrs jetty pgclient                         \\
+%     undertow         & Java        & postgresql                                         \\
+%     tapestry         & Java        &                                                    \\
+%     vertx-web        & Java        & mongodb postgres susom-postgres                    \\
+%     jlhttp           & Java        & postgres                                           \\
+%     voovan           & Java        &                                                    \\
+%     play2-java       & Java        & netty ebean-hikaricp ebean-hikaricp-netty jpa...   \\
+%     officefloor      & Java        & raw tpr micro thread\_affinity netty spring\_data  \\
+%     jersey           & Java        &                                                    \\
+%     proteus          & Java        & mysql                                              \\
+%     light-4j         & Java        &                                                    \\
+%     activeweb        & Java        & jackson                                            \\
+%     minijax          & Java        &                                                    \\
+%     jetty            & Java        & servlet                                            \\
+%     spark            & Java        &                                                    \\
+%     grizzly          & Java        & jersey                                             \\
+%     servlet          & Java        & lib-native mysql postgresql                        \\
+%     tio-mvc          & Java        &                                                    \\
+%     baratine         & Java        &                                                    \\
+%     servicetalk      & Java        &                                                    \\
+%     play1            & Java        &                                                    \\
+%     ninja-standalone & Java        &                                                    \\
+%     nanohttpd        & Java        &                                                    \\
+%     simple-server    & Java        &                                                    \\
+%     restexpress      & Java        & mysql-raw                                          \\
+%     javalin          & Java        &                                                    \\
+%     jawn             & Java        &                                                    \\
+%     redkale          & Java        & postgres                                           \\
+%     revenj-jvm       & Java        &                                                    \\
+%     spring-webflux   & Java        & mongo pgclient rxjdbc jdbc                         \\
+%     firenio          & Java        & http-lite                                          \\
+%     curacao          & Java        &                                                    \\
+%     bayou            & Java        &                                                    \\
+%     wizzardo-http    & Java        &                                                    \\
+%     netty            & Java        &                                                    \\
+%     armeria          & Java        &                                                    \\
+%     vertx            & Java        & postgres                                           \\
+%     comsat           & Java        & servlet-undertow webactors-netty webactors-un...   \\
+%     ratpack          & Java        & jdbc pgclient                                      \\
+%     wicket           & Java        &                                                    \\
+%     wildfly-ee       & Java        &                                                    \\
+%     undertow-jersey  & Java        & hikaricp                                           \\
+%     micronaut        & Java        &                                                    \\
+%     servlet3         & Java        & sync                                               \\
+%     act              & Java        & hibernate-pgsql hibernate-pgsql-rythm hiberna...   \\
+%     blade            & Java        &                                                    \\
+%     rapidoid         & Java        & mysql postgres http-fast                           \\
+%     smart-socket     & Java        &                                                    \\
+%     gemini           & Java        & mysql postgres                                     \\
+%     greenlightning   & Java        &                                                    \\
+%     helidon          & Java        &                                                    \\
+%     spring           & Java        & jpa mongo                                          \\
+%     codeigniter      & PHP         &                                                    \\
+%     fat-free         & PHP         & raw                                                \\
+%     php              & PHP         & activerecord raw7-tcp pgsql-raw h2o unit pool...   \\
+%     cakephp          & PHP         &                                                    \\
+%     ubiquity         & PHP         & workerman swoole swoole-mysql roadrunner road...   \\
+%     fuel             & PHP         &                                                    \\
+%     sw-fw-less       & PHP         &                                                    \\
+%     hyperf           & PHP         & raw micro                                          \\
+%     kumbiaphp        & PHP         & raw workerman workerman-mysql                      \\
+%     workerman        & PHP         & pgsql async                                        \\
+%     lumen            & PHP         & swoole                                             \\
+%     peachpie         & PHP         &                                                    \\
+%     yii2             & PHP         & raw                                                \\
+%     php-ngx          & PHP         & mysql pgsql async                                  \\
+%     laravel          & PHP         & swoole                                             \\
+%     symfony          & PHP         & raw swoole                                         \\
+%     imi              & PHP         & query-builder raw                                  \\
+%     webman           & PHP         &                                                    \\
+%     phalcon          & PHP         & mongodb micro                                      \\
+%     slim             & PHP         &                                                    \\
+%     amp              & PHP         &                                                    \\
+%     hhvm             & PHP         &                                                    \\
+%     spiral           & PHP         &                                                    \\
+%     swoole           & PHP         & postgres no-async                                  \\
+%     hamlet           & PHP         & swoole workerman                                   \\
+%     simps            & PHP         & micro                                              \\
+%     one              & PHP         &                                                    \\
+%     zend             & PHP         &                                                    \\
+%     phpixie          & PHP         &                                                    \\
+%     comet            & PHP         & mysql                                              \\
+%     nginx            & C           &                                                    \\
+%     onion            & C           &                                                    \\
+%     duda             & C           &                                                    \\
+%     libreactor       & C           & server                                             \\
+%     lwan             & C           & lua                                                \\
+%     h2o              & C           &                                                    \\
+%     facil\_io        & C           &                                                    \\
+%     octane           & C           &                                                    \\
+%     polkadot         & JavaScript  & mysql postgres mongodb                             \\
+%     restify          & JavaScript  &                                                    \\
+%     hapi             & JavaScript  & nginx mysql postgres                               \\
+%     nodejs           & JavaScript  & chakra mongodb mongodb-raw mysql postgres          \\
+%     restana          & JavaScript  &                                                    \\
+%     es4x             & JavaScript  &                                                    \\
+%     sailsjs          & JavaScript  & postgres                                           \\
+%     just             & JavaScript  &                                                    \\
+%     fastify          & JavaScript  & mysql postgres                                     \\
+%     ringojs          & JavaScript  & convenient                                         \\
+%     express          & JavaScript  & chakra mongodb mysql postgres graphql-mysql g...   \\
+%     koa              & JavaScript  & mysql postgres                                     \\
+%     0http            & JavaScript  &                                                    \\
+%     openresty        & Lua         &                                                    \\
+%     octopus          & Lua         &                                                    \\
+%     lapis            & Lua         &                                                    \\
+%     easyrpc          & C\#         &                                                    \\
+%     aspcore-mono     & C\#         & pg mw mw-pg mw-my mvc mvc-pg mvc-my                \\
+%     servicestack     & C\#         &                                                    \\
+%     tetsuweb         & C\#         &                                                    \\
+%     beetlex          & C\#         & core core-updb debug                               \\
+%     aspcore          & C\#         & pgo ado-pg ado-pg-up pgo-pg pgo-pg-up mw mw-j...   \\
+%     revenj           & C\#         &                                                    \\
+%     carter           & C\#         &                                                    \\
+%     aspnet-mono-ngx  & C\#         & jn ss my my-ef                                     \\
+%     genhttp          & C\#         &                                                    \\
+%     ben              & C\#         & pg                                                 \\
+%     evhttp-sharp     & C\#         &                                                    \\
+%     zysocket-v       & C\#         &                                                    \\
+%     nancy            & C\#         & netcore                                            \\
+%     aspcore-corert   & C\#         &                                                    \\
+%     cuehttp          & C++         &                                                    \\
+%     libhttpserver    & C++         &                                                    \\
+%     ffead-cpp        & C++         & mongo-raw lithium cinatra drogon libreactor h...   \\
+%     lithium          & C++         & postgres postgres-batch                            \\
+%     wt               & C++         & postgres                                           \\
+%     treefrog         & C++         & postgres mongodb                                   \\
+%     ulib             & C++         & plaintext\_fit json json\_fit mysql postgres po... \\
+%     cppcms           & C++         & postgres                                           \\
+%     oatpp            & C++         & no-mp async async-no-mp                            \\
+%     poco             & C++         &                                                    \\
+%     silicon          & C++         &                                                    \\
+%     cutelyst         & C++         & pf-apg pf-pg pf-my thread thread-apg thread-p...   \\
+%     drogon           & C++         & core                                               \\
+%     cinatra          & C++         &                                                    \\
+%     libsniper        & C++         &                                                    \\
+%     cpoll\_cppsp     & C++         & raw postgres-raw postgres-raw-threadpool           \\
+% \end{longtable}
 
 
 \newcommand\duration{20}
