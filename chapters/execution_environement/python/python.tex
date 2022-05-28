@@ -1,3 +1,4 @@
+\newpage
 \section{python}
 
 \subsection{Introduction}
@@ -79,6 +80,55 @@ As shown in Table \ref{fig:clbg}, we can see that in the most of the test cases 
     \caption{Comparison of the execution time between different programming languages using the computer language benchmarks game \cite{noauthor_which_nodate}}
     \label{fig:clbg}
 \end{table}
+
+
+
+\subsection{python insights}
+The goal of this section is to find some insights where we can optimize the energy consumption without impacting the source code. so we started by extending the work of \citeauthor{hasan_energy_2016} and \citeauthor{oliveira_recommending_nodate} to the python environement.
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/pythonloops}
+    \caption{energy behaviour of different python loops }
+    \label{fig:pythonloops}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/pythonarrays}
+    \caption{energy behaviour of different python data structures}
+    \label{fig:pythonarrays}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
+    \caption{energy behaviour based on multiprocessing}
+    \label{fig:python_multiprocessing}
+\end{figure}
+
+
+
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/django}
+    \caption{energy behaviour based on multiprocessing}
+    \label{fig:python_multiprocessing}
+\end{figure}
+
+Figure \ref{fig:python_multiprocessing} shows the behaviour of python programs when we try to introduce the parallelism.
+As we know python is a single threaded program thx to ghe GLS ( global lock system ) howerver due to the increase of the number of cores /threads per cpu it many libraries stared to take advanteage of this feature so most of them they will try to simulate the multithreading by using multiple instances pf the processor % TO VERIFY 
+
+asd we can see in the graph the energy consumption is correlate with the number of threads until we arrive to the limit of the cores and then we lose the adventage of the multiprocessing , well in that case we pass from parallelism to concurency. where different sub process have to compete for the CPU Ressources.
+Another finding is when we hit the number of physical cores. there was an increase of execution time but still reduced energy, the reason behind this is the scheduler of the operating system. basicaly he favorits the hyper threads than the physical core wich will lead to some context switches which cause the slow behaviour, howerver in the other hand the other two physical cores are not consuming energy, neither their hyper threads which explains the gain of the eneryg consumption in this case.
+in the Chapter %% reference the work of intern from lyon  
+we discuss a deeper this behaviour of the scheduler and in that case we confirm that it is not related to python but it is more generic behaviour %% maybe even this graph should go there 
 
 
 \subsection{Python Runtimes}
@@ -313,6 +363,13 @@ The reason of separation between data collection and energy calculation is to mi
 \end{figure}
 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/barplot_binarry_tree}
+    \caption{energy behaviour based on multiprocessing}
+    \label{fig:python_multiprocessing}
+\end{figure}
+
 \begin{figure}[thb]
     \centering
     \includegraphics[width=\linewidth]{imgs/bitopts_mean}
@@ -348,12 +405,6 @@ The reason of separation between data collection and energy calculation is to mi
 \end{figure}
 
 
-\begin{figure}[thb]
-    \centering
-    \includegraphics[width=\linewidth]{imgs/bar_plot_tommtivector}
-    \caption{energy consumption of different impetions treating vectors }
-    \label{fig:bar_tommti_vector}
-\end{figure}
 
 
 
