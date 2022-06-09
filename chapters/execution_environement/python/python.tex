@@ -94,6 +94,52 @@ In this chapter we will target the following research question :
     \item how can one apply those findings in the real world ?
 \end{enumerate}
 
+\subsection{use cases}
+according to the survey made by Jetbrains company \footnote
+{\fnurl{https://www.jetbrains.com/lp/python-developers-survey-2020}} data analysis and web develoepment are the top two purposes for python\ref{fig:usecase}
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/python_use_cases}
+    \caption{use cases of python }
+    \label{fig:usecase}
+\end{figure}
+
+
+\subsubsection*{web developement}
+first we wanted to test the energy consumption of python using on djagon,one of the most popular web frameworks.
+therefore we create a simple website where we try to analyse the cost of a single request using different mechanisms to fetch the data from the database.
+the idea behind this use case is to see wether the choice of the database and the orm ( object relational mapper) impacts the energy consumption and the perfromances of the website.
+
+we considered using two different databases postgresSQL and SQlite3 that containes the same data, and three different ways to fetch the data.
+\begin{enumerate}
+    \item the naive version: which relies only on the ORM to get the data
+    \item Prefetch : basically we just prefetch the data before we request it
+    \item optimized : and here we optimize our request on the SQL level without passing by the ORM
+\end{enumerate}
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/django}
+    \caption{energy behaviour based on multiprocessing}
+    \label{fig:django}
+\end{figure}
+
+
+%%%%% have to rephrase this 
+
+As one can see in figure~\ref{fig:django}, different choices of requesting the data have a huge impact on the energy consumption. as the naive version can consume up to 10x more energy than the optimized one.
+In the other hand the choice of the data base didnt have huge impact on the total energy despite their different behaviour regarding the execution time and the average power.
+This can be useful to help develeppers make a choice regarding which data base they can use based on the number of the expected requests and the expectation of the performance.
+
+Another interesting observation is the impact of the interpreter, as figure~\ref{fig:django} highligh. the use of Pypy interpter instead of the default one helped reducing the amount of the energy consumption even when we are dealing with the naive version.
+
+
+\subsubsection*{machine learning}
+the other part is to study the impact of machine learning algorthims
+
+%% ADD the work of alex 
+\newpage
 \section{experimetal protocole}
 
 as we have discussed in the previous chapter \ref{chapter:benchmarking}. instead of running the tests the idea was to design a system that allows practiouners to reproduce and extends our tests. and then we use the same system to run answer some of researchs questions
@@ -163,13 +209,18 @@ the reseason behind this is the fact that python treats those functions as local
 \end{figure}
 
 %% should i include the part with the exceptions ???
+\subsection{conclusion}
+This study has shown us, that the optimial way to reduce the energy consumption of the python code is to follow the guidelines and use the builtin functions, which is kinda happy news for the developers since they don't have to make extra effort to make their code green
+%% except the parallellism part , which i dont know how to link it here yet 
 
 \newpage
-\subsection{Python Runtimes}
+\section{Python Runtimes}
+One main inconvienent of the previous methode to reduce the energy consumption, is the hard work that should be done in order to alter the existing code base in order to redcue the energy consumption. To avoid such hustle we tried to find a non intrusive way to make the python code more ecofriendly without changing its structure. One aspect of python is the fact that it is an interptered language which led many works to create their own implementation of the interpeter to enhance one or many aspect of the python code. in the following section we will discuss the impact of those implementations on the energy consumption of python programs, and in which case, one should use a non conventional interpter to save the energy consumption of their program.
 
-we used the following implementations.
+To do so, we gathered a list of interpeters, transpilers and some optimization libraries.
 
-We should explain the methodology we used to select these
+the following list, presents the most famous ones .
+% We should explain the methodology we used to select these
 
 \begin{enumerate}
     \item \textbf{CPython}:\footnote{\fnurl{https://www.python.org/}} a Python interpreter written in C programming language. It is the reference interpreter of Python. CPython compiles the source code into a bytecode and then interprets it. The CPython project still supports both versions of Python 2 and 3;
@@ -442,7 +493,7 @@ The reason of separation between data collection and energy calculation is to mi
 
 
 
-\subsubsection{micro-benchmarks}
+% \subsubsection{micro-benchmarks}
 
 \subsubsection{benchmarks}
 
@@ -471,18 +522,13 @@ Most of the interperters had the same behaviour when it comes to the input outpu
 % pypy handles exceptions very well 
 
 
-\subsection{use cases}
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{imgs/django}
-    \caption{energy behaviour based on multiprocessing}
-    \label{fig:django}
-\end{figure}
+the energy consumption.
 
 %% todo 
 % add performance 
 % add dram \ a glimps 
-% add bitops 
+
+
 
 \subsection{tools and package}
 
@@ -490,3 +536,4 @@ Most of the interperters had the same behaviour when it comes to the input outpu
 
 \subsection{conclusion}
 
+one can notice that the choice of the right interpeter can impact havely the energy consumption of the python programs. The fact that there is no general solution make this study more interesting. however the main drawback is the lack of the compatibility for some of those solutions which lead to some sacrifices when we want something generic
