@@ -1,5 +1,5 @@
-
-\section{Introduction}
+\newpage
+\subsection{Introduction}
 Nowadays, web applications are dominating online systems.
 From Google, to Facebook and others, web applications are widely deployed across organizations and continuously accessed by end-users, both for their personal and professional daily tasks.
 In practice, the development of these web applications heavily rely on a wide ecosystem of \emph{web frameworks}, which are intended to ease and foster the development process.
@@ -398,26 +398,36 @@ To mesure compare the energy consumption and performance effeciency between muti
 the section will detail each type of experiments  and the purpose behind it giving some examples of the expecteed response
 
 \subsection{Test categories }
-We have 7 categories of tests :
-\\ \todo{ADD expected response for each one of them }
+We have 6 categories of tests :
+
 \subsubsection{Idle}
 In this test we measure the idle energy consumption of the framework: this reflects the average energy consumption of an application during the periods when we have no clients.
-For example, a company website beyond working hours or a small website at night. % maybe i should remove it 
+For example, a company website beyond working hours or a small website at night.
 
-\subsubsection{Singe query}
-During this test, each request is processed by fetching a single row from a simple database table. That row is then serialized as a JSON response.
+
+\subsubsection{Single query}
+During this test, each request  is processed by fetching a single row from a simple database table. That row is then serialized as a JSON response.
 
 \subsubsection{Multiple queries}
 this test aims to test the behaviour of a framework when it process multiple entries from the database.
 Therefore each request is processed by fetching multiple rows from a simple database table and serializing these rows as a JSON response.
 %The test is run multiple times: testing 1, 5, 10, 15, and 20 queries per request. All tests are run at 512 concurrency.
 %//TODO  add the cuncurency levels 
-\subsubsection{Cached queries}
-To evaluate the performance of a framework when the data is already cashed  each request is processed by fetching multiple cached objects from an in-memory database and serializing these objects as a JSON response.
+% \subsubsection{Cached queries}
+% To evaluate the performance of a framework when the data is already cashed  each request is processed by fetching multiple cached objects from an in-memory database and serializing these objects as a JSON response.
 %  The test is run multiple times: testing 1, 5, 10, 15, and 20 cached object fetches per request. All tests are run at 512 concurrency. Conceptually, this is similar to the multiple-queries test except the fact that it uses a caching layer.
 \subsubsection{Fortunes}
 In this test, the framework's ORM is used to fetch all rows from a database table containing an unknown number of Unix fortune cookie messages (the table has 12 rows, but the code cannot have foreknowledge of the table's size). An additional fortune cookie message is inserted into the list at runtime and then the list is sorted by the message text. Finally, the list is delivered to the client using a server-side HTML template. The message text must be considered untrusted and properly escaped and the UTF-8 fortune messages must be rendered properly.
+% maybe i should remove it 
+% \begin{listing}[language=html]
+%     HTTP/1.1 200 OK
+%     Content-Length: 1196
+%     Content-Type: text/html; charset=UTF-8
+%     Server: Example
+%     Date: Wed, 17 Apr 2013 12:00:00 GMT
 
+%     <!DOCTYPE html><html><head><title>Fortunes</title></head><body><table><tr><th>id</th><th>message</th></tr><tr><td>11</td><td>\&lt;script\&gt;alert(\&quot;This should not be displayed in a browser alert box.\&quot;);\&lt;/script\&gt;</td></tr><tr><td>4</td><td>A bad random number generator: 1, 1, 1, 1, 1, 4.33e+67, 1, 1, 1</td></tr><tr><td>5</td><td>A computer program does what you tell it to do, not what you want it to do.</td></tr><tr><td>2</td><td>A computer scientist is someone who fixes things that aren\&apos;t broken.</td></tr><tr><td>8</td><td>A list is only as strong as its weakest link. — Donald Knuth</td></tr><tr><td>0</td><td>Additional fortune added at request time.</td></tr><tr><td>3</td><td>After enough decimal places, nobody gives a damn.</td></tr><tr><td>7</td><td>Any program that runs right is obsolete.</td></tr><tr><td>10</td><td>Computers make very fast, very accurate mistakes.</td></tr><tr><td>6</td><td>Emacs is a nice operating system, but I prefer UNIX. — Tom Christaensen</td></tr><tr><td>9</td><td>Feature: A bug with seniority.</td></tr><tr><td>1</td><td>fortune: No such file or directory</td></tr><tr><td>12</td><td>hello world</td></tr></table></body></html>
+% \end{listing}
 \subsubsection{Update queries}
 
 This test exercises database writes. Each request is processed by fetching multiple rows from a simple database table, converting the rows to in-memory objects, modifying one attribute of each object in memory, updating each associated row in the database individually, and then serializing the list of objects as a JSON response.
@@ -439,7 +449,7 @@ In order to isolate the energy consumption of the framework the test is run in a
 Figure \ref{fig:architecture} illustrates the architecture of our system
 
 \begin{figure}\centering
-    \includegraphics[width=.8\columnwidth]{imgs/architecture.png}
+    \includegraphics[width=.8\columnwidth]{imgs/architecture}
     \caption[Architecture]{Architecture of the experiments}
     \label{fig:architecture}
 \end{figure}

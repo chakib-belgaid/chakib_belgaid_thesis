@@ -1,8 +1,6 @@
-\section{Remote Procedure Call Frameworks}
 
-\subsection{Definition}
 
-\subsection{Motivation}
+\subsection*{introduction}
 %  this is just to warmup 
 With the emergence of cloud technologies, many protocols wanted to take the lead.
 Nowdays, most of the architectures are based on multi-services and microservices.
@@ -11,10 +9,6 @@ Basically, it would be more efficient if we take advantage of each programming l
 However, the challenge nowadays is to make the bridge between those platforms.
 We have many initiatives, such as OpenAPI, that try to create a taxonomy for RESTful APIs.
 Other approaches implement all the different interfaces of the protocol by themselves, such as RPC.
-
-\subsection{State of the art}
-TODO
-
 
 \subsection{Research Questions}
 In this section, we first explore the ease of implementation of this protocol then we will try to answer the following research questions:
@@ -102,12 +96,12 @@ Overall, we can have 3 groups when it comes the cost of each request:
 In this mode, the behaviour of the server depends on the payload. We observe three behaviours:
 \begin{enumerate}
     \item Drop in performances without an increased power, such as .Net core, Java micronaut, Crystal, and Dart.
-    In this case, the server keeps using the same resources, and sometimes less, because it takes more time to handle the less requests.
-    This class of languages tend to be the most energy consuming when it comes to the cost per request,
+          In this case, the server keeps using the same resources, and sometimes less, because it takes more time to handle the less requests.
+          This class of languages tend to be the most energy consuming when it comes to the cost per request,
     \item Increase in power without affecting the performances: such as Go, .Net.
-    The energy consumption of a single request, is affected slightly but still increase,
+          The energy consumption of a single request, is affected slightly but still increase,
     \item Increase in power and drop in performances: Despite the increase of the power consumption, the server becomes slightly slower, which increases the cost of the energy cost per request.
-    This cost is still better than the first case, which concludes that the servers in the first category are on the verge of breaking.
+          This cost is still better than the first case, which concludes that the servers in the first category are on the verge of breaking.
 \end{enumerate}
 
 We can mention the case of Elixir that kept scaling despite the lack of performances compared to other compiled languages (Go, CPP).
@@ -185,21 +179,21 @@ Then, we study how the payload size of the requests impact the energy consumptio
 
 \begin{figure}[!hbt]
     \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rpc_images/energy_cost_clients}
+        \includegraphics[width=1.2\linewidth]{imgs/energy_cost_clients}
     \end{center}
     \caption{Experimental software architecture}\label{fig:rpcprotocol}
 \end{figure}
 
 \begin{figure}[!hbt]
     \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rpc_images/energy_cost_payload}
+        \includegraphics[width=1.2\linewidth]{imgs/energy_cost_payload}
     \end{center}
     \caption{Experimental software architecture}\label{fig:energy_cost_payload}
 \end{figure}
 
 \begin{figure}[!hbt]
     \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rpc_images/power_consumption_clients}
+        \includegraphics[width=1.2\linewidth]{imgs/power_consumption_clients}
     \end{center}
     \caption{Experimental software architecture}\label{fig:power_consumption_clients}
 \end{figure}
@@ -207,21 +201,21 @@ Then, we study how the payload size of the requests impact the energy consumptio
 
 \begin{figure}[!hbt]
     \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rpc_images/power_consumption_payload}
+        \includegraphics[width=1.2\linewidth]{imgs/power_consumption_payload}
     \end{center}
     \caption{Experimental software architecture}\label{fig:power_consumption_payload}
 \end{figure}
 
 \begin{figure}[!hbt]
     \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rpc_images/rps_clients}
+        \includegraphics[width=1.2\linewidth]{imgs/rps_clients}
     \end{center}
     \caption{Experimental software architecture}\label{fig:rps_clients}
 \end{figure}
 
 \begin{figure}[!hbt]
     \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rpc_images/rps_payload}
+        \includegraphics[width=1.2\linewidth]{imgs/rps_payload}
     \end{center}
     \caption{Experimental software architecture}\label{fig:rps_payload}
 \end{figure}
@@ -230,7 +224,7 @@ Then, we study how the payload size of the requests impact the energy consumptio
 
 \begin{figure}[!hbt]
     \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rpc_images/tail99_clients}
+        \includegraphics[width=1.2\linewidth]{imgs/tail99_clients}
     \end{center}
     \caption{Experimental software architecture}\label{fig:tail99_clients}
 \end{figure}
@@ -238,7 +232,7 @@ Then, we study how the payload size of the requests impact the energy consumptio
 
 \begin{figure}[!hbt]
     \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rpc_images/tail99_payload}
+        \includegraphics[width=1.2\linewidth]{imgs/tail99_payload}
     \end{center}
     \caption{Experimental software architecture}\label{fig:tail99_payload}
 \end{figure}
