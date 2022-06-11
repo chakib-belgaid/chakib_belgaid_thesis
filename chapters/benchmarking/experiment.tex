@@ -5,9 +5,16 @@
 
 % for each aspect we present a set of guidelines and tools.
 %% This is a conclusion maaan  !! 
+\section{Taming the energy variation for the benchmarking protocol}
 
+\subsection{Objective}
+While the previous part aims to create a large umbrella that covers all empirical benchmarks related to computer science, we rather aim to narrow our study to energy benchmarking only.
+In other words, we will focus on pitfalls that hinders the energy claims of software.
+We are clearly aware of the impact of hardware on energy variations.
+However, we believe that there is still a room to control this energy variation for practitioners by using only parameters that can be tuned.
+To do so, we have inducted a set of empirical experiments using the guidelines provided by state of the art, to determine which controllable factors can reduce the variation of the energy consumption of benchmarks.
+% We will first start with evaluating the parameters mentioned by \cite{heinrich_predicting}.
 
-\subsection{Goal}
 In this part we will try to answer the following Research questions.
 
 \begin{description}
@@ -64,7 +71,7 @@ As an example, Figure~\ref{fig:topo} illustrates a detailed topology of a node b
     \caption{Topology of the nodes of the cluster \textsf{Dahu}}\label{fig:topo}
 \end{figure}
 
-\subsection{Workload}
+\subsubsection{Workload}
 Our choice for the benchmarks was based on two creterions.
 
 First, \textbf{scalability} : We wanted to gather the highest possible amount insights (regarding time spent for the experiment, therefore we wanted some benchmarks who can scale according to the number of PUs and can fulfill different scenarios.
@@ -74,7 +81,7 @@ Our candidate is  emph{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NP
 Further more we have used other applications to validate our results using more applications such as \texttt{Stress-ng v0.10.0},\footnote{\url{https://kernel.ubuntu.com/~cking/stress-ng}} \texttt{pbzip2 v1.1.9},\footnote{\url{https://launchpad.net/pbzip2/}} \texttt{linpack}\footnote{\url{http://www.netlib.org/linpack}} and \texttt{sha256 v8.26}\footnote{\url{https://linux.die.net/man/1/sha256sum}}.
 
 
-\subsection{Metrics \& Measurement Tools}
+\subsubsection{Metrics \& Measurement Tools}
 Our metric for the accuracy of the test is the Standard deviation aka \textbf{STD} of the energy consumption. Therefore wether the tests consumes more or less energy is out of our scope.
 To study this variation we need first a tool to measure the energy consumption. For this we used \textsc{PowerAPI}~\cite{DBLP:journals/jss/ColmantRKSFS18}, which is a power monitoring toolkit that is based on \emph{Intel Running Average Power Limit} (RAPL) \cite{Khan:2018:RAE:3199681.3177754}. The advantage of PowerAPI is that it reports the Energy consumption of CPU and DRAM at a socket level.
 
@@ -98,7 +105,7 @@ We therefore explore many potential factors and parameters that could have a con
 
 %% TODO: Proof read this paragraph 
 
-\subsection{\textsc{RQ}~1: Benchmarking Protocol}
+\subsubsection{\textsc{RQ}~1: Benchmarking Protocol}
 To achieve a robust and reproducible experiment, practitioners often tend to repeat their tests multiple times, in order to analyze the related performance indicators, such as execution time, memory consumption or energy consumption.
 We therefore aim to study the benchmarking protocol to identify how to efficiently iterate the tests to capture a trustable energy consumption evaluation.
 % This process of repeating executions should not be random in order to avoid different results because of the CPU behavior, the cache data, the memory size and plenty of other aspects.
@@ -142,7 +149,7 @@ This makes the \textsf{reboot} mode as the less appropriate for the energy varia
 \end{mdframed}
 
 
-\subsection{\textsc{RQ}~2: Processor Features}
+\subsubsection{\textsc{RQ}~2: Processor Features}
 The C-states provide the ability to switch the CPU between more or less consuming states upon activities.
 Turning the C-states on or off have been subject of many discussions~\cite{5463056}, because of its dynamic frequency mechanism but, to the best of our knowledge, there have been no fully conducted C-states behavior analysis on CPU energy variation.
 
@@ -170,7 +177,7 @@ This leads to mainly two questions: Can a process pinning method reduce/increase
     \caption{Energy variation when disabling the C-states}\label{fig:c-states}
 \end{figure*}
 
-\subsubsection{Cores Pinning}
+\paragraph{Cores Pinning}
 To answer the first question, we repeated the previous test at 50\,\% workload.
 In this experiment, we considered three cores usage strategies, the first one (\textsf{S1}) would pin the processes on all the PU of one of the two sockets (including hyper-threads), so it will be used at 100\,\%, and leave the other CPU idle.
 The second strategy (\textsf{S2}) splits the workload on the two sockets so each CPU will handle 50\,\% of the load.
@@ -230,7 +237,7 @@ Our experiments show that running one hyper-thread per core is not always the be
     \end{tabular}
 \end{table}
 
-\subsubsection{Processes Threshold}
+\paragraph{Processes Threshold}
 To answer the second question regarding the evolution of the energy variation at different levels of CPU usage, we varied the used PU's count to track the EV evolution.
 Figure~\ref{fig:process-tresh} compares the aggregated energy variation when the C-states are on and off using 2, 4 and 8 processes for the benchmarks \textsf{LU}, \textsf{CG} and \textsf{EP}.
 This figure confirms that disabling the CPU C-states does not decrease the variation for all the workloads, as we can clearly observe, the variation is increasing along with the number of processes.
@@ -251,7 +258,7 @@ However, our goal is not to optimize the energy consumption, but to minimize the
 Thus, disabling the C-states is very important to stabilize the measurements in some cases when the variation matters the most.
 Comparing the energy consumptions of two algorithms or two versions of a software systems is an example of use case benefiting from this recommendation.
 
-\subsubsection{Turbo Boost}
+\paragraph{Turbo Boost}
 The Turbo Boost---also known as \emph{Dynamic Overclocking}---is a feature that has been incorporated in Intel CPU since the Sandy~Bridge micro-architecture, and is now widely available on all of the Core\,i5, Core\,i7, Core\,i9 and Xeon series.
 It automatically raises some of the CPU cores operating frequency for short periods of time, and thus boost performances under specific constraints.
 When demanding tasks are running, the operating system decides on using the highest performance state of the processor.
@@ -301,7 +308,7 @@ We confirmed our experiments on these machines 100 times at 5\,\%, 25\,\%, 50\,\
     We conclude that CPU features \textbf{highly impact} the energy variation as an answer for \textsc{RQ~2}.
 \end{mdframed}
 
-\subsection{\textsc{RQ}~3: Operating System}
+\subsubsection{\textsc{RQ}~3: Operating System}
 The \emph{operating system} (OS) is the layer that exploits the hardware capabilities efficiently.
 It has been designed to ease the execution of most tasks with multitasking and resource sharing.
 In some delicate tests and measurements, the OS activity and processes can cause a significant overhead and therefore a potential threat to the validity. % experiments validity
@@ -336,7 +343,7 @@ This brings a new question on whether applying extra-tuning on a minimal OS woul
     \caption{The correlation between the RAPL and the job consumption and variation}\label{fig:correlation}
 \end{figure}
 
-\subsubsection{OS Tuning}
+\paragraph{OS Tuning}
 An OS is a pack of running processes and services that might or not be required its execution.
 In fact, even using a minimal version of a Debian Linux, we could list many OS running services and process that could be disabled/stopped without impacting the test execution.
 This extra-tuning may not be the same depending on the nature of the test or the OS.
@@ -368,7 +375,7 @@ Moreover, 10\,\% of variation is not a representative difference, due to many fa
 \end{table}
 % \subsubsection{Meltdown Security Patch}
 
-\subsubsection{Speculative Executions}
+\paragraph{Speculative Executions}
 Meltdown and Spectre are two of the most famous hardware vulnerabilities discovered in 2018, and exploiting them allows a malicious process to access others processes data that is supposed to be private~\cite{Kocher2018spectre,Lipp2018meltdown}.
 They both exploit the speculative execution technique where a process anticipates some upcoming tasks, which are not guaranteed to be executed, when extra resources are available, and revert those changes if not.
 Some OS-level patches had been applied to prevent/reduce the criticality of these vulnerabilities.
@@ -410,7 +417,7 @@ The little performance difference discussed in~\cite{Kocher2018spectre,Lipp2018m
     To answer \textsc{RQ~3}, we conclude that the OS \textbf{should not be the main focus} of the energy variation taming efforts.
 \end{mdframed}
 
-\subsection{\textsc{RQ}~4: Processor Generation}
+\subsubsection{\textsc{RQ}~4: Processor Generation}
 Intel microprocessors have noticeably evolved during these last 20 years.
 Most of the new CPU come with new enhancements to the chip density, the maximum Frequency or some optimization features like the C-states or the Turbo~Boost.
 This active evolution caused that different generations of CPU can handle a task differently.
@@ -465,3 +472,104 @@ This shows that the cluster \textsf{Paranoia} reports the worst variation in mos
 \begin{mdframed}[skipabove=\topsep,skipbelow=\topsep]
     We conclude on \textbf{affirming \textsc{RQ}~4}, as selecting the right CPU can help to get less variations.
 \end{mdframed}
+
+
+
+
+
+\subsection{Experimental Guidelines}
+To summarize our experiments, we provide some experimental guidelines in Table~\ref{table:guidelines}, based on the multiple experiments and analysis we did.
+These guidelines constitute a set of minimal requirements or best practices, depending on the workload and the criticality of the energy measurement precision.
+It therefore intends to help practitioners in taming the energy variation on the selected CPU, and conduct the experiments with the least variations.
+
+\begin{table}[h!]
+    \centering
+    \caption{Experimental Guidelines for Energy Variations}
+    \small
+    \begin{tabular}{|p{4.7cm}|c|c|}
+        \hline
+        \textbf{Guideline}                                                                                                                                                & \textbf{Load} & \textbf{Gain}     \\
+        \hline
+        \hline
+        Use a low TDP CPU                                                                                                                                                 & Low \& medium & Up to $3\times$   \\
+        \hline
+        Disable the CPU C-states                                                                                                                                          & Low           & Up to $6\times$   \\
+        \hline
+        Use the least of sockets in a case of multiple CPU                                                                                                                & Medium        & Up to $30\times$  \\
+        \hline
+        Avoid the usage of hyper-threading whenever possible                                                                                                              & Medium        & Up to $5\times$   \\
+        \hline
+        Avoid rebooting the machine between tests                                                                                                                         & High          & Up to $1.5\times$ \\
+        \hline
+        Do not relate to the machine idle variation to isolate a test EC, the CPU/OS changes its behavior when a test is running and can exhibit less variation than idle & Any           & ---               \\
+        \hline
+        Rather focus the optimization efforts on the system under test than the OS                                                                                        & Any           & ---               \\
+        \hline
+        Execute all the similar and comparable experiments on a same machine. Identical machines can exhibit many differences regarding their energy behavior             & Any           & Up to $1.3\times$ \\
+        \hline
+    \end{tabular}
+    \label{table:guidelines}
+\end{table}
+
+Table~\ref{table:guidelines} gives a proper understanding of known factors, like the C-states and its variation reduction at low workloads.
+However, it also lists some new factors that we identified along the analysis we conducted in Section, such as the results related to the OS or the reboot mode.
+Some of the guidelines are more useful/efficient for specific workloads, as showed in our experiments.
+Thus, qualifying the workload before conducting the experiments can help in choosing the proper guidelines to apply.
+Other studied factors are not been mentioned in the guidelines, like the Turbo~Boost or the Speculative execution, due to the small effect that has been observed in our study.
+
+In order to validate the accuracy of our guidelines among a varied set of benchmarks on one hand, and their effect on the variation between identical machines on the other hand, we ran seven experiments with benchmarks and real applications on a set of four identical nodes from the cluster \textsf{Dahu}, before (\textsf{normal} mode where everything is left to default and to the charge of the OS) and after (\textsf{optimized}) applying our guidelines.
+Half of these experiments has been performed at a 50\,\% workload and the other half on single process jobs.
+The choice of these two workloads is related to the optimization guidelines that are mainly effective at low and medium workloads.
+We note that we used the cluster \textsf{Dahu} over \textsf{Ecotype} to highlight the guidelines effect on the nodes where the variation is susceptible to be higher.
+
+\begin{figure*}%[!htb]
+    \center{\includegraphics[width=\linewidth]{imgs/all}}
+    \caption{Energy variation comparison with/without applying our guidelines}\label{fig:optimized}
+\end{figure*}
+
+\begin{figure}%[!htb]
+    \center{\includegraphics[width=.9\linewidth]{imgs/stressng}}
+    \caption{Energy variation comparison with/without applying our guidelines for \textsc{Stress-NG}}\label{fig:stress}
+\end{figure}
+
+Figure~\ref{fig:optimized} and~\ref{fig:stress} highlight the improvement brought by the adoption of our guidelines.
+They demonstrate the intra-node STD reduction at low and medium workloads for all the benchmarks used at different levels.
+Concretely, for low workloads, the energy variation is 2--6 times lower after applying the optimization guidelines for the benchmarks \textsf{LU} and \textsf{EP}, as well as \textsc{Linpack}, while it is 1.2--1.8 times better for \texttt{Sha256}.
+For this workload, the overall energy consumption after optimization can be up to 80\,\% higher due to disabling the C-states to keep all the unused cores at a high power consumption state ($Mean_{LU-normal-Dahu2}=11,500 mJ$, $Mean_{LU-optimized-Dahu2}=20,508 mJ$).
+For medium workloads, the STD, and thus variation, is up to 100\,\% better for the benchmark \textsf{CG}, 20--150\,\% better for the \texttt{pbzip2} application and up to 100\% for \textsc{Stress-NG}.
+We note that the optimized version consumes less energy thanks to an appropriate core pinning method.
+
+Figures~\ref{fig:optimized} and~\ref{fig:stress} also highlight that applying the guidelines does not reduce the inter-nodes variation in all the cases.
+This variation can be up to 30\,\% in modern CPU~\cite{wang_experimental_nodate}.
+However, taming the intra-node variation is a good strategy to identify more relevant mediums and medians, and then perform accurate comparisons between the nodes variation.
+Even though, using the same node is always better, to avoid the extra inter-nodes variation and thus improve the stability of measurements.
+
+
+\subsection{Threats to Validity}
+A number of issues affect the validity of our work.
+For most of our experiments, we used the Intel RAPL tool, which has evolved along Intel CPU generations to be known as one of the most accurate tools for modern CPU, but still adds an important overhead if we adopt a sampling at high frequency.
+The other fine-grained tool we used for measurements is \textsc{PowerAPI}.
+It allows to measure the energy consumption at the granularity of a process or a Cgroup by dividing the RAPL global energy over the running processes using a power model.
+The usage of \textsc{PowerAPI} adds an error margin because of the power model built over RAPL.
+The RAPL tool mainly measures the CPU and DRAM energy consumption.
+However, even running CPU/RAM intensive benchmarks would keep a degree on uncertainty concerning the hard disk and networking energy consumption.
+In addition, the operating system adds a layer of confusion and uncertainty.
+
+The Intel CPU chip manufacturing process and the materials micro-heterogeneity is one of the biggest issues, as we cannot track or justify some of the energy variation between identical CPU or cores.
+These CPU/cores might handle frequencies and temperature differently and behave consequently.
+This hardware heterogeneity also makes reproduction complex and requires the usage of the same nodes on the cluster with the same OS.
+
+
+\subsection{Conclusion}
+In this part, we conducted an empirical study of controllable factors that can increase the energy variations on platforms with some of the latest CPU, and for several workloads.
+We provide a set of guidelines that can be implemented and tuned (through the OS GRUB for example), especially with the new data centers isolation trend and the cloud usage, even for scientific and R\&D purposes.
+Our guidelines aim at helping the user in reducing the CPU energy variation during systems benchmarking, and conduct more stable experiments when the variation is critical.
+For example, when comparing the energy consumption of two versions of an algorithm or a software system, where the difference can be tight and need to be measured accurately.
+
+Overall, our results are not intended to nullify the variability of the CPU, as some of this variability is related to the chip manufacturing process and its thermal behavior.
+The aim of our work is to be able to tame and mitigate this variability along controlled experiments.
+We studied some previously discussed aspects on some recent CPU, considered new factors that have not been deeply analyzed to the best of our knowledge, and constituted a set of guidelines to achieve the variability mitigating purpose.
+Some of these factors, like the C-states usage, can reduce the energy variation up to 500\,\% at low workloads, while choosing the wrong cores/PU strategy can cause up to $30\times$ more variability.
+
+We believe that our approach can also be used to study/discover other potential variability factors, and extend our results to alternative CPU generations/brands.
+Most importantly, this should motivate future works on creating a better knowledge on the variability due to CPU manufacturing process and other factors.
