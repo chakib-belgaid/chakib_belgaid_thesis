@@ -1,5 +1,5 @@
 \section*{JAVA}
-\subsubsection{Introduction}
+\section{Introduction}
 As reported in the state of the art, Java is one of the most popular programming languages adopted by practitioners.%ROMAIN: Add source
 Furthermore, if we take into consideration legacy applications, Java becomes the most used programming langues.%ROMAIN: Add source
 In addition to its popularity, Java exhibits an interesting behaviour when it comes to energy consumption and performances, basically Java applications can be at the same time one of the most energy efficient or hungry solution.
@@ -7,7 +7,7 @@ As we have seen in the previous chapter, an inappropriate combination of paramet
 Therefore, we wanted to dig deeper into this aspect of Java and study its runtime.
 This chapter thus focuses on the impact of the runtime of Java applications on the energy consumption.
 
-\paragraph{Goal}
+\subsection{Goal}
 In this section, we will investigate the following research questions:
 \begin{compactenum}[\indent\bf RQ\,1:]
     %  TODO : generalize this format of Rq  to all the thesis 
@@ -17,7 +17,8 @@ In this section, we will investigate the following research questions:
 
 To answer those research question we will run an empirical study to highlight the impact of this runtime.
 
-\subsubsection{definition of the JVM}
+\subsection{definition of the JVM}
+% TODO : ADD definition here 
 \begin{figure}%[ht]
     \centering
     \includegraphics[width=\linewidth]{imgs/Jvm_architecture}
@@ -25,10 +26,10 @@ To answer those research question we will run an empirical study to highlight th
     \label{fig:hotspot}
 \end{figure}
 
-\subsection{Experimental Protocol}\label{sec:meth}
+\section{Experimental Protocol}\label{sec:javameth}
 To investigate the effect that could have the JVM distribution choice and/or parameters on software energy consumption, we conducted a wide set of experiments on a cluster of machines and using several established Java benchmarks and JVM configurations.
 
-\subsubsection{Measurement Contexts}
+\subsection{Measurement Contexts}
 
 \noindent\textbf{Software Settings.}
 For the sake of reproducibility, each experiment runs within a Docker container based on SDKMAN image and Alpline docker.
@@ -81,7 +82,7 @@ Depending on providers, either all the versions, majors, or LTS are made availab
     }
 \end{table}
 
-\subsubsection{Workload}
+\subsection{Workload}
 We ran our experiments across $12$ Java benchmarks we picked from \textsf{OpenBenchmarking.org}.\footnote{\url{https://openbenchmarking.org}}
 This includes $5$ acknowledged benchmarks from the \textsc{Dacapo} benchmark suite v.\,9.12~\cite{DaCapo:paper}, namely \textsf{Avrora}, \textsf{H2}, \textsf{Lusearch}, \textsf{Sunflow} and \textsf{PMD}, that have been widely used in previous studies and proven to be accurate for memory management and computer architecture communities~\cite{DBLP:conf/wosp/LengauerBMW17,DBLP:conf/oopsla/KaliberaMJV12}.
 It consists of open-source and real-world applications with non-trivial memory loads.
@@ -128,7 +129,7 @@ The benchmarks we picked from both suites exercise a broad range of programming 
     }
 \end{table*}
 
-\subsubsection{metrics and measurement}
+\subsection{Metrics and measurement}
 Since the goal of this study is the green aspect Java virtual machines, our key metric will be the energy consumption of the job completed by each configuration.
 In addition to the energy consumption, we collected additional metrics to explain the reasons behind the behaviour of each experiment.
 Those extra metrics are:
@@ -153,8 +154,8 @@ All of our experiments are available for use/reproducibility from our anonymous 
 \noindent\textbf{Number of threads.}
 To collect the number of active threads used by the an experiment, we use the command \texttt{top} and record at fixed intervals.
 
-\subsection{Experiments \& Results}\label{sec:exp}
-\subsubsection{Energy Impact of JVM Distributions}
+\section{Experiments \& Results}\label{sec:exp}
+\subsection{Energy Impact of JVM Distributions}
 \noindent\textbf{Job-oriented applications.}
 To answer our first research question, we executed $62,400$ experiments by combining the $52$ JVM distributions with the $12$ Java benchmarks, thus reasoning on $100$ energy samples acquired for each of these combinations.
 \Cref{fig:JVMs} first depicts the accumulated energy consumption of the $12$ Java benchmarks per JVM distribution and major versions (or LTS when unavailable).
@@ -349,10 +350,10 @@ This is exactly what we did in our experiments, and why \textsc{HotSpot} was mor
     When it comes to the JVM version, latest releases tend to offer the lowest power consumption, but experimental features should be carefully configured, thus further questioning the impact of JVM parameters.
 \end{mdframed}
 
-\subsubsection{Energy Impact of JVM Settings}
+\subsection{Energy Impact of JVM Settings}
 The purpose of our study is not only to investigate the impact of the JVM platform on the energy consumption, but also the different JVM parameters and configurations that might have a positive or negative effect, with a focus on 3 available settings: multi-threading, JIT, and GC.
 
-\paragraph{Multithreading}
+\subsubsection{Multithreading}
 The purpose behind this phase is to investigate the impact JVM thread management strategies on the energy consumption.
 This encompasses exploring if the management strategies of application-level parallelism (so called \emph{threads}) results in different energy efficiencies, depending on JVM distributions.
 
@@ -413,7 +414,7 @@ In conclusion, JVMs thread management can sometimes constitute a key factor that
 However, we suggest to check and compare JVMs before deploying a software, especially if the target application is parallel and multi-threaded.
 
 
-\paragraph{Just-in-Time Compilation}
+\subsubsection{Just-in-Time Compilation}
 The purpose of experiments on JIT is to highlight the different strategies that can impact software energy consumption within a JVM and between JVMs.
 We identified a set of JIT compiler parameters for every JVM platform.
 
@@ -462,7 +463,7 @@ This advocates that using the default JIT configuration that can often deliver n
 Although, some other configurations, such as using only the C1 JIT or disabling the JVMCI could be advantageous in some cases.
 
 
-\paragraph{Garbage Collection}
+\subsubsection{Garbage Collection}
 Changing or tuning the GC strategy has been acknowledged to impact the JVM performances~\cite{10.1145/2568088.2568097}.
 To investigate if this impact also benefits to energy consumption, we conducted a set of experiments on the selected JVMs.
 We considered different garbage collector strategies with a limited memory quantity of 2\,GB, and recorded the execution time and the energy consumption.
@@ -571,7 +572,7 @@ Tuning the GC according to the hosted app/benchmark is thus critical to reduce t
 \end{mdframed}
 
 
-\subsection{Threats to Validity}\label{sec:threats}
+\section{Threats to Validity}\label{sec:threats}
 A number of issues may affect the validity of our work.
 First, we have the use of the Intel RAPL, one of the most accurate available tools to measure the energy consumption of software~\cite{Khan:2018:RAE:3199681.3177754,10.1145/2989081.2989088}.
 However, RAPL only gives the global energy consumption and no fine-grained measures at process or thread levels.
@@ -587,7 +588,7 @@ How generalizable are our results? We believe that our study conclusions and gui
 We provide practitioners with some prerequisites to check before software deployment to reduce the software energy footprint by considering the JVM and its settings.
 
 
-\subsection{Tools and contributions}
+\section{Tools and contributions}
 \Cref{table:j-referral} illustrates an example of the final report of \textsf{J-Referral}.
 The tool was tested for 2 real Java projects: \textsf{Zip4J} and\footnote{\url{https://github.com/srikanth-lingala/zip4j}} and \textsf{K-nucleotide}.\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/performance/knucleotide.html}}.
 \textsf{Zip4J} runs a large file compression, while \textsf{K-nucleotide}  extracts a DNA sequence, and updates a hashtable of k-nucleotide keys to count specific values.
@@ -617,7 +618,7 @@ The tool is available as \emph{open-source software} (OSS) from our anonymous re
 \end{table}
 
 
-\subsection{Conclusion}
+\section{Conclusion}
 The results of our investigations showed that many JVMs share energy efficiencies and can grouped into 3 classes: \textsc{HotSpot}, J9, and \textsc{GraalVM}.
 The 3 selected JVM classes can however report a different energy efficiency for different software and/or workloads, sometimes by a large margin.
 While we did not observed a unique champion when it comes to energy consumption, \textsc{GraalVM} reported the best energy efficiency for a majority of benchmarks.

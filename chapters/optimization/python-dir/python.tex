@@ -13,26 +13,25 @@ However, it remains unclear if this class of dynamic programming languages can r
 
 In particular, Noureddine~\emph{et~al.}~\cite{noureddine_preliminary_2012} in 2012, and then Pereira~\emph{et~al.}~\cite{pereira_energy_2017} in 2017, conducted empirical power measurements on this topic, and both concluded that compiled programming languages overcome dynamic ones when it comes to power consumption.
 According to their experiments, an interpreted programming language like Python can impose up to a $7,588\,\%$ energy overhead compared to C~\cite{pereira_energy_2017} (cf. Figure~\ref{fig:hannoi}).
-% However, the operational conditions under which these measurements may threaten the validity of their results.
-
-\begin{figure}[htbp]
-    \includegraphics[width=\linewidth]{imgs/hannoiimplementation.png}
-    \caption{Energy consumption of a recursive implementation of Tower of Hanoi program in different languages~\cite{noureddine_preliminary_2012}}
-    \label{fig:hannoi}
-\end{figure}
-\subsection{python popularity}
-
-However, Python seems to attract a large community of developers interested in data analysis, web development, system administration, machine learning---according to a survey conducted in 2018 by JetBrains---\footnote{\url{https://www.jetbrains.com/research/python-developers-survey-2018/}}one can fear that the wide adoption of dynamic programming languages, like Python, in production may critically hamper the power consumption of ICT.
-
-As the popularity of such dynamic programming languages partly builds on the wealth and the diversity of their ecosystem (\emph{e.g.}, the NumPY, SciKit\,Learn, and Panda libraries in Python), one cannot reasonably expect that developers will likely move to an alternative programming language mostly for energy considerations.
-Rather, we believe that a better option consists in leveraging the strength of this rich ecosystem to promote energy-efficient solutions in order to improve the power consumption of legacy software systems.
-
-
 In this chapter, we therefore explore the oblivious optimizations that can be applied to Python legacy applications in order to reduce their energy footprint.
 As Python is widely adopted by software services deployed in public and private Cloud infrastructures, we believe that our contributions will benefit to wide diversity of legacy systems and not only favorably contribute to reduce the carbon emissions of ICT, but also reduce their cloud invoice for the resources consumed by these services.
 More specifically, this chapter focuses on runtime optimizations that can adopted by developers to leverage the power consumption of Python applications.
 We start by studuing the impact of some of programmers choice such as the type of data structures or loops, on the global energy consumption of the execution code.
 then we discuss some other factors such as level of concurrency etc. later we we will talk about another non intrusive ways to optimize the energy consumption of this code. one kind of those optimizations includes alternative interpertersand some libraries that are dedicated to optimize the code without changing its structures such as \emph{ahead-of-time} (AOT) compilation and \emph{just-in-time} (JIT) libraries that are maintained by the community.
+% However, the operational conditions under which these measurements may threaten the validity of their results.
+
+
+
+\section{Motivation}
+\subsection{python popularity}
+
+Nowdays, Python seems to attract a large community of developers interested in data analysis, web development, system administration, machine learning---according to a survey conducted in 2018 by JetBrains---\footnote{\url{https://www.jetbrains.com/research/python-developers-survey-2018/}}one can fear that the wide adoption of dynamic programming languages, like Python, in production may critically hamper the power consumption of ICT.
+
+As the popularity of such dynamic programming languages partly builds on the wealth and the diversity of their ecosystem (\emph{e.g.}, the NumPY, SciKit\,Learn, and Panda libraries in Python), one cannot reasonably expect that developers will likely move to an alternative programming language mostly for energy considerations.
+Rather, we believe that a better option consists in leveraging the strength of this rich ecosystem to promote energy-efficient solutions in order to improve the power consumption of legacy software systems.
+
+
+
 
 % The contributions of this chapter can therefore be summarized as:
 % \begin{compactenum}
@@ -50,15 +49,13 @@ then we discuss some other factors such as level of concurrency etc. later we we
 \subsection{python gluttony}
 
 the simplicity, flexibility and the clarity of Python code led this programming language to a huge success. Therefore, a larger community and a wide range of support and libraries that allowed it to touch several fields like data analyses, machine learning, natural language processing, web development, astrophysics etc.
-% python is not efficient 
-% 1 Energy Efficiency Across Programming Languages: How Do Energy, Time, and Memory Relate?
-%  \begin{figure}[hbt]
-%     \includegraphics[width=\linewidth]{figures/hannoiimplementation.png}
-%     \caption{Energy consumption of the recursive implementation of Tower of Hanoi program in different languages (using a base 10 logarithmic scale) \cite{noureddine_preliminary_2012}}      
-%     \label{fig:hannoi}
-% \end{figure} 
+\begin{figure}[htbp]
+    \includegraphics[width=\linewidth]{imgs/hannoiimplementation.png}
+    \caption{Energy consumption of a recursive implementation of Tower of Hanoi program in different languages~\cite{noureddine_preliminary_2012}}
+    \label{fig:hannoi}
+\end{figure}
 
-However, and according to \cite{pinto_energy_2017,noureddine_preliminary_2012} and [1]. Python tends to be one more energy hungry . In figure \ref{fig:hannoi}, python consumes 30 times more than C or C++. The test was done on an implementation of \fnurl{hannoi test}{ https://en.wikipedia.org/wiki/Tower_of_Hanoi}  30 disks.
+However, and according to \cite{pinto_energy_2017} and \cite{noureddine_preliminary_2012}. Python tends to be one more energy hungry . In figure \ref{fig:hannoi}, python consumes 30 times more than C or C++. The test was done on an implementation of \fnurl{hannoi test}{ https://en.wikipedia.org/wiki/Tower_of_Hanoi}  30 disks.
 
 Python consumes a lot of energy mainly because it is slow in execution. Its Flexibility and simplicity caused it to drop off in performances, because Python gains its flexibility from being a dynamic language, therefore it needs an interpreter to execute its programs, which makes them much slower compared to the other ones that are written in compiled programming languages such as C and C++ or semi-compiled languages like Java.
 
@@ -84,18 +81,9 @@ As shown in Table \ref{fig:clbg}, one can see that in the most of the test cases
     \label{fig:clbg}
 \end{table}
 
-In this chapter we will target the following research question :
-\begin{enumerate}
-    \item Do the data structres and controle structures impact the energy consumption ?
-    \item how does the parallelism affect the energy behaviour of python programs ?
-    \item are they any non intrusive methodes to reduce the imapct of the energy consumption of existing python softwares ?
-    \item how can one apply those findings in the real world ?
-\end{enumerate}
 
 \subsection{use cases}
-according to the survey made by Jetbrains company \footnote
-{\fnurl{https://www.jetbrains.com/lp/python-developers-survey-2020}} data analysis and web develoepment are the top two purposes for python\ref{fig:usecase}
-
+to reduce the energy consumption of python we started by targeting the main usage of this programming language, wich is revealed to be data sciences and web developpement. Figure~\ref{fig:usecase} illustrate a study made by the jetbrain company on python developers \footnote{\fnurl{https://www.jetbrains.com/lp/python-developers-survey-2020}}. In this survey, multiple multiple answers were accepted. 
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=\linewidth]{imgs/python_use_cases}
@@ -104,115 +92,49 @@ according to the survey made by Jetbrains company \footnote
 \end{figure}
 
 
-\subsubsection*{web developement}
-first we wanted to test the energy consumption of python using on djagon,one of the most popular web frameworks.
-therefore we create a simple website where we try to analyse the cost of a single request using different mechanisms to fetch the data from the database.
-the idea behind this use case is to see wether the choice of the database and the orm ( object relational mapper) impacts the energy consumption and the perfromances of the website.
-
-we considered using two different databases postgresSQL and SQlite3 that containes the same data, and three different ways to fetch the data.
-\begin{enumerate}
-    \item the naive version: which relies only on the ORM to get the data
-    \item Prefetch : basically we just prefetch the data before we request it
-    \item optimized : and here we optimize our request on the SQL level without passing by the ORM
-\end{enumerate}
-
-\begin{figure}[!hbt]
-    \centering
-    \includegraphics[width=\linewidth]{imgs/django}
-    \caption{energy behaviour based on multiprocessing}
-    \label{fig:django}
-\end{figure}
+\subsection*{Goal}
+To reduce the energy consumption of python programs, we decided to start with studying its behaviour during the most common use cases. After this we will targtet the structures of the language itself in the hope to find some generic guidelines for more generic purpose as \citeauthor{hasan_energy_2016-1} did in their paper \cite{hasan_energy_2016-1}. After this we will measure the energy consumption of different python implementation for the goal of finding a non intrusive way to enhance this energy efficiency.
 
 
-%%%%% have to rephrase this 
-
-As one can see in figure~\ref{fig:django}, different choices of requesting the data have a huge impact on the energy consumption. as the naive version can consume up to 10x more energy than the optimized one.
-In the other hand the choice of the data base didnt have huge impact on the total energy despite their different behaviour regarding the execution time and the average power.
-This can be useful to help develeppers make a choice regarding which data base they can use based on the number of the expected requests and the expectation of the performance.
-
-Another interesting observation is the impact of the interpreter, as figure~\ref{fig:django} highligh. the use of Pypy interpter instead of the default one helped reducing the amount of the energy consumption even when we are dealing with the naive version.
-
-
-\subsubsection*{machine learning}
-the other part is to study the impact of machine learning algorthims
-
-%% ADD the work of alex 
+%% should we add Research questions ? 
+ 
 \newpage
-\section{experimetal protocole}
 
-as we have discussed in the previous chapter \ref{chapter:benchmarking}. instead of running the tests the idea was to design a system that allows practiouners to reproduce and extends our tests. and then we use the same system to run answer some of researchs questions
-%%%% probably ill resue the same things from other chapters 
+\paragraph{Energy measurement}
 
-\section{python insights}
+As we know, the energy of a program is the integrale of its power overtime. For us ower case, we used Intel \emph{Running Power Average Limit} (RAPL)~\cite{Khan:2018:RAE:3199681.3177754} to collect the power samples of the running tests,
 
-The goal of this section is to find some insights where we can optimize the energy consumption without impacting the source code. so we started by extending the work of \citeauthor{hasan_energy_2016} and \citeauthor{oliveira_recommending_nodate} to the python environement.
+We used used \textsc{PowerAPI}~\cite{DBLP:journals/jss/ColmantRKSFS18}, to report Data collected by intel Rapl and send it into another machine that we call computing machine. then we calculate the Energy using  the the trapezoidal rule.
 
 
-
-%%%% concurency 
-
-Figure \ref{fig:python_multiprocessing} shows the behaviour of python programs when we try to introduce the parallelism.
-As we know python is a single threaded program thx to ghe GLS ( global lock system ) howerver due to the increase of the number of cores /threads per cpu it many libraries stared to take advanteage of this feature so most of them they will try to simulate the multithreading by using multiple instances pf the processor % TO VERIFY 
-
+\ref{fig:trapezrule}
 \begin{figure}[hbt]
     \centering
-    \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
-    \caption{energy behaviour based on multiprocessing}
-    \label{fig:python_multiprocessing}
-\end{figure}
-
-as we can see in the graph the energy consumption is correlate with the number of threads until we arrive to the limit of the cores and then we lose the adventage of the multiprocessing , well in that case we pass from parallelism to concurency. where different sub process have to compete for the CPU Ressources.
-Another finding is when we hit the number of physical cores. there was an increase of execution time but still reduced energy, the reason behind this is the scheduler of the operating system. basicaly he favorits the hyper threads than the physical core wich will lead to some context switches which cause the slow behaviour, howerver in the other hand the other two physical cores are not consuming energy, neither their hyper threads which explains the gain of the eneryg consumption in this case.
-in the Chapter %% reference the work of intern from lyon  
-we discuss a deeper this behaviour of the scheduler and in that case we confirm that it is not related to python but it is more generic behaviour %% maybe even this graph should go there 
-
-another field of investigation is the type data and structure conroles. that might impact the energy consumption.
-To do so. We iterate over a list using three methodes.
-first the classical for ( for i in range (len(n))). howerver as we can see here unlike other porgramming langauges it requires extra operations such as determining the length of the collection , and then using the iterator range. so we tried the more adapted version
-( for element in collection). Morever in most programming languages the for loop is translated to a while loop ( transfirmation from D type to B type -- asm -- ), therefore we wanted to compare this with a ( while ) version.
-After determining the main ways to iterate over a loop we run the algorithms  collections of different data types to see wether it will impact of the energy consumption of the code, same thing for the size of the collection.
-
-As we can see in figure~\ref{fig:pythonloops} the type of the data hasn't an impact on the energy consumption.In the other hand the way we iterate over the collection has a huge factor. interestely, the for in range loop was by far the optimal one with following by the regural for in collection, and the while part was the least one with an overhead of 400\% compared to the first option.
-
-
-
-%%% putting the idea, later i ll reformulate it 
-the reason behind a such behaviour is mainly related on how python interpeter is made.
-% add refenece https://www.python.org/doc/essays/list2str/ 
-%% https://www.pythonpool.com/for-vs-while-loop-python/  
-% https://wiki.python.org/moin/TimeComplexity
-%% http://python-history.blogspot.com/2010/06/from-list-comprehensions-to-generator.html?m=1
-In order to reduce the latency of the python code. most of the buitl-in functions an operations are written in C, same thing goes for the function range, further more the function len has a complexity of O(1) because it is based on the function Py\_SIZE  of C which stores the length in a field for the object.
-
-so basically for the for in range is basically creating a new iterator that has the same length of the first one. and for each iteration we will have to do a second acceess ( l[i]) instead of one one access hence the double time.
-
-for the wile is even slower due to the implicite incrementation of the variable which will cause an extra operation during the loop .
-
-to confirm the hyphothsis. we tried to construct a new list by editing the elements of the previous one. And as predicted , the builtin methodes are the best energy saving, while the customize while loop is the heaviest. an interesting finding is. the impact of annonymous functions ( lambda expressions) on the energy consumption.
-the reseason behind this is the fact that python treats those functions as local variables unlike the predifined ones which are global in our case. therefore they are faster and consumes less energy  % same reference https://www.python.org/doc/essays/list2str/ 
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\linewidth]{imgs/python_iterations}
-    \caption{energy behaviour of different python loops }
-    \label{fig:pythonloops}
+    \begin{equation}
+        E = \int^a_b P(t)dt \simeq \sum^n_{k=1} \frac{P(t_k-1)+P(t_k)}{2}
+    \end{equation}
+    \caption{}
+    \label{fig:trapezrule}
 \end{figure}
 
 
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=\linewidth]{imgs/python_treatemens}
-    \caption{energy behaviour of different methodes to change a list}
-    \label{fig:pythontreatement}
-\end{figure}
 
-%% should i include the part with the exceptions ???
-\subsection{conclusion}
-This study has shown us, that the optimial way to reduce the energy consumption of the python code is to follow the guidelines and use the builtin functions, which is kinda happy news for the developers since they don't have to make extra effort to make their code green
+figure \ref{fig:powerapi} shows the architecture of our testing model.
+
+
+The reason of separation between data collection and energy calculation is to minimise any interference with the test so our sensor is a light c program running inside a docker container.
+
+%% should i include the part with the exceptions ??? naah no need so
+
 %% except the parallellism part , which i dont know how to link it here yet 
+\section{Workload} : 
+for this chapter we are consediring 4 seperated, yet related studies . 
+First we are going to see the energy behavriour of python within two study cases. Web servers and Machine learning. later we will dig deeper into the energy consumption of python basic structures where finally we will conclude with the impact of python interpterer on the energy consumption. 
+Due to the lack of of support for most of  non conventional pyton interpeters, our main focus was only on micro benchmarks. 
+Except pypy most of the python implementations don't support extra python libraries, Despite that most of the cases those extra implementations were made to optimize a specific library such as numba with numpy, or intelpython with machine learning algorthms.
 
-\newpage
-\section{Python Runtimes}
+\paragraph{preliminary studies}
+for the first studies we used only the official version of python. because the goal was mainly to highlight the impact of the structure of code on the energy consumption.  
 One main inconvienent of the previous methode to reduce the energy consumption, is the hard work that should be done in order to alter the existing code base in order to redcue the energy consumption. To avoid such hustle we tried to find a non intrusive way to make the python code more ecofriendly without changing its structure. One aspect of python is the fact that it is an interptered language which led many works to create their own implementation of the interpeter to enhance one or many aspect of the python code. in the following section we will discuss the impact of those implementations on the energy consumption of python programs, and in which case, one should use a non conventional interpter to save the energy consumption of their program.
 
 To do so, we gathered a list of interpeters, transpilers and some optimization libraries.
@@ -353,6 +275,47 @@ and we classified them into 3 categories depending of their integration with the
     \label{fig:interpreters}
 \end{figure}
 
+\section{experimetal protocole}
+
+As we have discussed in the previous chapter \ref{chapter:benchmarking}. instead of running the tests, the idea was to design a system that allows practiouners to reproduce and extends our tests. and then we use the same system to run answer some of researchs question. 
+%%%% probably ill resue the same things from other chapters 
+\subsection{measurement context}
+\paragraph{Hardware settings}
+
+all our tests have been executed in a Dell PowerEdge C6420 server machine. A summary of its hardware is listed in table \ref{fig:dahuconfig}. The machine is equiped with a minimal version of Debian\,9 (4.9.0 kernel version) where we install Docker (version 18.09.5).
+
+
+
+\begin{table}[hbt]
+    \begin{tabular}{ll}
+        \hline
+        CPU     & Intel Xeon Gold 6130 (Skylake, 2.10GHz, 2 CPUs/node, 16 cores/CPU)                                                     \\
+        Memory  & 192 GiB                                                                                                                \\
+        Storage & 240 GB SSD SATA Samsung MZ7KM240HMHQ0D3                                                                                \\
+                & 480 GB SSD SATA Samsung MZ7KM480HMHQ0D3                                                                                \\
+                & 4.0 TB HDD SATA Seagate                                                                                                \\
+        Network & eth0/enp24s0f0, Ethernet, configured rate: 10 Gbps, model: Intel Ethernet Controller X710 for 10GbE SFP+, driver: i40e \\
+                & ib0, Omni-Path, configured rate: 100 Gbps, model: Intel Omni-Path HFI Silicon 100 Series [discrete], driver: hfi1      \\
+        \hline
+    \end{tabular}
+    \caption{Testing Machine Configuration }
+    \label{fig:dahuconfig}
+\end{table}
+
+\begin{figure}[hbt]
+    \includegraphics[width=\linewidth]{imgs/SmartWatts.png}
+    \caption{powerapi architecture}
+    \label{fig:powerapi}
+\end{figure}
+
+\paragraph{software settings}
+For the sake of reproducibility, each experiment runs within a Docker container.
+for each test we create a docker image. 
+\subsection{Metrics}
+Our focus will be mainly on CPU energy consumption because it is ten folds more than the DRAM one, since it is finit job benchmarking, time is highly correlated within the energy, and it will be only useful to explain certain energytical behaviour so we wont put a lot of focus on this metric. 
+
+%% basically i what i want to say is that we we care mostly about energy, because there are studies that were made on the performance, plus the DRAM is not that interested even within the heavy memory  benchmakrs 
+% TODO : ADD DRAM graphs for vectors and matrix multiply 
 
 
 \subsection{tests preparation}
@@ -371,57 +334,164 @@ Each test is implemented in a Docker container for the several reasons
 \end{itemize}
 
 Despite the presence of the official docker images for the most of the runtimes, we prefered to build our own using the same reference image in order to remove any bias due to the Os used in the offical image.We used ArchLinux with the kernel version 4.9.184 as a base image.
-
-\begin{table}[hbt]
-    \begin{tabular}{ll}
-        \hline
-        CPU     & Intel Xeon Gold 6130 (Skylake, 2.10GHz, 2 CPUs/node, 16 cores/CPU)                                                     \\
-        Memory  & 192 GiB                                                                                                                \\
-        Storage & 240 GB SSD SATA Samsung MZ7KM240HMHQ0D3                                                                                \\
-                & 480 GB SSD SATA Samsung MZ7KM480HMHQ0D3                                                                                \\
-                & 4.0 TB HDD SATA Seagate                                                                                                \\
-        Network & eth0/enp24s0f0, Ethernet, configured rate: 10 Gbps, model: Intel Ethernet Controller X710 for 10GbE SFP+, driver: i40e \\
-                & ib0, Omni-Path, configured rate: 100 Gbps, model: Intel Omni-Path HFI Silicon 100 Series [discrete], driver: hfi1      \\
-        \hline
-    \end{tabular}
-    \caption{Testing Machine Configuration }
-    \label{fig:dahuconfig}
-\end{table}
-
-\subsection{experimental setup}
-
-all our tests have been executed in a Dell PowerEdge C6420 server machine. A summary of its hardware is listed in table \ref{fig:dahuconfig}. The machine is equiped with a minimal version of Debian\,9 (4.9.0 kernel version) where we install Docker (version 18.09.5).
+\section{results and finding}
 
 
-\begin{figure}[hbt]
-    \includegraphics[width=\linewidth]{imgs/SmartWatts.png}
-    \caption{powerapi architecture}
-    \label{fig:powerapi}
+
+
+
+
+% \subsubsection{micro-benchmarks}
+
+% \subsubsection{benchmarks}
+
+
+
+
+\subsubsection{web developement}
+first we wanted to test the energy consumption of python using on djagon,one of the most popular web frameworks.
+therefore we create a simple website where we try to analyse the cost of a single request using different mechanisms to fetch the data from the database.
+the idea behind this use case is to see wether the choice of the database and the orm ( object relational mapper) impacts the energy consumption and the perfromances of the website.
+
+we considered using two different databases postgresSQL and SQlite3 that containes the same data, and three different ways to fetch the data.
+\begin{enumerate}
+    \item the naive version: which relies only on the ORM to get the data
+    \item Prefetch : basically we just prefetch the data before we request it
+    \item optimized : and here we optimize our request on the SQL level without passing by the ORM
+\end{enumerate}
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/django}
+    \caption{energy behaviour based on multiprocessing}
+    \label{fig:django}
 \end{figure}
 
-\subsection{Power Measurements}
 
-As we know, the energy of a program is the integrale of its power overtime. For us ower case, we used Intel \emph{Running Power Average Limit} (RAPL)~\cite{Khan:2018:RAE:3199681.3177754} to collect the power samples of the running tests,
+%%%%% have to rephrase this 
 
-We used used \textsc{PowerAPI}~\cite{DBLP:journals/jss/ColmantRKSFS18}, to report Data collected by intel Rapl and send it into another machine that we call computing machine. then we calculate the Energy using  the the trapezoidal rule.
+As one can see in figure~\ref{fig:django}, different choices of requesting the data have a huge impact on the energy consumption. as the naive version can consume up to 10x more energy than the optimized one.
+In the other hand the choice of the data base didnt have huge impact on the total energy despite their different behaviour regarding the execution time and the average power.
+This can be useful to help develeppers make a choice regarding which data base they can use based on the number of the expected requests and the expectation of the performance.
 
+Another interesting observation is the impact of the interpreter, as figure~\ref{fig:django} highligh. the use of Pypy interpter instead of the default one helped reducing the amount of the energy consumption even when we are dealing with the naive version.
 
-\ref{fig:trapezrule}
+Figure \ref{fig:python_multiprocessing} shows the behaviour of python programs when we try to introduce the parallelism.
+As we know python is a single threaded program thx to ghe GLS ( global lock system ) howerver due to the increase of the number of cores /threads per cpu it many libraries stared to take advanteage of this feature so most of them they will try to simulate the multithreading by using multiple instances pf the processor % TO VERIFY 
+
 \begin{figure}[hbt]
     \centering
-    \begin{equation}
-        E = \int^a_b P(t)dt \simeq \sum^n_{k=1} \frac{P(t_k-1)+P(t_k)}{2}
-    \end{equation}
-    \caption{}
-    \label{fig:trapezrule}
+    \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
+    \caption{energy behaviour based on multiprocessing}
+    \label{fig:python_multiprocessing}
+\end{figure}
+
+as we can see in the graph the energy consumption is correlate with the number of threads until we arrive to the limit of the cores and then we lose the adventage of the multiprocessing , well in that case we pass from parallelism to concurency. where different sub process have to compete for the CPU Ressources.
+Another finding is when we hit the number of physical cores. there was an increase of execution time but still reduced energy, the reason behind this is the scheduler of the operating system. basicaly he favorits the hyper threads than the physical core wich will lead to some context switches which cause the slow behaviour, howerver in the other hand the other two physical cores are not consuming energy, neither their hyper threads which explains the gain of the eneryg consumption in this case.
+in the Chapter %% reference the work of intern from lyon  
+we discuss a deeper this behaviour of the scheduler and in that case we confirm that it is not related to python but it is more generic behaviour %% maybe even this graph should go there 
+
+\subsubsection{python and multiprocessing}
+Figure \ref{fig:python_multiprocessing} shows the behaviour of python programs when we try to introduce the parallelism.
+As we know python is a single threaded program thx to ghe GLS ( global lock system ) howerver due to the increase of the number of cores /threads per cpu it many libraries stared to take advanteage of this feature so most of them they will try to simulate the multithreading by using multiple instances pf the processor % TO VERIFY 
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
+    \caption{energy behaviour based on multiprocessing}
+    \label{fig:python_multiprocessing}
+\end{figure}
+
+as we can see in the graph the energy consumption is correlate with the number of threads until we arrive to the limit of the cores and then we lose the adventage of the multiprocessing , well in that case we pass from parallelism to concurency. where different sub process have to compete for the CPU Ressources.
+Another finding is when we hit the number of physical cores. there was an increase of execution time but still reduced energy, the reason behind this is the scheduler of the operating system. basicaly he favorits the hyper threads than the physical core wich will lead to some context switches which cause the slow behaviour, howerver in the other hand the other two physical cores are not consuming energy, neither their hyper threads which explains the gain of the eneryg consumption in this case.
+in the Chapter %% reference the work of intern from lyon  
+we discuss a deeper this behaviour of the scheduler and in that case we confirm that it is not related to python but it is more generic behaviour %% maybe even this graph should go there 
+
+%% todo 
+% add performance 
+% add dram \ a glimps 
+
+
+\subsection{python insights}
+
+The goal of this section is to find some insights where we can optimize the energy consumption without impacting the source code. so we started by extending the work of \citeauthor{hasan_energy_2016} and \citeauthor{oliveira_recommending_nodate} to the python environement.
+
+
+
+%%%% concurency 
+
+
+
+another field of investigation is the type data and structure conroles. that might impact the energy consumption.
+To do so. We iterate over a list using three methodes.
+first the classical for ( for i in range (len(n))). howerver as we can see here unlike other porgramming langauges it requires extra operations such as determining the length of the collection , and then using the iterator range. so we tried the more adapted version
+( for element in collection). Morever in most programming languages the for loop is translated to a while loop ( transfirmation from D type to B type -- asm -- ), therefore we wanted to compare this with a ( while ) version.
+After determining the main ways to iterate over a loop we run the algorithms  collections of different data types to see wether it will impact of the energy consumption of the code, same thing for the size of the collection.
+
+As we can see in figure~\ref{fig:pythonloops} the type of the data hasn't an impact on the energy consumption.In the other hand the way we iterate over the collection has a huge factor. interestely, the for in range loop was by far the optimal one with following by the regural for in collection, and the while part was the least one with an overhead of 400\% compared to the first option.
+
+
+
+%%% putting the idea, later i ll reformulate it 
+the reason behind a such behaviour is mainly related on how python interpeter is made.
+% add refenece https://www.python.org/doc/essays/list2str/ 
+%% https://www.pythonpool.com/for-vs-while-loop-python/  
+% https://wiki.python.org/moin/TimeComplexity
+%% http://python-history.blogspot.com/2010/06/from-list-comprehensions-to-generator.html?m=1
+In order to reduce the latency of the python code. most of the buitl-in functions an operations are written in C, same thing goes for the function range, further more the function len has a complexity of O(1) because it is based on the function Py\_SIZE  of C which stores the length in a field for the object.
+
+so basically for the for in range is basically creating a new iterator that has the same length of the first one. and for each iteration we will have to do a second acceess ( l[i]) instead of one one access hence the double time.
+
+for the wile is even slower due to the implicite incrementation of the variable which will cause an extra operation during the loop .
+
+to confirm the hyphothsis. we tried to construct a new list by editing the elements of the previous one. And as predicted , the builtin methodes are the best energy saving, while the customize while loop is the heaviest. an interesting finding is. the impact of annonymous functions ( lambda expressions) on the energy consumption.
+the reseason behind this is the fact that python treats those functions as local variables unlike the predifined ones which are global in our case. therefore they are faster and consumes less energy  % same reference https://www.python.org/doc/essays/list2str/ 
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/python_iterations}
+    \caption{energy behaviour of different python loops }
+    \label{fig:pythonloops}
 \end{figure}
 
 
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/python_treatemens}
+    \caption{energy behaviour of different methodes to change a list}
+    \label{fig:pythontreatement}
+\end{figure}
 
-figure \ref{fig:powerapi} shows the architecture of our testing model.
+\paragraph{conclusion}
+This study has shown us, that the optimial way to reduce the energy consumption of the python code is to follow the guidelines and use the builtin functions, which is kinda happy news for the developers since they don't have to make extra effort to make their code green
 
 
-The reason of separation between data collection and energy calculation is to minimise any interference with the test so our sensor is a light c program running inside a docker container.
+
+\subsection{python runtimes}
+
+As we can see in figure \ref{fig:tommi_all}, there is no evolution between cpython2 and cpython3
+Intelpython and active python both folows the same behaviour. one can conclude that the work that have been on those interpreters is mainly
+to improve a specific purpose, Active python claims that their version is focused on secuirty which explains the lack of some performances due to the introduction of more reonforcment
+.Morver Intel published their version of python as a dedicated for machine learning. Unfortunately the tommti benchmark is a set that focuses on the general purpose programming
+which does not reflect the performance of the machine learning.
+Another aspect of a such behaviour might be due to the fact of the processors that were used in the testbed. and it might change in the future if we include the GPU part for the machine learning benchmarks
+% reference the work of the intern 
+As for nuitka. there were no optimization in the energy consumpotion despite the fact that is it a complier.
+However if we dig through the nuitka mechanisms. they basically embed the python code with an interpreter.
+Unllike nuitka shedskin exhebit a the best energy consumption pattern when it comes to the arithmetic operartions. One can conclude it is due to the fact of the native type of the variables. unlike the interpreters where they are treated as object in the begining.
+
+for the other interpeters pypy is very promising especially when it comes to data maniupulation as one can see in the figure \ref{fig:bar_tommti_vector}
+pypy is by far the best interperer when it comes to treating vectors.
+numba2 introduced the JIT but wasn't as promising as numba3.
+
+for the other vm based interpereters. jython and ipy lacked in term of energy optimisation which was kinda expected since they were in their the begining of the stage and the main puprose of such implementation is to link the bytecode generated by jython and ironpython with their respectives virtual machin.
+
+Unlike the the previous interpeters. graal exhebits a certin promises when it comes to complex algorithms - nested loops -
+micro python is dedicated to embeded systems so lunching it is powerful cpu machines will be misleading.
+
+Most of the interperters had the same behaviour when it comes to the input outputs. except for jython which was kinda of a anomaly probably due to the lack of the optimizations.
+% pypy handles exceptions very well 
+
 
 \begin{figure}
     \caption{energy consumption of different impelementations using Bit Operation benchmarks (Joule) }
@@ -488,50 +558,11 @@ The reason of separation between data collection and energy calculation is to mi
 \end{figure}
 
 
+\section{Threads to validity}
+\section{tools and contributions}
 
 
 
-% \subsubsection{micro-benchmarks}
-
-\subsubsection{benchmarks}
-
-\subsection{results and foundings}
-As we can see in figure \ref{fig:tommi_all}, there is no evolution between cpython2 and cpython3
-Intelpython and active python both folows the same behaviour. one can conclude that the work that have been on those interpreters is mainly
-to improve a specific purpose, Active python claims that their version is focused on secuirty which explains the lack of some performances due to the introduction of more reonforcment
-.Morver Intel published their version of python as a dedicated for machine learning. Unfortunately the tommti benchmark is a set that focuses on the general purpose programming
-which does not reflect the performance of the machine learning.
-Another aspect of a such behaviour might be due to the fact of the processors that were used in the testbed. and it might change in the future if we include the GPU part for the machine learning benchmarks
-% reference the work of the intern 
-As for nuitka. there were no optimization in the energy consumpotion despite the fact that is it a complier.
-However if we dig through the nuitka mechanisms. they basically embed the python code with an interpreter.
-Unllike nuitka shedskin exhebit a the best energy consumption pattern when it comes to the arithmetic operartions. One can conclude it is due to the fact of the native type of the variables. unlike the interpreters where they are treated as object in the begining.
-
-for the other interpeters pypy is very promising especially when it comes to data maniupulation as one can see in the figure \ref{fig:bar_tommti_vector}
-pypy is by far the best interperer when it comes to treating vectors.
-numba2 introduced the JIT but wasn't as promising as numba3.
-
-for the other vm based interpereters. jython and ipy lacked in term of energy optimisation which was kinda expected since they were in their the begining of the stage and the main puprose of such implementation is to link the bytecode generated by jython and ironpython with their respectives virtual machin.
-
-Unlike the the previous interpeters. graal exhebits a certin promises when it comes to complex algorithms - nested loops -
-micro python is dedicated to embeded systems so lunching it is powerful cpu machines will be misleading.
-
-Most of the interperters had the same behaviour when it comes to the input outputs. except for jython which was kinda of a anomaly probably due to the lack of the optimizations.
-% pypy handles exceptions very well 
-
-
-the energy consumption.
-
-%% todo 
-% add performance 
-% add dram \ a glimps 
-
-
-
-\subsection{tools and package}
-
-\subsection{Threads to validity}
-
-\subsection{conclusion}
+\section{conclusion}
 
 one can notice that the choice of the right interpeter can impact havely the energy consumption of the python programs. The fact that there is no general solution make this study more interesting. however the main drawback is the lack of the compatibility for some of those solutions which lead to some sacrifices when we want something generic
