@@ -83,7 +83,7 @@ As shown in Table \ref{fig:clbg}, one can see that in the most of the test cases
 
 
 \subsection{use cases}
-to reduce the energy consumption of python we started by targeting the main usage of this programming language, wich is revealed to be data sciences and web developpement. Figure~\ref{fig:usecase} illustrate a study made by the jetbrain company on python developers \footnote{\fnurl{https://www.jetbrains.com/lp/python-developers-survey-2020}}. In this survey, multiple multiple answers were accepted. 
+to reduce the energy consumption of python we started by targeting the main usage of this programming language, wich is revealed to be data sciences and web developpement. Figure~\ref{fig:usecase} illustrate a study made by the jetbrain company on python developers \footnote{\fnurl{https://www.jetbrains.com/lp/python-developers-survey-2020}}. In this survey, multiple multiple answers were accepted.
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=\linewidth]{imgs/python_use_cases}
@@ -97,7 +97,7 @@ To reduce the energy consumption of python programs, we decided to start with st
 
 
 %% should we add Research questions ? 
- 
+
 \newpage
 
 \paragraph{Energy measurement}
@@ -127,14 +127,14 @@ The reason of separation between data collection and energy calculation is to mi
 %% should i include the part with the exceptions ??? naah no need so
 
 %% except the parallellism part , which i dont know how to link it here yet 
-\section{Workload} : 
-for this chapter we are consediring 4 seperated, yet related studies . 
-First we are going to see the energy behavriour of python within two study cases. Web servers and Machine learning. later we will dig deeper into the energy consumption of python basic structures where finally we will conclude with the impact of python interpterer on the energy consumption. 
-Due to the lack of of support for most of  non conventional pyton interpeters, our main focus was only on micro benchmarks. 
+\section{Workload} :
+for this chapter we are consediring 4 seperated, yet related studies .
+First we are going to see the energy behavriour of python within two study cases. Web servers and Machine learning. later we will dig deeper into the energy consumption of python basic structures where finally we will conclude with the impact of python interpterer on the energy consumption.
+Due to the lack of of support for most of  non conventional pyton interpeters, our main focus was only on micro benchmarks.
 Except pypy most of the python implementations don't support extra python libraries, Despite that most of the cases those extra implementations were made to optimize a specific library such as numba with numpy, or intelpython with machine learning algorthms.
 
 \paragraph{preliminary studies}
-for the first studies we used only the official version of python. because the goal was mainly to highlight the impact of the structure of code on the energy consumption.  
+for the first studies we used only the official version of python. because the goal was mainly to highlight the impact of the structure of code on the energy consumption.
 One main inconvienent of the previous methode to reduce the energy consumption, is the hard work that should be done in order to alter the existing code base in order to redcue the energy consumption. To avoid such hustle we tried to find a non intrusive way to make the python code more ecofriendly without changing its structure. One aspect of python is the fact that it is an interptered language which led many works to create their own implementation of the interpeter to enhance one or many aspect of the python code. in the following section we will discuss the impact of those implementations on the energy consumption of python programs, and in which case, one should use a non conventional interpter to save the energy consumption of their program.
 
 To do so, we gathered a list of interpeters, transpilers and some optimization libraries.
@@ -277,7 +277,7 @@ and we classified them into 3 categories depending of their integration with the
 
 \section{experimetal protocole}
 
-As we have discussed in the previous chapter \ref{chapter:benchmarking}. instead of running the tests, the idea was to design a system that allows practiouners to reproduce and extends our tests. and then we use the same system to run answer some of researchs question. 
+As we have discussed in the previous chapter \ref{chapter:benchmarking}. instead of running the tests, the idea was to design a system that allows practiouners to reproduce and extends our tests. and then we use the same system to run answer some of researchs question.
 %%%% probably ill resue the same things from other chapters 
 \subsection{measurement context}
 \paragraph{Hardware settings}
@@ -310,9 +310,9 @@ all our tests have been executed in a Dell PowerEdge C6420 server machine. A sum
 
 \paragraph{software settings}
 For the sake of reproducibility, each experiment runs within a Docker container.
-for each test we create a docker image. 
+for each test we create a docker image.
 \subsection{Metrics}
-Our focus will be mainly on CPU energy consumption because it is ten folds more than the DRAM one, since it is finit job benchmarking, time is highly correlated within the energy, and it will be only useful to explain certain energytical behaviour so we wont put a lot of focus on this metric. 
+Our focus will be mainly on CPU energy consumption because it is ten folds more than the DRAM one, since it is finit job benchmarking, time is highly correlated within the energy, and it will be only useful to explain certain energytical behaviour so we wont put a lot of focus on this metric.
 
 %% basically i what i want to say is that we we care mostly about energy, because there are studies that were made on the performance, plus the DRAM is not that interested even within the heavy memory  benchmakrs 
 % TODO : ADD DRAM graphs for vectors and matrix multiply 
