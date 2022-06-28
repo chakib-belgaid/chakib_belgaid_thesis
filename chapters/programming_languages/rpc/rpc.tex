@@ -1,7 +1,6 @@
 
 
 \subsection*{introduction}
-%  this is just to warmup 
 With the emergence of cloud technologies, many protocols wanted to take the lead.
 Nowdays, most of the architectures are based on multi-services and microservices.
 And, to have higher versatility of developers multiple companies choose to be open to different programming languages.
@@ -18,13 +17,22 @@ In this section, we first explore the ease of implementation of this protocol th
 \end{description}
 
 \subsection{Experimental protocol}
-\subsubsection{Hardware settings}
+\subsubsection{measurement context}
+\paragraph{Hardware settings}
 All the experiments are run on the cluster \textsf{paravance} of the G5K platform.
 This cluster is composed of 72 identical machines, each one is equipped with 2 Intel Xeon E5-2630 V3, with 128\,GB of RAM.
 For more accuracy, our SUT (\emph{System Under Test}) is equipped with a minimal version of Debian\,9 (4.9.0 kernel version), which enforces the core processes required for the purpose of our experiment.
 Furthermore, we used Docker containers technology for reproducibility of the experiments and the isolation of the servers.
+\paragraph{Client and server environments}
+To limit the impact of the network on the experiments, we run both the client and the server on the same machine.
+However, we isolate each part on a separate socket, in order to reduce the effect that the client might have on the server and \emph{vise versa}.
+To do so, for each iteration, we always run the same client on \textsf{socket\,0} and the server that we want to test on \textsf{socket\,1}.
+Both the server and the client use the whole socket for their experiment.
+In addition, all the additional services, such as the kernel and HwPC sensor, are run on \textsf{socket\,0}.
+Therefore, the only process being executed in \textsf{socket\,1} is the server that we benchmark and monitor.
 
-\subsubsection{Energy measurements}
+\subsubsection{metrics}
+\paragraph{Energy measurements}
 To report on the energy consumption, we used HwPC sensor [TOCITE], which is based on Intel RAPL technology, one of the most accurate tools to measure the energy consumption of the CPU and DRAM [TOCITE].
 For better accuracy, we ran the HwPC sensor with a frequency of 10~Hz, and we used the same machine for all the experiments in order to reduce the variability [TOCITE].
 
@@ -35,24 +43,31 @@ For better accuracy, we ran the HwPC sensor with a frequency of 10~Hz, and we us
     \caption{Experimental software architecture}\label{fig:rpcprotocol}
 \end{figure}
 
-\subsubsection{Client and server environments}
-To limit the impact of the network on the experiments, we run both the client and the server on the same machine.
-However, we isolate each part on a separate socket, in order to reduce the effect that the client might have on the server and \emph{vise versa}.
-To do so, for each iteration, we always run the same client on \textsf{socket\,0} and the server that we want to test on \textsf{socket\,1}.
-Both the server and the client use the whole socket for their experiment.
-In addition, all the additional services, such as the kernel and HwPC sensor, are run on \textsf{socket\,0}.
-Therefore, the only process being executed in \textsf{socket\,1} is the server that we benchmark and monitor.
 
-\paragraph{Client:}
-% TODO : add the github repository links 
+\paragraph{performances}
 For better accuracy and more details, We use an updated version of the open source RPC benchmarking tool, named GHZ (\url{https://ghz.sh/}).
 The modified version allows us to monitor the average power for each request from both the server and the client sides.
-The new version is available in the repository.%ROMAIN: Which repo?
-The client consumes the protocol description to generate an implementation for the message \texttt{helloworld}, and then forks 50 instances that send the same request to the server concurrently.
+The new version is available in the repository\footnote{\url{https://github.com/chakib-belgaid/energy_ghz}}.
 
-\paragraph{Server:}
+\subsubsection{workload}
+The purpose of the experiment is to analyse the behaviour of different GRPC implementations. therefore we have two kind of worlkoads 
+\paragraph{number of clients}: this is the number of concurrent clients that we want to test. It is automatically handled with the ghz client 
+\paragraph{payload}: the size of each request . this varries from 50 Bytes up to 10 MB.
+
+The client consumes the protocol description which can be found if the file \texttt{helloworld.proto} to generate an implementation for the message  and then forks multiple instances that send the same request to the server 
+
+\subsubsection*{candidates}
 The server implementations are based on the official implementation by Google for most of the languages.
 Each server uses 16 cores and is limited to 512\,MB of RAM.
+each implementation is created through a docker image, which will allow us to add new implementations easily.
+
+\subsubsection{Extension}: 
+for the sake of extedind the experement we provide a github repository \footnote{\url{https://github.com/chakib-belgaid/energy_benchmarking_grpc2}} that containes the implementation of the experement.
+Adding \textbf{candidates} can be achieved by creating a new docker image and putting it in a new folder named after the language.
+As for the \textbf{workload} it can be extended easly by adding new files in the folder \textbf{payload}.
+ 
+
+
 
 \subsection{Results and findings}
 [\textsc{RQ}~1:] How do RPC implementations react to the size of the data ?
