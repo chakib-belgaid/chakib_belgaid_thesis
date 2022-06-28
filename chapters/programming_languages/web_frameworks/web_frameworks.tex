@@ -58,7 +58,8 @@ In this section, we describe the environement used during the experiments coveri
 The purpose of this exmeperiment is to highlight the impact of the technology stack of developping a website on the energy consumption whule its execution.
 
 Table \ref{table:table:frameworks_count} highlights the number of frameworks used in the experiment and they passed each category of tests.
-As we see in the table below, some of the frameworks worked on certain conditons while they failed on other tests such as % TODO : add one framework. 
+As we see in the table below, some of the frameworks worked on certain conditons while they failed on other tests such as nickel from rust, while nickel might be one of the greenest rust framework, it doens't work with databases. Therefore, it can be used within all the situations, but if the website doesnt interact with a database then it might be the best choice.
+
 many reasons are behind the failure, either there were no implementation or just there were some errors while handling the request.
 
 \note{ we decided to skip the idle part in the validation test since it is not relevant}
@@ -83,7 +84,7 @@ It has been proven in {cite } that docker does not influence on the energy cosum
 
 \subsection{workload}
 
-%TODO add number of clients for each type of workload 
+%TODO add number of clients for each type of workload  512 
 To mesure compare the energy consumption and performance effeciency between mutiple frameworks, each framework used to implement the samewebsite answering the same urls and requesting the same database. Then we run the same algorthim for all impelentations.
 \begin{enumerate}
     \item lunch the framework
@@ -165,6 +166,8 @@ table shows the different levels for each scenario.
     }
 
 \end{table*}
+
+To add extra scenarios one might implement a python class that handles the metadata of the workload, such as the query route, the query parameters and the excpected results. 
 \subsection{Metrics}
 We focus on comparing the energitical behaviour of different frameworks in multiple scenarios
 
@@ -201,8 +204,14 @@ Figure \ref{fig:architecture} illustrates the architecture of our system
 \end{figure}
 
 
-\subsubsection{Bias analysis}
+\paragraph{Bias analysis}
 we are aware of bias analysis regarding the estimation of the total energy cost , the interference of other system processess during the execution and some external events. Thus, we run experiments multiple times and compute the average.
+
+\subsection{extesion}
+To follow the guidelines that we presented in chapter \ref{chapter:benchmarking} we provide a github repository \footnote{\url{https://github.com/chakib-belgaid/FrameworkBenchmarks}} where one can add extra \textbf{candidates} buy creating a new project using the option --new. then the they have just to fill the template and provide the docker image file. 
+
+to configure the \textbf{workload} we provide the option --concurrency-levels and --duration. 
+As for the choice of the database it is added in the docker image. 
 
 
 \section{finding and results}
@@ -218,5 +227,6 @@ since most of the companies use the same stack, we wont be aggregating the resul
 the best example, if we compare the average energy consumption for each programming langauge, this wont reflect in reality specially when we have two frameworks on the opposit sides of the spectrium.
 
 
+\section{tools and contribution}
 
 % \subsection{tools}

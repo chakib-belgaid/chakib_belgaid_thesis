@@ -334,7 +334,17 @@ Each test is implemented in a Docker container for the several reasons
 \end{itemize}
 
 Despite the presence of the official docker images for the most of the runtimes, we prefered to build our own using the same reference image in order to remove any bias due to the Os used in the offical image.We used ArchLinux with the kernel version 4.9.184 as a base image.
-\section{results and finding}
+
+
+\subsection{Extension}
+As we have done with the previous chapters. we provide a tool that allows to extend the tests with new workloads and new candidates. 
+In the repository \footnote{\url{https://github.com/chakib-belgaid/python-implementations}}.
+we have a tool that allows to generate new workloads and new candidates.
+The script \texttt{generator.py} allows to create new benchmarks by implementing a python code within different interpeters. then it generates \texttt{launcher-benchmark.sh} that can be used directly to run the expermient. Furthermore all the successful implementations are stored in seperate directory and the that couldn't work ( mostly because of compatibility issues) stored in a recap file called \texttt{benchmarkTest.md}. where benchmark is the name of the new workload; 
+To add extra \textbf{candidates} one should add a base docker file 
+that containes the new implementation and if there should be extra manipulation that should be added to the workload files ,such as adding new decorator or changing some parameters, then they should be added as an extra function in the script \texttt{generator.py}. Finally they should be included in the python candidates.
+
+\section{Results and finding}
 
 
 
