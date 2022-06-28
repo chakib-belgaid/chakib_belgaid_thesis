@@ -19,6 +19,8 @@
 *.nlo*
 *make
 *.d
+*l.ot
+*.lof
 *.btmp*
 *.xdv*
 *.fls*
@@ -37,3 +39,4 @@ thesis.run.xml*
 *run.xml*
 *.latexmkrc*
 *_latexmk*
+.*
