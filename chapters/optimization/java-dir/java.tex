@@ -26,7 +26,7 @@ To answer those research question we will run an empirical study to highlight th
     \label{fig:hotspot}
 \end{figure}
 
-\section{Experimental Protocol}\label{sec:javameth}
+\section{Experimental Protocol}\label{sec:javaprotocol}
 To investigate the effect that could have the JVM distribution choice and/or parameters on software energy consumption, we conducted a wide set of experiments on a cluster of machines and using several established Java benchmarks and JVM configurations.
 
 \subsection{Measurement Contexts}
@@ -153,6 +153,19 @@ All of our experiments are available for use/reproducibility from our anonymous 
 
 \noindent\textbf{Number of threads.}
 To collect the number of active threads used by the an experiment, we use the command \texttt{top} and record at fixed intervals.
+
+\subsection{Extension}
+We also added an extension to the protocol to allow the user to run the same experiment with different configurations. The package is available in the github repository \footnote{\url{https://github.com/chakib-belgaid/jvm-comparaison}}.
+To add extra \textbf{candidates} for the benchmark applications, we added a new configuration file \texttt{jvm.sh} in the root directory of the repository, where we put the name and the version of the jvm to be used. 
+\note{The jvm must be provided by sdkman\footnote{\url{https://sdkman.io/}}}
+For the \textbf{workload},the benchmarks should be provided in the \texttt{benchmarks} directory.
+As for extra \textbf{metrics} One can create a new script file that monitor the experiment and record the metrics. We provide some examples such as \texttt{recordpower.sh} to measure the instantanious power and \texttt{recordthreads.s} to measure the number of active threads during the experiment.
+
+For faster experements we propose \textbf{Jreferral}\footnote{\url{https://github.com/chakib-belgaid/jreferral}} an open source that provides an opensource to compare the energy consumption of differents jvms for any java application. Later we will discuss this tool in the section \ref{section:SummaryofContributions}
+
+
+
+
 
 \section{Experiments \& Results}\label{sec:exp}
 \subsection{Energy Impact of JVM Distributions}
@@ -594,7 +607,7 @@ The tool was tested for 2 real Java projects: \textsf{Zip4J} and\footnote{\url{h
 \textsf{Zip4J} runs a large file compression, while \textsf{K-nucleotide}  extracts a DNA sequence, and updates a hashtable of k-nucleotide keys to count specific values.
 The short report presented in \Cref{table:j-referral} shows the ratio of potential energy saving between the most and least energy consuming tested JVM (40\% and 70\% energy savings for \textsf{Zip4J} and \textsf{K-nucleotide} respectively).
 Options are available for \textsf{J-Referral} to obtain much more detailed reports including execution time, DRAM usage, split DRAM vs. CPU consumption, etc.
-The tool is available as \emph{open-source software} (OSS) from our anonymous repository.\footnote{\url{https://anonymous.4open.science/r/jreferral/Readme.md}}
+The tool is available as \emph{open-source software} (OSS) from our anonymous repository.\footnote{\url{https://github.com/chakib-belgaid/jreferral}}
 
 \begin{table}
     \centering
