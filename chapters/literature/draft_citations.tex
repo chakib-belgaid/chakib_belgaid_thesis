@@ -3,10 +3,38 @@
 % 1. group articles by field 
 
 
+Efficiency in energy usage is a well-known topic. In the majority of fields, the purpose is to minimize the energy consumption of electrical devices/components. Modern times even see energy classification (A, B,... F) for Homes, cars and electronic products, to provide the consumer an indication of the energy consumption of his devices, which will reflect on his power bill. This creterions is extended even to the hardware components of computer.
+figure\ref{fig:comparaisoncpu} \footnote{\url{https://www.cpubenchmark.net/compare/Intel-i9-12900KS-vs-Intel-i9-12900KF/4813vs4611}}
 
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{imgs/cpu_cost_comparaison}
+    \caption{electrical cost comparasion between two cpus }
+    \label{fig:comparaisoncpu}
+\end{figure}
+
+In computer science, the objective is essentially same.
+Numerous studies have been conducted on energy optimization.
+Some of these studies concentrate on minimizing energy consumption at the hardware level, while others optimize energy consumption via software.
+% displays the digital energy consumption distribution in 2017 \cite{andrae2015global}. ("p" for production and "u" for usage). 
+% It demonstrates that both the production and consumption stages have substantial effects.
+% In addition, the utilization expenses of data centers, networks, and terminals are also substantial (19 percent , 16 percent and 20 percent respectively).
+% TODO : as romain about the graphics for energy distribution 
+
+As an example \citeauthor{avgerinou2017trends} evaluated the development of power use effectiveness (PUE) in data centers that belongs to various organizations participating in the European code of conduct for energy efficiency program \cite{avgerinou2017trends}.
+The research found a gradual decline in the PUE of data centers, which measures the ratio of the overall energy supplied to the energy used by IT equipment.
+A low PUE implies that the majority of energy is utilized to power the data center's IT equipment, while just a little amount is needed for cooling and lighting.
+
+In this thesis, we will place a greater emphasis on the software level in order to decrease the amount of energy that is used. In order to do this, we provide a benchmarking process and a set of tools that are intended to assist practitioners in better comprehending and optimizing the energy usage of their applications.
+
+Thus, Section \ref{sec:energymeasurement}  describes software energy measurements.
+It provides examples of hardware and software measuring instruments and describes their differences, benefits, and drawbacks.
+It also examines the sources of energy measurement variations, which represent a significant obstacle to achieving precise readings.
 
 \section{benchmarking}
 
+definition :benchmark: [noun] something that serves as a standard by which others may be measured or judged.
+that serves as a basis for evaluation or comparison (as of computer system performance)
 this is \cite{arcuri_practical_2011}
 
 difference tests  \cite{sonnenwald2003evaluating}
@@ -14,7 +42,12 @@ difference tests  \cite{sonnenwald2003evaluating}
 \cite{lilja2005measuring}
 \cite{bukh1992art}
 %%%%%%%%%%%%%%%%%
-% TODO : REPHRASE THIS other wise it will be plagiarism
+%% generate an introduction for this chapter 
+%%%%%%%%%%%%%%%%%
+\section{introduction}
+
+
+
 list of benchmarks \cite{van_der_kouwe_benchmarking_2018}:
 \begin{itemize}
     \item  Not evaluating potential performance degradation
@@ -74,7 +107,9 @@ reducing the energy consumption in parallel systems \cite{chasapis2016runtime}
 
 
 %\\\ https://www.cpubenchmark.net/compare/Intel-i7-12700KF-vs-Intel-i7-12700F/4608vs4692 | hardware benchmarking 
-\section{energy consumption}
+\section{energy measurement}\label{sec:energymeasurement}
+
+
 
 to be able to reduce the energy cost of running programs we should first be able to estame this energy consumption.
 many studies have been conducted to estimate a such energy consumption. that varries from static analysis of the source code to enfere it's energy consumption like \citeauthor{pereira_helping_2017} where they provided a tool to highlight the most energy consuming parts of the code \cite{pereira_helping_2017}.the main advantage of this apporach is to be able to estimate the energy consumption of a program without running it. however. unlike the conplexity of programs, the energy consumption is highly related the execusion environment. Therefor, Static analysis might not represent the real behaviour of the same program when it is run in the production environment.
@@ -294,7 +329,7 @@ However, this choice comes with a certain cost. Because the intervention of the 
 % introduction of docker 
 
 \begin{figure}
-    \center{\includegraphics[width=1\linewidth]{images/virtualization_techniques}}
+    \center{\includegraphics[width=1\linewidth]{imgs/virtualization_techniques}}
     \caption{Different Methods of Virtualzation}\label{environement:virtualization_technique}
 \end{figure}
 
@@ -339,7 +374,7 @@ The first step was to see the impact of docker deamon while there is no work. to
 \end{itemize}
 The following figures represents the energy consumption of the system while it is idle. As we can see  in figure \ref{fig:docker_idle} Docker braught arround 1000joules overhead.
 \begin{figure}
-    \center{\includegraphics[width=.5\linewidth]{images/docker_vs_vm_energy_paper/idle_energy}}
+    \center{\includegraphics[width=.5\linewidth]{imgs/docker_vs_vm_energy_paper/idle_energy}}
     \caption{energy consumption of Idle system with and without docker \cite{santos2018does}}\label{fig:docker_idle}
 \end{figure}
 In the other hand as we can see in figure \ref{fig:docker_reddis}. docker increased the execution time of the benchmark by 50 seconds which caused an increase in energy since they are highly correlated.
@@ -351,8 +386,8 @@ The average power consumption is higher with only \textbf{2Watts} and it is due 
 
 
 \begin{figure}
-    \includegraphics[width=.5\linewidth]{images/docker_vs_vm_energy_paper/reddis_time}
-    \includegraphics[width=.5\linewidth]{images/docker_vs_vm_energy_paper/reddis_energy}
+    \includegraphics[width=.5\linewidth]{imgs/docker_vs_vm_energy_paper/reddis_time}
+    \includegraphics[width=.5\linewidth]{imgs/docker_vs_vm_energy_paper/reddis_energy}
     \caption{execution time and energy consumption of Redis  with and without docker \cite{santos2018does}}\label{fig:docker_reddis}
 \end{figure}
 
@@ -409,7 +444,7 @@ Therefore, to optimize the enrgy consumption we choose a spiral methode. based o
 
 
 \begin{figure}[!hbt]
-    \center{\includegraphics[scale=0.3]{images/greenbenchmarkcycle}}
+    \center{\includegraphics[scale=0.3]{imgs/greenbenchmarkcycle}}
     \caption{the spiral methode of energy optimization }\label{fig:spirals}
 \end{figure}
 the aim of this work is to present a set of guidelines to create a benchmarking system to to measure the energy consumption of different programs.
