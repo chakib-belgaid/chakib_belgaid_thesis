@@ -4,13 +4,13 @@
 
 
 Efficiency in energy usage is a well-known topic. In the majority of fields, the purpose is to minimize the energy consumption of electrical devices/components. Modern times even see energy classification (A, B,... F) for Homes, cars and electronic products, to provide the consumer an indication of the energy consumption of his devices, which will reflect on his power bill. This creterions is extended even to the hardware components of computer.
-figure\ref{fig:comparaisoncpu} \footnote{\url{https://www.cpubenchmark.net/compare/Intel-i9-12900KS-vs-Intel-i9-12900KF/4813vs4611}}
+figure\ref{fig:soa_comparaisoncpu} \footnote{\url{https://www.cpubenchmark.net/compare/Intel-i9-12900KS-vs-Intel-i9-12900KF/4813vs4611}}
 
 
 \begin{figure}
     \includegraphics[width=\linewidth]{imgs/cpu_cost_comparaison}
     \caption{electrical cost comparasion between two cpus }
-    \label{fig:comparaisoncpu}
+    \label{fig:soa_comparaisoncpu}
 \end{figure}
 
 In computer science, the objective is essentially same.
@@ -34,81 +34,61 @@ Section~\ref{sec:soa_benchmarking} will discuss the pitfalls and best practices 
 After that Section~\ref{sec:energymeasurement} describes software energy measurements.
 It provides examples of hardware and software measuring instruments and describes their differences, benefits, and drawbacks. It also examines the sources of energy measurement variations, which represent a significant obstacle to achieving precise readings and a higher accuracy.
 Then, in section \ref{section:soa_optimization}, we will go through some of the previous work on improving the energy consumption of softwares.
+
+\newpage
 \section{benchmarking}\label{sec:soa_benchmarking}
+This section will go through the flaws and best practices of empirical research before applying them to our topic of study.
 
-definition :benchmark: [noun] something that serves as a standard by which others may be measured or judged.
-that serves as a basis for evaluation or comparison (as of computer system performance)
-this is \cite{arcuri_practical_2011}
+% We first start by defining the word \textbf{benchmark},  
+% definition :benchmark: [noun] something that serves as a standard by which others may be measured or judged.
+% that serves as a basis for evaluation or comparison (as of computer system performance)
+In their work~\cite{van_der_kouwe_benchmarking_2018}, \citeauthor{van_der_kouwe_benchmarking_2018} Investigated 50 papers published in top venues
+to findout that tier-1 papers commit an average of five benchmarking crimes.
+To analyze the magnitude of the phenomenon, they have identified a set of 22 "benchmarking crimes" that threaten the validity of the system.
+% TO [ROMAIN] should i include  this list ? 
+% thoes benchmark crimes that one can commit intentionally or by accident and that could jeopardize the integrity of their paper.t are listed below.
+% \begin{itemize}
+%     \item  Not evaluating potential performance degradation
+%     \item  Benchmark subsetting without proper justification
+%     \item  Selective data set hiding deficiencies
+%     \item  Microbenchmarks representing overall performance
+%     \item  Throughput degraded by x\% => overhead is \%
+%     \item  Creative overhead accounting
+%     \item  No indication of significance of data
+%     \item  Incorrect averaging across benchmark scores
+%     \item  Benchmarking of simplified simulated system
+%     \item  Inappropriate and misleading benchmarks
+%     \item  Same dataset for calibration and validation
+%     \item  No proper baseline
+%     \item  Only evaluate against yourself
+%     \item  Unfair benchmarking of competitors
+%     \item  Not all contributions evaluated
+%     \item  Only measure runtime overhead
+%     \item  False positives/negatives not tested
+%     \item  Elements of solution not tested incrementally
+%     \item  Missing platform specification
+%     \item  Missing software versions
+%     \item  Subbenchmarks not listed
+%     \item  Relative numbers only
+% \end{itemize}
 
-difference tests  \cite{sonnenwald2003evaluating}
+
+
+%% BENCHMARKING FRAMEWORK -- ADD IT later \cite{sonnenwald2003evaluating}
 %further references 
-\cite{lilja2005measuring}
-\cite{bukh1992art}
-%%%%%%%%%%%%%%%%%
-%% generate an introduction for this chapter 
-%%%%%%%%%%%%%%%%%
-\section{introduction}
+In the book "Measuring computer performance: a practitioner's guide"\cite{lilja2005measuring},\citeauthor{lilja2005measuring} examines performance indicators and gives in-depth treatment of benchmark program tactics. He provides clear explanations of the basic statistical methods required for interpreting measured performance data. He also outlines the overall 'design of experiments' method and demonstrates how to collect the most information with the least amount of work. This practical book will appeal to anybody seeking a comprehensive, yet intuitive, grasp of computer system performance analysis.
+\citeauthor{mytkowicz2009producing} made an evaluation  of 133 studies from ASPLOS, PACT, PLDI, and CGO, to find out that none of the experimental findings papers appropriately considered measurement bias. Which can lead derive incorrect results from an experiment if a seemingly insignificant feature of the experimental design is altered. They treated this problem by proposing two strategies for detecting measurement bias by using causal analysis and preventing it with setup randomization \cite{mytkowicz2009producing}.
+\citeauthor{bukh1992art} wrote a book about computer performance analysis, where he discussed some familiar topics that are relevant to statistical analysis, such as null hypotheses, chi squared tests, regression, discrete event simulation, Bayes' theorem, how and when to use them for experimental design, measurement, simulation, and modeling for computer systems .
 
 
 
-list of benchmarks \cite{van_der_kouwe_benchmarking_2018}:
-\begin{itemize}
-    \item  Not evaluating potential performance degradation
-    \item  Benchmark subsetting without proper justification
-    \item  Selective data set hiding deficiencies
-    \item  Microbenchmarks representing overall performance
-    \item  Throughput degraded by x\% => overhead is \%
-    \item  Creative overhead accounting
-    \item  No indication of significance of data
-    \item  Incorrect averaging across benchmark scores
-    \item  Benchmarking of simplified simulated system
-    \item  Inappropriate and misleading benchmarks
-    \item  Same dataset for calibration and validation
-    \item  No proper baseline
-    \item  Only evaluate against yourself
-    \item  Unfair benchmarking of competitors
-    \item  Not all contributions evaluated
-    \item  Only measure runtime overhead
-    \item  False positives/negatives not tested
-    \item  Elements of solution not tested incrementally
-    \item  Missing platform specification
-    \item  Missing software versions
-    \item  Subbenchmarks not listed
-    \item  Relative numbers only
-\end{itemize}
+
+
 % further references 
-\cite{mytkowicz2009producing}
+
 %%%%%%%%%% 
-
-startup performance vs steady performance \cite{buytaert_statistically_nodate}
-
-
-%%%%% ** reasons behind the energy variation ****
-
-simgrid simulation of power consumption of parallel aplication using simgrid \cite{heinrich2017predicting}
-
-impact of manifacturing process on the energy variation \cite{coles2014comparing}
-
-different energy consumption between identical processers [ idle and hight load ]\cite{von2016variations}
-
-the temperature is the main raison a high energy variation \cite{wang2018potential}
-
-external factors are impact on the energy variation \cite{mukherjee2009spatio}
-
-the place of the server in the room doesn't affect the energy variation \cite{diouri2013your}
-
-comparaison of three measuring tools and they did exhebit 10\% variation each time \cite{inadomi2015analyzing}
-
-%%****** mitigating the energy variation ******
-low-cost scalable variation-aware algorithm \cite{inadomi2015analyzing}
-
-reducing the energy variation by disabling turbo boost \cite{acun2016variation}
-
-reducing the energy consumption in parallel systems \cite{chasapis2016runtime}
-
-\cite{marathe2017empirical}
-
-
+In their paper~\cite{buytaert_statistically_nodate},\citeauthor{buytaert_statistically_nodate} they separated the start-up measurement from the steady state when comparing different Java optimizations.
+\\
 %\\\ https://www.cpubenchmark.net/compare/Intel-i7-12700KF-vs-Intel-i7-12700F/4608vs4692 | hardware benchmarking 
 \section{energy measurement}\label{sec:energymeasurement}
 
@@ -205,6 +185,31 @@ selfwatts \cite{fieni2021selfwatts}
 powerjoular \cite{noureddine2022powerjoular}
 \subsection{hybrid tools}
 % split hardware tools into extern and embeded tools 
+
+
+simgrid simulation of power consumption of parallel aplication using simgrid \cite{heinrich2017predicting}
+
+impact of manifacturing process on the energy variation \cite{coles2014comparing}
+
+different energy consumption between identical processers [ idle and hight load ]\cite{von2016variations}
+
+the temperature is the main raison a high energy variation \cite{wang2018potential}
+
+external factors are impact on the energy variation \cite{mukherjee2009spatio}
+
+the place of the server in the room doesn't affect the energy variation \cite{diouri2013your}
+
+comparaison of three measuring tools and they did exhebit 10\% variation each time \cite{inadomi2015analyzing}
+
+%%****** mitigating the energy variation ******
+low-cost scalable variation-aware algorithm \cite{inadomi2015analyzing}
+
+reducing the energy variation by disabling turbo boost \cite{acun2016variation}
+
+reducing the energy consumption in parallel systems \cite{chasapis2016runtime}
+
+\cite{marathe2017empirical}
+
 
 
 \section{programming languages and performances}\label{section:soa_optimization}
