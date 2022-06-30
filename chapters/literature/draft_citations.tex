@@ -19,19 +19,22 @@ Some of these studies concentrate on minimizing energy consumption at the hardwa
 % displays the digital energy consumption distribution in 2017 \cite{andrae2015global}. ("p" for production and "u" for usage). 
 % It demonstrates that both the production and consumption stages have substantial effects.
 % In addition, the utilization expenses of data centers, networks, and terminals are also substantial (19 percent , 16 percent and 20 percent respectively).
-% TODO : as romain about the graphics for energy distribution 
+% TODO : ask romain about the graphics for energy distribution 
 
-As an example \citeauthor{avgerinou2017trends} evaluated the development of power use effectiveness (PUE) in data centers that belongs to various organizations participating in the European code of conduct for energy efficiency program \cite{avgerinou2017trends}.
+As an example \citeauthor{avgerinou2017trends} evaluated the development of power use effectiveness (PUE) in data centers thkat belongs to various organizations participating in the European code of conduct for energy efficiency program \cite{avgerinou2017trends}.
 The research found a gradual decline in the PUE of data centers, which measures the ratio of the overall energy supplied to the energy used by IT equipment.
 A low PUE implies that the majority of energy is utilized to power the data center's IT equipment, while just a little amount is needed for cooling and lighting.
 
-In this thesis, we will place a greater emphasis on the software level in order to decrease the amount of energy that is used. In order to do this, we provide a benchmarking process and a set of tools that are intended to assist practitioners in better comprehending and optimizing the energy usage of their applications.
+we will place a greater emphasis on the software level in order to decrease the amount of energy that is used.more particularly on the execution phase of the program cycle.
+We will be proceeding through an empirical analysis of the energy consumption of the software while changing some components of the source code without impacting its behavior.
+In order to do this, we will elaborate a benchmarking process and a set of tools that are intended to assist practitioners in better comprehending and optimizing the energy usage of their applications.
+Thus, we will begin by examining the state of the art of empirical analysis and retrieving the best empirical experimentation methodologies in the research field.Then, we will narrow these practices down to computer science so that we can finally adapt them to energy consumption.
 
-Thus, Section \ref{sec:energymeasurement}  describes software energy measurements.
-It provides examples of hardware and software measuring instruments and describes their differences, benefits, and drawbacks.
-It also examines the sources of energy measurement variations, which represent a significant obstacle to achieving precise readings.
-
-\section{benchmarking}
+Section~\ref{sec:soa_benchmarking} will discuss the pitfalls and best practices associated with empirical research before applying them to our field of interest.
+After that Section~\ref{sec:energymeasurement} describes software energy measurements.
+It provides examples of hardware and software measuring instruments and describes their differences, benefits, and drawbacks. It also examines the sources of energy measurement variations, which represent a significant obstacle to achieving precise readings and a higher accuracy.
+Then, in section \ref{section:soa_optimization}, we will go through some of the previous work on improving the energy consumption of softwares.
+\section{benchmarking}\label{sec:soa_benchmarking}
 
 definition :benchmark: [noun] something that serves as a standard by which others may be measured or judged.
 that serves as a basis for evaluation or comparison (as of computer system performance)
@@ -204,8 +207,8 @@ powerjoular \cite{noureddine2022powerjoular}
 % split hardware tools into extern and embeded tools 
 
 
-\section{programming languages and performances}
-\subsection{energy}
+\section{programming languages and performances}\label{section:soa_optimization}
+\subsection{energy}\
 
 
 energy comparaison of programming languages in the game benchmark by debian \cite{pereira2017energy}
