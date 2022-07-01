@@ -162,32 +162,58 @@ The advanage of a such apporach is that the absence of any intrusive measurement
 
 with similar approach we can find NVIDIA reporting tools such as GPU TESLA \cite{burtscher2014measuring} and the NVML library \cite{fahad2019comparative}
 
-
 \subsection{software tools}
-Now that we got our hands on a precise tools that allows us to monitor
 
-powerapi \cite{colmant2018next}
+Software-based measurement tools are based on other hardware tools to monitor energy use. Granularity is the core value of these technologies, unlike hardware tools, which only provide the total energy usage of the system/component (computer, server, motherboard, etc.) for most cases. Because they are frequently constructed on empirical estimations and data learning methods, they drop in accuracy.
 
-smartwatts formula \cite{fieni2020smartwatts}
+Many software measuring tools understand the behavior of a power model and provide estimates of energy usage. This model is then used to allocate the observed energy consumption among different execution entities, such as processes, control groups, threads, or even code lines.
 
-Wattwatcher \cite{lebeane2015watt}
+The first examples of software measurement tools are PowerAPI~\cite{colmant2018next}, SmartWatts formula~\cite{fieni2020smartwatts} and selfWatts~\cite{fieni2021selfwatts}.
+These tools collect global energy consumption measurements from RAPL and use other system events such as cache misses/hits and CPU frequency evolution (DVFS) via a sensor to construct a power model of the control groups (system control groups, docker containers, kubernetes pods, etc.) using a Ridge regression.
+The model continuously learns and improves its precision of real-time energy usage data with a maximum frequency of 100 Hz.
+The instrument has a decentralized, lightweight design.
+Only the lightest sensors required for data collection and transmission are put into the monitored devices.
+The SmartWatts formula is then executed on the primary server in order to construct the model that permits assigning the energy usage for each operating control group.
+PowerAPI is only compatible with Linux on a bare-metal physical computer.
+\\
+WattWatcher~\cite{lebeane2015watt} is a multi-core power measuring framework that provides process-level energy measurements.
+This program uses power models to predict process energy usage. It uses CPU events which are passed from the measured node to a model generator node in order to construct the power model. It works by combining a description of the CPU with a list of the hardware events through multiple calibration phases in order to build a robust model.
 
-joulemeter \cite{kothari2009joulemeter}\cite{jagroep2017energy}
 
-jrapl \cite{guimaraes2016some} \cite{liu2015data}
+Joulemeter~\cite{kothari2009joulemeter,jagroep2017energy} is a Microsoft software that estimates the energy usage of Windows running applications down to the process level by using power models (for CPU, memory, and drives).
+It employs low-overhead power models to infer power consumption from resource utilization during runtime, and it provides power limiting features for virtual machines.
+Previous Joulemeter tests~\cite{jagroep2015profiling} demonstrated that the instrument provides a less accurate estimation of energy use that differs greatly from the real one.
+To adjust its models to the hardware on which it operates, Joulemeter must first go through a calibration step.
+It is able to only monitor one process at a time with a frequency of 1 HZ.
 
-joulinar \cite{islam2016measuring} \cite{noureddine2016jolinar}
 
-jalen \cite{noureddine2015monitoring}
+
+JRAPL is another example of an energy measurement tool estimating tool that has been utilized in a variety of publications\cite{guimaraes2016some,liu2015data}.
+This software enables for the energy usage of Java programs, functions, or even a block of code lines to be profiled and measured.
+The measurements are heavily reliant on the data supplied by RAPL.
+As a result, the global energy consumption collected by RAPL between two timestamps (the start and finish of the code to measure) is used to calculate the energy consumption of the Java code.
+Tests using JRAPL should be done on a well-configured machine to minimize the impact of the operating system and user operations on the overall energy consumption of JRAPL.
+
+Another process-level energy usage measuring tool is Jolinar \cite{islam2016measuring,noureddine2016jolinar}.
+The tool does not need a calibration phase and relies on pre-established power models based on hardware metrics (TDP, disk I/O rate, and so on).
+These settings must be identified and supplied by the user for his machine.
+Jolinar is only capable of measuring the energy consumption of one application at a time.
+At the end of the execution, the tool provides the CPU, DRAM, and disk energy usage of the main process.
+joulinar
+
+Jalen\cite{noureddine2015monitoring} is another tool that profiles and monitors the energy usage of a Java program. Unlike JRAPL, Jalen is able to reduce the scope up to the function level.
+It gathers data using code instrumentation and statistical sampling at a predetermined pace.
+Because of the overhead that code instrumentation may incur, the authors recommend utilizing the second option.
+Every 10 ms, Jalen records the JVM's stack trace together with the CPU time of threads and computes statistics about method calls.
+These statistics are then utilized to calculate each method's energy usage.
 
 selfwatts \cite{fieni2021selfwatts}
-
 powerjoular \cite{noureddine2022powerjoular}
+
 \subsection{hybrid tools}
 % split hardware tools into extern and embeded tools 
 
-
-simgrid simulation of power consumption of parallel aplication using simgrid \cite{heinrich2017predicting}
+Simgrid simulation of power consumption of parallel aplication using simgrid \cite{heinrich2017predicting}
 
 impact of manifacturing process on the energy variation \cite{coles2014comparing}
 
