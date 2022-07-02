@@ -38,10 +38,39 @@ Then, in section \ref{section:soa_optimization}, we will go through some of the 
 \newpage
 \section{benchmarking}\label{sec:soa_benchmarking}
 This section will go through the flaws and best practices of empirical research before applying them to our topic of study.
+\subsection{Threats and Challenges}
+
+A successful benchmark must meet three criteria.
+First, it must be \textbf{reproducible} in order for others to imitate it.
+Second, the findings should be \textbf{accurate},which implies that we should expect the same results each time we run the benchmark.
+Finally, it should \textbf{represent} reality.
+In other words, the experiment's findings should be applicable outside of the research lab as well.
+The aim of \textbf{representativeness} in this thesis is the manufacturing environment.
+As a result, the experiments should reflect what happens in production contexts.
+
+\subsubsection{Reproducibility}
+The reproducibility of experiments is often ranked as one of the most difficult difficulties faced by researchers. In point of fact, many of the outcomes cannot be duplicated.,\footnote{Trouble at the lab, The Economist, 19 October 2013;  www.economist.com/news/briefing/ 21588057-scientists-think-science-self-correcting- alarming-degree-it-not-trouble.} which led to a \emph{replication crisis}.
+As this crisis hit most of the empirical studies, most of the reviews now includes reproducibility as one of the minimal standard for judging scientific merit.\cite{peng2011reproducible}
+One of the criterions supporting reproducibility is the publication of the dataset and the algorithms run on the raw data to conclude the results.
+There is even some disagreement about what the terms "reproducibility" or "replicability" by themselves mean \cite{goodman2016does}.
+According to \cite{echtler2018open}, \emph{replicability} extends \emph{reproducibility} with the ability to collect a new raw dataset comparable to the original one by re-executing the experiment under similar condition, instead of just the ability to get the same results by running the statistical analyses on the original data set.
+\subsubsection{Accuracy}
+According to Oxford, \emph{accuracy} means \href{https://www.lexico.com/definition/accuracy}{"technical The degree to which the result of a measurement, calculation, or specification conforms to the correct value or a standard"}.
+In ny case, this means the ability to run the benchmark multiple times with a low variation.
+
+
+\subsubsection{Representativeness}
+As obvious as it seems, the reason of executing benchmarks is to validate ideas so we can use them in the real life.
+However, this is means that those benchmarks have to represent reality somehow.
+Basically, when we aim to benchmark something, we create a mock up version of the situation that we want it to work.
+% But, how can we assure that the benchmark is representative? honestly i don't know. and we can't generalize this. but there are some works that have been done for this.
+First, we can talk about the benchmarking and their selection, then we will talk about the stress benchmark for some applications, and finally we will bring this representativeness in our case and how can we get closer to the energy consumption behavior of a software between the benchmark environnement and the production one.
+Recently, the research community has been investigating typical "crimes" in systems benchmarking and established guidelines for conducting robust and reproducible evaluations~\cite{DBLP:journals/corr/abs-1801-02381}.
 
 % We first start by defining the word \textbf{benchmark},  
 % definition :benchmark: [noun] something that serves as a standard by which others may be measured or judged.
 % that serves as a basis for evaluation or comparison (as of computer system performance)
+\subsubsection{the impact of these challenges in the empirical research }
 In their work~\cite{van_der_kouwe_benchmarking_2018}, \citeauthor{van_der_kouwe_benchmarking_2018} Investigated 50 papers published in top venues
 to findout that tier-1 papers commit an average of five benchmarking crimes.
 To analyze the magnitude of the phenomenon, they have identified a set of 22 "benchmarking crimes" that threaten the validity of the system.
@@ -72,7 +101,7 @@ To analyze the magnitude of the phenomenon, they have identified a set of 22 "be
 %     \item  Relative numbers only
 % \end{itemize}
 
-
+\subsection{proposed solutions}
 
 %% BENCHMARKING FRAMEWORK -- ADD IT later \cite{sonnenwald2003evaluating}
 %further references 
