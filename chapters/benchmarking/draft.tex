@@ -1,20 +1,21 @@
 
 \section{Introduction}
-To optimize the software energy consumption, a reproducible setup environment requires to be designed.
+A reproducible setup environment needs to be established in order to maximize the software's potential to reduce energy consumption.
 
-This chapter will be dedicated to provide a set of guidelines to provide a \em{reproducible, accurate} and \em{representative} tests. Each aspect will be detailed in the sections below.
+This chapter will be devoted to giving a set of guidelines with the intention of delivering a test that is accurate, representative, and replicable.
 
+% This chapter will go over each component in further detail, describe it, and explain how it is used in the field of empirical analysis for software energy optimization.
 
 \section{Threats and Challenges}
 
-A successful benchmark has three criterions to fullfil.
-First, it has to be \emph{reproducible} for others to replicate.
-Second, the results should be \emph{accurate}, which means each time we rerun the benchmark we are expecting the same results.
-Finally, it should \emph{represent} the real world.
-In other words, the conclusions brought from the experiment should be valid outside the experimentation as well.
-In my case, the real world is the production environment.
-Therefore, our experiments should reflect what is happening in the production environments.
-In this section, I will deeper dig in each aspect, present what has been done by others and my contributions, and finally I will propose some perspectives, to improve such experiments.
+A successful benchmark must meet three criteria.
+First, it must be \textbf{reproducible} in order for others to imitate it.
+Second, the findings should be \textbf{accurate},which implies that we should expect the same results each time we run the benchmark.
+Finally, it should \textbf{represent} reality.
+In other words, the experiment's findings should be applicable outside of the research lab as well.
+The aim of \textbf{representativeness} in this thesis is the manufacturing environment.
+As a result, the experiments should reflect what happens in production contexts.
+
 
 %%%%%%%%% preliminary taughts and section structure 
 % The need of reproducibility in our field - software optimization based on empirical studies -
@@ -27,8 +28,7 @@ In this section, I will deeper dig in each aspect, present what has been done by
 % - more Variables captured
 
 \subsection{Reproducibility}
-One of the most difficult challenges faced by researchers is the reproducibility of their benchmarks.
-Actually, many results fail to be reproduced,\footnote{Trouble at the lab, The Economist, 19 October 2013;  www.economist.com/news/briefing/ 21588057-scientists-think-science-self-correcting- alarming-degree-it-not-trouble.} which led to a \emph{replication crisis}.
+The reproducibility of experiments is often ranked as one of the most difficult difficulties faced by researchers. In point of fact, many of the outcomes cannot be duplicated.,\footnote{Trouble at the lab, The Economist, 19 October 2013;  www.economist.com/news/briefing/ 21588057-scientists-think-science-self-correcting- alarming-degree-it-not-trouble.} which led to a \emph{replication crisis}.
 As this crisis hit most of the empirical studies, most of the reviews now includes reproducibility as one of the minimal standard for judging scientific merit.\cite{peng2011reproducible}
 One of the criterions supporting reproducibility is the publication of the dataset and the algorithms run on the raw data to conclude the results.
 There is even some disagreement about what the terms "reproducibility" or "replicability" by themselves mean \cite{goodman2016does}.
@@ -81,10 +81,31 @@ To answer those questions, the community agreed on some wellknown benchmarks to 
 One can site as an example the Dacapo and Renaissance benchmark suites for Java applications, or the CLBG benchmark suite for comparing programming languages.
 Although they do not cover all the cases, the community agrees on their relevance and representativeness.
 
-In addition to those benchmarks, a new category of benchmarking technique emerged to simulate the worst case of the production environments, inlcuding performance tests, which are benchmarks meant to evaluate the behavior of a software under stress situations.
-We can cite as an example the Gatling for web application and stress-ng for hardwares.%ROMAIN: Add citations.
-%% YEP I KNOW, THIS IS JUST FOR ME TO READ IT LATER AND GIVE A BETTER CONTEXT
-%% sorry caps ^^" 
+
+In addition to these benchmarks, a new category of testing techniques has emerged to simulate the worst cases of the production environments. This new category of benchmarking called performance tests\cite{pradeep2019pragmatic}, which are benchmarks meant to evaluate the behavior of software under stress situations. We can use the Gatling\footnote{\url{https://gatling.io/}} as an illustration for web applications stresser and stress-ng for hardware heavy workload perormance measurements~\cite{king2017stress}.
+
+\subsection{Extension}
+Morover, The field of computer science is seeing rapid advancements, which has led to an increase in the number of obsolete results. Even more so, when it comes to studies that compare multiple solutions, it is impossible to cover them all.
+In addition, between the preliminary experiment and the results that were published, there may have been the appearance of new candidates as well as the development of others. As a result, we would like to provide a fresh idea for a productive experiment that we will call "Extension." The ability to give the required tools to not only repeat the experiment but also to add additional candidates, workloads, or key metrics.
+
+\subsection{conclusion}
+
+
+We propose making certain enhancements to the benchmarking framework that was suggested by the collaboratory on Experimental Evaluation of Software \footnote{\url{http://evaluate.inf.usi.ch/}}. and Systems in Computer Science in order to address those problems.
+Instead of only presenting the four primary aspects of their guidelines, which are \emph{measurement contexts} that indicate the software and hardware components that will alter or remain constant during the experiment. \emph{workloads} which identify the benchmarks to use in the experiment, as well as their inputs; \emph{metrics} that specify the attributes to be measured and how to assess them. \emph{Data analysis} show how to examine data and evaluate the outcomes of the analysis to offer insight into the assertions that arise from the study.
+
+\begin{itemize}
+    \item \textbf{candidates}: a set of candidates that will be used in the experiment. The candidates should be agnostic of the experiment context and they all
+\end{itemize}
+
+
+
+
+
+\begin{figure}%[!htb]
+    \center{\includegraphics[width=.9\linewidth]{imgs/benchmarkingprotocol}}
+    \caption{Benchmarking protocol}\label{fig:benchmarkingprotocol}
+\end{figure}
 
 
 
