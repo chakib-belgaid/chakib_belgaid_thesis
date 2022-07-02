@@ -49,7 +49,7 @@ The aim of \textbf{representativeness} in this thesis is the manufacturing envir
 As a result, the experiments should reflect what happens in production contexts.
 
 \subsubsection{Reproducibility}
-The reproducibility of experiments is often ranked as one of the most difficult difficulties faced by researchers. In point of fact, many of the outcomes cannot be duplicated.,\footnote{Trouble at the lab, The Economist, 19 October 2013;  www.economist.com/news/briefing/ 21588057-scientists-think-science-self-correcting- alarming-degree-it-not-trouble.} which led to a \emph{replication crisis}.
+The reproducibility of experiments is often ranked as one of the most difficult difficulties faced by researchers .This issue has been one of the major tools science has used to help establish the validity and importance of scientific findings since the Philosophical Transactions of the Royal Society were established in 1665~\cite{hankins1986debate} . In point of fact, many of the outcomes cannot be duplicated.,\footnote{Trouble at the lab, The Economist, 19 October 2013;  www.economist.com/news/briefing/ 21588057-scientists-think-science-self-correcting- alarming-degree-it-not-trouble.} which led to a \emph{replication crisis}.
 As this crisis hit most of the empirical studies, most of the reviews now includes reproducibility as one of the minimal standard for judging scientific merit.\cite{peng2011reproducible}
 One of the criterions supporting reproducibility is the publication of the dataset and the algorithms run on the raw data to conclude the results.
 There is even some disagreement about what the terms "reproducibility" or "replicability" by themselves mean \cite{goodman2016does}.
@@ -74,6 +74,9 @@ Recently, the research community has been investigating typical "crimes" in syst
 In their work~\cite{van_der_kouwe_benchmarking_2018}, \citeauthor{van_der_kouwe_benchmarking_2018} Investigated 50 papers published in top venues
 to findout that tier-1 papers commit an average of five benchmarking crimes.
 To analyze the magnitude of the phenomenon, they have identified a set of 22 "benchmarking crimes" that threaten the validity of the system.
+
+
+
 % TO [ROMAIN] should i include  this list ? 
 % thoes benchmark crimes that one can commit intentionally or by accident and that could jeopardize the integrity of their paper.t are listed below.
 % \begin{itemize}
@@ -107,22 +110,27 @@ To analyze the magnitude of the phenomenon, they have identified a set of 22 "be
 %further references 
 In the book "Measuring computer performance: a practitioner's guide"\cite{lilja2005measuring},\citeauthor{lilja2005measuring} examines performance indicators and gives in-depth treatment of benchmark program tactics. He provides clear explanations of the basic statistical methods required for interpreting measured performance data. He also outlines the overall 'design of experiments' method and demonstrates how to collect the most information with the least amount of work. This practical book will appeal to anybody seeking a comprehensive, yet intuitive, grasp of computer system performance analysis.
 \citeauthor{mytkowicz2009producing} made an evaluation  of 133 studies from ASPLOS, PACT, PLDI, and CGO, to find out that none of the experimental findings papers appropriately considered measurement bias. Which can lead derive incorrect results from an experiment if a seemingly insignificant feature of the experimental design is altered. They treated this problem by proposing two strategies for detecting measurement bias by using causal analysis and preventing it with setup randomization \cite{mytkowicz2009producing}.
-\citeauthor{bukh1992art} wrote a book about computer performance analysis, where he discussed some familiar topics that are relevant to statistical analysis, such as null hypotheses, chi squared tests, regression, discrete event simulation, Bayes' theorem, how and when to use them for experimental design, measurement, simulation, and modeling for computer systems .
+
+\citeauthor{bukh1992art} wrote a book about computer performance analysis, where he discussed some familiar topics that are relevant to statistical analysis, such as null hypotheses, chi squared tests, regression, discrete event simulation, Bayes' theorem, how and when to use them for experimental design, measurement, simulation, and modeling for computer systems.
+
+
+the article \cite{brown2018issues} provides an intellectual framework for understanding the pervasiveness of mistake in the scientific discovery process and presents methodological, cultural, and system-level techniques for minimizing the frequency of often seen errors.
+
+another article~\cite{patil2018training} expands on this line of thought by evaluating the uncertainty caused by replications in new research. They offer strategies for capturing uncertainty in inferential investigations, such as cross-study validation and ensemble models.
+
+In their paper\cite{stodden2018empirical}, the authors find that, even though it's a big move in the right direction, journal policies that require authors to give back digital scholarly objects after publication, like the data and code that back up the claims, don't get more than half of these objects back. Then, using these artifacts, about a fourth of the published computational claims in the study could be made. They suggest putting out the claims in the literature and the digital scholarly objects that back them up at the same time.
+
+% as for computer sience. In their paper~\cite{buytaert_statistically_nodate}, the authors  separated the start-up measurement from the steady state when comparing different Java optimizations.
 
 
 
 
+\begin{figure}[!hbt]
+    \center{\includegraphics[scale=0.3]{imgs/componentsofanexperiment}}
+    \caption{The proposed decomposition of an experement\footnote{\url{http://evaluate.inf.usi.ch/}}}\label{fig:soa_expermiment component}
+\end{figure}
 
-% further references 
-
-%%%%%%%%%% 
-In their paper~\cite{buytaert_statistically_nodate},\citeauthor{buytaert_statistically_nodate} they separated the start-up measurement from the steady state when comparing different Java optimizations.
-\\
-%\\\ https://www.cpubenchmark.net/compare/Intel-i7-12700KF-vs-Intel-i7-12700F/4608vs4692 | hardware benchmarking 
-\section{energy measurement}\label{sec:energymeasurement}
-
-
-
+\section{energy measurement}
 to be able to reduce the energy cost of running programs we should first be able to estame this energy consumption.
 many studies have been conducted to estimate a such energy consumption. that varries from static analysis of the source code to enfere it's energy consumption like \citeauthor{pereira_helping_2017} where they provided a tool to highlight the most energy consuming parts of the code \cite{pereira_helping_2017}.the main advantage of this apporach is to be able to estimate the energy consumption of a program without running it. however. unlike the conplexity of programs, the energy consumption is highly related the execusion environment. Therefor, Static analysis might not represent the real behaviour of the same program when it is run in the production environment.
 To treat the problem of representativeness, many researchers tend to measure the energy consumption of the programs while they are running them. Hence we will get more accurate results.
