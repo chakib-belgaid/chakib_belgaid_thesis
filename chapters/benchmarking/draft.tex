@@ -1,21 +1,17 @@
 
 \section{Introduction}
-Because the goal of this thesis is to investigate various possibilities for improving the energy consumption of software programs, this chapter will be focusing on how to conduct effective experiments when comparing the energy consumption of softwares.
-We will carry out substantial empirical investigation. This chapter discusses the tools needed to do a successful experiment measuring the energy consumption of software programs.
-In addition, the majority of the time we will conduct an analytical comparison; therefore, the goal is to develop a framework to assist practitioners in comparing various solutions in terms of energy consumption.
+We are conducting empirical tests to determine the effect of programmer choice on software's energy consumption.
+To accomplish this, one should not overlook the benchmarking pitfalls highlighted in the state of the art.
+Moreover, when it comes to measuring the energy consumption of software, other obstacles arise, such as the impact of hardware, the difference between the machine used in the research and the machines that may apply the findings, etc. 
+Moreover, significant improvements in computer science have resulted in an increase in the quantity of obsolete results. It is even more difficult to address all of them in studies that compare multiple solutions.
+Furthermore, there may have been the appearance of new candidates as well as the development of others between the preliminary experiment and the published results. As a result, it is not only required to ensure the "reproducibility" of the results, but also to make way for new candidates. 
+As a result, we'd like to propose a new concept for a fruitful experiment, which we'll call "Extension." The capacity to provide the tools required not only to repeat the experiment but also to add additional candidates, workloads, or crucial Key metrics.
+
+This chapter discusses how to adapt the state-of-the-art of empirical analysis in the energy consumption field, highlighting the difficulties and the various techniques to overcome them. 
 
 
-First we will project the challenges of benchmarking to the case of energy consumption and see when it deffers from the previous contexts.
-then we will propose a framework to deal with those challenges.
-later we will elaborate each part of the framework and how to solve certain of these challenges.
 
-
-A reproducible setup environment needs to be established in order to maximize the software's potential to reduce energy consumption.
-
-This chapter will be devoted to giving a set of guidelines with the intention of delivering a test that is accurate, representative, and replicable.
-
-% This chapter will go over each component in further detail, describe it, and explain how it is used in the field of empirical analysis for software energy optimization.
-
+%% this is might be the part that treats reproducibility for my case 
 
 
 
@@ -40,88 +36,42 @@ This chapter will be devoted to giving a set of guidelines with the intention of
 % Therefore, researchers cannot observe the same results, unless they duplicate the same environment.
 
 
-%%% FOR METRICS AND ACCURACY 
-
-%%%% this is relative about my thesis 
-In theory, using identical CPU, same memory configuration, similar storage and networking capabilities, should increase the accuracy of physical measurements.
-Unfortunately, this is not possible when it comes to measuring the energy consumption of a system.
-Applying the benchmarking guidelines and repeating the same experiment with in the same configuration are not sufficient to reproduce the the same energy measurements, not only between identical machines, but even within the same machine.
-This difference---also called \emph{energy variation} (EV)---has become a serious threat to the accuracy of experimental evaluations.
-
-Figure~\ref{fig:motivation} illustrates this variation problem as a violin plot of $20$ executions of the benchmark \emph{Conjugate Gradient} (\textsf{CG}) taken from the \emph{NAS Parallel Benchmarks} (NBP) suite~\cite{Bailey:1991:NPB:125826.125925}, on $4$ nodes of an homogeneous cluster (the cluster \textsf{Dahu} described in Table~\ref{table:g5k}) at 50\,\% workload.
-We can observe a large variation of the energy consumption, not only among homogeneous nodes, but also at the scale of a single node, reaching up to $25\,\%$ in this example.
-
-\begin{figure}%[!htb]
-    \center{\includegraphics[width=.9\linewidth]{imgs/motivation}}
-    \caption{CPU energy variation for the benchmark \textsf{CG}}\label{fig:motivation}
-\end{figure}
-%% state of the art 
-Some researchers started investigating the hardware impact of the energy variation of power consumption.
-As an example, one can cite~\cite{borkar_designing_2005,tschanz_adaptive_2002} who reported that the main cause of the variation of the power consumption between different machines is due to the \textbf{CMOS} manufacturing process of transistors in a chip.
-\cite{heinrich_predicting} described this variation as a set of parameters, such as CPU Frequency and the thermal effect.
-
-
-
-As Stephen M. Blackburn~\emph{et~al.} cited in their paper "evaluate collaboratory"~\cite{stephen_evaluate_2012}, one of the major pitfalls of the measurement contexts is the inconsistency, which can be translated here by the fact that the production context is not the same as the benchmarking one.
-
-Another difficult part for practitioners is to generalize the claims they reached beyond the lab conditions.
-Are they appropriate?
-Are they consistent and are they reproducible?
-To answer those questions, the community agreed on some wellknown benchmarks to represent a specific concern of the production world.
-One can site as an example the Dacapo~\cite{DaCapo:paper} and Renaissance~\cite{renaissance} benchmark suites for Java applications, or the CLBG benchmark suite for comparing programming languages\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}}.
-Although they do not cover all the cases, the community agrees on their relevance and representativeness.
-
-In addition to these benchmarks, a new category of testing techniques has emerged to simulate the worst cases of the production environments. This new category of benchmarking called performance tests\cite{pradeep2019pragmatic}, which are benchmarks meant to evaluate the behavior of software under stress situations. We can use the Gatling\footnote{\url{https://gatling.io/}} as an illustration for web applications stresser and stress-ng for hardware heavy workload perormance measurements~\cite{king2017stress}.
-
-
-
-
-
-
-%%%% THIS Should the introduction of my chapter 
-
 \subsection{Extension}
-Morover, The field of computer science is seeing rapid advancements, which has led to an increase in the number of obsolete results. Even more so, when it comes to studies that compare multiple solutions, it is impossible to cover them all.
-In addition, between the preliminary experiment and the results that were published, there may have been the appearance of new candidates as well as the development of others. As a result, we would like to provide a fresh idea for a productive experiment that we will call "Extension." The ability to give the required tools to not only repeat the experiment but also to add additional candidates, workloads, or key metrics.
 
+We propose making certain enhancements to the benchmarking framework that was suggested by the collaboratory on Experimental Evaluation of Software and Systems in Computer Science in order to address those problems \footnote{\url{http://evaluate.inf.usi.ch/}}.
+Instead of only presenting the four primary aspects of their guidelines that were mentioned in state of the art\cref{sec:soa_reproducibility} we propose an abstract model to represent the experiment, 
+\emph{context} : the hardware and the software configuration for the actual experiment, the purpose of this part is to provide extra information to help readers have a better judgement on the results and to be able reproduce the experiment while diminishing the impact of the external factor . 
+An \emph{orchestrator} which its job to run the experiment. 
+The orchestrator provides three intrafaces : 
 
-%% how to extend 
-
-We propose making certain enhancements to the benchmarking framework that was suggested by the collaboratory on Experimental Evaluation of Software \footnote{\url{http://evaluate.inf.usi.ch/}}. and Systems in Computer Science in order to address those problems.
-Instead of only presenting the four primary aspects of their guidelines, which are 
-
-\begin{itemize}
-    \item \textbf{candidates}: a set of candidates that will be used in the experiment. The candidates should be agnostic of the experiment context and they all
-\end{itemize}
-
+Workload interface  : Wich provides a set of functions that should be implemented by the workload  
+Candidate interface : 
+Observer interface : provides a set of metrics that are collected by the orchestrator during the expermentation. note that some of those metrics are external, such the energy consumption of the system , execution time, execution stack ..etc . 
 
 
 
-
-\begin{figure}%[!htb]
-    \center{\includegraphics[width=.9\linewidth]{imgs/benchmarkingprotocol}}
-    \caption{Benchmarking protocol}\label{fig:benchmarkingprotocol}
-\end{figure}
-
+% \begin{itemize}
+%     \item textbf{expermimental protocol}: Which describes, the context and  an orchestrator that handles the experiment, this orchestrator should take as an entry 
+%     \item \textbf{candidates}: a set of candidates that will be used in the experiment. The candidates should be agnostic of the experiment context and they all
+% \end{itemize}
 
 
-% A more subtle issue may arise due to the values of the measurements that we achieved.
-% In fact, the energy measures are quite small, and iterations may be taking a few milliseconds more or less to run.
-% A thing we cannot measure using our measurement tools.
-% How generalizable are our results? As a set of energy variation optimization guidelines, we argue that our results applied on most of the modern Intel CPU.
-% However, using and comparing identical CPU is still tricky and is very dependent to chips.
+% \begin{figure}%[!htb]
+%     \center{\includegraphics[width=.9\linewidth]{imgs/benchmarkingprotocol}}
+%     \caption{Benchmarking protocol}\label{fig:benchmarkingprotocol}
+% \end{figure}
+
+
+
+later in this chapter we will discuss each aspect of those interfaces 
 
 
 \section{Reproducibility in benchmarking }
-
-
-%% just a placeholder title for the moment 
-% introduction of vms 
+As we have discussed in the previuous section , the candidates shouldn't be related to the experiment, all they need to know is the interface of the workload, therefore. This section will discuss different ways to ensure a reproducibility of the experiment by comparing different ways to encapsulate the candidates 
 
 
 \subsection{Virtual machines}
-To resolve this problem, practitioners tend to use Virtualisation. Using virtual machines aka VM gives reaserchers the freedom to choose their own tools, software and operating system that they are the most confortable with without paying the price to change the actual working environment, which will give them eventually more controle over the dependencies and the execution environement. Moreover, using a vm will solve the \emph{replication crisis} thanks to the virtual images, even the most complex architecture can be reproduced easily by just instantiating a copy of the image. Since the virtual machines are agnostic to the host architecture, reaserchers won't have to worry about where and how their experiments are replicated because they have already setup the execution environement. Another advantage to the virtual machines is the snapshot mechanism, it allows reaserchers to create backups and revert some changes with simple clicks. Last but not least,thanks to the isolation, virtual machines push the reproducibility further by allowing the future usages to see all the variables -controled and uncontroled-  and do other analysis without dealing with any dependencies. In his paper \cite{howe_virtual_2012} bill howe lists the advantages of using virtual machines in reaserchers experements including the economical impact and cultural limitation to a such approach.
-
+First option should be using virtual machines,  Using virtual machines aka VM gives reaserchers the freedom to choose their own tools, software and operating system that they are the most confortable with without paying the price to change the actual working environment, which will give them eventually more controle over the dependencies and the execution environement. Moreover, using a vm will solve the \emph{replication crisis} thanks to the virtual images, even the most complex architecture can be reproduced easily by just instantiating a copy of the image. Since the virtual machines are agnostic to the host architecture, reaserchers won't have to worry about where and how their experiments are replicated because they have already setup the execution environement. Another advantage to the virtual machines is the snapshot mechanism, it allows reaserchers to create backups and revert some changes with simple clicks. Last but not least,thanks to the isolation, virtual machines push the reproducibility further by allowing the future usages to see all the variables -controled and uncontroled-  and do other analysis without dealing with any dependencies. In his paper \cite{howe_virtual_2012} bill howe lists the advantages of using virtual machines in reaserchers experements including the economical impact and cultural limitation to a such approach.
 which allow them to have control over the ressouces, the dependencies and the execution environment. Moreover, thanks to the snapshots, deploying a software is easily done by instantiating a copy of that image.
 However, this choice comes with a certain cost. Because the intervention of the hypervisor,the software will use two kernels , the virtual machine one and the host machine one, which will provide a noticiable overhead, and will impact the performances of the tests.Therefore, we can't use virtual machines for exepements that are related to performance. Another limiation with the virtual machine is the the isolation. It is true that this feature will prevent the experience environement with any undesirable interference from the outside world. but sometimes this contact is needed, especially when the experiment is dependent to an external part, such as sensors. In energicial tests we tend to use hardware powermeters which will make it difficult to use the virtual machines in this case .
 

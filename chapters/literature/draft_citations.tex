@@ -104,7 +104,7 @@ To analyze the magnitude of the phenomenon, they have identified a set of 22 "be
 %     \item  Relative numbers only
 % \end{itemize}
 
-\subsection{proposed solutions}
+\subsection{proposed solutions}\label[]{sec:soa_reproducibility}
 
 %% BENCHMARKING FRAMEWORK -- ADD IT later \cite{sonnenwald2003evaluating}
 %further references 
@@ -137,6 +137,19 @@ Figure \ref{fig:soa_experiment_component} shows the four component presented in 
     \center{\includegraphics[scale=0.3]{imgs/componentsofanexperiment}}
     \caption{The proposed decomposition of an experement~\cite{stephen_evaluate_2012}}\label{fig:soa_expermiment_component}
 \end{figure}
+
+
+%%%% TODO : Elaborate this section and check what should be added 
+% As Stephen M. Blackburn~\emph{et~al.} cited in their paper "evaluate collaboratory"~\cite{stephen_evaluate_2012}, one of the major pitfalls of the measurement contexts is the inconsistency, which can be translated here by the fact that the production context is not the same as the benchmarking one.
+
+% Another difficult part for practitioners is to generalize the claims they reached beyond the lab conditions.
+% Are they appropriate?
+% Are they consistent and are they reproducible?
+% To answer those questions, the community agreed on some wellknown benchmarks to represent a specific concern of the production world.
+% One can site as an example the Dacapo~\cite{DaCapo:paper} and Renaissance~\cite{renaissance} benchmark suites for Java applications, or the CLBG benchmark suite for comparing programming languages\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}}.
+% Although they do not cover all the cases, the community agrees on their relevance and representativeness.
+
+% In addition to these benchmarks, a new category of testing techniques has emerged to simulate the worst cases of the production environments. This new category of benchmarking called performance tests\cite{pradeep2019pragmatic}, which are benchmarks meant to evaluate the behavior of software under stress situations. We can use the Gatling\footnote{\url{https://gatling.io/}} as an illustration for web applications stresser and stress-ng for hardware heavy workload perormance measurements~\cite{king2017stress}.
 
 \section{energy measurement}
 to be able to reduce the energy cost of running programs we should first be able to estame this energy consumption.
@@ -395,6 +408,22 @@ impact of webservers on web applications energy \cite{manotas_investigating_2013
 %%%%%%%%%%%%% energy metigation 
 
 \section{Energy Variation}
+In theory, using identical CPU, same memory configuration, similar storage and networking capabilities, should increase the accuracy of physical measurements.
+Unfortunately, this is not possible when it comes to measuring the energy consumption of a system.
+Applying the benchmarking guidelines and repeating the same experiment with in the same configuration are not sufficient to reproduce the the same energy measurements, not only between identical machines, but even within the same machine.
+This difference---also called \emph{energy variation} (EV)---has become a serious threat to the accuracy of experimental evaluations.
+
+Figure~\ref{fig:motivation} illustrates this variation problem as a violin plot of $20$ executions of the benchmark \emph{Conjugate Gradient} (\textsf{CG}) taken from the \emph{NAS Parallel Benchmarks} (NBP) suite~\cite{Bailey:1991:NPB:125826.125925}, on $4$ nodes of an homogeneous cluster (the cluster \textsf{Dahu} described in Table~\ref{table:g5k}) at 50\,\% workload.
+We can observe a large variation of the energy consumption, not only among homogeneous nodes, but also at the scale of a single node, reaching up to $25\,\%$ in this example.
+
+\begin{figure}%[!htb]
+    \center{\includegraphics[width=.9\linewidth]{imgs/motivation}}
+    \caption{CPU energy variation for the benchmark \textsf{CG}}\label{fig:motivation}
+\end{figure}
+%% state of the art 
+Some researchers started investigating the hardware impact of the energy variation of power consumption.
+As an example, one can cite~\cite{borkar_designing_2005,tschanz_adaptive_2002} who reported that the main cause of the variation of the power consumption between different machines is due to the \textbf{CMOS} manufacturing process of transistors in a chip.
+\cite{heinrich_predicting} described this variation as a set of parameters, such as CPU Frequency and the thermal effect.
 \subsection{Studying Hardware Factors}
 This variation has often been related to the manufacturing process~\cite{coles_comparing_2014}, but has also been a subject of many studies, considering several aspects that could impact and vary the energy consumption across executions and on different chips.
 On the one hand, the correlation between the processor temperature and the energy consumption was one of the most explored paths.
