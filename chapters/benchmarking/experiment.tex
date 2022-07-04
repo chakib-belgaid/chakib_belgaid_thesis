@@ -1,6 +1,3 @@
-
-
-
 % To satisfy those three requirements. we elaborated a benchmarking protocol that aims to help reaserchers and practicioners in their experementations.
 
 % for each aspect we present a set of guidelines and tools.
@@ -26,7 +23,7 @@ In this part we will try to answer the following Research questions.
 
 
 \subsection{Experimental Setup}\label{subsec:setup}
-This section describes our detailed experimental environment, covering the clusters configurationand the benchmarks we used  justifying our experimental methodology.
+This section describes our detailed experimental environment, covering the clusters configuration and the benchmarks we used  justifying our experimental methodology.
 
 \subsubsection{Measurement Context}
 There are three main contexts.
@@ -36,10 +33,11 @@ There are three main contexts.
     \item Same machine
 \end{itemize}
 
-To satisfy those requirements we have used the plateform Grid5000 (G5K)~\cite{grid5000,margery:hal-00965708},a large-scale and flexible testbed for experiment-driven research distributed accross all france.
-Grid5000 offers  miultiple clusters composed with 4 upto 124 identical machine with different configurations for each cluster.
-For our experement we have considered 4 clusters. Our main creterions was the CPU Configuration.
-the table below~\ref{table:g5k}, presents a description of the 4 clusters
+To satisfy those requirements we have used the platform Grid5000 (G5K)~\cite{grid5000,margery:hal-00965708},a large-scale and flexible testbed for experiment-driven research distributed across all france.
+Grid5000 offers  multiple clusters composed with 4 up to 124 identical machine with different configurations for each cluster.
+For our experiment, we have considered 4 clusters.
+Our main criterions was the CPU Configuration.
+the table below~\ref{table:g5k}, presents a description of the 4 clusters.
 
 \begin{table}[!hbt]
     \centering
@@ -62,7 +60,7 @@ the table below~\ref{table:g5k}, presents a description of the 4 clusters
     \end{tabular}
 \end{table}
 
-As most of the nodes are equipped with two sockets (physical processors), we use the acronym \textsf{CPU} or \textsf{socket} to designate one of the two sockets and \textsf{PU} for the \emph{processing unit}. For our study we coonsider hyper-threads as distincts \textbf{PU}
+As most of the nodes are equipped with two sockets (physical processors), we use the acronym \textsf{CPU} or \textsf{socket} to designate one of the two sockets and \textsf{PU} for the \emph{processing unit}. For our study we consider hyper-threads as distinct \textbf{PU}
 
 As an example, Figure~\ref{fig:topo} illustrates a detailed topology of a node belonging to the cluster \textsf{Dahu}.
 
@@ -72,11 +70,11 @@ As an example, Figure~\ref{fig:topo} illustrates a detailed topology of a node b
 \end{figure}
 
 \subsubsection{Workload}
-Our choice for the benchmarks was based on two creterions.
+Our choice for the benchmarks was based on two criterions.
 
 First, \textbf{scalability} : We wanted to gather the highest possible amount insights (regarding time spent for the experiment, therefore we wanted some benchmarks who can scale according to the number of PUs and can fulfill different scenarios.
-Second creterion is \textbf{representativeness} : as menstionned in the challenges, a workload has to be representative otherwise the experiment would be inconsistent \cite{stephen_evaluate_2012}.
-To satisfy those creterions we went through state of the art and looked for the most used benchmarks for testing the performance of the hardware, and then we selected the scallable ones.
+Second criterion is \textbf{representativeness} : as mentioned in the challenges, a workload has to be representative otherwise the experiment would be inconsistent \cite{stephen_evaluate_2012}.
+To satisfy those criterions we went through state of the art and looked for the most used benchmarks for testing the performance of the hardware, and then we selected the scalable ones.
 Our candidate is  emph{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NPB:125826.125925}: one of the most used benchmarks for \emph{HPC}. We used the applications (\textsf{LU}), the \emph{Conjugate Gradient} (\textsf{CG}) and \emph{Embarrassingly Parallel} (\textsf{EP}) computation-intensive benchmarks in our experiments, with the \textsf{C} data class.
 Further more we have used other applications to validate our results using more applications such as \texttt{Stress-ng v0.10.0},\footnote{\url{https://kernel.ubuntu.com/~cking/stress-ng}} \texttt{pbzip2 v1.1.9},\footnote{\url{https://launchpad.net/pbzip2/}} \texttt{linpack}\footnote{\url{http://www.netlib.org/linpack}} and \texttt{sha256 v8.26}\footnote{\url{https://linux.die.net/man/1/sha256sum}}.
 
@@ -488,22 +486,22 @@ It therefore intends to help practitioners in taming the energy variation on the
     \small
     \begin{tabular}{|p{4.7cm}|c|c|}
         \hline
-        \textbf{Guideline}                                                                                                                                                & \textbf{Load} & \textbf{Gain}     \\
+        \textbf{Guideline}                                                                                                                                                  & \textbf{Load} & \textbf{Gain}     \\
         \hline
         \hline
-        Use a low TDP CPU                                                                                                                                                 & Low \& medium & Up to $3\times$   \\
+        Use a low TDP CPU        & Low \& medium & Up to $3\times$   \\
         \hline
-        Disable the CPU C-states                                                                                                                                          & Low           & Up to $6\times$   \\
+        Disable the CPU C-states & Low           & Up to $6\times$   \\
         \hline
-        Use the least of sockets in a case of multiple CPU                                                                                                                & Medium        & Up to $30\times$  \\
+        Use the least of sockets in a case of multiple CPU   & Medium        & Up to $30\times$\\
         \hline
-        Avoid the usage of hyper-threading whenever possible                                                                                                              & Medium        & Up to $5\times$   \\
+        Avoid the usage of hyper-threading whenever possible & Medium        & Up to $5\times$\\
         \hline
-        Avoid rebooting the machine between tests                                                                                                                         & High          & Up to $1.5\times$ \\
+        Avoid rebooting the machine between tests  & High & Up to $1.5\times$ \\
         \hline
-        Do not relate to the machine idle variation to isolate a test EC, the CPU/OS changes its behavior when a test is running and can exhibit less variation than idle & Any           & ---               \\
+        Do not relate to the machine idle variation to isolate a test EC, the CPU/OS changes its behavior when a test is running and can exhibit less variation than idle & Any & ---\\
         \hline
-        Rather focus the optimization efforts on the system under test than the OS                                                                                        & Any           & ---               \\
+        Rather focus the optimization efforts on the system under test than the OS & Any           & ---               \\
         \hline
         Execute all the similar and comparable experiments on a same machine. Identical machines can exhibit many differences regarding their energy behavior             & Any           & Up to $1.3\times$ \\
         \hline
