@@ -40,3 +40,4 @@ thesis.run.xml*
 *.latexmkrc*
 *_latexmk*
 .*
+thesis.synctex(busy)

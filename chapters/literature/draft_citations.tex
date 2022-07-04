@@ -36,10 +36,10 @@ It provides examples of hardware and software measuring instruments and describe
 Then, in section \ref{section:soa_optimization}, we will go through some of the previous work on improving the energy consumption of softwares.
 
 \newpage
-\section{benchmarking}\label{sec:soa_benchmarking}
+\section{Benchmarking}\label{sec:soa_benchmarking}
 This section will go through the flaws and best practices of empirical research before applying them to our topic of study.
-\subsection{Threats and Challenges}
 
+\subsection{Threats \& Challenges}
 A successful benchmark must meet three criteria.
 First, it must be \textbf{reproducible} in order for others to imitate it.
 Second, the findings should be \textbf{accurate},which implies that we should expect the same results each time we run the benchmark.
@@ -70,12 +70,10 @@ Recently, the research community has been investigating typical "crimes" in syst
 % We first start by defining the word \textbf{benchmark},  
 % definition :benchmark: [noun] something that serves as a standard by which others may be measured or judged.
 % that serves as a basis for evaluation or comparison (as of computer system performance)
-\subsubsection{the impact of these challenges in the empirical research }
-In their work~\cite{van_der_kouwe_benchmarking_2018}, \citeauthor{van_der_kouwe_benchmarking_2018} Investigated 50 papers published in top venues
-to findout that tier-1 papers commit an average of five benchmarking crimes.
+\subsubsection{Impact of these challenges in the empirical research}
+In their work~\cite{van_der_kouwe_benchmarking_2018}, Van-der-Kouwe~\emph{et~al.} investigated 50 papers published in top venues
+to find out that Tier-1 papers commit an average of five benchmarking crimes.
 To analyze the magnitude of the phenomenon, they have identified a set of 22 "benchmarking crimes" that threaten the validity of the system.
-
-
 
 % TO [ROMAIN] should i include  this list ? 
 % thoes benchmark crimes that one can commit intentionally or by accident and that could jeopardize the integrity of their paper.t are listed below.
@@ -104,8 +102,7 @@ To analyze the magnitude of the phenomenon, they have identified a set of 22 "be
 %     \item  Relative numbers only
 % \end{itemize}
 
-\subsection{proposed solutions}\label[]{sec:soa_reproducibility}
-
+\subsection{Proposed Solutions}\label[]{sec:soa_reproducibility}
 %% BENCHMARKING FRAMEWORK -- ADD IT later \cite{sonnenwald2003evaluating}
 %further references 
 In the book "Measuring computer performance: a practitioner's guide"\cite{lilja2005measuring},\citeauthor{lilja2005measuring} examines performance indicators and gives in-depth treatment of benchmark program tactics. He provides clear explanations of the basic statistical methods required for interpreting measured performance data. He also outlines the overall 'design of experiments' method and demonstrates how to collect the most information with the least amount of work. This practical book will appeal to anybody seeking a comprehensive, yet intuitive, grasp of computer system performance analysis.
@@ -121,7 +118,7 @@ another article~\cite{patil2018training} expands on this line of thought by eval
 In their paper\cite{stodden2018empirical}, the authors find that, even though it's a big move in the right direction, journal policies that require authors to give back digital scholarly objects after publication, like the data and code that back up the claims, don't get more than half of these objects back. Then, using these artifacts, about a fourth of the published computational claims in the study could be made. They suggest putting out the claims in the literature and the digital scholarly objects that back them up at the same time.
 
 % as for computer sience. In their paper~\cite{buytaert_statistically_nodate}, the authors  separated the start-up measurement from the steady state when comparing different Java optimizations.
-Another work, to make unify the bemchmarking methodology across different research works in the field of computer science, we can cite the paper~\cite{stephen_evaluate_2012}. In their approach they  divided any emprical experiment into four  components:
+Another work, to make unify the benchmarking methodology across different research works in the field of computer science, we can cite the paper~\cite{stephen_evaluate_2012}. In their approach they  divided any empirical experiment into four  components:
 
 \begin{enumerate}
     \item \emph{measurement contexts} that indicate the software and hardware components that will alter or remain constant during the experiment.
@@ -135,7 +132,7 @@ Figure \ref{fig:soa_experiment_component} shows the four component presented in 
 
 \begin{figure}[!hbt]
     \center{\includegraphics[scale=0.3]{imgs/componentsofanexperiment}}
-    \caption{The proposed decomposition of an experement~\cite{stephen_evaluate_2012}}\label{fig:soa_expermiment_component}
+    \caption{The proposed decomposition of an experiment~\cite{stephen_evaluate_2012}}\label{fig:soa_expermiment_component}
 \end{figure}
 
 
@@ -151,43 +148,53 @@ Figure \ref{fig:soa_experiment_component} shows the four component presented in 
 
 % In addition to these benchmarks, a new category of testing techniques has emerged to simulate the worst cases of the production environments. This new category of benchmarking called performance tests\cite{pradeep2019pragmatic}, which are benchmarks meant to evaluate the behavior of software under stress situations. We can use the Gatling\footnote{\url{https://gatling.io/}} as an illustration for web applications stresser and stress-ng for hardware heavy workload perormance measurements~\cite{king2017stress}.
 
-\section{energy measurement}
-to be able to reduce the energy cost of running programs we should first be able to estame this energy consumption.
-many studies have been conducted to estimate a such energy consumption. that varries from static analysis of the source code to enfere it's energy consumption like \citeauthor{pereira_helping_2017} where they provided a tool to highlight the most energy consuming parts of the code \cite{pereira_helping_2017}.the main advantage of this apporach is to be able to estimate the energy consumption of a program without running it. however. unlike the conplexity of programs, the energy consumption is highly related the execusion environment. Therefor, Static analysis might not represent the real behaviour of the same program when it is run in the production environment.
+\section{Energy Measurement}
+To be able to reduce the energy cost of running programs we should first be able to estimate this energy consumption.
+Many studies have been conducted to estimate a such energy consumption. that varies from static analysis of the source code to infer its energy consumption like \citeauthor{pereira_helping_2017} where they provided a tool to highlight the most energy consuming parts of the code \cite{pereira_helping_2017}.
+The main advantage of this approach is to be able to estimate the energy consumption of a program without running it.
+Unlike the complexity of programs, the energy consumption is highly related the execution environment.
+Therefore, static analysis might not represent the real behavior of the same program when it is run in the production environment.
 To treat the problem of representativeness, many researchers tend to measure the energy consumption of the programs while they are running them. Hence we will get more accurate results.
-there is a variety of tools to measure such energy, and they cover a large spectrium of usage depends on how \textbf{accurate} and \textbf{pricise} those results are needed to be in tone hand, and the price that practinoners are ready to pay for a such accuray/pricision.
+there is a variety of tools to measure such energy, and they cover a large spectrum of usage depends on how \textbf{accurate} and \textbf{precise} those results are needed to be in tone hand, and the price that practitioners are ready to pay for a such accuracy/precision.
 Below we will present some tools that are well known in the literature and discuss their main advantages / drawbacks for our case.
-\subsection{hardware tools}
 
+
+\subsection{Hardware Tools}
 % TODO Add : diagram of the possible point where we can measure the energy 
-
 % depends on the scientific usage there are two apporaches :
 % 1. extern one or independent : when the most of researchs are using
 % the benifits of this is the simplicity of instalation however we pay the price either with a lack of temporal resolution ( low frequency ) or the spatial granularity
 % ( most of them measure the energy consumption of the whole machine )
 % 2. dedicated one , they are based on the instrumentation of some parts of the computer , however they have a high cost and they are defficult to scale since they require an instrumentation of the execusion environment.
-according to \citeauthor{hackenberg2014hdeem} there are four main creterions to evaluate an energy measurement tool \cite{hackenberg2014hdeem}
+according to \citeauthor{hackenberg2014hdeem} there are four main criterions to evaluate an energy measurement tool \cite{hackenberg2014hdeem}
 \begin{itemize}
     \item \em{spatial granularity}: the more specific the target of monitoring we are able to measure, the more efficient we can do optimization since we will know what causes the pitfalls of the energy consumption.
-    \item \em{temporal granularity}: same as spatial granularity, temporal granularity helps us to identif the sequence of code that need to be optimized.
+    \item \em{temporal granularity}: same as spatial granularity, temporal granularity helps us to identify the sequence of code that need to be optimized.
     \item \em{scalability}: this is mainly related to the cost of the tools and the ease of their integration for our system.
-    \item  \em{accuracy}:to elimanate extra hazards and get more representative measurement.
+    \item  \em{accuracy}: to eliminate extra hazards and get more representative measurement.
 \end{itemize}
 
-We believe that accuracy can be extracted from those creterions since it is a result of the combaination of the two first ones. therefore, we will focus more on the first 3 creterions from later on.
-In the follwong section we will discuss some of the well known tools that are used in literature.
+We believe that accuracy can be extracted from those criterions since it is a result of the combination of the two first ones. therefore, we will focus more on the first 3 criterions from later on.
+In the following section, we will discuss some of the well known tools that are used in literature.
 
 
-Nowdays, most of the high performance computing systems (HPC) implements a tool to report the energy consumption of the nodes for the sake of monitoring and administration. Those tools are mainly integrated withing the power suply units (PSU) or the power distributuin units (PDU). then , they provide an interface and a log to follow the history of the energy consumption. Despite their scalability and ease of integration. such tools lack both in spatial and temporal granularity since they monitor the whole energy of the nodes, and most of the times they have a very low sampling frequency. most of those tools are provided directly by the manufacturers. such as \em{IBM EnergyScale technology} \cite{mccreary2007energyscale} \cite{caldeira2014ibm} \cite{caldeiraibm} or \em{Dell poweredge} \cite{lovicott2009thermal}, MEGware Cluststafe \cite{breitbart2015case}
-As we said earlier the true purpose of those tools is more monitoring than analysing the energy consumption.
+Nowadays, most of the high performance computing systems (HPC) implements a tool to report the energy consumption of the nodes for the sake of monitoring and administration.
+Those tools are mainly integrated withing the power supply units (PSU) or the power distribution units (PDU).
+Then, they provide an interface and a log to follow the history of the energy consumption.
+Despite their scalability and ease of integration.
+Such tools lack both in spatial and temporal granularity since they monitor the whole energy of the nodes, and most of the times they have a very low sampling frequency. 
+Most of those tools are provided directly by the manufacturers. 
+Such as \em{IBM EnergyScale technology}~\cite{mccreary2007energyscale,caldeira2014ibm,caldeiraibm} or \em{Dell poweredge}~\cite{lovicott2009thermal}, MEGware Cluststafe~\cite{breitbart2015case}.
+As said earlier, the true purpose of those tools is more monitoring than analyzing the energy consumption.
 %% add something to link with wattsup pro 
-WattsUp Pro, is a device that can be installed  between the  powerer source of the machine and the system under test. it allows a sampling frequency up to 1Hz and has a internal memory to store a wide variety of data, such as the maximum voltage, current.. etc that later can be exported via USB port for personal usage or lined to some graph programs like Logger Pro or LabQuest.The main advantage of this tool is the ability to monitor the energy consumption from a different device which will reduce the risk of interference with the energy consumption of the test % a revoir 
+WattsUp Pro, is a device that can be installed between the power source of the machine and the system under test.
+It allows a sampling frequency up to 1\,Hz and has a internal memory to store a wide variety of data, such as the maximum voltage, current, that later can be exported via USB port for personal usage or lined to some graph programs like Logger Pro or LabQuest.
+The main advantage of this tool is the ability to monitor the energy consumption from a different device which will reduce the risk of interference with the energy consumption of the test % a revoir 
 \cite{hirst2013watts}
 
-despite his high temporal granularity  , wattsup pro lacks in term of spatial granularity since it monitors the energy consumption of the whole system.
+despite his high temporal granularity, wattsup pro lacks in term of spatial granularity since it monitors the energy consumption of the whole system.
 To have a finer granularity we need to isolate the energy consumption of each component.
-.
-For this we will need more intrusive tools such.
+For this, we will need more intrusive tools such.
 
 %% THIS IS FOR GPU %%% 
 % GPU TESLA \cite{burtscher2014measuring}
@@ -195,38 +202,43 @@ For this we will need more intrusive tools such.
 % NVML\cite{fahad2019comparative}
 %%%% 
 
-PowerMon and its upgradded version powerMon2 \cite{bedard2010powermon} are based on an microcontroler chip that can monitor up to 6 channel ( 8 for powermon2) simultanetly. therefore we are able to monitor the powerconsumption of 4 devices at the same time. the frequency sample of this tool is up to 50Hz with an accuracy of 1.2\%. Powermore2 comes with smaller size that can fit within 3.5 inches rack drive.
+PowerMon and its upgraded version powerMon2 \cite{bedard2010powermon} are based on an micro-controller chip that can monitor up to 6 channel (8 for powermon2), simultanetly. 
+Therefore, we are able to monitor the power consumption of 4 devices at the same time. 
+The frequency sample of this tool is up to 50\,Hz, with an accuracy of 1.2\%.
+Powermore2 comes with smaller size that can fit within 3.5 inches rack drive.
 
-PowerInsight \cite{laros2013powerinsight} is another finegrained measurement tool that is based on an ARM bagelbone processor \cite{coley2012beaglebone} which is able to measure up to 30 channel simultanetly with a frequency of 1KHz per channel.
+PowerInsight~\cite{laros2013powerinsight} is another fine-grained measurement tool that is based on an ARM bagelbone processor~\cite{coley2012beaglebone}, which is able to measure up to 30 channel simultaneously with a frequency of 1KHz per channel.
 
-on the other hand GreenMiner \cite{hindle2014greenminer}, %%i dont think that  mobile measurement will be relevent for my case 
+On the other hand, GreenMiner \cite{hindle2014greenminer}, %%i dont think that  mobile measurement will be relevent for my case 
+powerpack~\cite{ge2009powerpack} in the other hand is an api that synchronizes the data gathered from other monitoring tools such as Watt’s Up Pro, NI and RadioShack pro and the lines of code. %% maybe remove this one from the list because it is not well known.
 
-powerpack \cite{ge2009powerpack} in the other hand is an api that synchronizes the data gathered from other monitoring tools such as Watt’s Up Pro, NI and RadioShack pro and the lines of code %% maybe remove this one from the list because it is not well known.
-
-other monitor tools have been relized by the manufactures such as IBM Power executive \cite{koomey2011growth} which allows their customer to monitor the power consumption and thermal behaviour of the of BladeCenter systems in the datacenter.
+Other monitor tools have been realized by the manufactures, such as IBM Power executive~\cite{koomey2011growth}, which allows their customer to monitor the power consumption and thermal behavior of the of BladeCenter systems in the data center.
 
 
 
 %% TODO : add diagram where the distribution of the energy consumption is more related to the CPU rather than other tools - u can cite the tools dedicated to the GPU since it is is included in the software aggregators ? power api, pythoules ...etc 
 
 as we see in % two diagrams one for research the other one for power usage 
-The CPU is the part responsible of the most energy consumption of softwares. hence the finner we go to measure this energy consumption the better it is for our work.
-Fortunately, Intel and later AMD proposed a tool that estimate the power consumption of different part of the CPI based on counter performances. RAPL (RUnning Average Power Limit) \cite{hackenberg2013power} \cite{hackenberg2015energy} is a set of registers that was introduced by intel in their CPU since Sandy bridge generation, and later it was fllowed by AMD since Family 17h Zen.
-It is capable of monitoring different components of CPU , such as DRAM, Cores , and the integrated GPU for desktop processors.
+The CPU is the part responsible of the most energy consumption of softwares. hence the finer we go to measure this energy consumption the better it is for our work.
+Fortunately, Intel and later AMD proposed a tool that estimate the power consumption of different part of the CPI based on counter performances.
+RAPL (\emph{RUnning Average Power Limit}) \cite{hackenberg2013power,hackenberg2015energy} is a set of registers that was introduced by Intel in their CPU since Sandy bridge generation, and later it was followed by AMD, since Family 17h Zen.
+It is capable of monitoring different components of CPU, such as DRAM, cores, and the integrated GPU for desktop processors.
 
 %% TODO :ADD figure of RAPL + references 
 
-The advanage of a such apporach is that the absence of any intrusive measurement tools. further more they have a high temporal granurality with a sampling frequency up to 1KHz \cite{ilsche_power_2015}.
+The advantage of such an approach is that the absence of any intrusive measurement tools. 
+Furthermore, they have a high temporal granularity with a sampling frequency up to 1\,KHz~\cite{ilsche_power_2015}.
 
-with similar approach we can find NVIDIA reporting tools such as GPU TESLA \cite{burtscher2014measuring} and the NVML library \cite{fahad2019comparative}
+With similar approach, we can find NVIDIA reporting tools, such as GPU TESLA \cite{burtscher2014measuring} and the NVML library~\cite{fahad2019comparative}.
 
-\subsection{software tools}
+\subsection{Software Tools}
+Software-based measurement tools are based on other hardware tools to monitor energy use. Granularity is the core value of these technologies, unlike hardware tools, which only provide the total energy usage of the system/component (computer, server, motherboard, etc.) for most cases.
+Because they are frequently constructed on empirical estimations and data learning methods, they drop in accuracy.
 
-Software-based measurement tools are based on other hardware tools to monitor energy use. Granularity is the core value of these technologies, unlike hardware tools, which only provide the total energy usage of the system/component (computer, server, motherboard, etc.) for most cases. Because they are frequently constructed on empirical estimations and data learning methods, they drop in accuracy.
+Many software measuring tools understand the behavior of a power model and provide estimates of energy usage.
+This model is then used to allocate the observed energy consumption among different execution entities, such as processes, control groups, threads, or even code lines.
 
-Many software measuring tools understand the behavior of a power model and provide estimates of energy usage. This model is then used to allocate the observed energy consumption among different execution entities, such as processes, control groups, threads, or even code lines.
-
-The first examples of software measurement tools are PowerAPI~\cite{colmant2018next}, SmartWatts formula~\cite{fieni2020smartwatts} and selfWatts~\cite{fieni2021selfwatts}.
+The first examples of software measurement tools are PowerAPI~\cite{colmant2018next}, SmartWatts formula~\cite{fieni2020smartwatts} and SelfWatts~\cite{fieni2021selfwatts}.
 These tools collect global energy consumption measurements from RAPL and use other system events such as cache misses/hits and CPU frequency evolution (DVFS) via a sensor to construct a power model of the control groups (system control groups, docker containers, kubernetes pods, etc.) using a Ridge regression.
 The model continuously learns and improves its precision of real-time energy usage data with a maximum frequency of 100 Hz.
 The instrument has a decentralized, lightweight design.
@@ -242,24 +254,24 @@ Joulemeter~\cite{kothari2009joulemeter,jagroep2017energy} is a Microsoft softwar
 It employs low-overhead power models to infer power consumption from resource utilization during runtime, and it provides power limiting features for virtual machines.
 Previous Joulemeter tests~\cite{jagroep2015profiling} demonstrated that the instrument provides a less accurate estimation of energy use that differs greatly from the real one.
 To adjust its models to the hardware on which it operates, Joulemeter must first go through a calibration step.
-It is able to only monitor one process at a time with a frequency of 1 HZ.
+It is able to only monitor one process at a time with a frequency of 1\,Hz.
 
 
 
-JRAPL is another example of an energy measurement tool estimating tool that has been utilized in a variety of publications\cite{guimaraes2016some,liu2015data}.
+jRAPL is another example of an energy measurement tool estimating tool that has been utilized in a variety of publications\cite{guimaraes2016some,liu2015data}.
 This software enables for the energy usage of Java programs, functions, or even a block of code lines to be profiled and measured.
 The measurements are heavily reliant on the data supplied by RAPL.
 As a result, the global energy consumption collected by RAPL between two timestamps (the start and finish of the code to measure) is used to calculate the energy consumption of the Java code.
-Tests using JRAPL should be done on a well-configured machine to minimize the impact of the operating system and user operations on the overall energy consumption of JRAPL.
+Tests using jRAPL should be done on a well-configured machine to minimize the impact of the operating system and user operations on the overall energy consumption of jRAPL.
 
-Another process-level energy usage measuring tool is Jolinar \cite{islam2016measuring,noureddine2016jolinar}.
+Another process-level energy usage measuring tool is Jolinar~\cite{islam2016measuring,noureddine2016jolinar}.
 The tool does not need a calibration phase and relies on pre-established power models based on hardware metrics (TDP, disk I/O rate, and so on).
 These settings must be identified and supplied by the user for his machine.
 Jolinar is only capable of measuring the energy consumption of one application at a time.
 At the end of the execution, the tool provides the CPU, DRAM, and disk energy usage of the main process.
-joulinar
 
-Jalen\cite{noureddine2015monitoring} is another tool that profiles and monitors the energy usage of a Java program. Unlike JRAPL, Jalen is able to reduce the scope up to the function level.
+Jalen~\cite{noureddine2015monitoring} is another tool that profiles and monitors the energy usage of a Java program.
+Unlike jRAPL, Jalen is able to cover the scope down to the function level.
 It gathers data using code instrumentation and statistical sampling at a predetermined pace.
 Because of the overhead that code instrumentation may incur, the authors recommend utilizing the second option.
 Every 10 ms, Jalen records the JVM's stack trace together with the CPU time of threads and computes statistics about method calls.
@@ -268,7 +280,7 @@ These statistics are then utilized to calculate each method's energy usage.
 selfwatts \cite{fieni2021selfwatts}
 powerjoular \cite{noureddine2022powerjoular}
 
-\subsection{hybrid tools}
+\subsection{Hybrid Tools}
 % split hardware tools into extern and embeded tools 
 
 Simgrid simulation of power consumption of parallel aplication using simgrid \cite{heinrich2017predicting}
@@ -296,10 +308,9 @@ reducing the energy consumption in parallel systems \cite{chasapis2016runtime}
 
 
 
-\section{programming languages and performances}\label{section:soa_optimization}
-\subsection{energy}\
+\section{Programming Languages \& Performances}\label{section:soa_optimization}
 
-
+\subsection{Energy}
 energy comparaison of programming languages in the game benchmark by debian \cite{pereira2017energy}
 
 toward green ranking \cite{couto2017towards}
@@ -326,15 +337,15 @@ SPELL, the energy leaks detector tool \cite{pereira2017helping}
 
 impact of energy profiling on software \cite{jagroep2017energy}
 
-impact of maintability on software energy evolution \cite{calero2021does}
+impact of maintainability on software energy evolution \cite{calero2021does}
 
-defintion \cite{wang1993grpc}
+definition \cite{wang1993grpc}
 
-comparaison \cite{chamas2017comparing}
+comparison \cite{chamas2017comparing}
 
-emprical study \cite{de2021empirical}
+empirical study \cite{de2021empirical}
 
-impact of website implemenation on energy consumption \cite{philippot_characterization_2014} \cite{manotas2013investigating}
+impact of website implementation on energy consumption \cite{philippot_characterization_2014} \cite{manotas2013investigating}
 
 PHP \cite{benmoussa_new_2019} \cite{das_comparison_2016}
 
@@ -347,9 +358,9 @@ performance \cite{mishra2021web}
 
 cross compiler benchmarking \cite{yet2016cross}
 
-\subsection{python}
+\subsection{Python}
 
-webframeworks on python \cite{pankiv_concurrent_nodate}
+web frameworks on python \cite{pankiv_concurrent_nodate}
 
 hope library \cite{akeret_hope_2015}
 
@@ -368,7 +379,7 @@ static vs dynamic languages \cite{pang_what_nodate}
 concurent benchmark framework \cite{pankiv2019concurrent}
 
 
-\subsection{jvm}
+\subsection{JVM}
 
 java vs python \cite{destefanis_statistical_2016}
 
@@ -405,8 +416,7 @@ microservices \cite{grambow_benchmarking_2020}
 impact of webservers on web applications energy \cite{manotas_investigating_2013}
 %%%%%%%%%%%%%%%%%  virtualisation 
 
-%%%%%%%%%%%%% energy metigation 
-
+%%%%%%%%%%%%% energy mitigation
 \section{Energy Variation}
 In theory, using identical CPU, same memory configuration, similar storage and networking capabilities, should increase the accuracy of physical measurements.
 Unfortunately, this is not possible when it comes to measuring the energy consumption of a system.
@@ -461,22 +471,27 @@ In~\cite{marathe_empirical_2017_m}, the authors highlight the increase of energy
 
 
 
-
-
 \section{Conclusion}
-As we have seen in the state of the art, many methodes have been proposed to reduce the energy footprint of the the ICT,which they can be applied in deffirent parts of the lifecycle of the program, from consumption to the execution. Furthermore, the execution phase took attention of many researchers because it's the part where the most energy is consumed. This thesis will focus on that aspect as well. However, unlike the most work that have been done on the hardware aspect, we will target the software impact on this energy, starting from the choice of the programming language up to how to tune some features of a frameworks in order to make the software consumes less energy.To do so we use the emprical apporach due to it's concinstency for the moment.Unlike the perfromance which essentialy related to the complexity of the algorithm, the energy consumption is more impacted by the hardware.
-Therefore, to optimize the enrgy consumption we choose a spiral methode. based on 3 phases:
+As we have seen in the state of the art, many methods have been proposed to reduce the energy footprint of the the ICT, which they can be applied in different parts of the lifecycle of the program, from consumption to the execution. 
+Furthermore, the execution phase took attention of many researchers because it is the part where the most energy is consumed. 
+This thesis will focus on that aspect as well. 
+However, unlike the most work that have been done on the hardware aspect, we will target the software impact on this energy, starting from the choice of the programming language up to how to tune some features of a frameworks in order to make the software consumes less energy.
+To do so we use the empirical approach due to its consistency for the moment.
+Unlike the performance, which is essentially related to the complexity of the algorithm, the energy consumption is more impacted by the hardware.
+Therefore, to optimize the energy consumption we choose a spiral method based on 3 phases:
 \begin{enumerate}
-    \item execute the code
-    \item measure the program
-    \item infere the guidelines
+    \item execute the code,
+    \item measure the program,
+    \item infer the guidelines.
 \end{enumerate}
 
 
 \begin{figure}[!hbt]
     \center{\includegraphics[scale=0.3]{imgs/greenbenchmarkcycle}}
-    \caption{the spiral methode of energy optimization }\label{fig:spirals}
+    \caption{the spiral method of energy optimization }\label{fig:spirals}
 \end{figure}
-the aim of this work is to present a set of guidelines to create a benchmarking system to to measure the energy consumption of different programs.
-After that, we will use this system to compare the energy consumption of different programming languages. We will extend the work of \citeauthor{pereira2017energy} to a closer distance to production environment by comparing a set of usecases. starting by GRPC framework, and a set of Web Framewroks. Finally we will discuss the impact of the execution environment on the energy consumption of two of the most famous programming languages JAVA and Python. and present how can tunning the Virtual Machine can reduce the energy consumption.
 
+The aim of this work is to present a set of guidelines to create a benchmarking system to to measure the energy consumption of different programs.
+After that, we will use this system to compare the energy consumption of different programming languages. We will extend the work of \citeauthor{pereira2017energy} to a closer distance to production environment by comparing a set of use cases.
+Starting by GRPC framework, and a set of Web Frameworks.
+Finally, we will discuss the impact of the execution environment on the energy consumption of two of the most famous programming languages Java and Python and present how can tunning the Virtual Machine can reduce the energy consumption.
