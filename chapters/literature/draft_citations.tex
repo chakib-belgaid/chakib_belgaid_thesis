@@ -136,6 +136,22 @@ Figure \ref{fig:soa_experiment_component} shows the four component presented in 
 \end{figure}
 
 
+
+% %%%%% move it to SOA maybe 
+% \subsection{Virtual Machines}
+% First option should be using \emph{Virtual Machines} (VM), which gives researchers the freedom to choose the most appropriate tools, software and operating system that they are the most comfortable with, without paying the price to change the actual working environment, which will give them eventually more control over the dependencies and the execution environment.
+% Moreover, using a VM addresses the \emph{replication crisis} thanks to the virtual images, as even the most complex architecture can be reproduced easily by instantiating a copy of the image.
+% Since the virtual machines are agnostic to the host architecture, researchers will not have to worry about where and how their experiments are replicated, because they have already setup the execution environment.
+% Another advantage of VM is the snapshot mechanism, as it allows researchers to create backups and revert some changes with simple clicks. 
+% Last but not least, thanks to the isolation, virtual machines push the reproducibility further by allowing the future usages to see all the variables---controlled and uncontrolled---and do other analysis without dealing with any dependencies.
+% In his paper~\cite{howe_virtual_2012}, Bill Howe lists the benefits of using VM in researchers experiments, including the economical impact and cultural limitation to a such approach.
+% In particular, VM allow them to have control over the resources, the dependencies, and the execution environment.
+% Moreover, thanks to snapshots, deploying a software is easily achieved by instantiating a copy of that image.
+% However, this choice comes with a certain cost.
+% Because of the hypervisor, software will build on two kernels---the virtual machine (guest) one and the host machine one---which will provide a noticeable overhead, and will impact the performances of the system-under-test.
+% Therefore, we cannot use VM for experiments that are related to performance.
+% Another limitation of VM is the the isolation.
+% While this feature prevents the experimental environment from any undesirable interference from the outside world, this interaction may be required---especially when the experiment is dependent to an external 
 %%%% TODO : Elaborate this section and check what should be added 
 % As Stephen M. Blackburn~\emph{et~al.} cited in their paper "evaluate collaboratory"~\cite{stephen_evaluate_2012}, one of the major pitfalls of the measurement contexts is the inconsistency, which can be translated here by the fact that the production context is not the same as the benchmarking one.
 
