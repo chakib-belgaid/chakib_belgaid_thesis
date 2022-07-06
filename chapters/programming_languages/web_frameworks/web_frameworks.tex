@@ -167,7 +167,7 @@ table shows the different levels for each scenario.
 
 \end{table*}
 
-To add extra scenarios one might implement a python class that handles the metadata of the workload, such as the query route, the query parameters and the excpected results. 
+To add extra scenarios one might implement a python class that handles the metadata of the workload, such as the query route, the query parameters and the excpected results.
 \subsection{Metrics}
 We focus on comparing the energitical behaviour of different frameworks in multiple scenarios
 
@@ -208,10 +208,10 @@ Figure \ref{fig:architecture} illustrates the architecture of our system
 we are aware of bias analysis regarding the estimation of the total energy cost , the interference of other system processess during the execution and some external events. Thus, we run experiments multiple times and compute the average.
 
 \subsection{extesion}
-To follow the guidelines that we presented in chapter \ref{chapter:benchmarking} we provide a github repository \footnote{\url{https://github.com/chakib-belgaid/FrameworkBenchmarks}} where one can add extra \textbf{candidates} buy creating a new project using the option --new. then the they have just to fill the template and provide the docker image file. 
+To follow the guidelines that we presented in chapter \ref{chapter:benchmarking} we provide a github repository \footnote{\url{https://github.com/chakib-belgaid/FrameworkBenchmarks}} where one can add extra \textbf{candidates} buy creating a new project using the option --new. then the they have just to fill the template and provide the docker image file.
 
-to configure the \textbf{workload} we provide the option --concurrency-levels and --duration. 
-As for the choice of the database it is added in the docker image. 
+to configure the \textbf{workload} we provide the option --concurrency-levels and --duration.
+As for the choice of the database it is added in the docker image.
 
 
 \section{finding and results}
@@ -219,14 +219,43 @@ As for the choice of the database it is added in the docker image.
 Overall we had 8750 test. and all can be found in the repository \footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}.
 In this section we will use the previous results to answer the following questions
 \begin{itemize}
-    \item which programming language is the most efficient energy wise ?
-    \item given a certain constraintes such as performance and number of clients, which stack perfromes the best ?
+    \item is there a dominant  programing langauges when it comes to , energy consmption and latency ?
+    \item which class of programming language is perfromring well ?
+    \item is there a correlation between the energy consumption and the latency ?
+    \item is there an impact of the server when it comes to change the data base ?
 \end{itemize}
 
 since most of the companies use the same stack, we wont be aggregating the results since it may lead to confusion.
 the best example, if we compare the average energy consumption for each programming langauge, this wont reflect in reality specially when we have two frameworks on the opposit sides of the spectrium.
+\subsection{overal all statistics}
+In order to determine which framewrok/stack is perfroming well we need to establish some general idea about the average energy consumption and latency of the frameworks. Instead of giving just the raw energy consumption of those frameworks we will provide some green factors to determine which one is ecofriednly and which one is gluton.
+In this part we will discuss the Average behaviour of the frameworks, highlight some tendecies and elimante the outliers.
+As we said in the threats to validity, being an outlier in this case doenst mean that the framework is not performing well, it just means that the framework is not performing well in the same way as the others within the context of this experiment.
 
 
-\section{tools and contribution}
+
+\begin{figure}[bht]
+    \centering
+    \includegraphics[width=.8\columnwidth]{imgs/av_power_db}
+    \caption{Average power consumption for the Single query test}
+    \label{fig:av_power_db}
+\end{figure}
+
+
+\begin{figure}[bht]
+    \centering
+    \includegraphics[width=
+        \columnwidth]{imgs/power_requests_db}
+    \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients)}
+    \label{fig:}
+\end{figure}
+% to reduce the space of research we will be looking for some correlation 
+% same thing for the number of clients , mayebe we gonna consider 3 cases - 0 , low and high 
+
+%  when comparing static vs dynamic programming langauges we exclude the ones that uses reflection aka C# and JAVA
+
+%% for more about the syntax we recommand cheking this website https://learnxinyminutes.com/
+\section{Threats to validity }
+We are aware of the bias inducted by the implementation of a candidates, therefore we propose  the framework ( see the part of extension) to allow the readers to confirm themselves any new hypothesis. regarding a new framework , an new workload a new database ..etc
 
 % \subsection{tools}
