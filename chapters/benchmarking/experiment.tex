@@ -64,17 +64,11 @@ Figure~\ref{fig:topo}  shows the detailed topology of a node in the cluster \tex
 \end{figure}
 
 \subsubsection{Workload}
-Our choice for the benchmarks was based on two criterions.
 
-First, \textbf{scalability} : We wanted to gather the highest possible amount insights (regarding time spent for the experiment, therefore we wanted some benchmarks who can scale according to the number of PUs and can fulfill different scenarios.
-Second criterion is \textbf{representativeness} : as mentioned in the challenges, a workload has to be representative otherwise the experiment would be inconsistent \cite{stephen_evaluate_2012}.
-To satisfy those criterions we went through state of the art and looked for the most used benchmarks for testing the performance of the hardware, and then we selected the scalable ones.
-%%%%%% 
 We picked the benchmarks based on two criteria.
 
 First, \textbf{scalability}: We wanted to learn as much as possible about the experiment in the time we had, so we needed some benchmarks that could grow or shrink with the number of PUs and work in different situations.
-
-The second criterion is whether or not the workload is \textbf{representative}. As stated in the challenges, a workload must be representative or the experiment would be inconsistent~\cite{stephen_evaluate_2012}.
+The second criterion is whether or not the workload is \textbf{representative}. As stated in the challenges, a workload must represent the production enviromenet or the experiment would be inconsistent~\cite{stephen_evaluate_2012}.
 
 To meet these criteria, we looked at the "state of the art" and found the most common benchmarks used to test the performance of hardware. We then chose the ones that could be scaled up. 
 Our candidate is  emph{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NPB:125826.125925}: one of the most used benchmarks for \emph{HPC}. We used the applications (\textsf{LU}), the \emph{Conjugate Gradient} (\textsf{CG}) and \emph{Embarrassingly Parallel} (\textsf{EP}) computation-intensive benchmarks in our experiments, with the \textsf{C} data class.
