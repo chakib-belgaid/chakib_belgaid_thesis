@@ -1,44 +1,37 @@
+\newpage
 % To satisfy those three requirements. we elaborated a benchmarking protocol that aims to help reaserchers and practicioners in their experementations.
-
 % for each aspect we present a set of guidelines and tools.
 %% This is a conclusion maaan  !! 
-\section{Taming the energy variation for the benchmarking protocol}\label{sec:taming-the-energy-variation}
+\section{Improving accuracy by Taming the energy variation}\label{sec:taming-the-energy-variation}
 
-
-\subsection{Objective}
-While the previous part aims to create a large umbrella that covers all empirical benchmarks related to computer science, we rather aim to narrow our study to energy benchmarking only.
-In other words, we will focus on pitfalls that hinders the energy claims of software.
-We are clearly aware of the impact of hardware on energy variations.
-However, we believe that there is still a room to control this energy variation for practitioners by using only parameters that can be tuned.
-To do so, we have inducted a set of empirical experiments using the guidelines provided by state of the art, to determine which controllable factors can reduce the variation of the energy consumption of benchmarks.
+While the previous section aimed to ensure the reproducibility of our software energy consumption experiments, this section will provide a collection of tips and tools to help you increase the accuracy of these experiments.
+We are well aware of the effect that hardware has on energy fluctuations.
+However, we feel that there is still an opportunity for practitioners to minimize this energy variance by employing solely tuneable factors.
+To that end, we conducted a series of empirical studies utilizing state-of-the-art recommendations to discover which controllable elements can limit the variations of benchmark energy usage.
 % We will first start with evaluating the parameters mentioned by \cite{heinrich_predicting}.
 
-In this part we will try to answer the following Research questions.
-
+In this section we will try to answer the following Research questions.
 \begin{description}
     \item[\textsc{RQ}~1:] Does the benchmarking protocol affect the energy variation?
     \item[\textsc{RQ}~2:] How important is the impact of the processor features on the energy variation?
-    \item[\textsc{RQ}~3:] What is the impact of the operating system on the energy variation? and finally
-    \item[\textsc{RQ}~4:] Does the choice of the processor matter to mitigate the energy variation?
+    \item[\textsc{RQ}~3:] What effect does the operating system have on energy variation?
+    \item[\textsc{RQ}~4:] Does the choice of processor make a difference in reducing the energy variation?
 \end{description}
 
 
 \subsection{Experimental Setup}\label{subsec:setup}
-This section describes our detailed experimental environment, covering the clusters configuration and the benchmarks we used  justifying our experimental methodology.
+This section describes our detailed experimental environment, covering the cluster configuration and the benchmarks we used to justify our experimental methodology.
 
 \subsubsection{Measurement Context}
 There are three main contexts.
 \begin{itemize}
-    \item Different machines with different configuration
-    \item Different machines with the same configuration
-    \item Same machine
+    \item different machines with different settings;
+    \item different machines with the same settings ;
+    \item the same machine. 
 \end{itemize}
 
-To satisfy those requirements we have used the platform Grid5000 (G5K)~\cite{grid5000,margery:hal-00965708},a large-scale and flexible testbed for experiment-driven research distributed across all france.
-Grid5000 offers  multiple clusters composed with 4 up to 124 identical machine with different configurations for each cluster.
-For our experiment, we have considered 4 clusters.
-Our main criterions was the CPU Configuration.
-the table below~\ref{table:g5k}, presents a description of the 4 clusters.
+We used the platform Grid5000 (G5K)~\cite{grid5000,margery:hal-00965708}, which is a large, flexible testbed for experiment-driven research that is spread out across all of France, to meet these needs.Grid5000 has several clusters that are made up of 4 to 124 identical machines with different configurations for each cluster.For our experiment, we looked at four groups. Our main criterion was the CPU configuration.
+The table below~\ref{table:g5k}, presents a description of the four cluster that have been chosen for our experiments.
 
 \begin{table}[!hbt]
     \centering
@@ -61,9 +54,9 @@ the table below~\ref{table:g5k}, presents a description of the 4 clusters.
     \end{tabular}
 \end{table}
 
-As most of the nodes are equipped with two sockets (physical processors), we use the acronym \textsf{CPU} or \textsf{socket} to designate one of the two sockets and \textsf{PU} for the \emph{processing unit}. For our study we consider hyper-threads as distinct \textbf{PU}
+As most of the nodes are equipped with two sockets (physical processors), we use the acronym \textsf{CPU} or \textsf{socket} to designate one of the two sockets and \textsf{PU} for the \emph{processing unit}. For our study we consider hyper-threads as distinct \textbf{PUs}.
 
-As an example, Figure~\ref{fig:topo} illustrates a detailed topology of a node belonging to the cluster \textsf{Dahu}.
+Figure~\ref{fig:topo}  shows the detailed topology of a node in the cluster \textsf{Dahu}. as an example. 
 
 \begin{figure}%[!htb]
     \center{\includegraphics[width=.9\linewidth]{imgs/lstopo}}
@@ -76,12 +69,20 @@ Our choice for the benchmarks was based on two criterions.
 First, \textbf{scalability} : We wanted to gather the highest possible amount insights (regarding time spent for the experiment, therefore we wanted some benchmarks who can scale according to the number of PUs and can fulfill different scenarios.
 Second criterion is \textbf{representativeness} : as mentioned in the challenges, a workload has to be representative otherwise the experiment would be inconsistent \cite{stephen_evaluate_2012}.
 To satisfy those criterions we went through state of the art and looked for the most used benchmarks for testing the performance of the hardware, and then we selected the scalable ones.
+%%%%%% 
+We picked the benchmarks based on two criteria.
+
+First, \textbf{scalability}: We wanted to learn as much as possible about the experiment in the time we had, so we needed some benchmarks that could grow or shrink with the number of PUs and work in different situations.
+
+The second criterion is whether or not the workload is \textbf{representative}. As stated in the challenges, a workload must be representative or the experiment would be inconsistent~\cite{stephen_evaluate_2012}.
+
+To meet these criteria, we looked at the "state of the art" and found the most common benchmarks used to test the performance of hardware. We then chose the ones that could be scaled up. 
 Our candidate is  emph{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NPB:125826.125925}: one of the most used benchmarks for \emph{HPC}. We used the applications (\textsf{LU}), the \emph{Conjugate Gradient} (\textsf{CG}) and \emph{Embarrassingly Parallel} (\textsf{EP}) computation-intensive benchmarks in our experiments, with the \textsf{C} data class.
 Further more we have used other applications to validate our results using more applications such as \texttt{Stress-ng v0.10.0},\footnote{\url{https://kernel.ubuntu.com/~cking/stress-ng}} \texttt{pbzip2 v1.1.9},\footnote{\url{https://launchpad.net/pbzip2/}} \texttt{linpack}\footnote{\url{http://www.netlib.org/linpack}} and \texttt{sha256 v8.26}\footnote{\url{https://linux.die.net/man/1/sha256sum}}.
 
 
 \subsubsection{Metrics \& Measurement Tools}
-Our metric for the accuracy of the test is the Standard deviation aka \textbf{STD} of the energy consumption. Therefore wether the tests consumes more or less energy is out of our scope.
+Our metric for the accuracy of the test is the Standard deviation aka \textbf{STD} of the energy consumption. Therefore whether the tests consumes more or less energy is out of our scope.
 To study this variation we need first a tool to measure the energy consumption. For this we used \textsc{PowerAPI}~\cite{DBLP:journals/jss/ColmantRKSFS18}, which is a power monitoring toolkit that is based on \emph{Intel Running Average Power Limit} (RAPL) \cite{Khan:2018:RAE:3199681.3177754}. The advantage of PowerAPI is that it reports the Energy consumption of CPU and DRAM at a socket level.
 
 Our testbeds are run with a minimal version of Debian \,9 (4.9.0 kernel version)\footnote{\url{https://github.com/grid5000/environments-recipes/blob/master/debian9-x64-min.yaml}} where we install Docker (version 18.09.5), which will be used to run the RAPL sensor and the benchmark itself.
@@ -105,7 +106,7 @@ We therefore explore many potential factors and parameters that could have a con
 \subsection{Docker \& Accuracy}
 As the state of the art assesses the impact of Docker on the energy consumption, one can also consider its impact on accuracy.
 In other words:\\
-\textbf{RQ:} does Docker affect the energy variation of the experiments? 
+\textbf{RQ:} does Docker affect the energy variation of the experiments?
 
 To answer this question we conducted a preliminary experiment by running the same benchmarks \textsf{LU}, \textsf{CG} and \textsf{EP} in a Docker container and a flat binary format on 3 nodes of the cluster \textsf{Dahu} to assess if Docker induces an additional variation.
 Figure~\ref{fig:docker} reports that this is not the case, as the energy consumption variation does not get noticeably affected by Docker while running a same compiled version of the benchmarks at 5\,\%, 50\,\% and 100\,\% workloads.
@@ -500,22 +501,22 @@ It therefore intends to help practitioners in taming the energy variation on the
     \small
     \begin{tabular}{|p{4.7cm}|c|c|}
         \hline
-        \textbf{Guideline}                                                                                                                                                  & \textbf{Load} & \textbf{Gain}     \\
+        \textbf{Guideline}                                                                                                                                                & \textbf{Load} & \textbf{Gain}     \\
         \hline
         \hline
-        Use a low TDP CPU        & Low \& medium & Up to $3\times$   \\
+        Use a low TDP CPU                                                                                                                                                 & Low \& medium & Up to $3\times$   \\
         \hline
-        Disable the CPU C-states & Low           & Up to $6\times$   \\
+        Disable the CPU C-states                                                                                                                                          & Low           & Up to $6\times$   \\
         \hline
-        Use the least of sockets in a case of multiple CPU   & Medium        & Up to $30\times$\\
+        Use the least of sockets in a case of multiple CPU                                                                                                                & Medium        & Up to $30\times$  \\
         \hline
-        Avoid the usage of hyper-threading whenever possible & Medium        & Up to $5\times$\\
+        Avoid the usage of hyper-threading whenever possible                                                                                                              & Medium        & Up to $5\times$   \\
         \hline
-        Avoid rebooting the machine between tests  & High & Up to $1.5\times$ \\
+        Avoid rebooting the machine between tests                                                                                                                         & High          & Up to $1.5\times$ \\
         \hline
-        Do not relate to the machine idle variation to isolate a test EC, the CPU/OS changes its behavior when a test is running and can exhibit less variation than idle & Any & ---\\
+        Do not relate to the machine idle variation to isolate a test EC, the CPU/OS changes its behavior when a test is running and can exhibit less variation than idle & Any           & ---               \\
         \hline
-        Rather focus the optimization efforts on the system under test than the OS & Any           & ---               \\
+        Rather focus the optimization efforts on the system under test than the OS                                                                                        & Any           & ---               \\
         \hline
         Execute all the similar and comparable experiments on a same machine. Identical machines can exhibit many differences regarding their energy behavior             & Any           & Up to $1.3\times$ \\
         \hline
