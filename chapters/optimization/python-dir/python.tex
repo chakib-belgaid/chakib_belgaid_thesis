@@ -2,9 +2,8 @@
 \section{Introduction}
 
 
-When it comes to developing software systems, one can notice that---except Perl---dynamic programming languages have taken over compiled languages along the last decade in terms of developers popularity (cf. Figure~\ref{fig:pypl}).
-However, it remains unclear if this class of dynamic programming languages can reasonably compete with compiled ones when it comes to power efficiency.
-
+Dynamic programming languages, with the exception of Perl, have surpassed compiled programming languages in terms of popularity among software system developers over the past decade (cf. Figure~\ref{fig:pypl}).
+However, it remains unclear whether this category of dynamic programming languages can truly compete with compiled ones in terms of power consumption. 
 \begin{figure}[htbp]
     \includegraphics[width=\linewidth]{imgs/programminglanguangespopularity.png}
     \caption{PYPL Popularity of Programming Languages~\cite{noauthor_pypl_nodate}}
@@ -18,6 +17,9 @@ As Python is widely adopted by software services deployed in public and private 
 More specifically, this chapter focuses on runtime optimizations that can adopted by developers to leverage the power consumption of Python applications.
 We start by studuing the impact of some of programmers choice such as the type of data structures or loops, on the global energy consumption of the execution code.
 then we discuss some other factors such as level of concurrency etc. later we we will talk about another non intrusive ways to optimize the energy consumption of this code. one kind of those optimizations includes alternative interpertersand some libraries that are dedicated to optimize the code without changing its structures such as \emph{ahead-of-time} (AOT) compilation and \emph{just-in-time} (JIT) libraries that are maintained by the community.
+
+%%%%%%%%%%% READ AGAIN 
+articular, Noureddine in 2012 and Pereira in 2017 conducted empirical power measurements on this topic, and both concluded that compiled programming languages consume less power than dynamic ones.They found that a programming language that is interpreted, like Python, can use up to 7,584 times more energy than C. As a result, in this chapter, we will look at the obvious optimizations that may be done to Python legacy programs to lower their energy footprint.Since Python is used by many software services in both public and private cloud infrastructures, we think that our contributions will help a wide range of legacy systems by reducing ICT carbon emissions and lowering cloud bills for the resources used by these services. This chapter focuses on runtime improvements that developers can employ to reduce the power consumption of Python applications.We start by looking at how the choices made by programmers, like the type of data structure or loop, affect how much energy the code as a whole uses. Then we discuss additional topics, such as the level of concurrency, and so on.We will discuss another non-intrusive technique to optimize this code's energy consumption.Alternative interpreters and libraries dedicated to optimizing code without affecting its structures, such as ahead-of-time (AOT) compilation and just-in-time (JIT) libraries maintained by the community, are examples of these optimizations. 
 % However, the operational conditions under which these measurements may threaten the validity of their results.
 
 
@@ -268,7 +270,7 @@ After the collection of those implementation we filtered them. in order to keep 
 and we classified them into 3 categories depending of their integration with the python code.  In the \ref{fig:pythonimplementations} we describe the implementations that we kept and the version of each implementation and its category.
 
 
-\begin{figure}[thb]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/python-implementations-tree}
     \caption{Python interpeters}
@@ -449,15 +451,12 @@ the reason behind a such behaviour is mainly related on how python interpeter is
 % https://wiki.python.org/moin/TimeComplexity
 %% http://python-history.blogspot.com/2010/06/from-list-comprehensions-to-generator.html?m=1
 In order to reduce the latency of the python code. most of the buitl-in functions an operations are written in C, same thing goes for the function range, further more the function len has a complexity of O(1) because it is based on the function Py\_SIZE  of C which stores the length in a field for the object.
-
 so basically for the for in range is basically creating a new iterator that has the same length of the first one. and for each iteration we will have to do a second acceess ( l[i]) instead of one one access hence the double time.
-
 for the wile is even slower due to the implicite incrementation of the variable which will cause an extra operation during the loop .
-
 to confirm the hyphothsis. we tried to construct a new list by editing the elements of the previous one. And as predicted , the builtin methodes are the best energy saving, while the customize while loop is the heaviest. an interesting finding is. the impact of annonymous functions ( lambda expressions) on the energy consumption.
 the reseason behind this is the fact that python treats those functions as local variables unlike the predifined ones which are global in our case. therefore they are faster and consumes less energy  % same reference https://www.python.org/doc/essays/list2str/ 
 
-\begin{figure}[htb]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/python_iterations}
     \caption{energy behaviour of different python loops }
@@ -465,7 +464,7 @@ the reseason behind this is the fact that python treats those functions as local
 \end{figure}
 
 
-\begin{figure}[htb]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/python_treatemens}
     \caption{energy behaviour of different methodes to change a list}
@@ -475,32 +474,46 @@ the reseason behind this is the fact that python treats those functions as local
 \paragraph{conclusion}
 This study has shown us, that the optimial way to reduce the energy consumption of the python code is to follow the guidelines and use the builtin functions, which is kinda happy news for the developers since they don't have to make extra effort to make their code green
 
+\subsection{Python and machine learning }
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/accuracy_basedonepoch}
+    \caption{accuracy based on epoch  }
+    \label{fig:p2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/power_gpu_baedonepoche}
+    \caption{evolution of average gpu power based on epoch  }
+    \label{fig:p2}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/cumulative_energy_fast10}
+    \caption{cumulative energy of fast10 benchmark within different configurations }
+    \label{fig:p2}
+\end{figure}
+
+
+
+\paragraph{conclusion}
+We discovered that when a model's accuracy improves, so does the energy required for a subsequent accuracy gain.
+This begs the question of when we should discontinue training.
+Is a 10\% increase in accuracy worth it if we have to spend three times the energy?
+Even while utilizing a GPU consumes more total power, the training time is significantly reduced.
+As a result, the utilization of a GPU is required to lower the energy consumption of the training.
+Some experiments revealed unusual behavior that was not studied during this internship.
+These could be examined in future studies and perhaps used to achieve more energy savings.
+The execution time did not depend on the number of cores employed in several studies.
+This parameter had a significant impact on training time in others.
+As a result, the best core configuration will be determined by the script.
+The next steps in this area could include exploring the reasons for these discrepancies and possibly creating a script that can automatically find the ideal core configuration for a specific script. 
 
 
 \subsection{python runtimes}
 
-As we can see in figure \ref{fig:tommi_all}, there is no evolution between cpython2 and cpython3
-Intelpython and active python both folows the same behaviour. one can conclude that the work that have been on those interpreters is mainly
-to improve a specific purpose, Active python claims that their version is focused on secuirty which explains the lack of some performances due to the introduction of more reonforcment
-.Morver Intel published their version of python as a dedicated for machine learning. Unfortunately the tommti benchmark is a set that focuses on the general purpose programming
-which does not reflect the performance of the machine learning.
-Another aspect of a such behaviour might be due to the fact of the processors that were used in the testbed. and it might change in the future if we include the GPU part for the machine learning benchmarks
-% reference the work of the intern 
-As for nuitka. there were no optimization in the energy consumpotion despite the fact that is it a complier.
-However if we dig through the nuitka mechanisms. they basically embed the python code with an interpreter.
-Unllike nuitka shedskin exhebit a the best energy consumption pattern when it comes to the arithmetic operartions. One can conclude it is due to the fact of the native type of the variables. unlike the interpreters where they are treated as object in the begining.
 
-for the other interpeters pypy is very promising especially when it comes to data maniupulation as one can see in the figure \ref{fig:bar_tommti_vector}
-pypy is by far the best interperer when it comes to treating vectors.
-numba2 introduced the JIT but wasn't as promising as numba3.
-
-for the other vm based interpereters. jython and ipy lacked in term of energy optimisation which was kinda expected since they were in their the begining of the stage and the main puprose of such implementation is to link the bytecode generated by jython and ironpython with their respectives virtual machin.
-
-Unlike the the previous interpeters. graal exhebits a certin promises when it comes to complex algorithms - nested loops -
-micro python is dedicated to embeded systems so lunching it is powerful cpu machines will be misleading.
-
-Most of the interperters had the same behaviour when it comes to the input outputs. except for jython which was kinda of a anomaly probably due to the lack of the optimizations.
-% pypy handles exceptions very well 
 
 
 \begin{figure}
@@ -533,40 +546,62 @@ Most of the interperters had the same behaviour when it comes to the input outpu
     \label{fig:python_multiprocessing}
 \end{figure}
 
-\begin{figure}[thb]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/bitopts_mean}
     \caption{Mean consumption of different implementations of bit operations (Joule) }
     \label{fig:bitops}
 \end{figure}
 
-\begin{figure}[thb]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/alltomti_performance}
     \caption{different interpererts optimisation }
     \label{fig:tommi_all}
 \end{figure}
-\begin{figure}[thb]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/tommti_compare__pypy2_pypy3}
     \caption{green factor of pypy }
     \label{fig:pypy2vspypy3}
 \end{figure}
 
-\begin{figure}[thb]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/tommti_compare__cpython3_numba3_pypy3}
     \caption{comparaison of pypy vs python vs numba }
     \label{fig:p3}
 \end{figure}
 
-\begin{figure}[thb]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/tommti_compare__cpython2_pypy2_numba2}
     \caption{comparaison of pypy vs python vs numba }
     \label{fig:p2}
 \end{figure}
 
+As we can see in figure \ref{fig:tommi_all}, there is no evolution between cpython2 and cpython3
+Intelpython and active python both folows the same behaviour. one can conclude that the work that have been on those interpreters is mainly
+to improve a specific purpose, Active python claims that their version is focused on secuirty which explains the lack of some performances due to the introduction of more reonforcment
+.Morver Intel published their version of python as a dedicated for machine learning. Unfortunately the tommti benchmark is a set that focuses on the general purpose programming
+which does not reflect the performance of the machine learning.
+Another aspect of a such behaviour might be due to the fact of the processors that were used in the testbed. and it might change in the future if we include the GPU part for the machine learning benchmarks
+% reference the work of the intern 
+As for nuitka. there were no optimization in the energy consumpotion despite the fact that is it a complier.
+However if we dig through the nuitka mechanisms. they basically embed the python code with an interpreter.
+Unllike nuitka shedskin exhebit a the best energy consumption pattern when it comes to the arithmetic operartions. One can conclude it is due to the fact of the native type of the variables. unlike the interpreters where they are treated as object in the begining.
+
+for the other interpeters pypy is very promising especially when it comes to data maniupulation as one can see in the figure \ref{fig:bar_tommti_vector}
+pypy is by far the best interperer when it comes to treating vectors.
+numba2 introduced the JIT but wasn't as promising as numba3.
+
+for the other vm based interpereters. jython and ipy lacked in term of energy optimisation which was kinda expected since they were in their the begining of the stage and the main puprose of such implementation is to link the bytecode generated by jython and ironpython with their respectives virtual machin.
+
+Unlike the the previous interpeters. graal exhebits a certin promises when it comes to complex algorithms - nested loops -
+micro python is dedicated to embeded systems so lunching it is powerful cpu machines will be misleading.
+
+Most of the interperters had the same behaviour when it comes to the input outputs. except for jython which was kinda of a anomaly probably due to the lack of the optimizations.
+% pypy handles exceptions very well 
 
 \section{Threads to validity}
 \section{tools and contributions}
@@ -574,5 +609,6 @@ Most of the interperters had the same behaviour when it comes to the input outpu
 
 
 \section{conclusion}
-
-one can notice that the choice of the right interpeter can impact havely the energy consumption of the python programs. The fact that there is no general solution make this study more interesting. however the main drawback is the lack of the compatibility for some of those solutions which lead to some sacrifices when we want something generic
+One may observe that the choice of Python interpreter has a significant impact on the programs' energy consumption.
+This investigation is made more intriguing by the absence of a universal solution.
+The primary downside is the incompatibility of some of these solutions, which causes us to make concessions when we need a generic answer. 
