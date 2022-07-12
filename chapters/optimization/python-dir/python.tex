@@ -45,9 +45,6 @@ Rather, we believe that a better option consists in leveraging the strength of t
 
 
 
-
-%%%% python is a popular programming language  based TIOBE PYPI   add graphs 
-
 \subsection{python gluttony}
 
 the simplicity, flexibility and the clarity of Python code led this programming language to a huge success. Therefore, a larger community and a wide range of support and libraries that allowed it to touch several fields like data analyses, machine learning, natural language processing, web development, astrophysics etc.
@@ -513,6 +510,21 @@ The next steps in this area could include exploring the reasons for these discre
 
 \subsection{python runtimes}
 
+\section{placeholder}
+we performed a shapiro normality test for the first on the results, and almost all the p-values smaller than alpha=0.01\% 
+therefore the distrubution is not normal - which is kinda true because if it was normal then we dont have any comparaison -- 
+
+for arrays and vectors  graalpython took so much time that we decided to remove it 
+
+the startup cost for ironpython was too high 
+for graalpython and ipy they couldnt handle big numbers hence the overflow  when it comes to execution time 
+but since we measure the energy outside the values of the energy aren't impacted 
+
+as usual there is  correlaction between DRAM and CPU so no need to classify based on DRAM + the DRAM consumes less 10\% of the  energy compared to the CPU 
+
+so the plan is to prove that there is a statistical difference 
+then we use the multiparameter optimization , howerver we stop in the phase where we calculate the score 
+because we dont know the weight of each parameter ( of tommti microbenchmark) and instead of doing the sum with the coefissients we use the radar plot to let the reader decide which one is the most suitable for his usage. howerver since the differences are gigantics we change the scale to logarithmic to be easier for the eye to read 
 
 
 
@@ -612,3 +624,5 @@ Most of the interperters had the same behaviour when it comes to the input outpu
 One may observe that the choice of Python interpreter has a significant impact on the programs' energy consumption.
 This investigation is made more intriguing by the absence of a universal solution.
 The primary downside is the incompatibility of some of these solutions, which causes us to make concessions when we need a generic answer. 
+
+
