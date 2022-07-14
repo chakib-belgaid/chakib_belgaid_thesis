@@ -3,7 +3,7 @@
 
 
 Dynamic programming languages, with the exception of Perl, have surpassed compiled programming languages in terms of popularity among software system developers over the past decade (cf. Figure~\ref{fig:pypl}).
-However, it remains unclear whether this category of dynamic programming languages can truly compete with compiled ones in terms of power consumption. 
+However, it remains unclear whether this category of dynamic programming languages can truly compete with compiled ones in terms of power consumption.
 \begin{figure}[htbp]
     \includegraphics[width=\linewidth]{imgs/programminglanguangespopularity.png}
     \caption{PYPL Popularity of Programming Languages~\cite{noauthor_pypl_nodate}}
@@ -19,7 +19,7 @@ We start by studuing the impact of some of programmers choice such as the type o
 then we discuss some other factors such as level of concurrency etc. later we we will talk about another non intrusive ways to optimize the energy consumption of this code. one kind of those optimizations includes alternative interpertersand some libraries that are dedicated to optimize the code without changing its structures such as \emph{ahead-of-time} (AOT) compilation and \emph{just-in-time} (JIT) libraries that are maintained by the community.
 
 %%%%%%%%%%% READ AGAIN 
-articular, Noureddine in 2012 and Pereira in 2017 conducted empirical power measurements on this topic, and both concluded that compiled programming languages consume less power than dynamic ones.They found that a programming language that is interpreted, like Python, can use up to 7,584 times more energy than C. As a result, in this chapter, we will look at the obvious optimizations that may be done to Python legacy programs to lower their energy footprint.Since Python is used by many software services in both public and private cloud infrastructures, we think that our contributions will help a wide range of legacy systems by reducing ICT carbon emissions and lowering cloud bills for the resources used by these services. This chapter focuses on runtime improvements that developers can employ to reduce the power consumption of Python applications.We start by looking at how the choices made by programmers, like the type of data structure or loop, affect how much energy the code as a whole uses. Then we discuss additional topics, such as the level of concurrency, and so on.We will discuss another non-intrusive technique to optimize this code's energy consumption.Alternative interpreters and libraries dedicated to optimizing code without affecting its structures, such as ahead-of-time (AOT) compilation and just-in-time (JIT) libraries maintained by the community, are examples of these optimizations. 
+% articular, Noureddine in 2012 and Pereira in 2017 conducted empirical power measurements on this topic, and both concluded that compiled programming languages consume less power than dynamic ones.They found that a programming language that is interpreted, like Python, can use up to 7,584 times more energy than C. As a result, in this chapter, we will look at the obvious optimizations that may be done to Python legacy programs to lower their energy footprint.Since Python is used by many software services in both public and private cloud infrastructures, we think that our contributions will help a wide range of legacy systems by reducing ICT carbon emissions and lowering cloud bills for the resources used by these services. This chapter focuses on runtime improvements that developers can employ to reduce the power consumption of Python applications.We start by looking at how the choices made by programmers, like the type of data structure or loop, affect how much energy the code as a whole uses. Then we discuss additional topics, such as the level of concurrency, and so on.We will discuss another non-intrusive technique to optimize this code's energy consumption.Alternative interpreters and libraries dedicated to optimizing code without affecting its structures, such as ahead-of-time (AOT) compilation and just-in-time (JIT) libraries maintained by the community, are examples of these optimizations. 
 % However, the operational conditions under which these measurements may threaten the validity of their results.
 
 
@@ -27,10 +27,9 @@ articular, Noureddine in 2012 and Pereira in 2017 conducted empirical power meas
 \section{Motivation}
 \subsection{python popularity}
 
-Nowdays, Python seems to attract a large community of developers interested in data analysis, web development, system administration, machine learning---according to a survey conducted in 2018 by JetBrains---\footnote{\url{https://www.jetbrains.com/research/python-developers-survey-2018/}}one can fear that the wide adoption of dynamic programming languages, like Python, in production may critically hamper the power consumption of ICT.
-
+Nowadays, Python seems to attract a large community of developers who are interested in data analysis, web development, system administration, and machine learning—according to a survey conducted in 2018 by JetBrains ---\footnote{\url{https://www.jetbrains.com/research/python-developers-survey-2018/}}one can fear that the wide adoption of dynamic programming languages, like Python, in production may critically hamper the power consumption of ICT.
 As the popularity of such dynamic programming languages partly builds on the wealth and the diversity of their ecosystem (\emph{e.g.}, the NumPY, SciKit\,Learn, and Panda libraries in Python), one cannot reasonably expect that developers will likely move to an alternative programming language mostly for energy considerations.
-Rather, we believe that a better option consists in leveraging the strength of this rich ecosystem to promote energy-efficient solutions in order to improve the power consumption of legacy software systems.
+Rather, we believe that a better option consists of leveraging the strength of this rich ecosystem to promote energy-efficient solutions in order to improve the power consumption of legacy software systems.
 
 
 
@@ -47,19 +46,19 @@ Rather, we believe that a better option consists in leveraging the strength of t
 
 \subsection{python gluttony}
 
-the simplicity, flexibility and the clarity of Python code led this programming language to a huge success. Therefore, a larger community and a wide range of support and libraries that allowed it to touch several fields like data analyses, machine learning, natural language processing, web development, astrophysics etc.
+In the other hand,because of the interpreted nature of Python code, this programming language has paid a high price in terms of performance.  \ref{fig:clbg}, memory and energy consumption.
+
 \begin{figure}[htbp]
     \includegraphics[width=\linewidth]{imgs/hannoiimplementation.png}
     \caption{Energy consumption of a recursive implementation of Tower of Hanoi program in different languages~\cite{noureddine_preliminary_2012}}
     \label{fig:hannoi}
 \end{figure}
 
-However, and according to \cite{pinto_energy_2017} and \cite{noureddine_preliminary_2012}. Python tends to be one more energy hungry . In figure \ref{fig:hannoi}, python consumes 30 times more than C or C++. The test was done on an implementation of \fnurl{hannoi test}{ https://en.wikipedia.org/wiki/Tower_of_Hanoi}  30 disks.
+According to \cite{pinto_energy_2017} and \cite{noureddine_preliminary_2012}, Python tends to be one more energy hungry . As onne can notice in figure \ref{fig:hannoi}, python consumes 30 times more than C or C++. The test was done on an implementation of \fnurl{hannoi test}{ https://en.wikipedia.org/wiki/Tower_of_Hanoi}  30 disks.
 
-Python consumes a lot of energy mainly because it is slow in execution. Its Flexibility and simplicity caused it to drop off in performances, because Python gains its flexibility from being a dynamic language, therefore it needs an interpreter to execute its programs, which makes them much slower compared to the other ones that are written in compiled programming languages such as C and C++ or semi-compiled languages like Java.
+Python consumes a lot of energy, mainly because it is slow in execution. Its flexibility and simplicity caused it to drop off in performance, because Python gains its flexibility from being a dynamic language. Therefore, it needs an interpreter to execute its programs, which makes them much slower compared to the others that are written in compiled programming languages such as C and C++ or semi-compiled languages like Java.
 
-As shown in Table \ref{fig:clbg}, one can see that in the most of the test cases Python takes more time to execute -the only case that he wasn't the last one was in the benchmark regx-redux where he beaten Go-, and in some cases the gab was huge such as in the n-body test where python took around 100 times more than C++.
-
+As shown in Table\ref{fig:clbg}, one can see that in most of the test cases, Python takes more time to execute-the only case that he wasn't the last one was in the benchmark regx-redux where he beat Go-, and in some cases the gap was huge, such as in the n-body test where Python took around 100 times more than C++.
 \begin{table}[hbt]
     \begin{tabular}{l|*{5}c}
                            & C    & C++   & Java & python & Go    \\
@@ -75,25 +74,29 @@ As shown in Table \ref{fig:clbg}, one can see that in the most of the test cases
         spectral-norm      & 1.99 & 1.98  & 4.27 & 193.86 & 3.95  \\
         Mandelbort         & 1.64 & 1.51  & 6.96 & 279.68 & 5.47
     \end{tabular}
-    \caption{Comparison of the execution time between different programming languages using the computer language benchmarks game \cite{noauthor_which_nodate}}
-    %  TODO : ADD reference 
+    \caption{Comparison of the execution time between different programming languages using the computer language benchmarks game\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}}}
     \label{fig:clbg}
 \end{table}
 
+\subsection{Goal}
 
-\subsection{use cases}
-to reduce the energy consumption of python we started by targeting the main usage of this programming language, wich is revealed to be data sciences and web developpement. Figure~\ref{fig:usecase} illustrate a study made by the jetbrain company on python developers \footnote{\fnurl{https://www.jetbrains.com/lp/python-developers-survey-2020}}. In this survey, multiple multiple answers were accepted.
+To reduce the energy consumption of Python, we started by targeting the main usage of this programming language, which is revealed to be data science and web development. Figure~\ref{fig:usecase} illustrates a study made by the JetBrain company on Python developers. \footnote{\fnurl{https://www.jetbrains.com/lp/python-developers-survey-2020}}.In this survey, multiple answers were accepted. As one can see, 57\% of the respondents said that they use Python for data science, 51\% said they are using it for web development, and around 40\% said they are using it for system administration.
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=\linewidth]{imgs/python_use_cases}
-    \caption{use cases of python }
+    \caption{Use cases of python }
     \label{fig:usecase}
 \end{figure}
 
+In this chapter, we will first investigate its behavior in the most common usage cases.Following that, we will focus on the language's structures in the hope of discovering some fundamental guidelines for more general purposes, as \citeauthor{hasan_energy_2016-1} did in their article~\cite{hasan_energy_2016-1}.
+Following that, we will measure the energy consumption of several Python implementations in order to determine a non-intrusive technique to improve energy efficiency.
 
-\subsection*{Goal}
-To reduce the energy consumption of python programs, we decided to start with studying its behaviour during the most common use cases. After this we will targtet the structures of the language itself in the hope to find some generic guidelines for more generic purpose as \citeauthor{hasan_energy_2016-1} did in their paper \cite{hasan_energy_2016-1}. After this we will measure the energy consumption of different python implementation for the goal of finding a non intrusive way to enhance this energy efficiency.
-
+Therefore this chapter will target the following research questions :
+\begin{compactenum}[\indent\bf RQ\,1:]
+    \item \emph{What is the behavior of Python when it is used as a data science tool?}
+    \item \emph{Are the default guidelines of Python energy efficient?}
+    \item \emph{Can we reduce the energy consumption of Python programs without impacting the source code?}
+\end{compactenum}
 
 %% should we add Research questions ? 
 
@@ -336,11 +339,11 @@ Despite the presence of the official docker images for the most of the runtimes,
 
 
 \subsection{Extension}
-As we have done with the previous chapters. we provide a tool that allows to extend the tests with new workloads and new candidates. 
+As we have done with the previous chapters. we provide a tool that allows to extend the tests with new workloads and new candidates.
 In the repository \footnote{\url{https://github.com/chakib-belgaid/python-implementations}}.
 we have a tool that allows to generate new workloads and new candidates.
-The script \texttt{generator.py} allows to create new benchmarks by implementing a python code within different interpeters. then it generates \texttt{launcher-benchmark.sh} that can be used directly to run the expermient. Furthermore all the successful implementations are stored in seperate directory and the that couldn't work ( mostly because of compatibility issues) stored in a recap file called \texttt{benchmarkTest.md}. where benchmark is the name of the new workload; 
-To add extra \textbf{candidates} one should add a base docker file 
+The script \texttt{generator.py} allows to create new benchmarks by implementing a python code within different interpeters. then it generates \texttt{launcher-benchmark.sh} that can be used directly to run the expermient. Furthermore all the successful implementations are stored in seperate directory and the that couldn't work ( mostly because of compatibility issues) stored in a recap file called \texttt{benchmarkTest.md}. where benchmark is the name of the new workload;
+To add extra \textbf{candidates} one should add a base docker file
 that containes the new implementation and if there should be extra manipulation that should be added to the workload files ,such as adding new decorator or changing some parameters, then they should be added as an extra function in the script \texttt{generator.py}. Finally they should be included in the python candidates.
 
 \section{Results and finding}
@@ -505,26 +508,26 @@ These could be examined in future studies and perhaps used to achieve more energ
 The execution time did not depend on the number of cores employed in several studies.
 This parameter had a significant impact on training time in others.
 As a result, the best core configuration will be determined by the script.
-The next steps in this area could include exploring the reasons for these discrepancies and possibly creating a script that can automatically find the ideal core configuration for a specific script. 
+The next steps in this area could include exploring the reasons for these discrepancies and possibly creating a script that can automatically find the ideal core configuration for a specific script.
 
 
 \subsection{python runtimes}
 
 \section{placeholder}
-we performed a shapiro normality test for the first on the results, and almost all the p-values smaller than alpha=0.01\% 
-therefore the distrubution is not normal - which is kinda true because if it was normal then we dont have any comparaison -- 
+we performed a shapiro normality test for the first on the results, and almost all the p-values smaller than alpha=0.01\%
+therefore the distrubution is not normal - which is kinda true because if it was normal then we dont have any comparaison --
 
-for arrays and vectors  graalpython took so much time that we decided to remove it 
+for arrays and vectors  graalpython took so much time that we decided to remove it
 
-the startup cost for ironpython was too high 
-for graalpython and ipy they couldnt handle big numbers hence the overflow  when it comes to execution time 
-but since we measure the energy outside the values of the energy aren't impacted 
+the startup cost for ironpython was too high
+for graalpython and ipy they couldnt handle big numbers hence the overflow  when it comes to execution time
+but since we measure the energy outside the values of the energy aren't impacted
 
-as usual there is  correlaction between DRAM and CPU so no need to classify based on DRAM + the DRAM consumes less 10\% of the  energy compared to the CPU 
+as usual there is  correlaction between DRAM and CPU so no need to classify based on DRAM + the DRAM consumes less 10\% of the  energy compared to the CPU
 
-so the plan is to prove that there is a statistical difference 
-then we use the multiparameter optimization , howerver we stop in the phase where we calculate the score 
-because we dont know the weight of each parameter ( of tommti microbenchmark) and instead of doing the sum with the coefissients we use the radar plot to let the reader decide which one is the most suitable for his usage. howerver since the differences are gigantics we change the scale to logarithmic to be easier for the eye to read 
+so the plan is to prove that there is a statistical difference
+then we use the multiparameter optimization , howerver we stop in the phase where we calculate the score
+because we dont know the weight of each parameter ( of tommti microbenchmark) and instead of doing the sum with the coefissients we use the radar plot to let the reader decide which one is the most suitable for his usage. howerver since the differences are gigantics we change the scale to logarithmic to be easier for the eye to read
 
 
 
@@ -623,6 +626,6 @@ Most of the interperters had the same behaviour when it comes to the input outpu
 \section{conclusion}
 One may observe that the choice of Python interpreter has a significant impact on the programs' energy consumption.
 This investigation is made more intriguing by the absence of a universal solution.
-The primary downside is the incompatibility of some of these solutions, which causes us to make concessions when we need a generic answer. 
+The primary downside is the incompatibility of some of these solutions, which causes us to make concessions when we need a generic answer.
 
 
