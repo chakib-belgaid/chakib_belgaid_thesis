@@ -91,7 +91,6 @@ To reduce the energy consumption of Python, we started by targeting the main usa
 
 In this chapter, we will first investigate its behavior in the most common usage cases.Following that, we will focus on the language's structures in the hope of discovering some fundamental guidelines for more general purposes, as \citeauthor{hasan_energy_2016-1} did in their article~\cite{hasan_energy_2016-1}.
 Following that, we will measure the energy consumption of several Python implementations in order to determine a non-intrusive technique to improve energy efficiency.
-
 Therefore this chapter will target the following research questions :
 \begin{compactenum}[\indent\bf RQ\,1:]
     \item \emph{What is the behavior of Python when it is used as a data science tool?}
@@ -99,8 +98,8 @@ Therefore this chapter will target the following research questions :
     \item \emph{Can we reduce the energy consumption of Python programs without impacting the source code?}
 \end{compactenum}
 
-
-
+For this chapter we are considering 4 separate yet related studies .
+First, we are going to see the energy behavior of the python within two study cases. Web servers and machine learning. We will then delve deeper into the energy consumption of Python basic structures before concluding with the impact of Python interpterer on energy consumption.
 
 % \section{Experimental Protocol}\label{sec:pythonprotocol}
 % In this section, we discuss the experimental setting, including hardware components, software components, and the methodology that we adopted to answer the previous research questions.
@@ -125,11 +124,13 @@ Therefore this chapter will target the following research questions :
 
 
 \section{web developement}
-first we wanted to test the energy consumption of python using on djagon,one of the most popular web frameworks.
-therefore we create a simple website where we try to analyse the cost of a single request using different mechanisms to fetch the data from the database.
-the idea behind this use case is to see wether the choice of the database and the orm ( object relational mapper) impacts the energy consumption and the perfromances of the website.
+The purpose of this study is to understand the impact of the \emph{ORMs} (Object Relational Mapping)~\cite{o2008object}. We have chosen django as our web framework
 
-we considered using two different databases postgresSQL and SQlite3 that containes the same data, and three different ways to fetch the data.
+As a result, we create a simple website in which we attempt to analyze the cost of a single request using various mechanisms to retrieve data from the database.
+
+The idea behind this use case is to see whether the choice of the database and the orm (object relational mapper) impacts the energy consumption and the performance of the website.
+
+We considered using two different databases, PostgreSQL and SQlite3, that contained the same data, and three different ways to fetch the data.
 \begin{enumerate}
     \item the naive version: which relies only on the ORM to get the data
     \item Prefetch : basically we just prefetch the data before we request it
@@ -240,6 +241,56 @@ we discuss a deeper this behaviour of the scheduler and in that case we confirm 
 % add dram \ a glimps 
 
 \subsection{Python and machine learning }
+Machine learning is becoming an integral part of our daily lives, growing more potent and energy-hungry each year.
+
+As machine learning can have a significant impact on climate change, it is vital to investigate mitigation techniques.
+
+\paragraph{hardware }
+Chifflot 8 from Grid 5000's Lille site was used for all of the trials.
+The machine is outfitted with two Intel Xeon Gold 6126 CPUs, each having 12 physical cores, 192 GB of RAM, and two 32 GB Tesla V100 GPUs.
+
+\paragraph{software}
+
+
+For the sake of reproducibility, each experiment is done within a Docker container using Jupyter lab . These tests are run on top of a minimal version of Debian-10 in order to increase the accuracy of the tests by elimanting any unnecessary processes.
+
+
+\subsubsection{Workload}
+\paragraph{Models}
+
+Several models were developed, however only two were used in the final trials because they achieved 94 percent accuracy in an acceptable length of time.
+David Page's cifar10-fast and Woonhyuk Baek's torchskeleton are shown here.
+\paragraph{Datasets}
+
+The CIFAR-10 dataset was the major source of data for the studies.
+It is made up of 60000 32x32 color images grouped into ten categories.
+
+Some experiments were done using the MNIST dataset of handwritten digits to validate the results acquired from the first dataset.
+The model did not need to be updated because the 60000 28x28 grayscale photos were padded.
+
+
+\subsubsection{candidates}
+The experiments were run with several different CPU and GPU configurations:
+
+\begin{itemize}
+    \item With and without GPU
+    \item With and without hyperthreading
+    \item Different number of physical cores
+\end{itemize}
+
+\subsubsection{metrics}
+
+
+We used Pytorch 1.10.0  to train those models and pyjoules to measure the energy consumption of the GPU and CPU.
+\begin{itemize}
+    \item accuracy : in \%
+    \item execution time : in seconds for both the duration of each epoch and the total duration to a chieve a certain accuracy
+    \item total energy consumption : for the CPU and the  GPU
+    \item
+\end{itemize}
+
+
+\section{finding and results}
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/accuracy_basedonepoch}
