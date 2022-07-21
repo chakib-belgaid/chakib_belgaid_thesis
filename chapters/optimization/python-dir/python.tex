@@ -291,6 +291,10 @@ We used Pytorch 1.10.0  to train those models and pyjoules to measure the energy
 
 
 \section{finding and results}
+As the model's accuracy increases, so does the energy required for the next accuracy increment.
+
+Figure \ref{fig:cum_energy_vs_accuracy} depicts how the curve steepens as training progresses.
+For example, training to 90\% accuracy requires three times the energy required for training to 80% accuracy. 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/accuracy_basedonepoch}
@@ -298,6 +302,13 @@ We used Pytorch 1.10.0  to train those models and pyjoules to measure the energy
     \label{fig:p2}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/cumulative_energy_vs_accuracy}
+    \caption{cumulative energy consumption vs accuracy
+    }
+    \label{fig:cum_energy_vs_accuracy}
+\end{figure}
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/power_gpu_baedonepoche}
