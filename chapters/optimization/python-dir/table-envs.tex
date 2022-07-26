@@ -1,0 +1,60 @@
+\begin{table*}
+
+    \caption{Energy consumption python environment}
+    \label{table:GC}
+    \resizebox*{\linewidth}{!}{
+        \begin{tabular}{l|rr|rr|rr|rr|rr|rr}
+            \toprule
+
+            Implementation & \multicolumn{2}{c}{array} & \multicolumn{2}{c}{intArithmetic} & \multicolumn{2}{c}{doubleArithmetic} & \multicolumn{2}{c}{hashes} & \multicolumn{2}{c}{heapsort} & \multicolumn{2}{c}{trig}                                                                                         \\
+            \midrule
+
+                           & energy (J)                & \em p-values                      & energy (J)                           & \em p-values               & energy (J)                   & \em p-values             & energy (J)     & \em p-values & energy (J) & \em p-values & energy (J) & \em p-values \\
+            activepython   & 4e02                      & 0.0079                            & 6.9e02                               & 0.0022                     & 6.6e02                       & 0.0043                   & 9.7e02         & 0.0079       & 2.9e02     & 0.0079       & 5.1e02     & 0.0079       \\
+            cpython2       & 3.4e02                    & 0.0079                            & 5.6e02                               & 0.0022                     & 5.5e02                       & 0.0043                   & 6.5e02         & 0.0079       & 2.9e02     & 0.0079       & 4.1e02     & 0.0079       \\
+            cpython3       & 3.2e02                    & 0.0079                            & 7.4e02                               & 0.0022                     & 7.3e02                       & 0.0043                   & 7.9e02         & 0.0079       & 2.4e02     & 0.0079       & 4.1e02     & 0.0079       \\
+            graalpython    & 1.2e05                    & 0.0079                            & 24                                   & 0.0022                     & 24                           & 0.0043                   & 6.4e02         & 0.0079       & 1.3e05     & 0.0079       & 72         & 0.0079       \\
+            intelpython2   & 3.7e02                    & 0.0079                            & 5.9e02                               & 0.0022                     & 5.6e02                       & 0.0043                   & 7.1e02         & 0.0079       & 2.7e02     & 0.0079       & 4.2e02     & 0.0079       \\
+            intelpython3   & 3.5e02                    & 0.0079                            & 7.7e02                               & 0.0022                     & 7.6e02                       & 0.0043                   & 9.4e02         & 0.0079       & 2.6e02     & 0.0079       & 4.8e02     & 0.0079       \\
+            ipy            & 3e02                      & 0.0079                            & 4.4e02                               & 0.0022                     & 4.7e02                       & 0.0079                   & 1.3e03         & 0.0079       & 2.6e02     & 0.0079       & 4.5e02     & 0.0079       \\
+            jython         & 5.2e02                    & 0.0079                            & 1.3e02                               & 0.0022                     & 1.6e02                       & 0.0043                   & 6.4e02         & 0.0079       & 4.6e02     & 0.0079       & 6.2e02     & 0.0079       \\
+            micropython    & 3.1e02                    & 0.0079                            & 8.2e02                               & 0.0022                     & 8.4e02                       & 0.0079                   & 9.5e03         & 0.0079       & 3.4e02     & 0.0079       & 5.3e02     & 0.0079       \\
+            nuitka         & 2.9e02                    & 0.0079                            & 5.4e02                               & 0.0022                     & 5.5e02                       & 0.0079                   & 9.5e02         & 0.0079       & 2.2e02     & 0.0079       & 3.9e02     & 0.0079       \\
+            numba2         & 1.9e02                    & 0.0079                            & 27                                   & 0.0022                     & 36                           & 0.0079                   & 6.8e02         & 0.0079       & 2.1e03     & 0.0079       & 4.4e02     & 0.0079       \\
+            numba3         & \best{11}                 & \best{best}                       & 10                                   & 0.0022                     & 10                           & 0.0079                   & 9.1e02         & 0.0079       & 7.2e02     & 0.0079       & 4.5e02     & 0.0079       \\
+            pypy2          & 16                        & \same{0.15}                       & 29                                   & 0.0022                     & 30                           & 0.0043                   & \best{ 1.1e02} & \best{best}  & \best{20}  & \best{best}  & 64         & 0.0079       \\
+            pypy3          & 13                        & \same{0.15}                       & 17                                   & 0.0022                     & 18                           & 0.0079                   & 1.9e02         & 0.0079       & \best{20}  & 0.31         & 65         & 0.0079       \\
+            shedskin       & 47                        & 0.0079                            & \best{7.4}                           & \best{best}                & \best{7.3 }                  & \best{best}              & 1.1e03         & 0.0079       & 44         & 0.0079       & \best{7.7} & \best{best}  \\
+            \bottomrule
+        \end{tabular}
+
+    }
+    \vfill
+    \resizebox*{\linewidth}{!}{
+        \begin{tabular}{l|rr|rr|rr|rr|rr|rr}
+
+            Implementation & \multicolumn{2}{c}{longArithmetic} & \multicolumn{2}{c}{matrixMultiply} & \multicolumn{2}{c}{io} & \multicolumn{2}{c}{stringConcat} & \multicolumn{2}{c}{nestedLoop} & \multicolumn{2}{c}{except}                                                                                     \\
+            \midrule
+                           & energy (J)                         & \em p-values                       & energy (J)             & \em p-values                     & energy (J)                     & \em p-values               & energy (J) & \em p-values & energy (J) & \em p-values & energy (J) & \em p-values \\
+            activepython   & 6.7e02                             & 0.0079                             & 4.3e02                 & 0.0079                           & 2.1e02                         & 0.0079                     & 14         & 0.0079       & 4.1e02     & 0.0079       & 2.6e02     & 0.0079       \\
+            cpython2       & 5.5e02                             & 0.0079                             & 4e02                   & 0.0079                           & 2e02                           & 0.0079                     & 12         & 0.0079       & 4.2e02     & 0.0079       & 4.3e02     & 0.0079       \\
+            cpython3       & 7.4e02                             & 0.0079                             & 4.4e02                 & 0.0079                           & 2e02                           & 0.0079                     & 13         & 0.0079       & 3.8e02     & 0.0079       & 2.3e02     & 0.0079       \\
+            graalpython    & 24                                 & 0.0079                             & 45                     & 0.0079                           & 7.5e02                         & 0.0079                     & 26         & 0.0079       & 12         & 0.0079       & 1.6e02     & 0.0079       \\
+            intelpython2   & 5.7e02                             & 0.0079                             & 4.8e02                 & 0.0079                           & 2e02                           & 0.0079                     & 13         & 0.0079       & 4.4e02     & 0.0079       & 4.6e02     & 0.0079       \\
+            intelpython3   & 7.7e02                             & 0.0079                             & 5e02                   & 0.0079                           & 2.2e02                         & 0.0079                     & 14         & 0.0079       & 4.4e02     & 0.0079       & 2.7e02     & 0.0079       \\
+            ipy            & 4.7e02                             & 0.0079                             & 4.1e02                 & 0.0079                           & 3.8e02                         & 0.0079                     & 49         & 0.0079       & 3.3e02     & 0.0079       & 7.2e02     & 0.0079       \\
+            jython         & 1.6e02                             & 0.0079                             & 1.9e02                 & 0.0079                           & 2e02                           & 0.0079                     & 21         & 0.0079       & 1.9e02     & 0.0079       & 7.1e02     & 0.0079       \\
+            micropython    & 8.3e02                             & 0.0079                             & 5.3e02                 & 0.0079                           & 5.3e03                         & 0.0079                     & 44         & 0.0079       & 4.3e02     & 0.0079       & 3.6e02     & 0.0079       \\
+            nuitka         & 5.4e02                             & 0.0079                             & 4.3e02                 & 0.0079                           & 2e02                           & 0.0079                     & 12         & 0.0079       & 3.6e02     & 0.0079       & 2.2e02     & 0.0079       \\
+            numba2         & 35                                 & 0.0079                             & 4e02                   & 0.0079                           & 2.2e02                         & 0.0079                     & 20         & 0.0079       & 14         & 0.0079       & 4.5e02     & 0.0079       \\
+            numba3         & 11                                 & 0.0079                             & 4.2e02                 & 0.0079                           & 2.1e02                         & 0.0079                     & 19         & 0.0079       & 10         & 0.0079       & 2.4e02     & 0.0079       \\
+            pypy2          & 30                                 & 0.0079                             & 24                     & 0.056                            & \best{1.7e02}                  & \best{best}                & 7.7        & \best{best}  & 27         & 0.0079       & \best{14}  & \best{best}  \\
+            pypy3          & 17                                 & 0.0079                             & \best{23}              & \best{best}                      & 2.6e02                         & 0.0079                     & 8.3        & 0.69         & 23         & 0.0079       & 14         & 0.69         \\
+            shedskin       & \best{7.8}                         & \best{best}                        &                        &                                  & 3.8e02                         & 0.0079                     & 44         & 0.0079       & 7.1        & \best{best}  & 5.6e02     & 0.0079       \\
+
+            \bottomrule
+        \end{tabular}
+    }
+
+\end{table*}
+

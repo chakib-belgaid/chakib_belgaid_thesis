@@ -13,7 +13,7 @@ However, it remains unclear whether this category of dynamic programming languag
 In particular, Noureddine~\emph{et~al.}~\cite{noureddine_preliminary_2012} in 2012, and then Pereira~\emph{et~al.}~\cite{pereira_energy_2017} in 2017, conducted empirical power measurements on this topic, and both concluded that compiled programming languages overcome dynamic ones when it comes to power consumption.
 According to their experiments, an interpreted programming language like Python can impose up to a $7,588\,\%$ energy overhead compared to C~\cite{pereira_energy_2017} (cf. Figure~\ref{fig:hannoi}).
 In this chapter, we therefore explore the oblivious optimizations that can be applied to Python legacy applications in order to reduce their energy footprint.
-As Python is widely adopted by software services deployed in public and private Cloud infrastructures, we believe that our contributions will benefit to wide diversity of legacy systems and not only favorably contribute to reduce the carbon emissions of ICT, but also reduce their cloud invoice for the resources consumed by these services.
+As Python is widely adopted by software services deployed in public and private Cloud infrastructures, we believe that our contributions will benefit to wide diversity of legacy systems and not only favorably contribute to reduce the carbon emissions of ICT, b kmoiut also reduce their cloud invoice for the resources consumed by these services.
 More specifically, this chapter focuses on runtime optimizations that can adopted by developers to leverage the power consumption of Python applications.
 We start by studuing the impact of some of programmers choice such as the type of data structures or loops, on the global energy consumption of the execution code.
 then we discuss some other factors such as level of concurrency etc. later we we will talk about another non intrusive ways to optimize the energy consumption of this code. one kind of those optimizations includes alternative interpertersand some libraries that are dedicated to optimize the code without changing its structures such as \emph{ahead-of-time} (AOT) compilation and \emph{just-in-time} (JIT) libraries that are maintained by the community.
@@ -294,7 +294,7 @@ We used Pytorch 1.10.0  to train those models and pyjoules to measure the energy
 As the model's accuracy increases, so does the energy required for the next accuracy increment.
 
 Figure \ref{fig:cum_energy_vs_accuracy} depicts how the curve steepens as training progresses.
-For example, training to 90\% accuracy requires three times the energy required for training to 80% accuracy. 
+For example, training to 90\% accuracy requires three times the energy required for training to 80\% accuracy.
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/accuracy_basedonepoch}
