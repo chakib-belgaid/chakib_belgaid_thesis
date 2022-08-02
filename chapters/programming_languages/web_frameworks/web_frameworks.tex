@@ -24,21 +24,21 @@ These measurements are then analyzed in depth to understand the key criteria tha
 
 The remainder of this paper is organized as follows.
 
-\subsection{Comparaison between web frameworks}
+\subsection{Comparaison of Web Frameworks}
 
 Many studies have been conducted to compare the performance of web frameworks.
 
 We can cite \cite{gajewski_analysis_2019} where they made a comparison between two of the most famous java frameworks, Play and Spring, or the work of \cite{benmoussa_new_2019} when they compare different PHP frameworks using 6 creterions intrinsic durability, industrialized solution, technical adaptability, strategy, technical architecture, and Speed, In the previous paper we find that all those 6 creterions have their own wait when it comes to choose which framework to take for a project. In our study we want to push a 7th criterion that impacts the economic outcome of the project.
 
 
-\subsection{energy efficiency in software engineering}
+\subsection{Energy Efficiency in Software Engineering}
 
 In their paper \cite{pereira_energy_2017} the authors studied the impact of programming languages on energy, time, and Memory by using the CLBG benchmark,
 where they executed 10 different benchmarks [ add citation] accross 27 wel-know programming languages [ add reference]
 the work of the authors was an extension of the a research marled by [ add sitation[6 in the authers paper ]]. we continued  their work  with measuring the impact of programming languages choice in real life application instead of microbenchmark
 
 
-Irene et al.\cite{manotas_investigating_2013} investigated the impact of web servers on energy when handleling web applications . they analysed 7 applications executed within 4 serveces with 38 different scenarios . the authors showed that the energy greatly depends on the web server , howerver the impact of the application may influence this energitical behaviour of the server.
+Irene et al.~\cite{manotas_investigating_2013} investigated the impact of web servers on energy when handleling web applications . they analysed 7 applications executed within 4 serveces with 38 different scenarios . the authors showed that the energy greatly depends on the web server , howerver the impact of the application may influence this energitical behaviour of the server.
 
 In their approach they used measured the energy consumption during the integration tests and for us we measure with a simulation of a website when there is a client in another machine that requests the website, therefore we isolate the energy consumption of the server from the the client's one.
 
@@ -54,7 +54,7 @@ Other works have been done on the client side, as an example \cite{philippot_cha
 
 In this section, we describe the environment used during the experiments, covering hardware material, experiments of the framework and the methodology.
 
-\subsection{Measurement context}
+\subsection{Measurement Context}
 The purpose of this exmeperiment is to highlight the impact of the technology stack of developping a website on the energy consumption whule its execution.
 
 Table \ref{table:table:frameworks_count} highlights the number of frameworks used in the experiment and they passed each category of tests.
@@ -82,7 +82,7 @@ The tests have been executed in machines from the cluster chetemi of the \refere
 \paragraph{Note}
 It has been proven in {cite } that docker does not influence on the energy cosumption. Thus, using its containers and isolation allow to avoid any alteration of the operation system after testing one benchmark and to take advantage of its reproducibility.
 
-\subsection{workload}
+\subsection{Workload}
 
 %TODO add number of clients for each type of workload  512 
 To mesure compare the energy consumption and performance effeciency between mutiple frameworks, each framework used to implement the samewebsite answering the same urls and requesting the same database. Then we run the same algorthim for all impelentations.
@@ -98,7 +98,7 @@ To mesure compare the energy consumption and performance effeciency between muti
 \end{enumerate}
 the section will detail each type of experiments  and the purpose behind it giving some examples of the expecteed response
 
-\subsubsection{Test categories }
+\subsubsection{Test Categories}
 We have 7 categories of tests :
 
 \paragraph{Idle}
@@ -106,11 +106,11 @@ In this test we measure the idle energy consumption of the framework: this refle
 For example, a company website beyond working hours or a small website at night.
 
 
-\paragraph{Single query}
+\paragraph{Single Query}
 During this test, each request  is processed by fetching a single row from a simple database table. That row is then serialized as a JSON response.
 
-\paragraph{Multiple queries}
-this test aims to test the behaviour of a framework when it process multiple entries from the database.
+\paragraph{Multiple Queries}
+this test aims to test the behavior of a framework when it process multiple entries from the database.
 Therefore each request is processed by fetching multiple rows from a simple database table and serializing these rows as a JSON response.
 In this case we use the maximum number of clients which is \parallelclient{512}
 %The test is run multiple times: testing 1, 5, 10, 15, and 20 queries per request. All tests are run at 512 concurrency.
@@ -140,10 +140,9 @@ The response is analogous to the multiple-query test.
 In this test, the framework responds with the simplest of responses: a "Hello, World" message rendered as plain text. The size of the response is kept small so that gigabit Ethernet is not the limiting factor for all implementations. HTTP pipelining is enabled and higher client-side concurrency levels are used for this test.
 
 \paragraph{JSON Serialization}
-In this test,each response is a JSON serialization of a freshly-instantiated object that maps the key message to the value "Hello, World!"
+In this test, each response is a JSON serialization of a freshly-instantiated object that maps the key message to the value "Hello, World!".
 
-For each one of the above senarios we  consider different level of stress
-table shows the different levels for each scenario.
+For each one of the above scenarios, we consider different level of stress table shows the different levels for each scenario.
 
 \begin{table*}[bth]
     \raggedright
@@ -168,13 +167,12 @@ table shows the different levels for each scenario.
 \end{table*}
 
 To add extra scenarios one might implement a python class that handles the metadata of the workload, such as the query route, the query parameters and the excpected results.
-\subsection{Metrics}
-We focus on comparing the energitical behaviour of different frameworks in multiple scenarios
+\subsection{Key Performance Metrics}
+We focus on comparing the energy behavior of different frameworks in multiple scenarios
 
 To measure the energy consumption of those frameworks, we launch each one for a fixed duration, then all the clients send multiple requests simultaneously.
 We calculate %calculate - with paper and pen or calculator, compute - with computer (programs)
 the number of satisfied responses which reflects the performance of the framework, the average latency and the global energy consumed during the whole period to deduce the energy cost of each request.
-
 
 \subsubsection{Runtime Measurements}
 \begin{itemize}
@@ -183,7 +181,7 @@ the number of satisfied responses which reflects the performance of the framewor
           Energy is an integral of power over time, so we use a numerical apporoach to estimate this energy. \todo{add formula}
           after this we devide the calculated energy per number of responses
           during this phase
-          we have 4 mertrics :
+          we have 4 metrics :
 
     \item Total cost of the energy during each period
     \item Total number of requests
@@ -204,33 +202,33 @@ Figure \ref{fig:architecture} illustrates the architecture of our system
 \end{figure}
 
 
-\paragraph{Bias analysis}
+\paragraph{Bias Analysis}
 we are aware of bias analysis regarding the estimation of the total energy cost , the interference of other system processess during the execution and some external events. Thus, we run experiments multiple times and compute the average.
 
-\subsection{extesion}
+\subsection{Extension}
 To follow the guidelines that we presented in chapter \ref{chapter:benchmarking} we provide a github repository \footnote{\url{https://github.com/chakib-belgaid/FrameworkBenchmarks}} where one can add extra \textbf{candidates} buy creating a new project using the option --new. then the they have just to fill the template and provide the docker image file.
 
 to configure the \textbf{workload} we provide the option --concurrency-levels and --duration.
 As for the choice of the database it is added in the docker image.
 
 
-\section{finding and results}
-
-Overall we had 8750 test. and all can be found in the repository \footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}.
-In this section we will use the previous results to answer the following questions
+\section{Results \& Findings}
+Overall we had $8,750$ tests, and all can be found in the repository.\footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}
+In this section, we will use the previous results to answer the following questions
 \begin{itemize}
-    \item is there a dominant  programing langauges when it comes to , energy consmption and latency ?
-    \item which class of programming language is perfromring well ?
+    \item is there a dominant  programing languages when it comes to , energy consumption and latency ?
+    \item which class of programming language is performing well ?
     \item is there a correlation between the energy consumption and the latency ?
     \item is there an impact of the server when it comes to change the data base ?
 \end{itemize}
 
 since most of the companies use the same stack, we wont be aggregating the results since it may lead to confusion.
-the best example, if we compare the average energy consumption for each programming langauge, this wont reflect in reality specially when we have two frameworks on the opposit sides of the spectrium.
-\subsection{overal all statistics}
-In order to determine which framewrok/stack is perfroming well we need to establish some general idea about the average energy consumption and latency of the frameworks. Instead of giving just the raw energy consumption of those frameworks we will provide some green factors to determine which one is ecofriednly and which one is gluton.
-In this part we will discuss the Average behaviour of the frameworks, highlight some tendecies and elimante the outliers.
-As we said in the threats to validity, being an outlier in this case doenst mean that the framework is not performing well, it just means that the framework is not performing well in the same way as the others within the context of this experiment.
+the best example, if we compare the average energy consumption for each programming language, this wont reflect in reality specially when we have two frameworks on the opposite sides of the spectrum.
+
+\subsection{overall all statistics}
+In order to determine which framework/stack is performing well we need to establish some general idea about the average energy consumption and latency of the frameworks. Instead of giving just the raw energy consumption of those frameworks we will provide some green factors to determine which one is eco-friendly and which one is greedy.
+In this part we will discuss the average behavior of the frameworks, highlight some tendencies and eliminate the outliers.
+As we said in the threats to validity, being an outlier in this case does not mean that the framework is not performing well, it just means that the framework is not performing well in the same way as the others within the context of this experiment.
 
 
 
@@ -260,7 +258,7 @@ As we said in the threats to validity, being an outlier in this case doenst mean
     \centering
     \includegraphics[width=
         \columnwidth]{imgs/power_requests_update}
-    \caption{total request vs average power consumption for the uptate queries test ( Size of circles represents the size of the query )}
+    \caption{total request vs average power consumption for the update queries test ( Size of circles represents the size of the query )}
     \label{fig:power_requests_update}
 \end{figure}
 \begin{figure}[bht]
@@ -290,7 +288,7 @@ As we said in the threats to validity, being an outlier in this case doenst mean
 %  when comparing static vs dynamic programming langauges we exclude the ones that uses reflection aka C# and JAVA
 
 %% for more about the syntax we recommand cheking this website https://learnxinyminutes.com/
-\section{Threats to validity }
+\section{Threats to Validity}
 We are aware of the bias inducted by the implementation of a candidates, therefore we propose  the framework ( see the part of extension) to allow the readers to confirm themselves any new hypothesis. regarding a new framework , an new workload a new database ..etc
 
 % \subsection{tools}
