@@ -221,28 +221,25 @@ we discuss a deeper this behaviour of the scheduler and in that case we confirm 
 % add performance 
 % add dram \ a glimps 
 
-\subsection{Python and machine learning }
+\subsection{Python \& Machine Learning}
 Machine learning is becoming an integral part of our daily lives, growing more potent and energy-hungry each year.
 
 As machine learning can have a significant impact on climate change, it is vital to investigate mitigation techniques.
 
-\paragraph{hardware }
+\paragraph{Hardware settings}
 Chifflot 8 from Grid 5000's Lille site was used for all of the trials.
 The machine is outfitted with two Intel Xeon Gold 6126 CPUs, each having 12 physical cores, 192 GB of RAM, and two 32 GB Tesla V100 GPUs.
 
-\paragraph{software}
+\paragraph{Software settings}
+For the sake of reproducibility, each experiment is done within a Docker container using Jupyter lab. These tests are run on top of a minimal version of Debian-10 to increase the accuracy of the tests by eliminating any unnecessary processes.
 
 
-For the sake of reproducibility, each experiment is done within a Docker container using Jupyter lab . These tests are run on top of a minimal version of Debian-10 in order to increase the accuracy of the tests by elimanting any unnecessary processes.
-
-
-\subsubsection{Workload}
+\subsubsection{Input Workload}
 \paragraph{Models}
+Several models were developed, however, only two were used in the final trials because they achieved 94 percent accuracy in an acceptable length of time.
+David Page's cifar10-fast and Woonhyuk Baek's torch skeleton are shown here.
 
-Several models were developed, however only two were used in the final trials because they achieved 94 percent accuracy in an acceptable length of time.
-David Page's cifar10-fast and Woonhyuk Baek's torchskeleton are shown here.
 \paragraph{Datasets}
-
 The CIFAR-10 dataset was the major source of data for the studies.
 It is made up of 60000 32x32 color images grouped into ten categories.
 
@@ -252,17 +249,14 @@ The model did not need to be updated because the 60000 28x28 grayscale photos we
 
 \subsubsection{candidates}
 The experiments were run with several different CPU and GPU configurations:
-
 \begin{itemize}
-    \item With and without GPU
-    \item With and without hyperthreading
-    \item Different number of physical cores
+    \item with and without GPU,
+    \item with and without CPU hyper-threading,
+    \item different number of CPU physical cores.
 \end{itemize}
 
-\subsubsection{metrics}
-
-
-We used Pytorch 1.10.0  to train those models and pyjoules to measure the energy consumption of the GPU and CPU.
+\subsubsection{Key Performance Metrics}
+We used Pytorch 1.10.0 to train those models and pyjoules to measure the energy consumption of the GPU and CPU.
 \begin{itemize}
     \item accuracy : in \%
     \item execution time : in seconds for both the duration of each epoch and the total duration to a chieve a certain accuracy
@@ -271,7 +265,7 @@ We used Pytorch 1.10.0  to train those models and pyjoules to measure the energy
 \end{itemize}
 
 
-\section{finding and results}
+\section{Results \& Findings}
 As the model's accuracy increases, so does the energy required for the next accuracy increment.
 
 Figure \ref{fig:cum_energy_vs_accuracy} depicts how the curve steepens as training progresses.
@@ -303,9 +297,7 @@ For example, training to 90\% accuracy requires three times the energy required 
     \label{fig:p2}
 \end{figure}
 
-
-
-\paragraph{conclusion}
+\paragraph{Conclusion}
 We discovered that when a model's accuracy improves, so does the energy required for a subsequent accuracy gain.
 This begs the question of when we should discontinue training.
 Is a 10\% increase in accuracy worth it if we have to spend three times the energy?
@@ -317,9 +309,6 @@ The execution time did not depend on the number of cores employed in several stu
 This parameter had a significant impact on training time in others.
 As a result, the best core configuration will be determined by the script.
 The next steps in this area could include exploring the reasons for these discrepancies and possibly creating a script that can automatically find the ideal core configuration for a specific script.
-
-
-
 
 
 \input{python_interperters.tex}
