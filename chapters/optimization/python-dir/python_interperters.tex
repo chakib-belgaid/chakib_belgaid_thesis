@@ -13,64 +13,64 @@ In the following section, we discuss the impact of those implementations on the 
 To do so, we gathered a list of interpreters, transpilers and other optimization libraries that can contribute to reduce the energy consumption of legacy Python applications:
 \begin{enumerate}
     \item \textbf{CPython}:\footnote{\url{https://www.python.org/}}
-    This Python interpreter, written in C, is the reference interpreter of Python.
-    CPython compiles the source code into byte-code and then interprets it.
-    The CPython project supports both versions of Python 2 and 3;
+          This Python interpreter, written in C, is the reference interpreter of Python.
+          CPython compiles the source code into byte-code and then interprets it.
+          The CPython project supports both versions of Python 2 and 3;
     \item \textbf{PyPy}:\footnote{\url{http://pypy.org}}
-    An alternative implementation of the Python interpreter.
-    It is written using \emph{RPython} to use the JIT.
-    It compiles the most used portions of the Python code into a binary code for better performance.
-    To benefit from these optimizations, the program has to be executed for at least for few seconds so the JIT has enough time to warm up, the JIT optimization are only applied to the code written by the developer and not to external libraries;
+          An alternative implementation of the Python interpreter.
+          It is written using \emph{RPython} to use the JIT.
+          It compiles the most used portions of the Python code into a binary code for better performance.
+          To benefit from these optimizations, the program has to be executed for at least for few seconds so the JIT has enough time to warm up, the JIT optimization are only applied to the code written by the developer and not to external libraries;
     \item \textbf{Cython}:\footnote{\url{https://github.com/cython/cython}}
-    A static compiler for Python.
-    It translates the Python code into C, and then compiles it using a C compiler.
-    It also supports an extended version of the Python language that allows programmers to call \emph{C functions}, declare \emph{C types} and use static types, which will help the translation of Python objects into native types, such as integers, float.
-    This often means better performances, since native C libraries are almost all the time faster than the Python written once~\cite{pereira_energy_2017};
+          A static compiler for Python.
+          It translates the Python code into C, and then compiles it using a C compiler.
+          It also supports an extended version of the Python language that allows programmers to call \emph{C functions}, declare \emph{C types} and use static types, which will help the translation of Python objects into native types, such as integers, float.
+          This often means better performances, since native C libraries are almost all the time faster than the Python written once~\cite{pereira_energy_2017};
     \item \textbf{Intel\,Python}:\footnote{\url{https://software.intel.com/en-us/distribution-for-python}}
-    A customized interpreter developed by Intel to enhance performances of Python programs.
-    It is dedicated to data sciences and high-performance computing.
-    It uses some Intel kernel libraries, such as Math Kernel Library (Intel MKL\footnote{\url{https://software.intel.com/en-us/mkl}}) and data analytics acceleration library (Intel DAAL\footnote{\url{https://software.intel.com/en-us/intel-daal}}).
-    It supports both versions of Python;
+          A customized interpreter developed by Intel to enhance performances of Python programs.
+          It is dedicated to data sciences and high-performance computing.
+          It uses some Intel kernel libraries, such as Math Kernel Library (Intel MKL\footnote{\url{https://software.intel.com/en-us/mkl}}) and data analytics acceleration library (Intel DAAL\footnote{\url{https://software.intel.com/en-us/intel-daal}}).
+          It supports both versions of Python;
     \item \textbf{Active\,Python}:\footnote{\url{https://www.activestate.com/products/activepython/}}
-    It is developed by the Activestates company and provides a standardized Python distribution to ensure license compliance, security, compatibility and performance.
-    Therefore, ActivePython implements its built-in packages (more than 300 packages) and supports both versions of Python;
+          It is developed by the Activestates company and provides a standardized Python distribution to ensure license compliance, security, compatibility and performance.
+          Therefore, ActivePython implements its built-in packages (more than 300 packages) and supports both versions of Python;
     \item \textbf{IronPython}:\footnote{\url{https://ironpython.net}}
-    A .Net-based Python interpretation platform written in C\# that is used with the .Net virtual machine or Mono.
-    It benefits from all the optimizations of .Net virtual machines, such as the JIT and garbage collector mechanisms;
+          A .Net-based Python interpretation platform written in C\# that is used with the .Net virtual machine or Mono.
+          It benefits from all the optimizations of .Net virtual machines, such as the JIT and garbage collector mechanisms;
     \item \textbf{GraalPython}:\footnote{\url{https://github.com/graalvm/graalpython/}}
-    A Python interpreter that is based on GraalVM\footnote{\url{https://www.graalvm.org/docs/why-graal/}} (a universal virtual machine developed by oracle for running applications written in different programming languages).
-    For the time being, it only supports Python~3 and it is still in the experimental stage;
+          A Python interpreter that is based on GraalVM\footnote{\url{https://www.graalvm.org/docs/why-graal/}} (a universal virtual machine developed by oracle for running applications written in different programming languages).
+          For the time being, it only supports Python~3 and it is still in the experimental stage;
     \item \textbf{Jython}:\footnote{\url{https://jython.github.io}}
-    An implementation of Python programming language written in Java for the \emph{Java Virtual Machine} (JVM).
-    Similar to IronPython and GraalPython, it leverages the optimization mechanisms provided by the JVM to enhance the Python performances;
+          An implementation of Python programming language written in Java for the \emph{Java Virtual Machine} (JVM).
+          Similar to IronPython and GraalPython, it leverages the optimization mechanisms provided by the JVM to enhance the Python performances;
     \item \textbf{MicroPython}:\footnote{\url{http://micropython.org}}
-    A lightweight Python version dedicated to embedded systems and micro-controllers;
+          A lightweight Python version dedicated to embedded systems and micro-controllers;
     \item \textbf{Nuitka}:\footnote{\url{http://nuitka.net/pages/overview.html}}
-    A Python compiler written in Python that generates a binary executable from Python code.
-    It translates the Python code into a C program that is then compiled into a binary executable;
+          A Python compiler written in Python that generates a binary executable from Python code.
+          It translates the Python code into a C program that is then compiled into a binary executable;
     \item \textbf{Numba}:\footnote{\url{https://numba.pydata.org}}
-    A library that includes JIT compiler to enhance the performances of Python functions using the industry-standard LLVM compiler library;
+          A library that includes JIT compiler to enhance the performances of Python functions using the industry-standard LLVM compiler library;
     \item \textbf{Shedskin}:\footnote{\url{https://github.com/shedskin/shedskin}}
-    A static transpiler that translates implicitly statically typed python into C++ code;
+          A static transpiler that translates implicitly statically typed python into C++ code;
     \item \textbf{Hope}~\cite{akeret_hope_2015}:
-    A Python library that aims to introduce JIT compiler into the Python code;
+          A Python library that aims to introduce JIT compiler into the Python code;
     \item \textbf{Parakeet}~\cite{DBLP:conf/hotpar/RubinsteynHWS12}:
-    A runtime accelerator for an array-oriented subset of Python;
+          A runtime accelerator for an array-oriented subset of Python;
     \item \textbf{Stackless\,Python}:\footnote{\url{https://github.com/stackless-dev/stackless/wiki}}
-    An interpreter that focuses on enhancing multi-threading programming;
+          An interpreter that focuses on enhancing multi-threading programming;
     \item \textbf{Pyjion}:\footnote{\url{https://github.com/microsoft/pyjion}}
-    A JIT API for CPython, same purpose as Parakeet and Hope;
-    \item \textbf{Pyston}:\footnote{\url{https://blog.pyston.org}} 
-    A performance-oriented Python implementation built using LLVM and modern JIT techniques.
-    The project is funded by Dropbox;
-    \item \textbf{Grumpy}:\footnote{\url{https://github.com/google/grumpy}} 
-    A source-to-source transpiler that translates the Python code into Go before being compiled to a binary executable.
-    It also offers an interpreter, called \emph{grumprun}, which can directly execute the Python code. 
-    Unfortunately, we cannot use it because the project is already outdated (last commit is in 2017) and it has a lot of limitations in terms of supporting the Python language, such as some built-in functions and standard libraries;
+          A JIT API for CPython, same purpose as Parakeet and Hope;
+    \item \textbf{Pyston}:\footnote{\url{https://blog.pyston.org}}
+          A performance-oriented Python implementation built using LLVM and modern JIT techniques.
+          The project is funded by Dropbox;
+    \item \textbf{Grumpy}:\footnote{\url{https://github.com/google/grumpy}}
+          A source-to-source transpiler that translates the Python code into Go before being compiled to a binary executable.
+          It also offers an interpreter, called \emph{grumprun}, which can directly execute the Python code.
+          Unfortunately, we cannot use it because the project is already outdated (last commit is in 2017) and it has a lot of limitations in terms of supporting the Python language, such as some built-in functions and standard libraries;
     \item \textbf{Psyco}:\footnote{\url{http://psyco.sourceforge.net}}
-    A JIT compiler for Python;
+          A JIT compiler for Python;
     \item \textbf{Unladen\,Swallow}:\footnote{\url{https://unladen-swallow.readthedocs.io/en/latest/}}
-    An attempt to (use) LLVM as a JIT compiler for CPython.
+          An attempt to (use) LLVM as a JIT compiler for CPython.
 \end{enumerate}
 
 
@@ -78,12 +78,12 @@ To do so, we gathered a list of interpreters, transpilers and other optimization
 Before further proceeding with the list of candidate runtime for Python applications, we propose a classification according to several criteria:
 \begin{description}
     \item[\bf Type] refers to the category of runtime infrastructure that supports the execution of a Python application.
-    In particular, we consider 3 types of environments: \emph{Interpreter}, \emph{Compiler} and \emph{Library};
-    \emph{Interpreter} refers to the class of environment that does not require any preprocessing of Python source code;
-    \emph{Compiler} introduces a compilation phase before the execution of the application.
-    Finally, \emph{Library} requires some modification of the source code;
+        In particular, we consider 3 types of environments: \emph{Interpreter}, \emph{Compiler} and \emph{Library};
+        \emph{Interpreter} refers to the class of environment that does not require any preprocessing of Python source code;
+        \emph{Compiler} introduces a compilation phase before the execution of the application.
+        Finally, \emph{Library} requires some modification of the source code;
     \item[\bf Runtime] refers to the technology supporting the execution of a Python application.
-    This technology can refer to the programming language used to program the interpreter, the target language for a compiler or a library;
+        This technology can refer to the programming language used to program the interpreter, the target language for a compiler or a library;
     \item[\bf JIT optimization] refers to the support of \emph{just-in-time} compilation in the runtime infrastructure supporting the execution of the application;
     \item[\bf GC optimization] refers to the support of \emph{garbage collection} in the runtime infrastructure supporting the execution of the application;
     \item[\bf Python version(s)] refers to the list of Python source code versions supported by the runtime environment.
@@ -288,8 +288,7 @@ that containes the new implementation and if there should be extra manipulation 
 
 
 \section{placeholder}
-we performed a shapiro normality test for the first on the results, and almost all the p-values smaller than alpha=0.01\%
-therefore the distrubution is not normal - which is kinda true because if it was normal then we dont have any comparaison --
+we performed a shapiro normality test for the first on the results, and almost all the p-values smaller than alpha=0.01\% therefore the distrubution is not normal
 
 for arrays and vectors  graalpython took so much time that we decided to remove it
 
@@ -306,9 +305,9 @@ because we dont know the weight of each parameter ( of tommti microbenchmark) an
 
 
 \begin{figure}
-    \caption{energy consumption of different impelementations using Bit Operation benchmarks (Joule) }
+
     \label{table:bitops}
-    \begin{tabular}{lrrrrr}
+    \begin{tabular}{|lrrrrr|}
         \toprule
         benchmark    & A          & GG         & LL         & Or         & XOR        \\
         \midrule
@@ -324,24 +323,29 @@ because we dont know the weight of each parameter ( of tommti microbenchmark) an
         shedskin     & 8.024198   & 8.070870   & 8.399917   & 8.126236   & 8.277546   \\
         \bottomrule
     \end{tabular}
-
-\end{figure}
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{imgs/barplot_binarry_tree}
-    \caption{energy behaviour based on multiprocessing}
-    \label{fig:python_multiprocessing}
-\end{figure}
-
-\begin{figure}
+    \vfill
     \centering
     \includegraphics[width=\linewidth]{imgs/bitopts_mean}
-    \caption{Mean consumption of different implementations of bit operations (Joule) }
-    \label{fig:bitops}
+    \caption{energy consumption of different impelementations using Bit Operation benchmarks (Joule) }
 \end{figure}
 
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{imgs/barplot_binarry_tree}
+%     \caption{energy behaviour of different python implementations for the binarry Tree benchmark}
+%     \label{fig:binarrytree}
+% \end{figure}
+
+\begin{figure}
+
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/dendogram_interpreters}
+    \caption{Dendogram of the different implementations}
+    \label{fig:dendogram}
+\end{figure}
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/alltomti_performance}
@@ -369,6 +373,7 @@ because we dont know the weight of each parameter ( of tommti microbenchmark) an
     \label{fig:p2}
 \end{figure}
 
+
 As we can see in figure \ref{fig:tommi_all}, there is no evolution between cpython2 and cpython3
 Intelpython and active python both folows the same behaviour. one can conclude that the work that have been on those interpreters is mainly
 to improve a specific purpose, Active python claims that their version is focused on secuirty which explains the lack of some performances due to the introduction of more reonforcment
@@ -380,7 +385,7 @@ As for nuitka. there were no optimization in the energy consumpotion despite the
 However if we dig through the nuitka mechanisms. they basically embed the python code with an interpreter.
 Unllike nuitka shedskin exhebit a the best energy consumption pattern when it comes to the arithmetic operartions. One can conclude it is due to the fact of the native type of the variables. unlike the interpreters where they are treated as object in the begining.
 
-for the other interpeters pypy is very promising especially when it comes to data maniupulation as one can see in the figure \ref{fig:bar_tommti_vector}
+for the other interpeters pypy is very promising especially when it comes to data maniupulation as one can see in the figure \ref{fig:bar_tommtei_vector}
 pypy is by far the best interperer when it comes to treating vectors.
 numba2 introduced the JIT but wasn't as promising as numba3.
 
