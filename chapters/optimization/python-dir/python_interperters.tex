@@ -285,9 +285,13 @@ that containes the new implementation and if there should be extra manipulation 
 
 \section{Results and finding}
 
+\subsection{Preliminary stduies}
+This part will be dedicated to analyse the initial behaviour of different python interpereters.
+First we started with a typical benchmark \em binarrytree. where we compare the energy consumption of the different implementations.
 
 
 \section{placeholder}
+
 we performed a shapiro normality test for the first on the results, and almost all the p-values smaller than alpha=0.01\% therefore the distrubution is not normal
 
 for arrays and vectors  graalpython took so much time that we decided to remove it
@@ -309,18 +313,18 @@ because we dont know the weight of each parameter ( of tommti microbenchmark) an
     \label{table:bitops}
     \begin{tabular}{|lrrrrr|}
         \toprule
-        benchmark    & A          & GG         & LL         & Or         & XOR        \\
+        benchmark    & A       & GG      & LL      & Or      & XOR     \\
         \midrule
-        activepython & 676.980672 & 763.208040 & 651.783048 & 743.016425 & 728.828481 \\
-        cpython2     & 441.082298 & 435.886950 & 430.846171 & 415.247383 & 419.081447 \\
-        cpython3     & 595.209019 & 685.085315 & 563.839300 & 657.972734 & 655.560574 \\
-        cython       & 35.077408  & 182.688395 & 274.177830 & 34.868014  & 34.504778  \\
-        nuitka       & 33.260991  & 32.980380  & 33.256450  & 33.472770  & 33.030889  \\
-        numba2       & 9.102939   & 8.411176   & 9.460620   & 9.375920   & 9.755952   \\
-        numba3       & 9.566646   & 10.144212  & 9.219703   & 9.344613   & 9.665108   \\
-        pypy2        & 8.456867   & 7.844918   & 8.286278   & 8.138692   & 7.952999   \\
-        pypy3        & 7.552731   & 8.093884   & 8.108508   & 8.669448   & 8.623737   \\
-        shedskin     & 8.024198   & 8.070870   & 8.399917   & 8.126236   & 8.277546   \\
+        activepython & 676.980 & 763.208 & 651.783 & 743.016 & 728.828 \\
+        cpython2     & 441.082 & 435.886 & 430.846 & 415.247 & 419.081 \\
+        cpython3     & 595.209 & 685.085 & 563.839 & 657.972 & 655.560 \\
+        cython       & 35.077  & 182.688 & 274.177 & 34.868  & 34.504  \\
+        nuitka       & 33.260  & 32.980  & 33.256  & 33.472  & 33.030  \\
+        numba2       & 9.102   & 8.411   & 9.460   & 9.375   & 9.755   \\
+        numba3       & 9.566   & 10.144  & 9.219   & 9.344   & 9.665   \\
+        pypy2        & 8.456   & 7.844   & 8.286   & 8.138   & 7.952   \\
+        pypy3        & 7.552   & 8.093   & 8.108   & 8.669   & 8.623   \\
+        shedskin     & 8.024   & 8.070   & 8.399   & 8.126   & 8.277   \\
         \bottomrule
     \end{tabular}
     \vfill
