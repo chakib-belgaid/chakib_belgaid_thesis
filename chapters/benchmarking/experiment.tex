@@ -2,7 +2,7 @@
 % To satisfy those three requirements. we elaborated a benchmarking protocol that aims to help reaserchers and practicioners in their experementations.
 % for each aspect we present a set of guidelines and tools.
 %% This is a conclusion maaan  !! 
-\section{Improving accuracy by taming the energy variation}\label{sec:taming-the-energy-variation}
+\section{Improving Accuracy by Taming Energy Variations}\label{sec:taming-the-energy-variation}
 
 While the previous section aimed to ensure the reproducibility of our software energy consumption experiments, this section provides a collection of tips and tools to help increase the accuracy of these experiments.
 We are well aware of the effect that hardware has on energy fluctuations.
@@ -72,7 +72,7 @@ The second criterion is whether or not the workload is \textbf{representative}. 
 
 To meet these criteria, we looked at the "state of the art" and found the most common benchmarks used to test the performance of hardware. We then chose the ones that could be scaled up. 
 Our candidate is  emph{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NPB:125826.125925}: one of the most used benchmarks for \emph{HPC}. We used the applications (\textsf{LU}), the \emph{Conjugate Gradient} (\textsf{CG}) and \emph{Embarrassingly Parallel} (\textsf{EP}) computation-intensive benchmarks in our experiments, with the \textsf{C} data class.
-Furthermore we have used other applications to validate our results using more applications such as \texttt{Stress-ng v0.10.0},\footnote{\url{https://kernel.ubuntu.com/~cking/stress-ng}} \texttt{pbzip2 v1.1.9},\footnote{\url{https://launchpad.net/pbzip2/}} \texttt{linpack}\footnote{\url{http://www.netlib.org/linpack}} and \texttt{sha256 v8.26}\footnote{\url{https://linux.die.net/man/1/sha256sum}}.
+Furthermore we have used other applications to validate our results using more applications such as \texttt{Stress-ng v0.10.0},\footnote{\url{https://kernel.ubuntu.com/~cking/stress-ng}} \texttt{pbzip2 v1.1.9},\footnote{\url{https://launchpad.net/pbzip2/}} \texttt{linpack}\footnote{\url{http://www.netlib.org/linpack}} and \texttt{sha256 v8.26}.\footnote{\url{https://linux.die.net/man/1/sha256sum}}
 
 
 \subsubsection{Metrics \& Measurement Tools}

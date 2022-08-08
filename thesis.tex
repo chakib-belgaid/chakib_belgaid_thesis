@@ -33,6 +33,8 @@
 %%%%%%%%highlighting 
 \newcommand\note[1]{\textcolor{red}{\bf\em{TODO : #1}}}
 \newcommand\best[1]{\textcolor{teal}{\bf #1}}
+\newcommand\worst[1]{\textcolor{red}{\bf #1}}
+\newcommand\same[1]{\textcolor{orange}{ \em #1}}
 \newcommand\wow[1]{\textcolorcolor{orange}{\em #1}}
 \newcommand\yes[0]{\checkmark}
 \newcommand\no[0]{--}
@@ -196,13 +198,15 @@
 
 
 
-\input{chapters/introduction}
-\include{chapters/literature/literature_Review}
-\include{chapters/benchmarking/benchmarking}
-\include{chapters/programming_languages/programming_languages}
+% \input{chapters/introduction}
+% \include{chapters/literature/literature_Review}
+% \part{Benchmarking Programming Technologies}
+% \include{chapters/benchmarking/benchmarking}
+% \include{chapters/programming_languages/programming_languages}
+% \part{Optimizing Application Runtimes}
 \include{chapters/optimization/optimization}
-\input{chapters/conclusion}
-\include{chapters/appendices/appendices} % Appendices
+% \input{chapters/conclusion}
+% \include{chapters/appendices/appendices} % Appendices
 
 % ********************************** Back Matter *******************************
 % Backmatter should be commented out, if you are usPing appendices after References
@@ -211,23 +215,23 @@
 % ********************************** Bibliography ******************************
 \begin{spacing}{0.9}
 
-    % To use the conventional natbib style referencing
-    % Bibliography style previews: http://nodonn.tipido.net/bibstyle.php
-    % Reference styles: http://sites.stat.psu.edu/~surajit/present/bib.htm
+  % To use the conventional natbib style referencing
+  % Bibliography style previews: http://nodonn.tipido.net/bibstyle.php
+  % Reference styles: http://sites.stat.psu.edu/~surajit/present/bib.htm
 
-    \bibliographystyle{apalike}
-    %\bibliographystyle{unsrt} % Use for unsorted references  
-    %\bibliographystyle{plainnat} % use this to have URLs listed in References
-    \cleardoublepage
-    \bibliography{static_final_library} % Path to your References.bib file
+  \bibliographystyle{apalike}
+  %\bibliographystyle{unsrt} % Use for unsorted references  
+  %\bibliographystyle{plainnat} % use this to have URLs listed in References
+  \cleardoublepage
+  \bibliography{static_final_library} % Path to your References.bib file
 
 
-    % If you would like to use BibLaTeX for your references, pass `custombib' as
-    % an option in the document class. The location of 'reference.bib' should be
-    % specified in the preamble.tex file in the custombib section.
-    % Comment out the lines related to natbib above and uncomment the following line.
+  % If you would like to use BibLaTeX for your references, pass `custombib' as
+  % an option in the document class. The location of 'reference.bib' should be
+  % specified in the preamble.tex file in the custombib section.
+  % Comment out the lines related to natbib above and uncomment the following line.
 
-    %\printbibliography[heading=bibintoc, title={References}]
+  %\printbibliography[heading=bibintoc, title={References}]
 
 
 \end{spacing}

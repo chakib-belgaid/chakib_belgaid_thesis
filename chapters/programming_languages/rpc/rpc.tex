@@ -1,6 +1,4 @@
-
-
-\subsection*{introduction}
+\subsection{Introduction}
 With the emergence of cloud technologies, many protocols wanted to take the lead.
 Nowdays, most of the architectures are based on multi-services and microservices.
 And, to have higher versatility of developers multiple companies choose to be open to different programming languages.
@@ -16,8 +14,8 @@ In this section, we first explore the ease of implementation of this protocol th
     \item[\textsc{RQ}~2:] How do RPC implementations consume with regards to the number of concurrent clients?
 \end{description}
 
-\subsection{Experimental protocol}
-\subsubsection{measurement context}
+\subsection{Experimental Protocol}
+\subsubsection{Measurement Context}
 \paragraph{Hardware settings}
 All the experiments are run on the cluster \textsf{paravance} of the G5K platform.
 This cluster is composed of 72 identical machines, each one is equipped with 2 Intel Xeon E5-2630 V3, with 128\,GB of RAM.
@@ -31,7 +29,7 @@ Both the server and the client use the whole socket for their experiment.
 In addition, all the additional services, such as the kernel and HwPC sensor, are run on \textsf{socket\,0}.
 Therefore, the only process being executed in \textsf{socket\,1} is the server that we benchmark and monitor.
 
-\subsubsection{metrics}
+\subsubsection{Key Performance Metrics}
 \paragraph{Energy measurements}
 To report on the energy consumption, we used HwPC sensor [TOCITE], which is based on Intel RAPL technology, one of the most accurate tools to measure the energy consumption of the CPU and DRAM [TOCITE].
 For better accuracy, we ran the HwPC sensor with a frequency of 10~Hz, and we used the same machine for all the experiments in order to reduce the variability [TOCITE].
@@ -49,7 +47,7 @@ For better accuracy and more details, We use an updated version of the open sour
 The modified version allows us to monitor the average power for each request from both the server and the client sides.
 The new version is available in the repository\footnote{\url{https://github.com/chakib-belgaid/energy_ghz}}.
 
-\subsubsection{workload}
+\subsubsection{Workload}
 The purpose of the experiment is to analyse the behaviour of different GRPC implementations. therefore we have two kind of worlkoads 
 \paragraph{number of clients}: this is the number of concurrent clients that we want to test. It is automatically handled with the ghz client 
 \paragraph{payload}: the size of each request . this varries from 50 Bytes up to 10 MB.
@@ -69,7 +67,7 @@ As for the \textbf{workload} it can be extended easly by adding new files in the
 
 
 
-\subsection{Results and findings}
+\subsection{Results \& Findings}
 [\textsc{RQ}~1:] How do RPC implementations react to the size of the data ?
 The purpose of this question is to study the behaviour of the server when transferring large objects.
 To do so, we send 80,000 requests to the server whose size scales from 10 bytes up to 10 Megabytes, which results in 10,000 requests per size per server.
@@ -93,7 +91,7 @@ For each framework, we can distinguish three modes, and they all depend on the p
     \item \textsf{Broken state} mode when the requests are much heavier and the server break—like 10 MB.%ROMAIN unclear to me what this means
 \end{enumerate}
 
-\subsubsection{Stress free mode}
+\subsubsection{Stress Free Mode}
 In this mode, the compiled languages tend to consume less resources (average power).
 JVM-based languages tend to consume more energy, especially Scala.
 However, we do not observe the same behaviour when it comes to efficiency.
@@ -107,7 +105,7 @@ Overall, we can have 3 groups when it comes the cost of each request:
     \item Energy-greedy class: Crystal and Scala.
 \end{itemize}
 
-\subsubsection{Escalation mode}
+\subsubsection{Escalation Mode}
 In this mode, the behaviour of the server depends on the payload. We observe three behaviours:
 \begin{enumerate}
     \item Drop in performances without an increased power, such as .Net core, Java micronaut, Crystal, and Dart.
@@ -253,7 +251,7 @@ Then, we study how the payload size of the requests impact the energy consumptio
 \end{figure}
 
 
-\subsection{Threads to validity}
+\subsection{Threads to Validity}
 
 
 
