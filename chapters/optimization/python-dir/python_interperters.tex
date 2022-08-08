@@ -1,5 +1,5 @@
 \section{Python Interpreters}\label{sec:pythoninterpreters}
-%%% note : add this to the section of python interpreters 
+%%% note : add this to the section of python interpreters
 Due to the lack of support for most non-conventional Python interpreters, we mainly focus on micro-benchmarks.
 Except for \textsc{PyPy}, most of the Python implementations do not support extra Python libraries, despite those extra implementations being developed to optimize a specific library, such as \textsf{Numba} with \textsf{Numpy}, or \textsf{intelpython} with machine learning algorithms.
 
@@ -97,7 +97,7 @@ We should explain the classification of these runtimes
     \begin{tabular}{|l|c|c|c|c|c|c|}
         \hline
         \multirow{2}{*}{\bf Name} & \multirow{2}{*}{\bf Type} & \multirow{2}{*}{\bf Runtime} & \multicolumn{2}{c|}{\bf Optimisations} & \multicolumn{2}{c|}{\bf Python}                     \\
-        % \cline{1-5} 
+        % \cline{1-5}
                                   &                           &                              & {\bf JIT}                              & {\bf GC}                        & {\bf 2} & {\bf 3} \\
         \hline
         \hline
@@ -158,9 +158,9 @@ We should explain the classification of these runtimes
         \hline
         \hline
         Python~2 & Cpython2        & Cython2             & Numba 2     \\
-        % \cline{2-4} 
+        % \cline{2-4}
                  & Pypy2           & Shesdskin           & Hope        \\
-        % \cline{2-4} 
+        % \cline{2-4}
                  & Pytson          & Grumpy              & Parakeet    \\
                  & Ironpython      &                     & Psyco       \\
                  & Jython          &                     & Pyjion      \\
@@ -168,7 +168,7 @@ We should explain the classification of these runtimes
                  & Micropython     &                     &             \\
                  & Pysec           &                     &             \\
                  & StacklessPython &                     &             \\
-        % \cline{2-4} 
+        % \cline{2-4}
         \hline
         Python~3 & Cpython3        & Nuitka              & Numba3      \\
                  & Pypy3           &                     &             \\
@@ -194,7 +194,7 @@ In \Cref{fig:pythonimplementations}, we describe the implementations that we kep
 \section{experimetal protocole}
 
 As we have discussed in the previous chapter \ref{chapter:benchmarking}. instead of running the tests, the idea was to design a system that allows practiouners to reproduce and extends our tests. and then we use the same system to run answer some of researchs question.
-%%%% probably ill resue the same things from other chapters 
+%%%% probably ill resue the same things from other chapters
 \subsection{measurement context}
 \paragraph{Hardware settings}
 
@@ -230,8 +230,8 @@ For the sake of reproducibility, each experiment runs within a Docker container.
 \subsection{Metrics}
 Our focus will be mainly on CPU energy consumption because it is ten folds more than the DRAM one, since it is finit job benchmarking, time is highly correlated within the energy, and it will be only useful to explain certain energytical behaviour so we wont put a lot of focus on this metric.
 
-%% basically i what i want to say is that we we care mostly about energy, because there are studies that were made on the performance, plus the DRAM is not that interested even within the heavy memory  benchmakrs 
-% TODO : ADD DRAM graphs for vectors and matrix multiply 
+%% basically i what i want to say is that we we care mostly about energy, because there are studies that were made on the performance, plus the DRAM is not that interested even within the heavy memory  benchmakrs
+% TODO : ADD DRAM graphs for vectors and matrix multiply
 
 
 \paragraph{Energy measurement}
@@ -290,6 +290,7 @@ This part will be dedicated to analyse the initial behaviour of different python
 First we started with a typical benchmark \em binarrytree. where we compare the energy consumption of the different implementations.
 
 
+
 \section{placeholder}
 
 we performed a shapiro normality test for the first on the results, and almost all the p-values smaller than alpha=0.01\% therefore the distrubution is not normal
@@ -331,6 +332,7 @@ because we dont know the weight of each parameter ( of tommti microbenchmark) an
     \centering
     \includegraphics[width=\linewidth]{imgs/bitopts_mean}
     \caption{energy consumption of different impelementations using Bit Operation benchmarks (Joule) }
+    % TODO : fix labels size
 \end{figure}
 
 
@@ -341,9 +343,7 @@ because we dont know the weight of each parameter ( of tommti microbenchmark) an
 %     \label{fig:binarrytree}
 % \end{figure}
 
-\begin{figure}
-
-\end{figure}
+\input{table-envs.tex}
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/dendogram_interpreters}
@@ -356,35 +356,37 @@ because we dont know the weight of each parameter ( of tommti microbenchmark) an
     \caption{different interpererts optimisation }
     \label{fig:tommi_all}
 \end{figure}
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{imgs/tommti_compare__pypy2_pypy3}
-    \caption{green factor of pypy }
-    \label{fig:pypy2vspypy3}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{imgs/tommti_compare__pypy2_pypy3}
+%     \caption{green factor of pypy }
+%     \label{fig:pypy2vspypy3}
+% \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{imgs/tommti_compare__cpython3_numba3_pypy3}
-    \caption{comparaison of pypy vs python vs numba }
-    \label{fig:p3}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{imgs/tommti_compare__cpython3_numba3_pypy3}
+%     \caption{comparaison of pypy vs python vs numba }
+%     \label{fig:p3}
+% \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{imgs/tommti_compare__cpython2_pypy2_numba2}
-    \caption{comparaison of pypy vs python vs numba }
-    \label{fig:p2}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{imgs/tommti_compare__cpython2_pypy2_numba2}
+%     \caption{comparaison of pypy vs python vs numba }
+%     \label{fig:p2}
+% \end{figure}
 
 
+
+%   this is after , when we come to the conclusion
 As we can see in figure \ref{fig:tommi_all}, there is no evolution between cpython2 and cpython3
 Intelpython and active python both folows the same behaviour. one can conclude that the work that have been on those interpreters is mainly
 to improve a specific purpose, Active python claims that their version is focused on secuirty which explains the lack of some performances due to the introduction of more reonforcment
 .Morver Intel published their version of python as a dedicated for machine learning. Unfortunately the tommti benchmark is a set that focuses on the general purpose programming
 which does not reflect the performance of the machine learning.
 Another aspect of a such behaviour might be due to the fact of the processors that were used in the testbed. and it might change in the future if we include the GPU part for the machine learning benchmarks
-% reference the work of the intern 
+% reference the work of the intern
 As for nuitka. there were no optimization in the energy consumpotion despite the fact that is it a complier.
 However if we dig through the nuitka mechanisms. they basically embed the python code with an interpreter.
 Unllike nuitka shedskin exhebit a the best energy consumption pattern when it comes to the arithmetic operartions. One can conclude it is due to the fact of the native type of the variables. unlike the interpreters where they are treated as object in the begining.
@@ -399,7 +401,7 @@ Unlike the the previous interpeters. graal exhebits a certin promises when it co
 micro python is dedicated to embeded systems so lunching it is powerful cpu machines will be misleading.
 
 Most of the interperters had the same behaviour when it comes to the input outputs. except for jython which was kinda of a anomaly probably due to the lack of the optimizations.
-% pypy handles exceptions very well 
+% pypy handles exceptions very well
 
 
 \section{conclusion}
@@ -409,4 +411,3 @@ The primary downside is the incompatibility of some of these solutions, which ca
 
 
 
-\input{table-envs.tex}
