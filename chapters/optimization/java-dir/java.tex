@@ -32,7 +32,7 @@ To investigate the effect that could have the JVM distribution choice and/or par
 \subsection{Measurement Contexts}
 
 \noindent\textbf{Software Settings.}
-For the sake of reproducibility, each experiment runs within a Docker container based on \textsf{SDKMAN!}\footnote{\url{https://sdkman.io}} image and Alpine docker.\footnote{\url{https://github.com/alpinelinux/docker-alpine}}
+For the sake of reproducibility, each experiment runs within a Docker container based on \textsf{SDKMAN}\footnote{\url{https://sdkman.io}} image and Alpine docker.\footnote{\url{https://github.com/alpinelinux/docker-alpine}}
 
 \vspace{6pt}
 \noindent\textbf{Hardware Settings.}
@@ -43,8 +43,8 @@ The minimal OS configuration ensures that only mandatory services and daemons ar
 
 \vspace{6pt}
 \noindent\textbf{Java Virtual Machines Candidates.}
-We considered a set of $52$ JVM distributions taken from $8$ different providers/packagers mostly obtained from \textsf{SDKMAN!}, as listed in \Cref{tab:JVM}.
-Depending on providers, either all the versions, majors, or LTS are made available by \textsf{SDKMAN!}.
+We considered a set of $52$ JVM distributions taken from $8$ different providers/packagers mostly obtained from \textsf{SDKMAN}, as listed in \Cref{tab:JVM}.
+Depending on providers, either all the versions, majors, or LTS are made available by \textsf{SDKMAN}.
 
 \begin{table}
     \centering
@@ -166,7 +166,7 @@ To collect the number of active threads used by the experiment, we use the comma
 \subsection{Extension}
 We also added an extension to the protocol to allow the user to run the same experiment with different configurations.
 The package is available in the GitHub repository.\footnote{\url{https://github.com/chakib-belgaid/jvm-comparaison}}
-To add extra \textbf{jvm candidates} for the benchmark applications, we added a new configuration file \texttt{jvm.sh} in the root directory of the repository, where we put the name and the version of the jvm to be used.\note{The JVM must be supported by \textsf{SDKMAN!}}
+To add extra \textbf{jvm candidates} for the benchmark applications, we added a new configuration file \texttt{jvm.sh} in the root directory of the repository, where we put the name and the version of the jvm to be used.
 For the \textbf{input workload},the benchmarks should be provided in the \texttt{benchmarks} directory.
 As for extra \textbf{metrics}, one can create a new script file that monitors the experiment and record the metrics.
 We provide some examples, such as \texttt{recordpower.sh} to measure the instantaneous power and \texttt{recordthreads.sh} to measure the number of active threads during the experiment.
