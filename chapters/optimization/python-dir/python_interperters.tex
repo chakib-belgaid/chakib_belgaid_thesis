@@ -3,6 +3,7 @@
 Due to the lack of support for most non-conventional Python interpreters, we mainly focus on micro-benchmarks.
 Except for \textsc{PyPy}, most of the Python implementations do not support extra Python libraries, despite those extra implementations being developed to optimize a specific library, such as \textsf{Numba} with \textsf{Numpy}, or \textsf{intelpython} with machine learning algorithms.
 
+
 \paragraph{Preliminary studies}
 For the first studies, we used the official version of Python, because the goal was mainly to highlight the impact of the structure of code on energy consumption.
 One main drawback of the previous method is the work to be done to update the existing code base to reduce  energy consumption.
@@ -255,11 +256,11 @@ We used used \textsc{PowerAPI}~\cite{DBLP:journals/jss/ColmantRKSFS18}, to repor
 
 figure \ref{fig:powerapi} shows the architecture of our testing model.
 
-
 The reason of separation between data collection and energy calculation is to minimise any interference with the test so our sensor is a light c program running inside a docker container.
+
 \subsection{tests preparation}
-
-
+\paragraph{workload}
+To test our implementations, we employed the Tommti microbenchmarks suite~\footnote{\url{http://www.tommti-systems.de/main-Dateien/reviews/languages/benchmarks.html}}. A set of 13 microbenchmarks that examine common language features such as arithmetic operations, data structures and input/output manipulations, among others. In addition to these tests ,we implemented some binary operations to examine the behavior of the previous implementations when it comes to low-level operations that works only with registries.
 
 To study the behaviour of the python implementation regarding the energy consumption, we have to focus on the effect of the implementation and mitigate the maximum any side effects such as the organisation of the code or any extra consumption due to the operating system or tier libraries.
 Therefore, for each test we took the implementation written in python2 as a reference and tried to use it in other implementations as it is. If it is not supported by python3, we transformed the code using the officiel library  \emph{2to3}\footnote{\url{https://docs.python.org/3.7/library/2to3.html}}.
@@ -284,14 +285,9 @@ To add extra \textbf{candidates} one should add a base docker file
 that containes the new implementation and if there should be extra manipulation that should be added to the workload files ,such as adding new decorator or changing some parameters, then they should be added as an extra function in the script \texttt{generator.py}. Finally they should be included in the python candidates.
 
 \section{Results and finding}
-
-\subsection{Preliminary stduies}
-This part will be dedicated to analyse the initial behaviour of different python interpereters.
-First we started with a typical benchmark binarrytree. where we compare the energy consumption of the different implementations.
-
-\subsection{python and binarry operations }
+This section will be dedicated to the results of the experiments and the finding of the best implementation.
+\paragraph{python and binarry operations }
 The goal of this study is to look at how different Python implementations work while treating different binary operations .
-
 
 
 \begin{figure}[!hbt]
@@ -319,10 +315,8 @@ The goal of this study is to look at how different Python implementations work w
 \end{figure}
 
 
-
-Table~ provides a detailed report on the energy consumption of different implementations of the code.
-
-Except for \emph{Cython}, each implementation treats the binary operation the same. As one can see, Table~\ref{table:bitops} shows no difference in the energy consumption of those operations.
+Table~~\ref{table:bitops} provides a detailed report on the energy consumption of different implementations of the code.
+Besides \emph{Cython}, each implementation treats the binary operation the same. As one can see, Table~\ref{table:bitops} shows no difference in the energy consumption of those operations.
 
 However, when it comes to Cython, the rotation operations tend to consume 5 times more energy than the other operations, and left rotations consume even more than the right ones.
 
@@ -341,16 +335,14 @@ Figure \ref{figure:bitops}  shows the average energy consumption of different im
 One can notice 3 clusters.
 
 The first, which is the interpreted one, uses approximately 500 joules per operation. The second is a non-optimized compilation that includes Cython and Nuitka and uses 10 times less energy than the first. And the final one, which has been fully optimized, uses 50 percent less energy. This category includes jit libraries, also known as numba, Python implementations that include JIT, also known as pypy, and shedskin, which transpile the source code into C and then use a C/C++ compiler to generate the binary, as opposed to cython and nuitka, which directly compile the python code.
+To conclude this. JIT has a huge impact when it comes to binary operations, and the wrong choice of the implementation can lead to up to a 100x increase in energy consumption. In the other hand,Different binary operations exhibit the same behaviour when it comes to the energy consumption for all the implementations except Cython.
 
 
+\section{introduction to the study}
+Since we are in a comparative study, we first performed a shapiro normality test on the results, and almost all the p-values are  smaller than alpha=0.01\% therefore the distrubution is not normal. To make a comparaison we used Manwithyu's tests.
+Table \ref{table:manwithyu} .
 
-
-To conclude this. JIT has a huge impact when it comes to binary functions, and the wrong choice of the implementation can lead to up to a 100x increase in energy consumption.
-
-\section{placeholder}
-introdution to the stufy
-we performed a shapiro normality test for the first on the results, and almost all the p-values smaller than alpha=0.01\% therefore the distrubution is not normal
-
+\input{table-envs-based-cpython.tex}
 for arrays and vectors  graalpython took so much time that we decided to remove it
 
 the startup cost for ironpython was too high
@@ -359,7 +351,6 @@ but since we measure the energy outside the values of the energy aren't impacted
 
 as usual there is  correlaction between DRAM and CPU so no need to classify based on DRAM + the DRAM consumes less 10\% of the  energy compared to the CPU
 
-so the plan is to prove that there is a statistical difference
 then we use the multiparameter optimization , howerver we stop in the phase where we calculate the score
 because we dont know the weight of each parameter ( of tommti microbenchmark) and instead of doing the sum with the coefissients we use the radar plot to let the reader decide which one is the most suitable for his usage. howerver since the differences are gigantics we change the scale to logarithmic to be easier for the eye to read
 
@@ -386,26 +377,27 @@ because we dont know the weight of each parameter ( of tommti microbenchmark) an
     \caption{different interpererts optimisation }
     \label{fig:tommi_all}
 \end{figure}
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{imgs/tommti_compare__pypy2_pypy3}
-    \caption{green factor of pypy }
-    \label{fig:pypy2vspypy3}
-\end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{imgs/tommti_compare__cpython3_numba3_pypy3}
-    \caption{comparaison of pypy vs python vs numba }
-    \label{fig:p3}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{imgs/tommti_compare__pypy2_pypy3}
+%     \caption{green factor of pypy }
+%     \label{fig:pypy2vspypy3}
+% \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{imgs/tommti_compare__cpython2_pypy2_numba2}
-    \caption{comparaison of pypy vs python vs numba }
-    \label{fig:p2}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{imgs/tommti_compare__cpython3_numba3_pypy3}
+%     \caption{comparaison of pypy vs python vs numba }
+%     \label{fig:p3}
+% \end{figure}
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{imgs/tommti_compare__cpython2_pypy2_numba2}
+%     \caption{comparaison of pypy vs python vs numba }
+%     \label{fig:p2}
+% \end{figure}
 
 
 
