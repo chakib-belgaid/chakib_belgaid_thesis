@@ -337,7 +337,6 @@ One can notice 3 clusters.
 The first, which is the interpreted one, uses approximately 500 joules per operation. The second is a non-optimized compilation that includes Cython and Nuitka and uses 10 times less energy than the first. And the final one, which has been fully optimized, uses 50 percent less energy. This category includes jit libraries, also known as numba, Python implementations that include JIT, also known as pypy, and shedskin, which transpile the source code into C and then use a C/C++ compiler to generate the binary, as opposed to cython and nuitka, which directly compile the python code.
 To conclude this. JIT has a huge impact when it comes to binary operations, and the wrong choice of the implementation can lead to up to a 100x increase in energy consumption. In the other hand,Different binary operations exhibit the same behaviour when it comes to the energy consumption for all the implementations except Cython.
 
-
 \section{introduction to the study}
 Since we are in a comparative study, we first performed a shapiro normality test on the results, and almost all the p-values are  smaller than alpha=0.01\% therefore the distrubution is not normal. To make a comparaison we used Manwithyu's tests.
 Table \ref{table:manwithyu} .

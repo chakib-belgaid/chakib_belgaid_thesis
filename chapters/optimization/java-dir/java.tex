@@ -1,10 +1,10 @@
 % \section*{JAVA}
 \section{Introduction}
-As reported in the state of the art, Java is one of the most popular programming languages adopted by practitioners.%ROMAIN: Add source
-Furthermore, if we take into consideration legacy applications, Java becomes the most used programming language.%ROMAIN: Add source
+As reported in the state of the art, Java is one of the most popular programming languages adopted by practitioners. %ROMAIN: Add source
+Furthermore, if we take into consideration legacy applications, Java becomes the most used programming language. %ROMAIN:  Add source
 In addition to its popularity, Java exhibits an interesting behavior when it comes to energy consumption and performance, Java applications can be at the same time one of the most energy-efficient or hungry solutions.
 As we have seen in the previous chapter, an inappropriate combination of parameters can drive Java applications from the top language to the bottom just by setting the wrong parameters.
-Therefore, we wanted to dig deeper into this aspect of Java and study its runtime.
+in this chapter, we want to dig deeper into this aspect of Java and study its runtime.
 This chapter thus focuses on the impact of the runtime of Java applications on energy consumption.
 
 \subsection{Goal}
@@ -17,7 +17,7 @@ In this section, we will investigate the following research questions:
 
 To answer those research questions, we conduct an empirical study to highlight the impact of this runtime.
 
-\subsection{definition of the JVM}
+% \subsection{definition of the JVM}
 % TODO : ADD definition here 
 \begin{figure}%[ht]
     \centering
@@ -27,7 +27,7 @@ To answer those research questions, we conduct an empirical study to highlight t
 \end{figure}
 
 \section{Experimental Protocol}\label{sec:javaprotocol}
-To investigate the effect that could have the JVM distribution choice and/or parameters on software energy consumption, we conducted a wide set of experiments on a cluster of machines and used several established Java benchmarks and JVM configurations.
+To investigate the effect that can have the JVM distribution choice and/or parameters on software energy consumption, we conducted a wide set of experiments on a cluster of machines and used several established Java benchmarks and JVM configurations.
 
 \subsection{Measurement Contexts}
 
@@ -84,12 +84,13 @@ Depending on providers, either all the versions, majors, or LTS are made availab
 
 \subsection{Workload}
 We ran our experiments across $12$ Java benchmarks we picked from \textsf{OpenBenchmarking.org}.\footnote{\url{https://openbenchmarking.org}}
-This includes $5$ acknowledged benchmarks from the \textsc{Dacapo} benchmark suite v.\,9.12~\cite{DaCapo:paper}, namely \textsf{Avrora}, \textsf{H2}, \textsf{Lusearch}, \textsf{Sunflow} and \textsf{PMD}, that have been widely used in previous studies and proven to be accurate for memory management and computer architecture communities~\cite{DBLP:conf/wosp/LengauerBMW17,DBLP:conf/oopsla/KaliberaMJV12}.
+This includes $5$ acknowledged benchmarks from the \textsc{Dacapo} benchmark suite v.\,9.12~\cite{DaCapo:paper}, namely \textsf{Avrora}, \textsf{H2}, \textsf{Lusearch}, \textsf{Sunflow} and \textsf{PMD}, that have been widely used in previous studies and proven to be accurate for memory management and computer architecture~\cite{DBLP:conf/wosp/LengauerBMW17,DBLP:conf/oopsla/KaliberaMJV12}.
 It consists of open-source and real-world applications with non-trivial memory loads.
 % 
-Then, we also considered $7$ additional benchmarks from the \textsc{Renaissance} benchmark suite~\cite{renaissance,DBLP:conf/pldi/ProkopecRLD0SBZ19}, namely \textsf{ALS}, \textsf{Dotty}, \textsf{Fj-kmeans}, \textsf{Neo4j}, \textsf{Philosophers}, \textsf{Reaction} and \textsf{Scrabble}, which offers a diversified set of benchmarks aimed at testing JIT, GC, profilers, analyzers, and other tools.
+Then, we also considered $7$ additional benchmarks from the \textsc{Renaissance} benchmark suite~\cite{renaissance,DBLP:conf/pldi/ProkopecRLD0SBZ19}, namely \textsf{ALS}, \textsf{Dotty}, \textsf{Fj-kmeans}, \textsf{Neo4j}, \textsf{Philosophers}, \textsf{Reaction} and \textsf{Scrabble}, which offer a diversified set of benchmarks aimed at testing JIT, GC, profilers, analyzers, and other tools.
 The benchmarks we picked from both suites exercise a broad range of programming paradigms, including concurrent, parallel, functional, and object-oriented programming.
-\Cref{tab:benchmarks} summarizes the selected benchmarks with a short description.
+\Cref{tab:benchmarks} summarizes the selected benchmarks with a short description. Meanwhile, Figure~\ref{fig:jvm-benchmarks-classification} highlights the scope of each benchmark from the test suite.
+
 
 \begin{table*}
     \centering
@@ -129,7 +130,6 @@ The benchmarks we picked from both suites exercise a broad range of programming 
     }
 \end{table*}
 
-\Cref{fig:jvm-benchmarks-classification} highlights the scope of each benchmark from the test suite.
 
 \begin{figure*}%[ht]
     \centering
@@ -197,14 +197,14 @@ As \textsc{GraalVM} adopts a different strategy focused on LTS support, one can 
 
 Interestingly, this convergence of distributions has been observed since Java\,11 and coincides with the adoption of DCE\,VM by \textsc{HotSpot}.
 Ultimately, 3 clusters of JVMs that encompass JVMs with similar energy consumption can be seen through \Cref{fig:JVMs}: \textsc{J9}, the \textsc{HotSpot} and its variants, and \textsc{GraalVM}.
-Additional detailed figures to illustrate the evolution of energy consumption per benchmark/JVM are made available from the online repository.\footnote{\url{https://anonymous.4open.science/r/jvm-comparaison-213E/Readme.md}}
+Additional detailed figures to illustrate the evolution of energy consumption per benchmark/JVM are made available from the online repository.\footnote{\url{https://github.com/chakib-belgaid/jvm-comparaison}}
 
 Then, \Cref{fig:hotspot8} depicts the evolution of the energy consumption of the $12$ benchmarks, when executed on the \textsc{HotSpot} JVM.
-\Cref{fig:hotspot8} reports on the energy consumption variation of individual benchmarks, using to \textsc{HotSpot-8}\ as the baseline.
+\Cref{fig:hotspot8} reports on the energy consumption variation of individual benchmarks, using \textsc{HotSpot-8}\ as the baseline.
 Our results show that the JVM version can severely impact the energy consumption of the application.
 However, unlike \Cref{fig:JVMs}, one can observe that, depending on applications, the latest JVM versions can consume less energy (60\% less energy for \textsf{Scrabble}) or more energy (25\% more energy for the \textsf{Neo4J}).
 It is worth noticing that the energy consumption of some benchmarks, such as \textsf{Reactors}, exhibit large variations across JVM versions due to experimental features and changes that are not always kept when releasing LTS versions (version 11 here).
-For example, the introduction of \texttt{VarHandle} to allow low-level access to the memory order modes available in JDK 9 and work along \texttt{Unsafe Class} was removed from JVM 11.\footnote{\url{https://blogs.oracle.com/javamagazine/the-unsafe-class-unsafe-at-any-speed}}
+For example, the introduction of \texttt{VarHandle} to allow low-level access to the memory order modes available in JDK 9~\footnote{\url{https://gee.cs.oswego.edu/dl/html/j9mm.html}} and work along \texttt{Unsafe Class} was removed from JVM 11.\footnote{\url{https://blogs.oracle.com/javamagazine/the-unsafe-class-unsafe-at-any-speed}}
 
 \begin{figure*}%[ht]
     \centering
@@ -305,7 +305,7 @@ Finally, \textsf{Neo4J} is the only selected benchmark where \textsc{HotSpot-8} 
 % The previous experiments have been conducted on deterministic jobs where we measured the energy consumption of many runs.
 In this section, instead of considering bounded execution of benchmarks, we run the same benchmarks as services for 20 minutes, and we compare the average power and total requests processed by each of the 3 JVM distributions.
 Globally, the results showed that the average power when using \textsc{GraalVM}, \textsc{HotSpot}, and \textsc{OpenJ9} is often equivalent and stable over time.
-This means that the energy efficiency observed for some JVM distributions with Job-oriented applications is mainly related to shorter execution times, which incidentally results in energy savings.
+This means that the energy efficiency observed for some JVM distributions with job-oriented applications is mainly related to shorter execution times, which incidentally results in energy savings.
 Nonetheless, we can highlight two interesting observations for two benchmarks whose behaviors differ from others.
 First, the analysis of the \textsf{Scrabble} benchmark experiments showed that, in some scenarios, some JVMs can exhibit different power consumptions.
 \Cref{fig:servicescrabble} depicts the power consumed by the 3 JVM distributions for the \textsf{Scrabble} benchmark.
@@ -355,7 +355,7 @@ After about $150$ seconds, the power differences between the 3 JVMs is barely no
 One can, however, notice the effect of the JIT, as \textsc{HotSpot} takes the advantage over \textsc{GraalVM} and becomes more energy efficient.
 In total, \textsc{HotSpot} completes $597$ requests against $510$ for \textsc{GraalVM} and $381$ for \textsc{J9}, as shown in \Cref{table:power/request}.
 \textsc{HotSpot} was thus the best choice in the long term, which explains why it is always necessary to consider a warm-up phase and wait for the JIT to be triggered before evaluating the effect of the JVM or the performance of an application.
-This is exactly what we did in our experiments, and why \textsc{HotSpot} was more energy efficient than \textsc{GraalVM} in \Cref{fig:all_benchs}, thus ignoring the warm-up phase would have been misleading.
+This is precisely what we did in our experiments, and it is why \textsc{HotSpo}t was more energy efficient than \textsc{GraalVM} in \Cref{fig:all_benchs}; therefore, ignoring the warm-up phase would have been misleading.
 
 \begin{figure*}%[ht]
     \includegraphics[width=.9\linewidth]{imgs/powers_chetemi-2-dotty.pdf}
@@ -442,7 +442,7 @@ We identified a set of JIT compiler parameters for every JVM platform.
 For \textsc{J9}, we considered fixing the intensity of the JIT compiler at multiple levels (\textsf{cold}, \textsf{warm}, \textsf{hot}, \textsf{veryhot}, and \textsf{scorching}).\footnote{\url{[https://www.eclipse.org/openj9/docs/jit/]}}
 The hotter the JIT, the more code optimization to be triggered.
 We also varied the minimum count method calls before a JIT compilation occurs (\textsf{10}, \textsf{50}, \textsf{100}), and the number of JIT instances threads (from \textsf{1} to \textsf{7}).
-For \textsc{Hotspot-15}, we conducted experiments while disabling the tiered complication (that generates compiled versions of methods that collect profiling information about themselves), and we also varied the JIT maximum compilation level from \textsf{0} to \textsf{4}, we also tried out \textsc{HotSpot} with a basic \textsc{GraalVM} JIT.
+For \textsc{Hotspot-15}, we conducted experiments while disabling the tiered compilation (that generates compiled versions of methods that collect profiling information about themselves), and we also varied the JIT maximum compilation level from \textsf{0} to \textsf{4}, we also tried out \textsc{HotSpot} with a basic \textsc{GraalVM} JIT.
 We note that level 0 of JIT compilation only uses the interpreter, with no real JIT compilation.
 Levels 1, 2, and 3 use the C1 compiler (called client-side) with different amounts of extra tuning.
 % Furthermore, the level 3 performs a full profiling.
@@ -552,7 +552,7 @@ However, the same GC strategy can cause the software to consume twice times more
 
 For \textsc{J9}, the default \textsf{Gencon} GC causes the software to report an overall good energy efficiency among the tested benchmarks.
 However, other GC can cause better or worse energy consumption than \textsf{Gencon} depending on workloads.
-Using the \textsf{Metronome} GC consumes ~35\% less energy for the \textsf{ALS} benchmark and ~17\% less energy for the \textsf{Sunflow} benchmark, but it also consumes twice energy for the \textsf{Neo4j} benchmark and 28\% more energy for \textsf{Reactors}.
+Using the \textsf{Metronome} GC consumes ~35\% less energy for the \textsf{ALS} benchmark and ~17\% less energy for the \textsf{Sunflow} benchmark, but it also consumes 100\% more energy for the \textsf{Neo4j} benchmark and 28\% more energy for \textsf{Reactors}.
 The reason is that \textsf{Metronome} occurs in small preemptible steps to reduce the GC cycles composed of many GC quanta.
 This suits well for real-time applications and can be very beneficial when long GC pauses are not desired, as observed for \textsf{ALS}.
 However, if the heap space is insufficient after a GC cycle, another cycle will be triggered with the same ID.
@@ -585,7 +585,7 @@ Tuning the GC according to the hosted app/benchmark is thus critical to reducing
 \bigbreak
 \begin{mdframed}[]
     To answer \textbf{RQ\,2}, we conclude that users should be careful while choosing and configuring the garbage collector as substantial energy enhancements can be recorded from one configuration to another.
-    The default GC consumed more energy than other strategies in most situations.
+    The default GC consumes more energy than other strategies in most situations.
     % choosing the most convenient GC strategy in thus very important to achieve a better software energy efficiency. 
     However, keeping the default JIT parameters often delivers near-optimal energy efficiency.
     In addition, the JVM platforms can handle differently multi-threaded applications and thus consume a different amount of time/energy.
@@ -611,7 +611,8 @@ We provide practitioners with some prerequisites to check before software deploy
 
 
 \section{Tools and contributions}
-\Cref{table:j-referral} illustrates an example of the final report of \textsf{J-Referral}.
+\textsf{J-Referral} is an open-source tool designed to assist developers and practitioners in selecting the most energy-efficient JVM configuration for their software..
+\Cref{table:j-referral} illustrates an example of the final report returned by \textsf{J-Referral}.
 The tool was tested for 2 Java projects: \textsf{Zip4J}\footnote{\url{https://github.com/srikanth-lingala/zip4j}} and \textsf{K-nucleotide}.\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/performance/knucleotide.html}}
 \textsf{Zip4J} runs a large file compression, while \textsf{K-nucleotide} extracts a DNA sequence, and updates a hashtable of k-nucleotide keys to count specific values.
 The short report presented in \Cref{table:j-referral} shows the ratio of potential energy saving between the most and least energy consuming tested JVM (40\% and 70\% energy savings for \textsf{Zip4J} and \textsf{K-nucleotide}, respectively).
@@ -641,7 +642,7 @@ The tool is available as \emph{open-source software} (OSS) from our GitHub repos
 
 
 \section{Conclusion}
-The results of our investigations showed that many JVMs share energy efficiencies and can be grouped into 3 classes: \textsc{HotSpot}, J9, and \textsc{GraalVM}.
+The results of our investigations show that many JVMs share energy efficiencies and can be grouped into 3 classes: \textsc{HotSpot}, J9, and \textsc{GraalVM}.
 The 3 selected JVM classes can however report a different energy efficiency for different software and/or workloads, sometimes by a large margin.
 While we did not observe a unique champion when it comes to energy consumption, \textsc{GraalVM} reported the best energy efficiency for a majority of benchmarks.
 Nonetheless, each JVM can achieve the best or the worst depending on the hosted application.

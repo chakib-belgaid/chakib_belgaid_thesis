@@ -41,7 +41,7 @@ Python consumes a lot of energy, mainly because it is slow in execution.
 Its flexibility and simplicity caused it to drop off in performance because Python gains its flexibility from being a dynamic language.
 Therefore, it needs an interpreter to execute its programs, which makes them much slower compared to the others that are written in compiled programming languages, such as C and C++ or semi-compiled languages like Java.
 
-As shown in \Cref{fig:clbg}, one can observe that, for most of the applications taken for the \emph{Computer Language Benchmark Game} (CLBG), Python takes more time to execute---the only case that he was not the worst one was in the benchmark \textsf{regx-redux} where he beat Go---and in some cases the gap was huge, such as in \textsf{n-body} where Python took around $100$ times more than C++.\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}}
+As shown in \Cref{fig:clbg}, one can observe that, for most of the applications taken for the \emph{Computer Language Benchmark Game} (CLBG), Python takes more time to execute---the only case that he was not the worst one was in the benchmark \textsf{regx-redux} where he beats Go---and in some cases the gap was huge, such as in \textsf{n-body} where Python took around $100$ times more than C++.\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}}
 
 \begin{table}[hbt]
     \centering
@@ -49,19 +49,19 @@ As shown in \Cref{fig:clbg}, one can observe that, for most of the applications 
     \label{fig:clbg}
     \begin{tabular}{l|*{5}r}
         \hline
-                                    & \bf C    & \bf C++  & \bf Java & \bf Python & \bf Go \\
+                                    & \bf C       & \bf C++     & \bf Java & \bf Python     & \bf Go        \\
         \hline
         \hline
-        \textsf{pidigits}           & \best{1.75} & 1.89  & 3.13 & \worst{3.51}   & 2.04  \\
-        \textsf{reverse-complement} & \best{1.75} & 2.95  & 3.31 & \worst{16.76}  & 4.00  \\
-        \textsf{regx-redux}         & \best{1.45} & 1.66  & 10.5 & 15.56  & \worst{28.69} \\
-        \textsf{k-nucleotide}       & 5.07 & \best{3.66}  & 8.66 & \worst{79.79}  & 15.36 \\
-        \textsf{binary-trees}       & \best{2.55} & 2.63  & 8.28 & \worst{92.72}  & 28.90 \\
-        \textsf{fasta}              & \best{1.32} & 1.33  & 2.32 & \worst{62.88}  & 2.07  \\
-        \textsf{Fannkuch-redux}     & \best{8.72} & 10.62 & 17.9 & \worst{547.23} & 17.82 \\
-        \textsf{n-body}             & 9.17 & \best{8.24}  & 22.0 & \worst{882.00} & 21.00 \\
-        \textsf{spectral-norm}      & 1.99 & \best{1.98}  & 4.27 & \worst{193.86} & 3.95  \\
-        \textsf{Mandelbort}         & 1.64 & \best{1.51}  & 6.96 & \worst{279.68} & 5.47  \\
+        \textsf{pidigits}           & \best{1.75} & 1.89        & 3.13     & \worst{3.51}   & 2.04          \\
+        \textsf{reverse-complement} & \best{1.75} & 2.95        & 3.31     & \worst{16.76}  & 4.00          \\
+        \textsf{regx-redux}         & \best{1.45} & 1.66        & 10.5     & 15.56          & \worst{28.69} \\
+        \textsf{k-nucleotide}       & 5.07        & \best{3.66} & 8.66     & \worst{79.79}  & 15.36         \\
+        \textsf{binary-trees}       & \best{2.55} & 2.63        & 8.28     & \worst{92.72}  & 28.90         \\
+        \textsf{fasta}              & \best{1.32} & 1.33        & 2.32     & \worst{62.88}  & 2.07          \\
+        \textsf{Fannkuch-redux}     & \best{8.72} & 10.62       & 17.9     & \worst{547.23} & 17.82         \\
+        \textsf{n-body}             & 9.17        & \best{8.24} & 22.0     & \worst{882.00} & 21.00         \\
+        \textsf{spectral-norm}      & 1.99        & \best{1.98} & 4.27     & \worst{193.86} & 3.95          \\
+        \textsf{Mandelbort}         & 1.64        & \best{1.51} & 6.96     & \worst{279.68} & 5.47          \\
         \hline
     \end{tabular}
 \end{table}
@@ -69,9 +69,10 @@ As shown in \Cref{fig:clbg}, one can observe that, for most of the applications 
 
 \subsection{Python Limits}
 To reduce the energy consumption of Python, we started by targeting the main usage of this programming language, which is revealed to be data science and web development.
-\Cref{fig:usecase} illustrates a study published by the JetBrain company on Python developers.\footnote{\url{https://www.jetbrains.com/lp/python-developers-survey-2020}}.
-In this survey, multiple answers were accepted.
+\Cref{fig:usecase} illustrates a study published by the JetBrain company on Python developers\footnote{\url{https://www.jetbrains.com/lp/python-developers-survey-2020}}.
 57\% of the respondents reported that they use Python for data science, 51\% said they are using it for web development, and around 40\% are using it for system administration.
+\note{The options in this survey were not mutually exclusive. As a result, the total of the percentages is greater than $100\%$.}
+
 
 \begin{figure}[hbt]
     \centering
@@ -81,7 +82,7 @@ In this survey, multiple answers were accepted.
 \end{figure}
 
 In this chapter, we investigate the energy footprint of Python in its most popular domains of adoption.
-We first explore the data and control structures, aiming to reveal some fundamental guidelines, as \citeauthor{hasan_energy_2016-1} did in~\cite{hasan_energy_2016-1}.
+We first explore the data and control structures, aiming to reveal some fundamental guidelines, as \citeauthor{s} did in~\cite{hasan_energy_2016-1}.
 Then, we measure the energy consumption of several Python implementations to propose a non-intrusive technique to improve energy efficiency.
 Therefore, this chapter will address the following research questions:
 \begin{compactenum}[\indent\bf RQ\,1:]
@@ -90,11 +91,12 @@ Therefore, this chapter will address the following research questions:
     \item \emph{Can we reduce the energy consumption of Python programs without altering the source code?}
 \end{compactenum}
 
-In this chapter, we report on 4 case studies that intend to answer these research questions.
+To answer these questions, we report on 4 case studies that intend to answer these research questions.
 First, we study the energy behavior of Python in two application contexts: web applications (cf. \Cref{sec:webdev}) and machine learning.
 Then, we dive deeper into the energy consumption of Python core structures, before concluding with the impact of the Python interpreter on energy consumption.
 
 \section{Green Web Development}\label{sec:webdev}
+% TODO : ADD introduction to the orms 
 We start by studying the impact of the \emph{Object Relational Mapping} (ORM)~\cite{o2008object} on energy consumption.
 % We have chosen Django as our web framework.
 The idea behind this use case is to observe if the choice of the database and the ORM impacts the energy consumption and the performance of the website.
@@ -198,12 +200,12 @@ Therefore, they are faster and consume less energy.  % same reference https://ww
 
 
 \paragraph{Conclusion}
-This study demonstrated that the optimal way to reduce the energy consumption of Python application is to follow the guidelines and to privilege the built-in functions.
+This study demonstrates that the optimal way to reduce the energy consumption of Python application is to follow the guidelines and to privilege the built-in functions.
 
 
 \subsection{Python \& Multiprocessing}
 \Cref{fig:python_multiprocessing} compares the behaviour of python programs when we try to introduce the parallelism.
-As we know python is a single threaded program thx to ghe GLS ( global lock system ) howerver due to the increase of the number of cores /threads per cpu it many libraries stared to take advanteage of this feature so most of them they will try to simulate the multithreading by using multiple instances pf the processor % TO VERIFY 
+As we know python is a single threaded program thanks to ghe GLS (Global Lock System) howerver due to the increase of the number of cores /threads per cpu it many libraries stared to take advanteage of this feature so most of them they will try to simulate the multithreading by using multiple instances of the processor % TODO: TO VERIFY 
 
 \begin{figure}[hbt]
     \centering
@@ -212,7 +214,7 @@ As we know python is a single threaded program thx to ghe GLS ( global lock syst
     \label{fig:python_multiprocessing}
 \end{figure}
 
-as we can see in the graph the energy consumption is correlate with the number of threads until we arrive to the limit of the cores and then we lose the adventage of the multiprocessing , well in that case we pass from parallelism to concurency. where different sub process have to compete for the CPU Ressources.
+As we can see in the graph the energy consumption is correlate with the number of threads until we arrive to the limit of the cores and then we lose the adventage of the multiprocessing , well in that case we pass from parallelism to concurency. where different sub process have to compete for the CPU Ressources.
 Another finding is when we hit the number of physical cores. there was an increase of execution time but still reduced energy, the reason behind this is the scheduler of the operating system. basicaly he favorits the hyper threads than the physical core wich will lead to some context switches which cause the slow behaviour, howerver in the other hand the other two physical cores are not consuming energy, neither their hyper threads which explains the gain of the eneryg consumption in this case.
 in the Chapter %% reference the work of intern from lyon  
 we discuss a deeper this behaviour of the scheduler and in that case we confirm that it is not related to python but it is more generic behaviour %% maybe even this graph should go there 
@@ -237,7 +239,7 @@ For the sake of reproducibility, each experiment is done within a Docker contain
 \subsubsection{Input Workload}
 \paragraph{Models}
 Several models were developed, however, only two were used in the final trials because they achieved 94 percent accuracy in an acceptable length of time.
-David Page's cifar10-fast and Woonhyuk Baek's torch skeleton are shown here.
+David Page's cifar10-fast~\footnote{\url{https://github.com/davidcpage/cifar10-fast}} and Woonhyuk Baek's torch skeleton~\footnote{\url{https://github.com/wbaek/torchskeleton}} are shown here.
 
 \paragraph{Datasets}
 The CIFAR-10 dataset was the major source of data for the studies.
