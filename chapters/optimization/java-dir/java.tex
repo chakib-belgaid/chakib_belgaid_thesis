@@ -1,7 +1,7 @@
 % \section*{JAVA}
 \section{Introduction}
-As reported in the state of the art, Java is one of the most popular programming languages adopted by practitioners. %ROMAIN: Add source
-Furthermore, if we take into consideration legacy applications, Java becomes the most used programming language. %ROMAIN:  Add source
+As reported in the state of the art, Java is one of the most popular programming languages adopted by practitioners.In fact, in 2022, Java will be second only to Python, according to PYPY~\footnote{\url{https://pypl.github.io/PYPL.html}}.
+Furthermore, if we take into consideration legacy applications, Java becomes the most used programming language.According to the TIOBE index, Java was the most frequently used language from 2002 until 2017, and it remained in the top 5 after that~\footnote{\url{https://www.tiobe.com/tiobe-index/}}.
 In addition to its popularity, Java exhibits an interesting behavior when it comes to energy consumption and performance, Java applications can be at the same time one of the most energy-efficient or hungry solutions.
 As we have seen in the previous chapter, an inappropriate combination of parameters can drive Java applications from the top language to the bottom just by setting the wrong parameters.
 in this chapter, we want to dig deeper into this aspect of Java and study its runtime.
@@ -16,15 +16,16 @@ In this section, we will investigate the following research questions:
 \end{compactenum}
 
 To answer those research questions, we conduct an empirical study to highlight the impact of this runtime.
+Figure
 
 % \subsection{definition of the JVM}
-% TODO : ADD definition here 
-\begin{figure}%[ht]
-    \centering
-    \includegraphics[width=\linewidth]{imgs/Jvm_architecture}
-    \caption{JVM architecture}
-    \label{fig:hotspot}
-\end{figure}
+% TODO : ADD it to the introduction to 
+% \begin{figure}%[ht]
+%     \centering
+%     \includegraphics[width=\linewidth]{imgs/Jvm_architecture}
+%     \caption{JVM architecture}
+%     \label{fig:hotspot}
+% \end{figure}
 
 \section{Experimental Protocol}\label{sec:javaprotocol}
 To investigate the effect that can have the JVM distribution choice and/or parameters on software energy consumption, we conducted a wide set of experiments on a cluster of machines and used several established Java benchmarks and JVM configurations.

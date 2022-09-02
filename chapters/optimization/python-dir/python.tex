@@ -96,12 +96,41 @@ First, we study the energy behavior of Python in two application contexts: web a
 Then, we dive deeper into the energy consumption of Python core structures, before concluding with the impact of the Python interpreter on energy consumption.
 
 \section{Green Web Development}\label{sec:webdev}
-% TODO : ADD introduction to the orms 
-We start by studying the impact of the \emph{Object Relational Mapping} (ORM)~\cite{o2008object} on energy consumption.
-% We have chosen Django as our web framework.
-The idea behind this use case is to observe if the choice of the database and the ORM impacts the energy consumption and the performance of the website.
-We, therefore, create a Django website to analyze the cost of a single request using various mechanisms to retrieve data from the database.
+Django~\footnote{\url{https://www.djangoproject.com/}} and Flask\footnote{\url{https://flask.palletsprojects.com/}}  are the most popular frameworks for web development. According to a Jetbrains poll\footnote{\url{https://lp.jetbrains.com/python-developers-survey-2021/}} , Django is used in 40\% of the cases, while Flask is used in 41\% of the cases.
 
+In contrast to Flask, which is still a microframework, Django is a high-level web framework that provides a standard method for creating and maintaining complex and scalable database-driven websites quickly and effectively. Therefore, this study will focus on The latter one.
+
+\subsection{life cycle of a request in Django}
+
+Django is a MVT (Model-View-Template) framework, which means that it follows the MVC (Model-View-Controller) pattern. Figure~\ref{fig:django-life-cycle} describes the life cycle of a request in this framework.  Whenever a request arrives in Django, it is processed by several middlewares, one at a time. These middlewares are in charge of authentication, security, and so on.
+Once the request is processed by these middlewares, it is passed to the URL Router, which will simply extract the URL from the request and will try to match it to the defined URLs.
+After getting the matching URL, the corresponding view function is called. This function is responsible for treating the request, gathering the data, and then generating the response that will be put inside a template to be returned as a response.
+However, as mentioned before, Django is an MVT model. which offers an automatic way to retrieve data from the database to the view using the \emph{Object Relational Mapping} (ORM)~\cite{o2008object}.
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/django_request_lifecycle}
+    \caption{Request-Response life cycle in Django}
+    \label{fig:django-life-cycle}
+\end{figure}
+
+First, we start by investigating the energy consumption of the request-response life cycle in Django, in ordrer to determine which part consumes the most energy. To do so, we created a simple Django application that simply returns the response of the request. and then tracked its energy consumption using joulehunter~\footnote{\url{https://github.com/powerapi-ng/joulehunter}}.
+
+Joulehunter is an open source library that we developed in order to help practitioners find the energy hotspots in their applications using statistical profilers. In the case of Django, it can be added as middleware without any extra setup or changes to the source code. The energy consumption of the request-response life cycle in Django is shown in the figure~\ref{fig:django_life_cycle_naive}.As we can notice, 91.4\% of the total energy consumption is spent to resolve the request by retrieving the data while only 5.27\% is spent to render the response.
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/django_life_cycle_naive}
+    \caption{Tree representation of the energy consumption of a single request in django (naive version)}
+    \label{fig:django_life_cycle_naive}
+\end{figure}
+
+
+
+%% REMARQUE the experiment with joulehunter isn't conducted within the same machine that is used for generating the boxplot graphs 
+% We have chosen Django as our web framework.
+Therefore,we chose to observe if the choice of the database and the ORM impacts the energy consumption and the performance of the website.
+To accomplish so, we examined the cost of a single request of the prior website using various ways to extract data from the database.
 We considered using two different databases, \textsc{PostgreSQL} and \textsc{SQlite3}, that store the same records, and three different ways to fetch the records.
 \begin{enumerate}
     \item \textsf{Vanilla} relies only on the ORM to retrieve the data,
@@ -125,6 +154,22 @@ This can be useful to support developers in choosing which database engine they 
 
 Another interesting observation is the impact of the interpreter, as \Cref{fig:django} highlights.
 For example, using the \textsf{Pypy} interpreter reduces the energy consumption, even when we adopting the \textsf{Vanilla} strategy.
+
+Finally, we run the same experiment with the \textsf{Optimized} strategy 
+using joulehunter
+.Figure~\ref{fig:django_profiled_optimized} shows the new graph of the energy consumption. As one can notice. while the rendering method consumed the same amount of energy as in  the \textsf{Vanilla} strategy (arround 1.3KJ), the resolve part droped by $20\times$. 
+
+\paragraph{Conclusion}
+We conclude this study by stating that the database and ORM selection have a major impact on the website's performance and energy consumption.
+And unlike the rendering portion, there are many options available for the database, the ORM, and the data handling strategy.
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/django_profiled_optimized}
+    \caption{Tree representation of the energy consumption of a single request in django (naive version)}
+    \label{fig:django_profiled_optimized}
+\end{figure}
+
+
 
 \Cref{fig:python_multiprocessing} reports on the energy consumption of Python applications when introducing parallelism.
 Python applications are single-threaded systems constrained by the \emph{global lock system} (GLS).
@@ -175,13 +220,9 @@ Interestingly, the \texttt{for in range} loop was by far the optimal one, follow
 \end{figure}
 
 %%% putting the idea, later i ll reformulate it 
-The reason behind such a behavior is mainly related to how the Python interpreter is implemented.
-% add refenece https://www.python.org/doc/essays/list2str/ 
-%% https://www.pythonpool.com/for-vs-while-loop-python/  
-% https://wiki.python.org/moin/TimeComplexity
-%% http://python-history.blogspot.com/2010/06/from-list-comprehensions-to-generator.html?m=1
-To reduce the latency of Python applications, most of the built-in functions and operations are written in C, and the same goes for the function \texttt{range}.
-Furthermore, the function \texttt{len} has a complexity of $\mathcal{O}(1)$ as it is based on the function \texttt{Py\_SIZE} of C, which stores the length in a field for the object.
+The reason behind such a behavior is mainly related to how the Python interpreter is implemented\footnote{\url{https://www.python.org/doc/essays/list2str}},\footnote{\url{https://www.pythonpool.com/for-vs-while-loop-python/}}.  
+To reduce the latency of Python applications, most of the built-in functions and operations are written in C, and the same goes for the function \texttt{range}.\footnote{\url{ http://python-history.blogspot.com/2010/06/from-list-comprehensions-to-generator.html?m=1}}
+Furthermore, the function \texttt{len} has a complexity of $\mathcal{O}(1)$ as it is based on the function \texttt{Py\_SIZE} of C, which stores the length in a field for the object~\footnote{\url{https://wiki.python.org/moin/TimeComplexity}}.
 Therefore, the \texttt{for in range} is creating a new iterator that has the same length as the first one and, for each iteration, requires a second access (\texttt{l[i]}) instead of one---explaining the doubled time.
 The \texttt{while} is even slower due to the implicit increment of the variable, which causes an extra operation during the loop.
 To confirm this hypothesis, we tried to construct a new list by editing the elements of the previous one (cf. \Cref{fig:pythontreatement}).
