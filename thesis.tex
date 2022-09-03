@@ -24,12 +24,47 @@
 \usepackage{gensymb}
 \usepackage{siunitx} 
 \usepackage{booktabs} 
+\usepackage{pgf}
+\usepackage{longtable}
+\usepackage{listing}
+\usepackage[abspath]{currfile}
 
 %%%%%%%%%%%%%%%%%%%%%%%% extra commands %%%%%%%%%%%%%%%%%% 
 %%%%%%%%highlighting 
 \newcommand\note[1]{\textcolor{red}{\bf\em{TODO : #1}}}
 \newcommand\best[1]{\textcolor{teal}{\bf #1}}
+\newcommand\worst[1]{\textcolor{red}{\bf #1}}
+\newcommand\same[1]{\textcolor{orange}{ \em #1}}
 \newcommand\wow[1]{\textcolorcolor{orange}{\em #1}}
+\newcommand\yes[0]{\checkmark}
+\newcommand\no[0]{--}
+
+\newcommand\fnurl[2]{%
+\href{#2}{#1}\footnote{\url{#2}}%
+}
+
+
+\newcommand{\todo}[1]{{\color{red}\bf\em TODO: #1}}
+\newcommand{\romain}[1]{{\color{blue}\bf\em Cmt[R]: #1}}
+\newcommand{\reference}[1]{{\color{green}\bf\em ADD Reference: #1}}
+
+
+\newcommand{\expires}{\texttt{Expires}}
+%THIS MEANS RECHECK IT, I CHANGED IT.
+\newcommand{\hl}[1]{\textcolor{red}{#1}}
+%\newcommand{\hl}[1]{#1}
+%THIS MEANS PROBLEM, TEXT IS NOT CLEAR.
+\newcommand{\hll}[1]{\textcolor{orange}{#1}}
+\newcommand{\point}[1]{\par\smallskip\noindent\textbf{#1:}}
+\newcommand{\nrange}[4][]{%
+  \def\@temp@a{#1}%
+  #2=%
+  \ifx\@temp@a\@empty
+  #3, \dots ,#4%
+  \else
+  #3, #1, \dots,#4%
+  \fi
+}
 % ******************************************************************************
 % ******************************* Class Options ********************************
 % *********************** See README for more details **************************
@@ -130,7 +165,7 @@
 % To use choose `chapter' option in the document class
 
 \ifdefineChapter
- \includeonly{Chapter3/chapter3}
+ \includeonly{chapters/benchmarking}
 \fi
 
 % ******************************** Front Matter ********************************
@@ -140,10 +175,10 @@
 
 \maketitle
 
-\include{Dedication/dedication}
-\include{Declaration/declaration}
-\include{Acknowledgement/acknowledgement}
-\include{Abstract/abstract}
+\include{chapters/dedication}
+\include{chapters/declaration}
+\include{chapters/acknowledgement}
+\include{chapters/abstract}
 
 % *********************** Adding TOC and List of Figures ***********************
 
@@ -161,47 +196,42 @@
 % ******************************** Main Matter *********************************
 \mainmatter
 
-% \include{Chapter1/chapter1}
-% \include{Chapter2/chapter2}
-% \include{Chapter3/chapter3}
-%\include{Chapter4/chapter4}
-%\include{Chapter5/chapter5}
-%\include{Chapter6/chapter6}
-%\include{Chapter7/chapter7}
+
 
 \input{chapters/introduction}
-\input{chapters/problem_Background}
 \include{chapters/literature/literature_Review}
-\include{chapters/testing/testing}
-\include{chapters/measuring/measuring}
+\part{Benchmarking Programming Technologies}
+\include{chapters/benchmarking/benchmarking}
+\include{chapters/programming_languages/programming_languages}
+\part{Optimizing Application Runtimes}
 \include{chapters/optimization/optimization}
 \input{chapters/conclusion}
 \include{chapters/appendices/appendices} % Appendices
 
 % ********************************** Back Matter *******************************
-% Backmatter should be commented out, if you are using appendices after References
+% Backmatter should be commented out, if you are usPing appendices after References
 %\backmatter
 
 % ********************************** Bibliography ******************************
 \begin{spacing}{0.9}
 
-    % To use the conventional natbib style referencing
-    % Bibliography style previews: http://nodonn.tipido.net/bibstyle.php
-    % Reference styles: http://sites.stat.psu.edu/~surajit/present/bib.htm
+  % To use the conventional natbib style referencing
+  % Bibliography style previews: http://nodonn.tipido.net/bibstyle.php
+  % Reference styles: http://sites.stat.psu.edu/~surajit/present/bib.htm
 
-    \bibliographystyle{apalike}
-    %\bibliographystyle{unsrt} % Use for unsorted references  
-    %\bibliographystyle{plainnat} % use this to have URLs listed in References
-    \cleardoublepage
-    \bibliography{bibliography} % Path to your References.bib file
+  \bibliographystyle{apalike}
+  %\bibliographystyle{unsrt} % Use for unsorted references  
+  %\bibliographystyle{plainnat} % use this to have URLs listed in References
+  \cleardoublepage
+  \bibliography{static_final_library} % Path to your References.bib file
 
 
-    % If you would like to use BibLaTeX for your references, pass `custombib' as
-    % an option in the document class. The location of 'reference.bib' should be
-    % specified in the preamble.tex file in the custombib section.
-    % Comment out the lines related to natbib above and uncomment the following line.
+  % If you would like to use BibLaTeX for your references, pass `custombib' as
+  % an option in the document class. The location of 'reference.bib' should be
+  % specified in the preamble.tex file in the custombib section.
+  % Comment out the lines related to natbib above and uncomment the following line.
 
-    %\printbibliography[heading=bibintoc, title={References}]
+  %\printbibliography[heading=bibintoc, title={References}]
 
 
 \end{spacing}
