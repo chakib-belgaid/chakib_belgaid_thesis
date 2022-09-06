@@ -240,6 +240,14 @@ For more insights about the DRAM consumption we refer the reader to our github r
  
 Another strong correlation is between the number of requests per second and the average cost of a single request. This is because the cost a single request is proportionate to the number of requests per second of the framework, since the Average Power consumption remains constant after a certain threshold of clients. 
 
+Unlike the Multiple queries and update queries, other scenario depicts a weak correlation between latency and number of requests per second. The reseason behind a such anomaly. is the fact that we summerized the data when we had a multiple number of clients. If we calculate the correlation when we have a fixed number of client, like the case of update queries (512 clients). one can notice a strong correlation. 
+Figure~\ref{scatter_db} demonstrates a such behavior. As one can notice. for each level we have a linear clusturing. 
+
+
+
+Another interesting result is the relationship between 
+%  THIS might be completely changed , i think we need to check the limits of the data base 
+
 
 
 
@@ -252,6 +260,13 @@ intersently there is no correlation between the energy consumption of the CPU an
     \label{fig:correlation}
 \end{figure}
 
+
+\begin{figure}[bht]
+    \centering
+    \includegraphics[width=.8\columnwidth ]{imgs/scatter_db_latency_rps}
+    \caption{correlation of latency and number of requests per second for a single query}
+    \label{fig:scatter_db}
+\end{figure}
 
 then we group the implementation by the compiling type ,therefore we will have.
 \begin{itemize}
