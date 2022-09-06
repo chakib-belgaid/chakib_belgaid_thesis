@@ -234,8 +234,14 @@ On the other hand the cost a single request is proportionate to the number of re
 
 To narrow the research space, we will look for a correlation between the metrics. The Pearson correlation coefficient~\cite{zar2005spearman} will be used to determine this correlation. Because the Shapiro-Wilk~\cite{shapiro1968comparative} test yielded a p-value of 0.0 for all metrics.
 
-Figre \ref{fig:correlation} depicts the correlation between the metrics. The Pearson correlation coefficient quantifies the linear correlation between two variables X and Y. It ranges from -1 to +1, with 1 being total positive linear correlation, 0 representing no linear correlation, and -1 representing whole negative linear correlation. The stronger the correlation, the closer the value is to 1 or -1. The weaker the correlation, the closer the value is to zero. The Pearson product-moment correlation coefficient is another name for the correlation coefficient. This correlation coefficient is also known as the Pearson product-moment correlation coefficient.
-One can notice that there is a strong correlation between the energy consumption of the CPU  and the DRAM .Therefore we will exculde the DRAM metric from our study. 
+Figre \ref{fig:correlation} depicts the correlation between the metrics for the 6 scenarios. The Pearson correlation coefficient quantifies the linear correlation between two variables X and Y. It ranges from -1 to +1, with 1 being total positive linear correlation, 0 representing no linear correlation, and -1 representing whole negative linear correlation. The stronger the correlation, the closer the value is to 1 or -1. The weaker the correlation, the closer the value is to zero. The Pearson product-moment correlation coefficient is another name for the correlation coefficient. This correlation coefficient is also known as the Pearson product-moment correlation coefficient.
+One can notice that there is a strong correlation between the energy consumption of the CPU  and the DRAM for most of the scenarios.Moreover the Average energy consumption of DRAM is one sixth of the CPU energy consumption.Therefore, in this study we will focus more on the CPU energy consumption. 
+For more insights about the DRAM consumption we refer the reader to our github repository \footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}. 
+ 
+Another strong correlation is between the number of requests per second and the average cost of a single request. This is because the cost a single request is proportionate to the number of requests per second of the framework, since the Average Power consumption remains constant after a certain threshold of clients. 
+
+
+
 
 intersently there is no correlation between the energy consumption of the CPU and the latency, which means that we can achieve both a low latency and a low energy consumption at the same time. 
 %  TODO : add example of two programming langauges that have low latency and low energy consumption 
