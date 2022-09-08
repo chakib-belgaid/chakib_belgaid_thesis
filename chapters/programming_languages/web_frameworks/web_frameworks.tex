@@ -293,18 +293,35 @@ This, section will focus on the behaviour of all the implementation for each sce
 
 Table~\ref{table:frameworks_all}, provides the programming langauge and the family for each framework.
 
-\subsubsection{Single query}:
-as mentioned before, the purpose of this scenario is to test the framework ability to handle a single entry
+\subsubsection{Idle behviour}
+This part will treat average power behavior when the framework is in a rest mode. Figure~\ref{fig:av_power_idle} presents, a density plot for each family.
+\begin{figure}[bht]
+    \centering
+    \label{fig:av_power_idle}
+    \includegraphics[width=1.0\columnwidth]{imgs/av_power_idle}
+    \caption{Average power consumption for the idle scenario}
+\end{figure}
+As one can notice, when in rest most of the families consumes between 20 Watts and 40 watts, 6\% of the compiled languages frameworks consumes less then 15 Watts. However 50\% of Java solutions tend to consume arround 50 Watts which makes it the most greedy family.
+If we look at the each of the programming languages from java seperatly in figure~\ref{fig:av_power_java_idle},we find that Java Based implementations tend to consume arround 50 Watts, while Kotlin and Scala consume arround 30 Watts.
+
 
 \begin{figure}[bht]
-
     \centering
-    \caption{Average power consumption for the Single query test}
-    \label{fig:av_power_db}
-    \includegraphics[width=.8\columnwidth]{imgs/av_power_db}
-
+    \label{fig:av_power_java_idle}
+    \includegraphics[width=1.0\columnwidth]{imgs/av_power_java_idle}
+    \caption{Average power consumption for  JAVA based languages in the idle scenario case}
 \end{figure}
 
+
+\subsubsection{Single query}
+As mentioned before, the purpose of this scenario is to test the framework ability to handle a single entry.
+First we start with a histogram of average power consumption
+\begin{figure}[bht]
+    \centering
+    \label{fig:av_power_db}
+    \includegraphics[width=1.0\columnwidth]{imgs/av_power_db}
+    \caption{Average power consumption for the Single query test}
+\end{figure}
 
 \begin{figure}[bht]
     \centering
@@ -313,6 +330,12 @@ as mentioned before, the purpose of this scenario is to test the framework abili
     \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients)}
     \label{fig:power_requests_db}
 \end{figure}
+
+
+In figure~\ref{power_requests_db} Each run is represented by a circle, and the size of the cricle represents the number of parallel clients. the smaller the circle the less clients are used.
+
+
+
 
 \begin{figure}[bht]
     \centering
