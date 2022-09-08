@@ -54,25 +54,30 @@ Other works have been done on the client side, as an example \cite{philippot_cha
 
 In this section, we describe the environment used during the experiments, covering hardware material, experiments of the framework and the methodology.
 
+
 \subsection{Measurement Context}
 The purpose of this exmeperiment is to highlight the impact of the technology stack of developping a website on the energy consumption whule its execution.
+\subsubsection{Candidate Frameworks}
+Overall, we selected 210 web frameworks to be evaluated in this study.
+Each framework, may have multiple configurations, based on the the database, alrernative interpreters  ..etc.
+Table~\ref{tab:frameworks_all} lists the frameworks that we selected for this study.
 
-Table \ref{table:table:frameworks_count} highlights the number of frameworks used in the experiment and they passed each category of tests.
+% \input{frameworks_table.tex}
+As for table \ref{table:frameworks_count},it  highlights the number of frameworks used in the experiment and they passed each category of tests.
 As we see in the table below, some of the frameworks worked on certain conditons while they failed on other tests such as nickel from rust, while nickel might be one of the greenest rust framework, it doens't work with databases. Therefore, it can be used within all the situations, but if the website doesnt interact with a database then it might be the best choice.
 
 many reasons are behind the failure, either there were no implementation or just there were some errors while handling the request.
-
-\note{ we decided to skip the idle part in the validation test since it is not relevant}
+\paragraph{Remark}
+We decided to skip the idle part in the validation test since it is not relevant
 \input{table-counting.tex}
 
 
 \begin{itemize}
     \item orchestrator : the part that is responisble for creating docker images, selecting the benchmarks and launching the tests;
     \item web server : or the system under test (SUT) is the machine  responsible for launching the framework  by means of the pre-installed powermeter;
-    \item database server : a offers the same data base that will be used by all the frameworks during the tests
+    \item database server : a offers the same data base that will be used by all the frameworks during the tests. to ensure the same database for all the frameworks, and to remove the impact of the database on the energy consumption, on the System-Under-Test (SUT
           %(is seperated from the application server to neglect its contribution in energy calculation?) 
     \item client machines : To avoid the bottleneck on the client's side, client requests are sent from another machine (one or many) that simulates hundreds of concurrent connections to the framework.
-          %Does even one machine simulate hundreds? 
     \item recorder : the party responsible for collecting the power data from the SUT and the performance metrics collected by the clients \todo{add link to the measurement process}
 \end{itemize}
 
@@ -84,7 +89,6 @@ It has been proven in the work of \citeauthor{eddie_antonio_santos_how} that doc
 
 \subsection{Workload}
 
-%TODO add number of clients for each type of workload  512 
 To mesure compare the energy consumption and performance effeciency between mutiple frameworks, each framework used to implement the samewebsite answering the same urls and requesting the same database. Then we run the same algorthim for all impelentations.
 \begin{enumerate}
     \item lunch the framework
@@ -98,21 +102,21 @@ To mesure compare the energy consumption and performance effeciency between muti
 \end{enumerate}
 the section will detail each type of experiments  and the purpose behind it giving some examples of the expecteed response
 
-\subsubsection{Test Categories}
+\subsubsection{Test Scenarios}
 We have 7 categories of tests :
-
 \paragraph{Idle}
 In this test we measure the idle energy consumption of the framework: this reflects the average energy consumption of an application during the periods when we have no clients.
 For example, a company website beyond working hours or a small website at night.
 
 
 \paragraph{Single Query}
-During this test, each request  is processed by fetching a single row from a simple database table. That row is then serialized as a JSON response.
+During this test, each request  is processed by fetching a single row from a simple database table. That row is then serialized as a JSON response, then returned to the client. This is the most common type of request in a web application. For this test we will use a variable number of clients to measure the energy consumption of the framework when it is under load.
 
 \paragraph{Multiple Queries}
 this test aims to test the behavior of a framework when it process multiple entries from the database.
 Therefore each request is processed by fetching multiple rows from a simple database table and serializing these rows as a JSON response.
-In this case we use the maximum number of clients which is \parallelclient{512}
+In this case we use afixed  number of clients which is \parallelclient{512}.
+and alter the
 %The test is run multiple times: testing 1, 5, 10, 15, and 20 queries per request. All tests are run at 512 concurrency.
 % To evaluate the performance of a framework when the data is already cashed  each request is processed by fetching multiple cached objects from an in-memory database and serializing these objects as a JSON response.
 %  The test is run multiple times: testing 1, 5, 10, 15, and 20 cached object fetches per request. All tests are run at 512 concurrency. Conceptually, this is similar to the multiple-queries test except the fact that it uses a caching layer.
@@ -141,6 +145,8 @@ In this test, the framework responds with the simplest of responses: a "Hello, W
 
 \paragraph{JSON Serialization}
 In this test, each response is a JSON serialization of a freshly-instantiated object that maps the key message to the value "Hello, World!".
+
+
 
 For each one of the above scenarios, we consider different level of stress table shows the different levels for each scenario.
 
@@ -171,14 +177,16 @@ To add extra scenarios one might implement a python class that handles the metad
 We focus on comparing the energy behavior of different frameworks in multiple scenarios
 
 To measure the energy consumption of those frameworks, we launch each one for a fixed duration, then all the clients send multiple requests simultaneously.
-We calculate %calculate - with paper and pen or calculator, compute - with computer (programs)
-the number of satisfied responses which reflects the performance of the framework, the average latency and the global energy consumed during the whole period to deduce the energy cost of each request.
+We Compute the number of satisfied responses which reflects the performance of the framework, the average latency and the global energy consumed during the whole period to deduce the energy cost of each request.
+
+\paragraph{Remark}:
+Before each test we consider a warmup period of 10 seconds to let the framework to reach its steady state.
 
 \subsubsection{Runtime Measurements}
 \begin{itemize}
     \item energy measurement :
-          we use \reference{powerapi}, a software powermeter  to gather the runninng power of the SUT, after we project the timestamps of each experiment phase to calculate the energy consumption of the framework during this phase.
-          Energy is an integral of power over time, so we use a numerical apporoach to estimate this energy. \todo{add formula}
+          we use PowerAPI~\cite{bourdon:hal-00772454}, a software powermeter  to gather the runninng power of the SUT, after we project the timestamps of each experiment phase to calculate the energy consumption of the framework during this phase.
+          Energy is an integral of power over time, so we use a numerical apporoach to estimate this energy~\ref{fig:trapezrule}.
           after this we devide the calculated energy per number of responses
           during this phase
           we have 4 metrics :
@@ -189,8 +197,18 @@ the number of satisfied responses which reflects the performance of the framewor
     \item Average energy cost per request
 \end{itemize}
 
+Due to some technical problems, not all the framework returned the tail latency (99\%), therefore we will subsitute it with the average latency during this study. however for further details, the reader can always check the available values in the the following repository\footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}
+\begin{figure}[hbt]
+    \centering
+    \begin{equation}
+        E = \int^a_b P(t)dt \simeq \sum^n_{k=1} \frac{P(t_k-1)+P(t_k)}{2}
+    \end{equation}
+    \caption{}
+    \label{fig:trapezrule}
+\end{figure}
+
 \subsubsection{Architecture}
-The aim is to compare the energy consumption of different frameworks. For this we consider the framework as a blackbox and we take into account the response to the 6 previous requests using the same database.
+The aim is to compare the energy consumption of different frameworks. For this we consider the framework as a blackbox and we take into account the response to the 6 previous scenarios using the same database.
 In order to isolate the energy consumption of the framework the test is run in a seperate machine with the minimum services and the powermeter.
 Figure \ref{fig:architecture} illustrates the architecture of our system
 
@@ -223,62 +241,63 @@ In this section, we will use the previous results to answer the following questi
 \end{itemize}
 
 Since most of the companies use the same stack, we won't be aggregating the results since it may lead to confusion.
-For example, comparing the average energy consumption of each programming language will not reflect reality, particularly when we have two frameworks on opposite ends of the spectrum. 
+For example, comparing the average energy consumption of each programming language will not reflect reality, particularly when we have two frameworks on opposite ends of the spectrum.
 
 \subsection{Overall all statistics}
 In order to determine which framework/stack is performing well we need to establish some general idea about the average In order to determine which framework/stack is performing well, we need to establish some general idea about the average energy consumption and latency of the frameworks. Instead of giving just the raw energy consumption of those frameworks, we will provide some green factors to determine which one is eco-friendly and which one is greedy.
 In this part, we will discuss the average behavior of the frameworks, highlight some tendencies, and eliminate the outliers.
 As we said in the threats to validity, being an outlier in this case does not mean that the framework is not performing well; it just means that the framework is not performing well in the same way as the others within the context of this experiment.
 
-On the other hand the cost a single request is proportionate to the number of requests per second of the framework 
+On the other hand the cost a single request is proportionate to the number of requests per second of the framework
 
 To narrow the research space, we will look for a correlation between the metrics. The Pearson correlation coefficient~\cite{zar2005spearman} will be used to determine this correlation. Because the Shapiro-Wilk~\cite{shapiro1968comparative} test yielded a p-value of 0.0 for all metrics.
-
-Figre \ref{fig:correlation} depicts the correlation between the metrics for the 6 scenarios. The Pearson correlation coefficient quantifies the linear correlation between two variables X and Y. It ranges from -1 to +1, with 1 being total positive linear correlation, 0 representing no linear correlation, and -1 representing whole negative linear correlation. The stronger the correlation, the closer the value is to 1 or -1. The weaker the correlation, the closer the value is to zero. The Pearson product-moment correlation coefficient is another name for the correlation coefficient. This correlation coefficient is also known as the Pearson product-moment correlation coefficient.
-One can notice that there is a strong correlation between the energy consumption of the CPU  and the DRAM for most of the scenarios.Moreover the Average energy consumption of DRAM is one sixth of the CPU energy consumption.Therefore, in this study we will focus more on the CPU energy consumption. 
-For more insights about the DRAM consumption we refer the reader to our github repository \footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}. 
- 
-Another strong correlation is between the number of requests per second and the average cost of a single request. This is because the cost a single request is proportionate to the number of requests per second of the framework, since the Average Power consumption remains constant after a certain threshold of clients. 
-
-Unlike the Multiple queries and update queries, other scenario depicts a weak correlation between latency and number of requests per second. The reseason behind a such anomaly. is the fact that we summerized the data when we had a multiple number of clients. If we calculate the correlation when we have a fixed number of client, like the case of update queries (512 clients). one can notice a strong correlation. 
-Figure~\ref{scatter_db} demonstrates a such behavior. As one can notice. for each level we have a linear clusturing. 
-
-
-
-Another interesting result is the relationship between 
-%  THIS might be completely changed , i think we need to check the limits of the data base 
-
-
-
-
-intersently there is no correlation between the energy consumption of the CPU and the latency, which means that we can achieve both a low latency and a low energy consumption at the same time. 
-%  TODO : add example of two programming langauges that have low latency and low energy consumption 
-\begin{figure}[bht]
+\begin{figure}[htb]
     \centering
-    \includegraphics[width=.8\columnwidth ]{imgs/correlation_all}
+    \includegraphics[width=1.0\columnwidth]{imgs/correlation_all}
     \caption{Spearman Rank Correlation between different metrics}
     \label{fig:correlation}
 \end{figure}
 
+Figre~\ref{fig:correlation} depicts the correlation between the metrics for the 6 scenarios. The Pearson correlation coefficient quantifies the linear correlation between two variables X and Y. It ranges from -1 to +1, with 1 being total positive linear correlation, 0 representing no linear correlation, and -1 representing whole negative linear correlation. The stronger the correlation, the closer the value is to 1 or -1. The weaker the correlation, the closer the value is to zero. The Pearson product-moment correlation coefficient is another name for the correlation coefficient. This correlation coefficient is also known as the Pearson product-moment correlation coefficient.
+One can notice that there is a strong correlation between the energy consumption of the CPU  and the DRAM for most of the scenarios.Moreover the Average energy consumption of DRAM is one sixth of the CPU energy consumption.Therefore, in this study we will focus more on the CPU energy consumption.
+For more insights about the DRAM consumption we refer the reader to our github repository \footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}.
 
+Another strong correlation is between the number of requests per second and the average cost of a single request. This is because the cost a single request is proportionate to the number of requests per second of the framework, since the Average Power consumption remains constant after a certain threshold of clients.
+
+Unlike the Multiple queries and update queries, other scenario depicts a weak correlation between latency and number of requests per second. The reseason behind a such anomaly. is the fact that we summerized the data when we had a multiple number of clients. If we calculate the correlation when we have a fixed number of client, like the case of update queries (512 clients). one can notice a strong correlation.
 \begin{figure}[bht]
     \centering
     \includegraphics[width=.8\columnwidth ]{imgs/scatter_db_latency_rps}
     \caption{correlation of latency and number of requests per second for a single query}
     \label{fig:scatter_db}
 \end{figure}
+Figure~\ref{fig:scatter_db} demonstrates a such behavior. As one can notice. for each level we have a linear clusturing.
+Therefore, we can safely focus our analysis on two variables, Number of requests per second and Average energy consumption. The first one will indicate the performance of the solution meanwhile the second one will be used to measure how green a framework is.
 
-then we group the implementation by the compiling type ,therefore we will have.
+
+%  THIS might be completely changed , i think we need to check the limits of the data base 
+
+
+% intersently there is no correlation between the energy consumption of the CPU and the latency, which means that we can achieve both a low latency and a low energy consumption at the same time. 
+%  TODO : add example of two programming langauges that have low latency and low energy consumption 
+
+\subsection{Scenario based Analysis}
+This, section will focus on the behaviour of all the implementation for each scenario. For visibily purpose, we will groupe the frameworks not by language but by family,therefore we will have 5 families.
 \begin{itemize}
-    \item compiled languages 
-    \item interpreted languages
-    \item JVM-based languages 
-    \item .net-based languages
-    \item other VM-based languages
+    \item compiled languages : such as rust , C, GO and C++
+    \item interpreted languages : like Python , PHP and JAvascript
+    \item JVM-based languages : JAVA, Kotlin , Scala and Clojure
+    \item .Net-based languages : C\#, F\# and VB
+    \item Other VM-based languages : such as Dart and Elixir
 \end{itemize}
 
+Table~\ref{table:frameworks_all}, provides the programming langauge and the family for each framework.
+
+\subsubsection{Single query}:
+as mentioned before, the purpose of this scenario is to test the framework ability to handle a single entry
 
 \begin{figure}[bht]
+
     \centering
     \caption{Average power consumption for the Single query test}
     \label{fig:av_power_db}
@@ -294,6 +313,7 @@ then we group the implementation by the compiling type ,therefore we will have.
     \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients)}
     \label{fig:power_requests_db}
 \end{figure}
+
 \begin{figure}[bht]
     \centering
     \includegraphics[width=
