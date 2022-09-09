@@ -319,15 +319,12 @@ If we look at the each of the programming languages from java seperatly in figur
 
 \subsubsection{Single query}
 As mentioned before, the purpose of this scenario is to test the framework ability to handle a single entry.
-First we will start with a histogram of average power consumption. Figure~\ref{fig:av_power_db} presents the average power consumption based on the number of parallel clients.
-One can notice
-% \begin{figure}[hbt]
-%     \centering
-%     \label{fig:av_power_db}
-%     \includegraphics[width=1.0\columnwidth]{imgs/av_power_db}
-%     \caption{Average power consumption for the Single query test}
-% \end{figure}
-
+To determine the general behaviour of the frameworkes ,first we will start with a histogram of average power consumption. Figure~\ref{fig:av_power_db} presents the  density plot of average power consumption  for all the experiments based on the number of parallel clients. As one can see,there are three main states :
+\begin{enumerate}
+    \item Relaxed state, where the number of clients is less then 16, most of the frameworks consumes arround 70 Watts.
+    \item Average state. where the number of clients is between 16 and 64, most of the frameworks consumes arround 100 Watts.
+    \item Finally the stress state . AFter 128 parallel clients most of the frameworks consumes had a stable power consumption regardless of the number of clients.this is due to the fact that database server reached its maximum capacity. % TODO to verify avec plain text and json 
+\end{enumerate}
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=
@@ -335,24 +332,34 @@ One can notice
     \caption{Average power consumption for the Single query test }
     \label{fig:av_power_db}
 \end{figure}
+
+Now that we have seen the overall distribution of the power within the single query scenario. we Will analyse each family seperatly. Moreover we will include the performance meter which is represented by the number of requests per second (aka RPS).
+In figure~\ref{fig:power_requests_db}, each run is represented by a circle, and the size of the cricle represents the number of parallel clients. the smaller the circle the less clients are used.
+One can notice that the compiled languages are the most efficient in terms of performane,despite the of their low energy. Moreover there is no signifgnace change in the average power consumption when we increase the number of parallel clients. In the other hand the JVM based framework tend to consume the most energy wheras they they have the same performance as the .Net based ones.
+Finally, the interpreted languages lack in terms of performance while keeping low average power,except for PHP, as it is has one of the highest RPS with a half million request persecond which got beaten ony by C++ and Rust.
+
+%TODO : add a table with a single scenarios / check the website 
+%TODO : add notations to the graph using plotly instead of preview s
 \begin{figure}[hbt]
-    \centering
-    \includegraphics[width=
-        \columnwidth]{imgs/power_requests_db}
+    % \centering
     \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients)}
     \label{fig:power_requests_db}
-\end{figure}
-
-\begin{figure}[hbt]
-    \centering
     \includegraphics[width=
-        \columnwidth]{imgs/histogram_db}
-    \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients)}
-    \label{fig:power_request_db}
+        \columnwidth,angle=9
+        0]{imgs/power_requests_db}
+
 \end{figure}
 
+% \begin{figure}[hbt]
+%     \centering
+%     \includegraphics[width=
+%         \columnwidth]{imgs/histogram_db}
+%     \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients)}
+%     \label{fig:power_request_db}
+% \end{figure}
 
-In figure~\ref{power_requests_db} Each run is represented by a circle, and the size of the cricle represents the number of parallel clients. the smaller the circle the less clients are used.
+
+
 
 
 
