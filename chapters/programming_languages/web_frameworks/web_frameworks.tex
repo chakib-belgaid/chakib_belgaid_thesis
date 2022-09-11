@@ -396,7 +396,50 @@ As for PHP, it is still one of the most efficient frameworks in terms of perform
 \end{figure}
 
 \subsubsection{update}
+In this scenario we will test the framework ability to handle update queries. As mentioned before,  for this study we will focus on the a fixed number of parallel clients while we increase the size of the request per each level.
+Figure~\ref{fig:av_power_update} presents the average power consumption for each level. As one can notice, the size of the query has not a strong impact on the average power consumption .Moreover, the overall average power consumption decreased by 20 Watts.
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=
+        \columnwidth]{imgs/histogram_av_power_cpu_update}
+    \caption{Average power consumption for the update test }
+    \label{fig:av_power_update}
+\end{figure}
+Figure~\ref{fig:power_requests_update} Presents the number of requests per second for each level for each framework. Swoole droped in the term of performance, while reducing the average power unlike compiled languages based framework such as lithium and actise. net gained in term of prerformances while keeping the same amount of power consumption. another interesting observation is the linearity between the drop in performance when it comes to requests that containes more than 10 rows. This drop comes with a slight decrease in average power.
 
+\begin{figure}[hbt]
+    % \centering
+    \caption{total request vs average power consumption for the Update test ( size of circles represents the number of clients) }
+    \label{fig:power_requests_update}
+    \includegraphics[width=
+        \columnwidth,angle=9
+        0]{imgs/power_requests_update}
+
+\end{figure}
+
+\subsubsection{Plain Text and Json Serialization}
+Unfortunately for this text, the client hits its limit before the some servers which is explained in figures~\ref{fig:power_requests_plaintext},\ref{fig:power_requests_json}, The cieling is almost linear for the compiled frameworks the JVM based ones. This is also explained by the fact that the high level of stress are on the top, unlike other Scenarios.
+
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=
+        \columnwidth]{imgs/power_requests_plaintext}
+    \caption{total request vs average power consumption for plainText test ( size of circles represents the number of clients)}
+    \label{fig:power_requests_plaintext}
+\end{figure}
+
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=
+        \columnwidth]{imgs/power_requests_json}
+    \caption{total request vs average power consumption for JSON Serialization test ( size of circles represents the number of clients)}
+    \label{fig:power_requests_json}
+\end{figure}
+\section{Threats to Validity}
+We are aware of the bias inducted by the implementation of a candidates, therefore we propose  the framework ( see the part of extension) to allow the readers to confirm themselves any new hypothesis. regarding a new framework , an new workload a new database ..etc
+
+\section{Conclusion}
 
 % \begin{figure}[bht]
 %     \centering
@@ -441,8 +484,6 @@ As for PHP, it is still one of the most efficient frameworks in terms of perform
 %% for more about the syntax we recommand cheking this website https://learnxinyminutes.com/
 
 % \newpage
-\section{Threats to Validity}
-We are aware of the bias inducted by the implementation of a candidates, therefore we propose  the framework ( see the part of extension) to allow the readers to confirm themselves any new hypothesis. regarding a new framework , an new workload a new database ..etc
 
-\subsection{tools}
-%TODO : add a table with a single scenarios / check the website for the table
+% \subsection{tools}
+% %TODO : add a table with a single scenarios / check the website for the table
