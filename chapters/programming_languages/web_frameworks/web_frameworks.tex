@@ -323,7 +323,7 @@ To determine the general behaviour of the frameworkes ,first we will start with 
 \begin{enumerate}
     \item Relaxed state, where the number of clients is less then 16, most of the frameworks consumes arround 70 Watts.
     \item Average state. where the number of clients is between 16 and 64, most of the frameworks consumes arround 100 Watts.
-    \item Finally the stress state . AFter 128 parallel clients most of the frameworks consumes had a stable power consumption regardless of the number of clients.this is due to the fact that database server reached its maximum capacity. % TODO to verify avec plain text and json 
+    \item Finally the stress state . After 128 parallel clients most of the frameworks consumes had a stable power consumption regardless of the number of clients.this is due to the fact that database server reached its maximum capacity. % TODO to verify avec plain text and json 
 \end{enumerate}
 \begin{figure}[hbt]
     \centering
@@ -336,10 +336,10 @@ To determine the general behaviour of the frameworkes ,first we will start with 
 Now that we have seen the overall distribution of the power within the single query scenario. we Will analyse each family seperatly. Moreover we will include the performance meter which is represented by the number of requests per second (aka RPS).
 In figure~\ref{fig:power_requests_db}, each run is represented by a circle, and the size of the cricle represents the number of parallel clients. the smaller the circle the less clients are used.
 One can notice that the compiled languages are the most efficient in terms of performane,despite the of their low energy. Moreover there is no signifgnace change in the average power consumption when we increase the number of parallel clients. In the other hand the JVM based framework tend to consume the most energy wheras they they have the same performance as the .Net based ones.
-Finally, the interpreted languages lack in terms of performance while keeping low average power,except for PHP, as it is has one of the highest RPS with a half million request persecond which got beaten ony by C++ and Rust.
+Finally, the interpreted languages lack in terms of performance while keeping low average power,except for PHP, as it is has one of the highest RPS with a half million request persecond which got beaten only by C++ and Rust.
 
-%TODO : add a table with a single scenarios / check the website 
-%TODO : add notations to the graph using plotly instead of preview s
+
+%TODO : add notations to the graph using plotly instead of previews
 \begin{figure}[hbt]
     % \centering
     \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients)}
@@ -350,18 +350,52 @@ Finally, the interpreted languages lack in terms of performance while keeping lo
 
 \end{figure}
 
-% \begin{figure}[hbt]
-%     \centering
-%     \includegraphics[width=
-%         \columnwidth]{imgs/histogram_db}
-%     \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients)}
-%     \label{fig:power_request_db}
-% \end{figure}
+\subsubsection{Multiple queries}
+
+This scenario is used to test the framework ability to handle multiple row queries.As mentioned before,  for this study we will focus on the a fixed number of parallel clients while we increase the size of the request per each level.
+Figure~\ref{fig:av_power_query} presentsthe average power consumption for each level. As one can notice, the size of the query has not a strong impact on the average power consumption, furthermore the notice a slide decrease in the average power consumption (from 110 Watts to 90 Watts) while the size is bigger than 10 rows,this might be related to the time taken by the database to process the query.Therefore one can conclude that the the size of the query as more impact on the data base than the framework itself.
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=
+        \columnwidth]{imgs/histogram_av_power_cpu_query}
+    \caption{Average power consumption for the multiple queries }
+    \label{fig:av_power_query}
+\end{figure}
+Table~\ref{table:query_db_row} presents the average power consumption for each level for each database. One can see, that for MySQL there were no changes regardless of the size of the query, while for Postgres and MongoDB there is a slight decrease in the average power consumption when the size of the query is bigger than 10 rows.
+%  should add into perspective to study the energy consumption of the data base server itself 
 
 
+\begin{table*}[bth]
+    \raggedright
+    \caption{Average power consumption of frameworks based on the database type }
+    \label{table:query_db_row}
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{l|c|c|c|c|c|c|c|}
+            \toprule
+            \textbf{Query size} & 1      & 5      & 10     & 15     & 20     & 30     & 50     \\
+            \hline
+            MongoDB             & 97.17  & 96.93  & 93.38  & 92.58  & 91.61  & 92.585 & 91.17  \\
+            MySQL               & 113.86 & 112.92 & 112.74 & 113.05 & 112.13 & 112.62 & 112.16 \\
+            PostgresSQL         & 113.86 & 108.25 & 106.19 & 102.97 & 103.41 & 101.95 & 102.96 \\
+            \bottomrule
+        \end{tabular}}
+\end{table*}
 
+Now that we have seen the overall distribution of the power within the multiple queries scenario. we Will analyse each family seperatly. Moreover we will include the performance meter which is represented by the number of requests per second (aka RPS). Figure~\ref{fig:power_requests_query} presents the total request per second for each level for each framework in a logarithmic scalse. As one can notice, the difference between the best perofrming framework aka Lithium\footnote{\url{https://matt-42.github.io/lithium/}} and the worst one aka hapi-nginxfootnote{\url{https://github.com/hapijs/hapi}}is 4000 times, while the average in power consumption is 5 times ( 120 for lithium vs 25 for hapi). This highlight the importance of target scale of the application when choosing the framework.
+Java based frameworks tend to consume more power comared to other languages with a slight increase in performance.
+As for PHP, it is still one of the most efficient frameworks in terms of performance, while keeping low average power consumption.
 
+\begin{figure}[hbt]
+    % \centering
+    \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients) }
+    \label{fig:power_requests_query}
+    \includegraphics[width=
+        \columnwidth,angle=9
+        0]{imgs/power_requests_query_log}
 
+\end{figure}
+
+\subsubsection{update}
 
 
 % \begin{figure}[bht]
@@ -406,8 +440,9 @@ Finally, the interpreted languages lack in terms of performance while keeping lo
 
 %% for more about the syntax we recommand cheking this website https://learnxinyminutes.com/
 
-\newpage
+% \newpage
 \section{Threats to Validity}
 We are aware of the bias inducted by the implementation of a candidates, therefore we propose  the framework ( see the part of extension) to allow the readers to confirm themselves any new hypothesis. regarding a new framework , an new workload a new database ..etc
 
-% \subsection{tools}
+\subsection{tools}
+%TODO : add a table with a single scenarios / check the website for the table
