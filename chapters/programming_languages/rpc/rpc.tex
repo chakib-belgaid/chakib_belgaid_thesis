@@ -1,99 +1,95 @@
 \subsection{Introduction}
-With the emergence of cloud technologies, many protocols wanted to take the lead.
-Nowdays, most of the architectures are based on multi-services and microservices.
-And, to have higher versatility of developers multiple companies choose to be open to different programming languages.
-Basically, it would be more efficient if we take advantage of each programming language to satisfy a specific need.
+With the success of Internet and the emergence of cloud technologies, many communication protocols compete to take the lead.
+In particular, most of the software architectures are now based on multi-services and micro-service technologies.
+And, to cope with the higher versatility of developers, multiple companies choose to open their services to different programming languages.
+Interestingly, this approach intends to take advantage of each programming language to satisfy specific requirements.
 However, the challenge nowadays is to make the bridge between those platforms.
-We have many initiatives, such as OpenAPI, that try to create a taxonomy for RESTful APIs.
-Other approaches implement all the different interfaces of the protocol by themselves, such as RPC.
+We have many initiatives, such as OpenAPI that try to create a taxonomy for RESTful APIs, while other approaches implement all the different interfaces of the protocol by themselves, such as RPC.
 
 \subsection{Research Questions}
-In this section, we first explore the ease of implementation of this protocol then we will try to answer the following research questions:
+In this section, we first explore the ease of implementation of this protocol, and then we will try to answer the following research questions:
 \begin{description}
-    \item[\textsc{RQ}~1:] How do RPC implementations consume with regards to the size of the incoming request?
-    \item[\textsc{RQ}~2:] How do RPC implementations consume with regards to the number of concurrent clients?
+    \item[\textsc{RQ}~1:] How do RPC implementations consume with regard to the size of the incoming request?
+    \item[\textsc{RQ}~2:] How do RPC implementations consume with regard to the number of concurrent clients?
 \end{description}
 
 \subsection{Experimental Protocol}
 \subsubsection{Measurement Context}
-\paragraph{Hardware settings}
+\paragraph{Hardware settings.}
 All the experiments are run on the cluster \textsf{paravance} of the G5K platform.
 This cluster is composed of 72 identical machines, each one is equipped with 2 Intel Xeon E5-2630 V3, with 128\,GB of RAM.
-For more accuracy, our SUT (\emph{System Under Test}) is equipped with a minimal version of Debian\,9 (4.9.0 kernel version), which enforces the core processes required for the purpose of our experiment.
+For more accuracy, our SUT (\emph{System Under Test}) runs a minimal version of Debian\,9 (4.9.0 kernel version), which enforces the core processes required for our experiment.
 Furthermore, we used Docker containers technology for reproducibility of the experiments and the isolation of the servers.
-\paragraph{Client and server environments}
+
+\paragraph{Client \& server environments.}
 To limit the impact of the network on the experiments, we run both the client and the server on the same machine.
-However, we isolate each part on a separate socket, in order to reduce the effect that the client might have on the server and \emph{vise versa}.
+However, we isolate each part on a separate CPU socket to reduce the noise that the client might have on the server and \emph{vice-versa}.
 To do so, for each iteration, we always run the same client on \textsf{socket\,0} and the server that we want to test on \textsf{socket\,1}.
 Both the server and the client use the whole socket for their experiment.
 In addition, all the additional services, such as the kernel and HwPC sensor, are run on \textsf{socket\,0}.
 Therefore, the only process being executed in \textsf{socket\,1} is the server that we benchmark and monitor.
 
 \subsubsection{Key Performance Metrics}
-\paragraph{Energy measurements}
+\paragraph{Energy measurements.}
 To report on the energy consumption, we used HwPC sensor [TOCITE], which is based on Intel RAPL technology, one of the most accurate tools to measure the energy consumption of the CPU and DRAM [TOCITE].
-For better accuracy, we ran the HwPC sensor with a frequency of 10~Hz, and we used the same machine for all the experiments in order to reduce the variability [TOCITE].
+For better accuracy, we ran the HwPC sensor with a frequency of 1~Hz, and we used the same machine for all the experiments to reduce the variability [TOCITE].
 
 \begin{figure}[!hbt]
     \begin{center}
         \includegraphics[width=.8\linewidth]{imgs/rpcprotocol}
     \end{center}
-    \caption{Experimental software architecture}\label{fig:rpcprotocol}
+    \caption{Experimental software architecture.}\label{fig:rpcprotocol}
 \end{figure}
 
 
-\paragraph{performances}
+\paragraph{Performances.}
 For better accuracy and more details, We use an updated version of the open source RPC benchmarking tool, named GHZ (\url{https://ghz.sh/}).
 The modified version allows us to monitor the average power for each request from both the server and the client sides.
-The new version is available in the repository\footnote{\url{https://github.com/chakib-belgaid/energy_ghz}}.
+The new version is available in the repository.\footnote{\url{https://github.com/chakib-belgaid/energy_ghz}}
 
-\subsubsection{Workload}
-The purpose of the experiment is to analyse the behaviour of different GRPC implementations. therefore we have two kind of worlkoads 
-\paragraph{number of clients}: this is the number of concurrent clients that we want to test. It is automatically handled with the ghz client 
-\paragraph{payload}: the size of each request . this varries from 50 Bytes up to 10 MB.
+\subsubsection{Input Workload}
+The purpose of the experiment is to analyze the behavior of different GRPC implementations.
+Therefore, we have two kind of worlkoads: \emph{number of clients} is the number of concurrent clients that we want to benchmark (handled by the GHZ client) and the \emph{payload} reflects the size of each request (varies from 50 Bytes up to 10 MB).
+The client consumes the protocol description found in the file \texttt{helloworld.proto} to generate an implementation for the message and then forks multiple instances that send the same request to the server.
 
-The client consumes the protocol description which can be found if the file \texttt{helloworld.proto} to generate an implementation for the message  and then forks multiple instances that send the same request to the server 
-
-\subsubsection*{candidates}
+\subsubsection*{Candidates}
 The server implementations are based on the official implementation by Google for most of the languages.
 Each server uses 16 cores and is limited to 512\,MB of RAM.
-each implementation is created through a docker image, which will allow us to add new implementations easily.
+Each implementation is packaged as a Docker image, which will allow us to add new implementations easily.
 
-\subsubsection{Extension}: 
-for the sake of extedind the experement we provide a github repository \footnote{\url{https://github.com/chakib-belgaid/energy_benchmarking_grpc2}} that containes the implementation of the experement.
-Adding \textbf{candidates} can be achieved by creating a new docker image and putting it in a new folder named after the language.
-As for the \textbf{workload} it can be extended easly by adding new files in the folder \textbf{payload}.
+\subsubsection{Extension}
+For the sake of experimental extensibility, we provide a GitHub repository that contains the implementation of all our experiments.\footnote{\url{https://github.com/chakib-belgaid/energy_benchmarking_grpc2}}
+Adding a new RPC \textbf{candidate} can be achieved by creating a new Docker image and putting it in a new folder named after the language.
+As for the \textbf{workload}, it can be extended easily by adding new files in the folder \textbf{payload}.
  
 
-
-
 \subsection{Results \& Findings}
-[\textsc{RQ}~1:] How do RPC implementations react to the size of the data ?
-The purpose of this question is to study the behaviour of the server when transferring large objects.
-To do so, we send 80,000 requests to the server whose size scales from 10 bytes up to 10 Megabytes, which results in 10,000 requests per size per server.
+\paragraph{\textsc{RQ}~1: How do RPC implementations consume with regard to the size of the incoming request?}
+The purpose of this question is to study the energy consumption of the RPC server when transferring large objects.
+To do so, we send $80,000$ requests to the server whose size scales from 10 bytes up to 10 Megabytes, resulting in $10,000$ requests per size per server.
 To eliminate extra factors, we let the server handle the rate at which it can answer each request.
-However, we put a 20 seconds timeout limit for each request.
+However, we put a 20 seconds timeout deadline for each request.
 Therefore, our boundary condition is only the number of requests received by the server.
-For this experiment, we investigate 4 observable variables~:
+For this experiment, we investigate 4 observable variables:
 \begin{enumerate}
-    \item the \textsf{average power consumption} during the the process: this will indicate the overall behaviour of the server in working mode for long durations,
-    \item the \textsf{tail latency} for the 99th percentile, which indicates how performant is the server,
+    \item the \textsf{average power consumption} during the scenario indicates the overall behavior of the server when working for long durations,
+    \item the \textsf{tail latency} for the 99th percentile, which indicates how efficient is the server,
     \item the \textsf{average number of requests per second}, which indicates the average number of clients that the server can handle,
-    \item the \textsf{average energy cost} of a single request: unlike the first indicator, this one shows how green is the implementation taking performance into consideration.
+    \item the \textsf{average energy cost} of a single request: unlike the first indicator, this one shows how green is the implementation considering performance.
 \end{enumerate}
 
-The above figure depicts the overall behaviour of each framework based on the size of request (payload).
+% The above figure depicts the overall behavior of each framework based on the size of request (payload).
 For each framework, we can distinguish three modes, and they all depend on the payload size:
 \begin{enumerate}
-    \item \textsf{Stress free} mode when the server has enough resources to satisfy the requests because they require a memory less than a certain threshold (depends on the language and the platform),
-    \item \textsf{Escalation} mode when the requests tend to be bigger, however the server can still manage to handle them, and here where we can see a change in the energetic and performance behaviour,
+    \item \textsf{Stress free} mode when the server has enough resources to satisfy the requests, as they require a memory less than a certain threshold (depends on the language and the platform),
+    \item \textsf{Escalation} mode when the requests tend to be bigger, but the server can still manage to handle them, at the price of a change in the energy and performance behaviors,
     \item \textsf{Broken state} mode when the requests are much heavier and the server break—like 10 MB.%ROMAIN unclear to me what this means
 \end{enumerate}
 
 \subsubsection{Stress Free Mode}
-In this mode, the compiled languages tend to consume less resources (average power).
+In this mode, the compiled languages tend to consume fewer resources (average power).
 JVM-based languages tend to consume more energy, especially Scala.
-However, we do not observe the same behaviour when it comes to efficiency.
+However, we do not observe the same behavior when it comes to efficiency.
 Unlike the other interpreted programming languages, PHP performances could be compared to the compiled ones, such as CPP or GO, and even better to some others, such as Swift.
 JVM-based languages tend to have better performances than the interpreted ones.
 Furthermore, OpenJDK has shown more efficiency than GraalVM [].
@@ -105,18 +101,19 @@ Overall, we can have 3 groups when it comes the cost of each request:
 \end{itemize}
 
 \subsubsection{Escalation Mode}
-In this mode, the behaviour of the server depends on the payload. We observe three behaviours:
+In this mode, the behavior of the server depends on the payload. We observe three cases:
 \begin{enumerate}
     \item Drop in performances without an increased power, such as .Net core, Java micronaut, Crystal, and Dart.
-          In this case, the server keeps using the same resources, and sometimes less, because it takes more time to handle the less requests.
-          This class of languages tend to be the most energy consuming when it comes to the cost per request,
-    \item Increase in power without affecting the performances: such as Go, .Net.
-          The energy consumption of a single request, is affected slightly but still increase,
-    \item Increase in power and drop in performances: Despite the increase of the power consumption, the server becomes slightly slower, which increases the cost of the energy cost per request.
-          This cost is still better than the first case, which concludes that the servers in the first category are on the verge of breaking.
+          In this case, the server keeps using the same resources, and sometimes less, because it takes more time to handle the fewer requests.
+          This class of languages tends to be the most energy-consuming when it comes to the cost per request;
+    \item Increase in power without affecting the performances, such as Go or .Net.
+          The energy consumption of a single request, is affected slightly but still increases;
+    \item Increase in power and drop in performances.
+        Despite the increase of power consumption, the server becomes slightly slower, which increases the energy cost per request.
+        This cost is still better than the first case, which concludes that the servers in the first category are on the verge of breaking.
 \end{enumerate}
 
-We can mention the case of Elixir that kept scaling despite the lack of performances compared to other compiled languages (Go, CPP).
+We can mention the case of Elixir that keeps scaling despite the lack of performances compared to other compiled languages (Go, CPP).
 
 \subsubsection{Broken state mode }
 Only four of the 25 configurations could parse the 10 MB files, and only 1 from those could achieve a 76\% acceptance rate which is Elixir, the other 3 had less than 3\% success rate (Rust, Swift and Dart).
