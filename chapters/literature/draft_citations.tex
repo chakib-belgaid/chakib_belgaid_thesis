@@ -13,11 +13,6 @@ Figure~\ref{fig:soa_comparaisoncpu}\footnote{\url{https://www.cpubenchmark.net/c
     \label{fig:soa_comparaisoncpu}
 \end{figure}
 
-
-
-
-
-
 In computer science, the objective is essentially the same.Numerous studies have been conducted on energy optimization. Some of these studies concentrate on minimizing energy consumption at the hardware level, while others optimize energy consumption via software.
 
 % displays the digital energy consumption distribution in 2017 \cite{andrae2015global}. ("p" for production and "u" for usage). 
@@ -53,11 +48,14 @@ The aim of \textbf{representativeness} in this thesis is the manufacturing envir
 As a result, the experiments should reflect what happens in production contexts.
 
 \subsubsection{Reproducibility}
+
 Experiment reproducibility is frequently listed as one of the most difficult challenges faced by researchers.Reproducing an experiment has been one of the major tools science has used to help establish the validity and importance of scientific findings since the Philosophical Transactions of the Royal Society were established in 1665~\cite{hankins1986debate}. In point of fact, many of the outcomes are not duplicable,\footnote{Trouble at the lab, The Economist, 19 October 2013;  www.economist.com/news/briefing/ 21588057-scientists-think-science-self-correcting- alarming-degree-it-not-trouble.} which led to a \emph{replication crisis}.
 As a result of the crisis affecting the majority of empirical studies, most reviews now include reproducibility as a minimum standard for judging scientific merit~\cite{peng2011reproducible}.
 One of the criteria for  supporting reproducibility is the publication of the dataset and the algorithms run on the raw data to derive the results.
 There is even some disagreement about what the terms "reproducibility" or "replicability" by themselves mean \cite{goodman2016does}.
 According to \cite{echtler2018open}, \emph{replicability} extends \emph{reproducibility} with the ability to collect a new raw dataset comparable to the original one by re-executing the experiment under similar conditions, instead of just the ability to get the same results by running the statistical analyses on the original data set.
+
+
 \subsubsection{Accuracy}
 According to Oxford, \emph{accuracy} means \href{https://www.lexico.com/definition/accuracy}{"technical The degree to which the result of a measurement, calculation, or specification conforms to the correct value or a standard"}.
 In our case, this means the ability to run the benchmark multiple times with low variation. This can be achieved by controlling the experiment environment, allowing less room for random factors.
@@ -73,7 +71,7 @@ one can cite stressNg when it comes to benchmark the hardware compoment, the SPE
 NASA Parallel Benchmarks (NPB~\footnote{\url{https://www.nas.nasa.gov/publications/npb.html}} )
 and HPCchallenge \footnote{\url{https://www.hpcchallenge.org/}} are two other examples of benchmarking sets that are created to represent the high performance computing.
 As for programming languages we can cite Computer Language Benchmarks Game~\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}}, which is a collection of benchmarks for various programming languages. The benchmarks are designed to be small, self-contained, and easy to implement in any language. The benchmarks are also ,made in a way to represent of most of the typical real-world workloads in an isolated manner.
-Dacapo~\cite{blackburn2006dacapo} and renaissance~\cite{prokopec2019renaissance} are another example of a benchmarking set that are created to represent the Java Virtual Machine (JVM) performance.
+Dacapo~\cite{blackburn2006dacapo} and renaissance~\cite{renaissance} are another example of a benchmarking set that are created to represent the Java Virtual Machine (JVM) performance.
 On the other hand, a new sort of test has arisen within the software development life cycle. This type is known as stress testing, and it is used to assess the software's robustness and reliability before releasing it to the public. gatling~\footnote{\url{https://gatling.io}} and TCPCopy\footnote{\url{https://github.com/session-replay-tools/tcpcopy}} are great  examples of a stress testing tools that are used to test the performance server applications.
 
 % But, how can we assure that the benchmark is representative? honestly i don't know. and we can't generalize this. but there are some works that have been done for this.
@@ -116,24 +114,27 @@ To analyze the magnitude of the phenomenon, they have identified a set of 22 "be
 %     \item  Relative numbers only
 % \end{itemize}
 
-\subsection{Proposed Solutions}\label[]{sec:soa_reproducibility}
+\subsection{Proposed Solutions}\label{sec:soa_reproducibility}
+Researchers have proposed several solutions to overcome these challenges in the computer science field. We will discuss some of them below.
 %% BENCHMARKING FRAMEWORK -- ADD IT later \cite{sonnenwald2003evaluating}
 %further references 
-In the book "Measuring computer performance: a practitioner's guide"\cite{lilja2005measuring},\citeauthor{lilja2005measuring} examines performance indicators and gives in-depth treatment of benchmark program tactics. He provides clear explanations of the basic statistical methods required for interpreting measured performance data. He also outlines the overall 'design of experiments' method and demonstrates how to collect the most information with the least amount of work. This practical book will appeal to anybody seeking a comprehensive, yet intuitive, grasp of computer system performance analysis.
-\citeauthor{mytkowicz2009producing} made an evaluation  of 133 studies from ASPLOS, PACT, PLDI, and CGO, to find out that none of the experimental findings papers appropriately considered measurement bias. Which can lead derive incorrect results from an experiment if a seemingly insignificant feature of the experimental design is altered. They treated this problem by proposing two strategies for detecting measurement bias by using causal analysis and preventing it with setup randomization \cite{mytkowicz2009producing}.
+First, we start with the work of \citeauthor{mytkowicz2009producing} ,where they made an evaluation  of 133 studies from ASPLOS, PACT, PLDI, and CGO, to find out that none of the experimental findings papers appropriately considered measurement bias. Which can lead derive incorrect results from an experiment if a seemingly insignificant feature of the experimental design is altered. They treated this problem by proposing two strategies for detecting measurement bias by using causal analysis and preventing it with setup randomization \cite{mytkowicz2009producing}.
+another study that was published in the book "Measuring computer performance: a practitioner's guide"\cite{lilja2005measuring},\citeauthor{lilja2005measuring} examinated performance indicators and gave in-depth treatment of benchmark program tactics. they provided clear explanations of the basic statistical methods required for interpreting measured performance data. they also outlined the overall 'design of experiments' method and demonstrated how to collect the most information with the least amount of work. This practical book will appeal to anybody seeking a comprehensive, yet intuitive, grasp of computer system performance analysis.
 
-\citeauthor{bukh1992art} wrote a book about computer performance analysis, where he discussed some familiar topics that are relevant to statistical analysis, such as null hypotheses, chi squared tests, regression, discrete event simulation, Bayes' theorem, how and when to use them for experimental design, measurement, simulation, and modeling for computer systems.
+\citeauthor{bukh1992art} wrote a book about computer performance analysis, where they discussed some familiar topics that are relevant to statistical analysis, such as null hypotheses, chi squared tests, regression, discrete event simulation, Bayes' theorem, how and when to use them for experimental design, measurement, simulation, and modeling for computer systems.
+The article \cite{brown2018issues} provides an intellectual framework for understanding the pervasiveness of mistake in the scientific discovery process and presents methodological, cultural, and system-level techniques for minimizing the frequency of often seen errors.
 
+Another article~\cite{patil2018training} expands on this line of thought by evaluating the uncertainty caused by replications in new research. They offered some strategies to capture uncertainty in inferential investigations, such as cross-study validation and ensemble models.
 
-the article \cite{brown2018issues} provides an intellectual framework for understanding the pervasiveness of mistake in the scientific discovery process and presents methodological, cultural, and system-level techniques for minimizing the frequency of often seen errors.
-
-another article~\cite{patil2018training} expands on this line of thought by evaluating the uncertainty caused by replications in new research. They offer strategies for capturing uncertainty in inferential investigations, such as cross-study validation and ensemble models.
-
-In their paper\cite{stodden2018empirical}, the authors find that, even though it's a big move in the right direction, journal policies that require authors to give back digital scholarly objects after publication, like the data and code that back up the claims, don't get more than half of these objects back. Then, using these artifacts, about a fourth of the published computational claims in the study could be made. They suggest putting out the claims in the literature and the digital scholarly objects that back them up at the same time.
+In their paper\cite{stodden2018empirical}, the authors found that, even though it's a big step in the right direction, journal policies that require authors to give back digital scholarly objects after publication, like the data and code that back up the claims, don't get more than half of these objects back. Then, using these artifacts, about a fourth of the published computational claims in the study could be made. They suggested putting out the claims in the literature and the digital scholarly objects that back them up at the same time.
 
 % as for computer sience. In their paper~\cite{buytaert_statistically_nodate}, the authors  separated the start-up measurement from the steady state when comparing different Java optimizations.
-Another work, to make unify the benchmarking methodology across different research works in the field of computer science, we can cite the paper~\cite{stephen_evaluate_2012}. In their approach they  divided any empirical experiment into four  components:
-
+\begin{figure}[!hbt]
+    \center{\includegraphics[scale=0.3]{imgs/componentsofanexperiment}}
+    \caption{The proposed decomposition of an experiment~\cite{stephen_evaluate_2012}}\label{fig:soa_expermiment_component}
+\end{figure}
+Finally, to make unify the benchmarking methodology across different research works in the field of computer science, we can cite the paper~\cite{stephen_evaluate_2012}. In their approach they  divided any empirical experiment into four  components.
+Figure \ref{fig:soa_expermiment_component} presents these components, which are:
 \begin{enumerate}
     \item \emph{measurement contexts} that indicate the software and hardware components that will alter or remain constant during the experiment.
     \item \emph{workloads} which identify the benchmarks to use in the experiment, as well as their inputs;
@@ -141,15 +142,7 @@ Another work, to make unify the benchmarking methodology across different resear
     \item \emph{Data analysis} show how to examine data and evaluate the outcomes of the analysis to offer insight into the assertions that arise from the study.
 \end{enumerate}
 
-Figure \ref{fig:soa_expermiment_component} shows the four component presented in the article~~\cite{stephen_evaluate_2012}
-
-
-\begin{figure}[!hbt]
-    \center{\includegraphics[scale=0.3]{imgs/componentsofanexperiment}}
-    \caption{The proposed decomposition of an experiment~\cite{stephen_evaluate_2012}}\label{fig:soa_expermiment_component}
-\end{figure}
-
-
+The work of this thesis will be based on this approach, since it provides a unified methodology for benchmarking and evaluating the performance of different systems.
 
 % %%%%% move it to SOA maybe 
 % \subsection{Virtual Machines}
@@ -179,17 +172,14 @@ Figure \ref{fig:soa_expermiment_component} shows the four component presented in
 % In addition to these benchmarks, a new category of testing techniques has emerged to simulate the worst cases of the production environments. This new category of benchmarking called performance tests\cite{pradeep2019pragmatic}, which are benchmarks meant to evaluate the behavior of software under stress situations. We can use the Gatling\footnote{\url{https://gatling.io/}} as an illustration for web applications stresser and stress-ng for hardware heavy workload perormance measurements~\cite{king2017stress}.
 
 \section{Energy Measurement}
-To be able to reduce the energy cost of running programs we should first be able to estimate this energy consumption.
+Now that we have discussed the importance of benchmarking and the different approaches that can be used to evaluate the performance of a system, we will focus on energy measurement, which will be the main metric in this thesis.Therefore,in this section, we will discuss the different approaches that can be used to measure the energy consumption of a system.
 Many studies have been conducted to estimate a such energy consumption. that varies from static analysis of the source code to infer its energy consumption like \citeauthor{pereira_helping_2017} where they provided a tool to highlight the most energy consuming parts of the code \cite{pereira_helping_2017}.
-The main advantage of this approach is to be able to estimate the energy consumption of a program without running it.
-Unlike the complexity of programs, the energy consumption is highly related the execution environment.
-Therefore, static analysis might not represent the real behavior of the same program when it is run in the production environment.
-To treat the problem of representativeness, many researchers tend to measure the energy consumption of the programs while they are running them. Hence we will get more accurate results.
-there is a variety of tools to measure such energy, and they cover a large spectrum of usage depends on how \textbf{accurate} and \textbf{precise} those results are needed to be in tone hand, and the price that practitioners are ready to pay for a such accuracy/precision.
-Below we will present some tools that are well known in the literature and discuss their main advantages / drawbacks for our case.
+The key advantage of this approach is that it allows you to estimate a program's energy usage without executing it.
+Unlike program complexity, energy consumption is strongly dependent to the execution environment.
+As a result, static analysis may not accurately represent the behavior of the same program when run in a production context.
+To address the issue of representativeness, many researchers measure the energy consumption of programs as they run. As a result, we will get more accurate results.
+There are various tools for measuring energy, and they cover a wide range of applications depending on how accurate and precise the results must be on the one hand, and the price that practitioners are prepared to pay for such accuracy and precision on the other.
 
-
-\subsection{Hardware Tools}
 % TODO Add : diagram of the possible point where we can measure the energy 
 % depends on the scientific usage there are two apporaches :
 % 1. extern one or independent : when the most of researchs are using
@@ -198,16 +188,15 @@ Below we will present some tools that are well known in the literature and discu
 % 2. dedicated one , they are based on the instrumentation of some parts of the computer , however they have a high cost and they are defficult to scale since they require an instrumentation of the execusion environment.
 according to \citeauthor{hackenberg2014hdeem} there are four main criterions to evaluate an energy measurement tool \cite{hackenberg2014hdeem}
 \begin{itemize}
-    \item \em{spatial granularity}: the more specific the target of monitoring we are able to measure, the more efficient we can do optimization since we will know what causes the pitfalls of the energy consumption.
-    \item \em{temporal granularity}: same as spatial granularity, temporal granularity helps us to identify the sequence of code that need to be optimized.
-    \item \em{scalability}: this is mainly related to the cost of the tools and the ease of their integration for our system.
-    \item  \em{accuracy}: to eliminate extra hazards and get more representative measurement.
+    \item \em{Spatial granularity}: the more specific the target of monitoring we are able to measure, the more efficient we can do optimization since we will know what causes the pitfalls of the energy consumption.
+    \item \em{Temporal granularity}: same as spatial granularity, temporal granularity helps us to identify the sequence of code that need to be optimized.
+    \item \em{Scalability}: this is mainly related to the cost of the tools and the ease of their integration for our system.
+    \item  \em{Accuracy}: to eliminate extra hazards and get more representative measurement.
 \end{itemize}
 
 We believe that accuracy can be extracted from those criterions since it is a result of the combination of the two first ones. therefore, we will focus more on the first 3 criterions from later on.
-In the following section, we will discuss some of the well known tools that are used in literature.
-
-
+below, we will discuss some of the well known tools that are used in literature.
+\subsection{Hardware Tools}
 Nowadays, most of the high performance computing systems (HPC) implements a tool to report the energy consumption of the nodes for the sake of monitoring and administration.
 Those tools are mainly integrated withing the power supply units (PSU) or the power distribution units (PDU).
 Then, they provide an interface and a log to follow the history of the energy consumption.
