@@ -196,9 +196,6 @@ While this strategy aims to save energy by leveraging the ACPI P-states and C-st
 This section aims to formulate some actionable insights to optimize the energy consumption of Python applications without altering the source code.
 Therefore, we start by extending the work of \citeauthor{hasan_energy_2016} and \citeauthor{oliveira_recommending_nodate} to the context of Python environments.
 
-
-
-
 %%%% concurency 
 Another field of investigation is the type of data and control structures that might impact the energy consumption.
 We iterate over a list using 3 methods.
@@ -223,7 +220,7 @@ Interestingly, the \texttt{for in range} loop was by far the optimal one, follow
 The reason behind such a behavior is mainly related to how the Python interpreter is implemented\footnote{\url{https://www.python.org/doc/essays/list2str}},\footnote{\url{https://www.pythonpool.com/for-vs-while-loop-python/}}.  
 To reduce the latency of Python applications, most of the built-in functions and operations are written in C, and the same goes for the function \texttt{range}.\footnote{\url{ http://python-history.blogspot.com/2010/06/from-list-comprehensions-to-generator.html?m=1}}
 Furthermore, the function \texttt{len} has a complexity of $\mathcal{O}(1)$ as it is based on the function \texttt{Py\_SIZE} of C, which stores the length in a field for the object~\footnote{\url{https://wiki.python.org/moin/TimeComplexity}}.
-Therefore, the \texttt{for in range} is creating a new iterator that has the same length as the first one and, for each iteration, requires a second access (\texttt{l[i]}) instead of one---explaining the doubled time.
+Therefore, the \texttt{for in range} is creating a new iterator that has the same length as the first one and, for each iteration, requires second access (\texttt{l[i]}) instead of one---explaining the doubled time.
 The \texttt{while} is even slower due to the implicit increment of the variable, which causes an extra operation during the loop.
 To confirm this hypothesis, we tried to construct a new list by editing the elements of the previous one (cf. \Cref{fig:pythontreatement}).
 And, as predicted, the built-in methods are the most energy-saving ones, while the customize \texttt{while} loop is the heaviest.
@@ -245,20 +242,23 @@ This study demonstrates that the optimal way to reduce the energy consumption of
 
 
 \subsection{Python \& Multiprocessing}
-\Cref{fig:python_multiprocessing} compares the behaviour of python programs when we try to introduce the parallelism.
-As we know python is a single threaded program thanks to ghe GLS (Global Lock System) howerver due to the increase of the number of cores /threads per cpu it many libraries stared to take advanteage of this feature so most of them they will try to simulate the multithreading by using multiple instances of the processor % TODO: TO VERIFY 
+\Cref{fig:python_multiprocessing} compares the behavior of python programs when we try to introduce parallelism.
+As we know python is a single-threaded program thanks to the GLS (\emph{Global Lock System}) however, due to the increase in the number of cores/threads per CPU, many libraries started to take advantage of this hardware feature by simulating multithreading as multiple instances of the processor. % TODO: TO VERIFY 
 
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
-    \caption{energy behaviour based on multiprocessing}
+    \caption{Energy behavior when using multiprocessing.}
     \label{fig:python_multiprocessing}
 \end{figure}
 
-As we can see in the graph the energy consumption is correlate with the number of threads until we arrive to the limit of the cores and then we lose the adventage of the multiprocessing , well in that case we pass from parallelism to concurency. where different sub process have to compete for the CPU Ressources.
-Another finding is when we hit the number of physical cores. there was an increase of execution time but still reduced energy, the reason behind this is the scheduler of the operating system. basicaly he favorits the hyper threads than the physical core wich will lead to some context switches which cause the slow behaviour, howerver in the other hand the other two physical cores are not consuming energy, neither their hyper threads which explains the gain of the eneryg consumption in this case.
-in the Chapter %% reference the work of intern from lyon  
-we discuss a deeper this behaviour of the scheduler and in that case we confirm that it is not related to python but it is more generic behaviour %% maybe even this graph should go there 
+As we can see in Figure~\ref{fig:python_multiprocessing}, the energy consumption correlates with the number of threads until reaching the number of physical cores, then losing the benefit from multiprocessing by facing concurency issues imposed by different sub-processes competing for the CPU resources.
+Another finding is observed when hitting the number of physical cores: there is an increase of execution time, but with a reduced energy.
+The reason behind this is the scheduler of the operating system.
+More specifically, it favors hyper-threads instead of physical cores, hence increasing context switches which cause the performance bottleneck.
+Howerver,the other two physical cores are not consuming energy, neither their hyper-threads, which explains the energy savings.
+In the Chapter , %% reference the work of intern from lyon  
+we discuss this behavior of the scheduler more deeply and we assess that it is not due to Python, but is a more generic behavior. %% maybe even this graph should go there 
 
 %% todo 
 % add performance 
@@ -266,7 +266,6 @@ we discuss a deeper this behaviour of the scheduler and in that case we confirm 
 
 \subsection{Python \& Machine Learning}
 Machine learning is becoming an integral part of our daily lives, growing more potent and energy-hungry each year.
-
 As machine learning can have a significant impact on climate change, it is vital to investigate mitigation techniques.
 
 \paragraph{Hardware settings}
@@ -311,26 +310,26 @@ We used Pytorch 1.10.0 to train those models and pyjoules to measure the energy 
 \section{Results \& Findings}
 As the model's accuracy increases, so does the energy required for the next accuracy increment.
 
-Figure \ref{fig:cum_energy_vs_accuracy} depicts how the curve steepens as training progresses.
+Figure~\ref{fig:cum_energy_vs_accuracy} depicts how the curve steepens as training progresses.
 For example, training to 90\% accuracy requires three times the energy required for training to 80\% accuracy.
+
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/accuracy_basedonepoch}
-    \caption{accuracy based on epoch  }
+    \caption{Accuracy along epochs.}
     \label{fig:p2}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/cumulative_energy_vs_accuracy}
-    \caption{cumulative energy consumption vs accuracy
-    }
+    \caption{Cumulative energy consumption vs accuracy.}
     \label{fig:cum_energy_vs_accuracy}
 \end{figure}
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/power_gpu_baedonepoche}
-    \caption{evolution of average gpu power based on epoch  }
+    \caption{Evolution of average GPU power along epochs.}
     \label{fig:p2}
 \end{figure}
 \begin{figure}
@@ -341,7 +340,7 @@ For example, training to 90\% accuracy requires three times the energy required 
 \end{figure}
 
 \paragraph{Conclusion}
-We discovered that when a model's accuracy improves, so does the energy required for a subsequent accuracy gain.
+We discovered that when the model's accuracy improves, so does the energy required for a subsequent accuracy gain.
 This begs the question of when we should discontinue training.
 Is a 10\% increase in accuracy worth it if we have to spend three times the energy?
 Even while utilizing a GPU consumes more total power, the training time is significantly reduced.
@@ -355,7 +354,4 @@ The next steps in this area could include exploring the reasons for these discre
 
 
 \input{python_interperters.tex}
-
-
-
 %% TODO : ADD General conclusion for the chapter 
