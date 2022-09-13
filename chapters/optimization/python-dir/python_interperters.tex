@@ -13,171 +13,171 @@ In the following section, we discuss the impact of those implementations on the 
 
 To do so, we gathered a list of interpreters, transpilers and other optimization libraries that can contribute to reduce the energy consumption of legacy Python applications:
 \begin{enumerate}
-    \item \textbf{CPython}:\footnote{\url{https://www.python.org/}}
-          This Python interpreter, written in C, is the reference interpreter of Python.
-          CPython compiles the source code into byte-code and then interprets it.
-          The CPython project supports both versions of Python 2 and 3;
-    \item \textbf{PyPy}:\footnote{\url{http://pypy.org}}
-          An alternative implementation of the Python interpreter.
-          It is written using \emph{RPython} to use the JIT.
-          It compiles the most used portions of the Python code into a binary code for better performance.
-          To benefit from these optimizations, the program has to be executed for at least for few seconds so the JIT has enough time to warm up, the JIT optimization are only applied to the code written by the developer and not to external libraries;
-    \item \textbf{Cython}:\footnote{\url{https://github.com/cython/cython}}
-          A static compiler for Python.
-          It translates the Python code into C, and then compiles it using a C compiler.
-          It also supports an extended version of the Python language that allows programmers to call \emph{C functions}, declare \emph{C types} and use static types, which will help the translation of Python objects into native types, such as integers, float.
-          This often means better performances, since native C libraries are almost all the time faster than the Python written once~\cite{pereira_energy_2017};
-    \item \textbf{Intel\,Python}:\footnote{\url{https://software.intel.com/en-us/distribution-for-python}}
-          A customized interpreter developed by Intel to enhance performances of Python programs.
-          It is dedicated to data sciences and high-performance computing.
-          It uses some Intel kernel libraries, such as Math Kernel Library (Intel MKL\footnote{\url{https://software.intel.com/en-us/mkl}}) and data analytics acceleration library (Intel DAAL\footnote{\url{https://software.intel.com/en-us/intel-daal}}).
-          It supports both versions of Python;
-    \item \textbf{Active\,Python}:\footnote{\url{https://www.activestate.com/products/activepython/}}
-          It is developed by the Activestates company and provides a standardized Python distribution to ensure license compliance, security, compatibility and performance.
-          Therefore, ActivePython implements its built-in packages (more than 300 packages) and supports both versions of Python;
-    \item \textbf{IronPython}:\footnote{\url{https://ironpython.net}}
-          A .Net-based Python interpretation platform written in C\# that is used with the .Net virtual machine or Mono.
-          It benefits from all the optimizations of .Net virtual machines, such as the JIT and garbage collector mechanisms;
-    \item \textbf{GraalPython}:\footnote{\url{https://github.com/graalvm/graalpython/}}
-          A Python interpreter that is based on GraalVM\footnote{\url{https://www.graalvm.org/docs/why-graal/}} (a universal virtual machine developed by oracle for running applications written in different programming languages).
-          For the time being, it only supports Python~3 and it is still in the experimental stage;
-    \item \textbf{Jython}:\footnote{\url{https://jython.github.io}}
-          An implementation of Python programming language written in Java for the \emph{Java Virtual Machine} (JVM).
-          Similar to IronPython and GraalPython, it leverages the optimization mechanisms provided by the JVM to enhance the Python performances;
-    \item \textbf{MicroPython}:\footnote{\url{http://micropython.org}}
-          A lightweight Python version dedicated to embedded systems and micro-controllers;
-    \item \textbf{Nuitka}:\footnote{\url{http://nuitka.net/pages/overview.html}}
-          A Python compiler written in Python that generates a binary executable from Python code.
-          It translates the Python code into a C program that is then compiled into a binary executable;
-    \item \textbf{Numba}:\footnote{\url{https://numba.pydata.org}}
-          A library that includes JIT compiler to enhance the performances of Python functions using the industry-standard LLVM compiler library;
-    \item \textbf{Shedskin}:\footnote{\url{https://github.com/shedskin/shedskin}}
-          A static transpiler that translates implicitly statically typed python into C++ code;
-    \item \textbf{Hope}~\cite{akeret_hope_2015}:
-          A Python library that aims to introduce JIT compiler into the Python code;
-    \item \textbf{Parakeet}~\cite{DBLP:conf/hotpar/RubinsteynHWS12}:
-          A runtime accelerator for an array-oriented subset of Python;
-    \item \textbf{Stackless\,Python}:\footnote{\url{https://github.com/stackless-dev/stackless/wiki}}
-          An interpreter that focuses on enhancing multi-threading programming;
-    \item \textbf{Pyjion}:\footnote{\url{https://github.com/microsoft/pyjion}}
-          A JIT API for CPython, same purpose as Parakeet and Hope;
-    \item \textbf{Pyston}:\footnote{\url{https://blog.pyston.org}}
-          A performance-oriented Python implementation built using LLVM and modern JIT techniques.
-          The project is funded by Dropbox;
-    \item \textbf{Grumpy}:\footnote{\url{https://github.com/google/grumpy}}
-          A source-to-source transpiler that translates the Python code into Go before being compiled to a binary executable.
-          It also offers an interpreter, called \emph{grumprun}, which can directly execute the Python code.
-          Unfortunately, we cannot use it because the project is already outdated (last commit is in 2017) and it has a lot of limitations in terms of supporting the Python language, such as some built-in functions and standard libraries;
-    \item \textbf{Psyco}:\footnote{\url{http://psyco.sourceforge.net}}
-          A JIT compiler for Python;
-    \item \textbf{Unladen\,Swallow}:\footnote{\url{https://unladen-swallow.readthedocs.io/en/latest/}}
-          An attempt to (use) LLVM as a JIT compiler for CPython.
+      \item \textbf{CPython}:\footnote{\url{https://www.python.org/}}
+            This Python interpreter, written in C, is the reference interpreter of Python.
+            CPython compiles the source code into byte-code and then interprets it.
+            The CPython project supports both versions of Python 2 and 3;
+      \item \textbf{PyPy}:\footnote{\url{http://pypy.org}}
+            An alternative implementation of the Python interpreter.
+            It is written using \emph{RPython} to use the JIT.
+            It compiles the most used portions of the Python code into a binary code for better performance.
+            To benefit from these optimizations, the program has to be executed for at least for few seconds so the JIT has enough time to warm up, the JIT optimization are only applied to the code written by the developer and not to external libraries;
+      \item \textbf{Cython}:\footnote{\url{https://github.com/cython/cython}}
+            A static compiler for Python.
+            It translates the Python code into C, and then compiles it using a C compiler.
+            It also supports an extended version of the Python language that allows programmers to call \emph{C functions}, declare \emph{C types} and use static types, which will help the translation of Python objects into native types, such as integers, float.
+            This often means better performances, since native C libraries are almost all the time faster than the Python written once~\cite{pereira_energy_2017};
+      \item \textbf{Intel\,Python}:\footnote{\url{https://software.intel.com/en-us/distribution-for-python}}
+            A customized interpreter developed by Intel to enhance performances of Python programs.
+            It is dedicated to data sciences and high-performance computing.
+            It uses some Intel kernel libraries, such as Math Kernel Library (Intel MKL\footnote{\url{https://software.intel.com/en-us/mkl}}) and data analytics acceleration library (Intel DAAL\footnote{\url{https://software.intel.com/en-us/intel-daal}}).
+            It supports both versions of Python;
+      \item \textbf{Active\,Python}:\footnote{\url{https://www.activestate.com/products/activepython/}}
+            It is developed by the Activestates company and provides a standardized Python distribution to ensure license compliance, security, compatibility and performance.
+            Therefore, ActivePython implements its built-in packages (more than 300 packages) and supports both versions of Python;
+      \item \textbf{IronPython}:\footnote{\url{https://ironpython.net}}
+            A .Net-based Python interpretation platform written in C\# that is used with the .Net virtual machine or Mono.
+            It benefits from all the optimizations of .Net virtual machines, such as the JIT and garbage collector mechanisms;
+      \item \textbf{GraalPython}:\footnote{\url{https://github.com/graalvm/graalpython/}}
+            A Python interpreter that is based on GraalVM\footnote{\url{https://www.graalvm.org/docs/why-graal/}} (a universal virtual machine developed by oracle for running applications written in different programming languages).
+            For the time being, it only supports Python~3 and it is still in the experimental stage;
+      \item \textbf{Jython}:\footnote{\url{https://jython.github.io}}
+            An implementation of Python programming language written in Java for the \emph{Java Virtual Machine} (JVM).
+            Similar to IronPython and GraalPython, it leverages the optimization mechanisms provided by the JVM to enhance the Python performances;
+      \item \textbf{MicroPython}:\footnote{\url{http://micropython.org}}
+            A lightweight Python version dedicated to embedded systems and micro-controllers;
+      \item \textbf{Nuitka}:\footnote{\url{http://nuitka.net/pages/overview.html}}
+            A Python compiler written in Python that generates a binary executable from Python code.
+            It translates the Python code into a C program that is then compiled into a binary executable;
+      \item \textbf{Numba}:\footnote{\url{https://numba.pydata.org}}
+            A library that includes JIT compiler to enhance the performances of Python functions using the industry-standard LLVM compiler library;
+      \item \textbf{Shedskin}:\footnote{\url{https://github.com/shedskin/shedskin}}
+            A static transpiler that translates implicitly statically typed python into C++ code;
+      \item \textbf{Hope}~\cite{akeret_hope_2015}:
+            A Python library that aims to introduce JIT compiler into the Python code;
+      \item \textbf{Parakeet}~\cite{DBLP:conf/hotpar/RubinsteynHWS12}:
+            A runtime accelerator for an array-oriented subset of Python;
+      \item \textbf{Stackless\,Python}:\footnote{\url{https://github.com/stackless-dev/stackless/wiki}}
+            An interpreter that focuses on enhancing multi-threading programming;
+      \item \textbf{Pyjion}:\footnote{\url{https://github.com/microsoft/pyjion}}
+            A JIT API for CPython, same purpose as Parakeet and Hope;
+      \item \textbf{Pyston}:\footnote{\url{https://blog.pyston.org}}
+            A performance-oriented Python implementation built using LLVM and modern JIT techniques.
+            The project is funded by Dropbox;
+      \item \textbf{Grumpy}:\footnote{\url{https://github.com/google/grumpy}}
+            A source-to-source transpiler that translates the Python code into Go before being compiled to a binary executable.
+            It also offers an interpreter, called \emph{grumprun}, which can directly execute the Python code.
+            Unfortunately, we cannot use it because the project is already outdated (last commit is in 2017) and it has a lot of limitations in terms of supporting the Python language, such as some built-in functions and standard libraries;
+      \item \textbf{Psyco}:\footnote{\url{http://psyco.sourceforge.net}}
+            A JIT compiler for Python;
+      \item \textbf{Unladen\,Swallow}:\footnote{\url{https://unladen-swallow.readthedocs.io/en/latest/}}
+            An attempt to (use) LLVM as a JIT compiler for CPython.
 \end{enumerate}
 
 
 \subsection{Runtime Classification}
 Before further proceeding with the list of candidate runtime for Python applications, we propose a classification according to several criteria:
 \begin{description}
-    \item[\bf Type] refers to the category of runtime infrastructure that supports the execution of a Python application.
-        In particular, we consider 3 types of environments: \emph{Interpreter}, \emph{Compiler} and \emph{Library};
-        \emph{Interpreter} refers to the class of environment that does not require any preprocessing of Python source code;
-        \emph{Compiler} introduces a compilation phase before the execution of the application.
-        Finally, \emph{Library} requires some modification of the source code;
-    \item[\bf Runtime] refers to the technology supporting the execution of a Python application.
-        This technology can refer to the programming language used to program the interpreter, the target language for a compiler or a library;
-    \item[\bf JIT optimization] refers to the support of \emph{just-in-time} compilation in the runtime infrastructure supporting the execution of the application;
-    \item[\bf GC optimization] refers to the support of \emph{garbage collection} in the runtime infrastructure supporting the execution of the application;
-    \item[\bf Python version(s)] refers to the list of Python source code versions supported by the runtime environment.
+      \item[\bf Type] refers to the category of runtime infrastructure that supports the execution of a Python application.
+            In particular, we consider 3 types of environments: \emph{Interpreter}, \emph{Compiler} and \emph{Library};
+            \emph{Interpreter} refers to the class of environment that does not require any preprocessing of Python source code;
+            \emph{Compiler} introduces a compilation phase before the execution of the application.
+            Finally, \emph{Library} requires some modification of the source code;
+      \item[\bf Runtime] refers to the technology supporting the execution of a Python application.
+            This technology can refer to the programming language used to program the interpreter, the target language for a compiler or a library;
+      \item[\bf JIT optimization] refers to the support of \emph{just-in-time} compilation in the runtime infrastructure supporting the execution of the application;
+      \item[\bf GC optimization] refers to the support of \emph{garbage collection} in the runtime infrastructure supporting the execution of the application;
+      \item[\bf Python version(s)] refers to the list of Python source code versions supported by the runtime environment.
 \end{description}
 
 We should explain the classification of these runtimes
 \begin{table}
-    \caption{Classification of Python implementations}
-    \label{fig:python-classes}
-    \small
-    \center
-    \begin{tabular}{|l|c|c|c|c|c|c|}
-        \hline
-        \multirow{2}{*}{\bf Name} & \multirow{2}{*}{\bf Type} & \multirow{2}{*}{\bf Runtime} & \multicolumn{2}{c|}{\bf Optimisations} & \multicolumn{2}{c|}{\bf Python}                     \\
-        % \cline{1-5}
-                                  &                           &                              & {\bf JIT}                              & {\bf GC}                        & {\bf 2} & {\bf 3} \\
-        \hline
-        \hline
-        CPython                   & Interpreter               & C                            & \no                                    & \no                             & \yes    & \yes    \\
-        \hline
-        Intel\,Python             & Interpreter               & C                            & \no                                    & \no                             & \yes    & \yes    \\
-        \hline
-        ActivePython              & Interpreter               & C                            & \no                                    & \yes                            & \yes    & \yes    \\
-        \hline
-        PyPy                      & Interpreter               & Python                       & \yes                                   & \yes                            & \yes    & \yes    \\
-        \hline
-        IronPython                & Interpreter               & .Net                         & \yes                                   & \yes                            & \yes    & \yes    \\
-        \hline
-        GraalPython               & Interpreter               & GraalVM                      & \yes                                   & \yes                            & \no     & \yes    \\
-        \hline
-        Jython                    & Interpreter               & Java                         & \yes                                   & \yes                            & \yes    & \no     \\
-        \hline
-        Stackless\,Python         & Interpreter               & Python                       & \no                                    & \no                             & \yes    & \no     \\
-        \hline
-        MicroPython               & Interpreter               & c                            & \no                                    & \no                             & \no     & \yes    \\
-        \hline
-        Pyston                    & Interpreter               & LLVM                         & \yes                                   & \no                             & \yes    & \no     \\
-        \hline
-        Unladen\,Swallow          & Interpreter               & LLVM                         & \yes                                   & \no                             & \yes    & \no     \\
-        \hline
-        \hline
-        Cython                    & Compiler                  & C                            & \no                                    & \no                             & \yes    & \yes    \\
-        \hline
-        Nuitka                    & Compiler                  & C                            & \no                                    & \no                             & \yes    & \yes    \\
-        \hline
-        Shedskin                  & Compiler                  & C++                          & \no                                    & \no                             & \yes    & \yes    \\
-        \hline
-        Grumpy                    & Compiler                  & Go                           & \no                                    & \no                             & \yes    & \yes    \\
-        \hline
-        \hline
-        Numba                     & Library                   & C                            & \yes                                   & \no                             & \yes    & \yes    \\
-        \hline
-        Hope                      & Library                   & Python                       & \yes                                   & \no                             & \yes    & \yes    \\
-        \hline
-        Psyco                     & Library                   & Python                       & \yes                                   & \no                             & \yes    & \yes    \\
-        \hline
-        Pyjion                    & Library                   & .NET Core                    & \yes                                   & \no                             & \yes    & \yes    \\
-        \hline
-        Parakeet                  & Library                   & C                            & -                                      & \no                             & \yes    & \no     \\
-        \hline
-    \end{tabular}
+      \caption{Classification of Python implementations}
+      \label{fig:python-classes}
+      \small
+      \center
+      \begin{tabular}{|l|c|c|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{\bf Name} & \multirow{2}{*}{\bf Type} & \multirow{2}{*}{\bf Runtime} & \multicolumn{2}{c|}{\bf Optimisations} & \multicolumn{2}{c|}{\bf Python}                     \\
+            % \cline{1-5}
+                                      &                           &                              & {\bf JIT}                              & {\bf GC}                        & {\bf 2} & {\bf 3} \\
+            \hline
+            \hline
+            CPython                   & Interpreter               & C                            & \no                                    & \no                             & \yes    & \yes    \\
+            \hline
+            Intel\,Python             & Interpreter               & C                            & \no                                    & \no                             & \yes    & \yes    \\
+            \hline
+            ActivePython              & Interpreter               & C                            & \no                                    & \yes                            & \yes    & \yes    \\
+            \hline
+            PyPy                      & Interpreter               & Python                       & \yes                                   & \yes                            & \yes    & \yes    \\
+            \hline
+            IronPython                & Interpreter               & .Net                         & \yes                                   & \yes                            & \yes    & \yes    \\
+            \hline
+            GraalPython               & Interpreter               & GraalVM                      & \yes                                   & \yes                            & \no     & \yes    \\
+            \hline
+            Jython                    & Interpreter               & Java                         & \yes                                   & \yes                            & \yes    & \no     \\
+            \hline
+            Stackless\,Python         & Interpreter               & Python                       & \no                                    & \no                             & \yes    & \no     \\
+            \hline
+            MicroPython               & Interpreter               & c                            & \no                                    & \no                             & \no     & \yes    \\
+            \hline
+            Pyston                    & Interpreter               & LLVM                         & \yes                                   & \no                             & \yes    & \no     \\
+            \hline
+            Unladen\,Swallow          & Interpreter               & LLVM                         & \yes                                   & \no                             & \yes    & \no     \\
+            \hline
+            \hline
+            Cython                    & Compiler                  & C                            & \no                                    & \no                             & \yes    & \yes    \\
+            \hline
+            Nuitka                    & Compiler                  & C                            & \no                                    & \no                             & \yes    & \yes    \\
+            \hline
+            Shedskin                  & Compiler                  & C++                          & \no                                    & \no                             & \yes    & \yes    \\
+            \hline
+            Grumpy                    & Compiler                  & Go                           & \no                                    & \no                             & \yes    & \yes    \\
+            \hline
+            \hline
+            Numba                     & Library                   & C                            & \yes                                   & \no                             & \yes    & \yes    \\
+            \hline
+            Hope                      & Library                   & Python                       & \yes                                   & \no                             & \yes    & \yes    \\
+            \hline
+            Psyco                     & Library                   & Python                       & \yes                                   & \no                             & \yes    & \yes    \\
+            \hline
+            Pyjion                    & Library                   & .NET Core                    & \yes                                   & \no                             & \yes    & \yes    \\
+            \hline
+            Parakeet                  & Library                   & C                            & -                                      & \no                             & \yes    & \no     \\
+            \hline
+      \end{tabular}
 \end{table}
 
 
 
 \begin{table}[hbt]
-    \caption{Classification of Python implementations}
-    \label{fig:pythonimplementations}
-    \small
-    \center
-    \begin{tabular}{|l|c|c|c|}
-        \hline
-        Version  & Interpreter     & Transpiler/Compiler & Jit library \\
-        \hline
-        \hline
-        Python~2 & Cpython2        & Cython2             & Numba 2     \\
-        % \cline{2-4}
-                 & Pypy2           & Shesdskin           & Hope        \\
-        % \cline{2-4}
-                 & Pyston          & Grumpy              & Parakeet    \\
-                 & Ironpython      &                     & Psyco       \\
-                 & Jython          &                     & Pyjion      \\
-        % &  &  &  \\
-                 & Micropython     &                     &             \\
-                 & Pysec           &                     &             \\
-                 & StacklessPython &                     &             \\
-        % \cline{2-4}
-        \hline
-        Python~3 & Cpython3        & Nuitka              & Numba3      \\
-                 & Pypy3           &                     &             \\
-                 & GraalPython     &                     &             \\
-        \hline
-    \end{tabular}
+      \caption{Classification of Python implementations}
+      \label{fig:pythonimplementations}
+      \small
+      \center
+      \begin{tabular}{|l|c|c|c|}
+            \hline
+            Version  & Interpreter     & Transpiler/Compiler & Jit library \\
+            \hline
+            \hline
+            Python~2 & Cpython2        & Cython2             & Numba 2     \\
+            % \cline{2-4}
+                     & Pypy2           & Shesdskin           & Hope        \\
+            % \cline{2-4}
+                     & Pyston          & Grumpy              & Parakeet    \\
+                     & Ironpython      &                     & Psyco       \\
+                     & Jython          &                     & Pyjion      \\
+            % &  &  &  \\
+                     & Micropython     &                     &             \\
+                     & Pysec           &                     &             \\
+                     & StacklessPython &                     &             \\
+            % \cline{2-4}
+            \hline
+            Python~3 & Cpython3        & Nuitka              & Numba3      \\
+                     & Pypy3           &                     &             \\
+                     & GraalPython     &                     &             \\
+            \hline
+      \end{tabular}
 \end{table}
 
 There are other implementations that we did not consider because either the project aborted many years ago or it has very limited support for Python features.
@@ -187,10 +187,10 @@ We then classified them into 3 categories depending on their integration with th
 In \Cref{fig:pythonimplementations}, we describe the implementations that we kept, the version of each implementation and its category.
 
 \begin{figure}
-    \centering
-    \includegraphics[width=.7\linewidth]{imgs/python-implementations-tree}
-    \caption{Python interpeters}
-    \label{fig:interpreters}
+      \centering
+      \includegraphics[width=.7\linewidth]{imgs/python-implementations-tree}
+      \caption{Python interpeters}
+      \label{fig:interpreters}
 \end{figure}
 
 
@@ -206,26 +206,25 @@ All our benchmarks have been executed on a Dell PowerEdge C6420 server, whose ha
 The server uses a minimal version of Debian\,9 (4.9.0 kernel version) where we install Docker (version 18.09.5).
 
 \begin{table}[hbt]
-    \resizebox*{\linewidth}{!}{
-    \begin{tabular}{ll}
-        \hline
-        CPU     & Intel Xeon Gold 6130 (Skylake, 2.10GHz, 2 CPUs/node, 16 cores/CPU)                                                     \\
-        Memory  & 192 GiB                                                                                                                \\
-        Storage & 240 GB SSD SATA Samsung MZ7KM240HMHQ0D3                                                                                \\
-                & 480 GB SSD SATA Samsung MZ7KM480HMHQ0D3                                                                                \\
-                & 4.0 TB HDD SATA Seagate                                                                                                \\
-        Network & eth0/enp24s0f0, Ethernet, configured rate: 10 Gbps, model: Intel Ethernet Controller X710 for 10GbE SFP+, driver: i40e \\
-                & ib0, Omni-Path, configured rate: 100 Gbps, model: Intel Omni-Path HFI Silicon 100 Series [discrete], driver: hfi1      \\
-        \hline
-    \end{tabular}
-    }
-    \caption{Benchmarking server configuration.}
-    \label{fig:dahuconfig}
+      \resizebox*{\linewidth}{!}{
+            \begin{tabular}{ll}
+                  \hline
+                  CPU     & Intel Xeon Gold 6130 (Skylake, 2.10GHz, 2 CPUs/node, 16 cores/CPU)                                                     \\
+                  Memory  & 192 GiB                                                                                                                \\
+                  Storage & 240 GB SSD SATA Samsung MZ7KM240HMHQ0D3                                                                                \\
+                          & 480 GB SSD SATA Samsung MZ7KM480HMHQ0D3                                                                                \\
+                          & 4.0 TB HDD SATA Seagate                                                                                                \\
+                  Network & eth0/enp24s0f0, Ethernet, configured rate: 10 Gbps, model: Intel Ethernet Controller X710 for 10GbE SFP+, driver: i40e \\
+                          & ib0, Omni-Path, configured rate: 100 Gbps, model: Intel Omni-Path HFI Silicon 100 Series [discrete], driver: hfi1      \\
+                  \hline
+            \end{tabular}
+      }
+      \caption{Benchmarking server configuration.}
+      \label{fig:dahuconfig}
 \end{table}
 
 \paragraph{Software settings.}
 For the sake of reproducibility, each experiment runs within a Docker container.
-% for each test we create a docker image.
 \subsection{Key Performance Metrics}
 Our focus will be mainly on CPU energy consumption as it is ten folds more than the DRAM one, since it is a task-based benchmarking, time is highly correlated within the energy, and it will be only useful to explain some specific energy behaviors, thus we do not put a lot of focus on this metric.
 %% basically i what i want to say is that we we care mostly about energy, because there are studies that were made on the performance, plus the DRAM is not that interested even within the heavy memory  benchmakrs
@@ -235,19 +234,19 @@ As we know, the energy of a program is integral of its power over time.
 For our case, we used Intel \emph{Running Power Average Limit} (RAPL)~\cite{Khan:2018:RAE:3199681.3177754} to collect the power samples of the running tests.
 We run \textsc{PowerAPI}~\cite{DBLP:journals/jss/ColmantRKSFS18}, to report on measurements collected by Intel RAPL and upload them to a so-called \emph{computing machine}, then we calculate the Energy using the trapezoidal rule:
 % \begin{figure}[hbt]
-    % \centering
-    \begin{equation}
-        E = \int^a_b P(t)dt \simeq \sum^n_{k=1} \frac{P(t_k-1)+P(t_k)}{2}
-    \end{equation}
-    % \caption{}
-    % \label{fig:trapezrule}
+% \centering
+\begin{equation}
+      E = \int^a_b P(t)dt \simeq \sum^n_{k=1} \frac{P(t_k-1)+P(t_k)}{2}
+\end{equation}
+% \caption{}
+% \label{fig:trapezrule}
 % \end{figure}
 Figure~\ref{fig:powerapi} overviews the architecture of our benchmarking infrastructure.
 
 \begin{figure}[hbt]
-    \includegraphics[width=.9\linewidth]{imgs/SmartWatts.png}
-    \caption{Benchmarking architecture deployed with \textsc{PowerAPI}.}
-    \label{fig:powerapi}
+      \includegraphics[width=.9\linewidth]{imgs/SmartWatts.png}
+      \caption{Benchmarking architecture deployed with \textsc{PowerAPI}.}
+      \label{fig:powerapi}
 \end{figure}
 
 The motivation for separating measurement collection from energy computations is to reduce any interference with the benchmark, our sensor being a lightweight C program running as a Docker container.
@@ -264,9 +263,9 @@ If it is not supported by Python3, we converted the code using the official libr
 In the case of the libraries using \emph{JIT} adding a decorator to the function that we want to optimize was enough, if there are other changes, we assume that they alter the original code which is against our purpose.
 Each benchmark is isolated in a Docker container for several reasons:
 \begin{itemize}
-    \item Isolation: each container has only the benchmark program implemented with a single python runtime to remove any interference between different implementations,
-    \item Deployment: to use the benchmarking machine without extra configurations that may alter the behavior of the operating system toward energy consumption,
-    \item Reproducibility: one of the most frequent benchmark crimes~\cite{DBLP:journals/corr/abs-1801-02381} in research is the lack of reproducibility---by using Docker we ensure that each benchmark has an image that will be publicly accessible.
+      \item Isolation: each container has only the benchmark program implemented with a single python runtime to remove any interference between different implementations,
+      \item Deployment: to use the benchmarking machine without extra configurations that may alter the behavior of the operating system toward energy consumption,
+      \item Reproducibility: one of the most frequent benchmark crimes~\cite{DBLP:journals/corr/abs-1801-02381} in research is the lack of reproducibility---by using Docker we ensure that each benchmark has an image that will be publicly accessible.
 \end{itemize}
 
 Despite the presence of the official docker images for most of the runtimes, we preferred to build our own using the same reference image to remove any bias due to the OS used in the official images.
@@ -282,12 +281,12 @@ To add new candidate runtimes, one should add a base Docker file that contains t
 Finally, they should be included in the Python candidates.
 
 \section{Results \& Findings}
-This section will be dedicated to the results of the experiments and statistical analysis of these results. 
+This section will be dedicated to the results of the experiments and statistical analysis of these results.
 Because we are conducting a comparison study, we first did a Shapiro-Wilk~\cite{shapiro1968comparative} test to see if the data follows a normal distribution.
-Despite the fact that some implementations had a $p$-value higher than $a=0.05$ (such as CPython and ActivePython), other implementations like PyPy and Numba presented a $p$-values smaller than 0.01, which leads to reject the hypothesis $H0$ that all the distributions follow a normal distribution. 
-Therefore, to compare the different implementations, we performed the non-parametric Mann-Whitney U test~\cite{zimmerman1987comparative}, with CPython2 and CPython3 as base references. 
+Despite the fact that some implementations had a $p$-value higher than $a=0.05$ (such as CPython and ActivePython), other implementations like PyPy and Numba presented a $p$-values smaller than 0.01, which leads to reject the hypothesis $H0$ that all the distributions follow a normal distribution.
+Therefore, to compare the different implementations, we performed the non-parametric Mann-Whitney U test~\cite{zimmerman1987comparative}, with CPython2 and CPython3 as base references.
 
-The Mann-Whitney U test results for each implementation are shown in Table \ref{table:manwithyu}. The first column displays the implementation's average energy usage, while the second provides the p-value of the test when compared to the reference Python implementation. If the p-value is less than 0.05, the test result is significant. This implies that the given implementation's energy consumption differs significantly from the reference implementation's.As one can notice, most of the implementations differ significantly from the reference implementation. 
+The Mann-Whitney U test results for each implementation are shown in Table \ref{table:manwithyu}. The first column displays the implementation's average energy usage, while the second provides the p-value of the test when compared to the reference Python implementation. If the p-value is less than 0.05, the test result is significant. This implies that the given implementation's energy consumption differs significantly from the reference implementation's.As one can notice, most of the implementations differ significantly from the reference implementation.
 \input{table-envs-based-cpython.tex}
 
 As we want to study the position of these implementations with regards to the references, we proceed with agglomerative \emph{hierarchical cluster analysis} (HCA)~\cite{johnson1967hierarchical}.
@@ -319,7 +318,7 @@ In Numba, the developer must target the portion of the code that will be passed 
 \paragraph{Remark:}
 Because GraalPython was still in its early stages, some techniques required an abnormally lengthy time, affecting the clustering algorithm.
 
-To help practitioners to choose the best implementation for their use case, we have created a chart that describes the behavior of each implementation toward a specific aspect of programming. 
+To help practitioners to choose the best implementation for their use case, we have created a chart that describes the behavior of each implementation toward a specific aspect of programming.
 Figure~\ref{fig:tommi_all} introduces a radar plot for all the implementations that have been used in this experimentation.
 
 \begin{figure}[!htb]
@@ -328,7 +327,7 @@ Figure~\ref{fig:tommi_all} introduces a radar plot for all the implementations t
       \caption{Different interpreter's energy scores.}
       \label{fig:tommi_all}
 \end{figure}
-  
+
 This graph summarizes each implementation energy score when executing our benchmark.
 The lower the energy consumption, the higher the score.
 We adopted a logarithmic scale to help the practitioners to compare numerous implementations due to the large differences between them.
@@ -414,28 +413,28 @@ Unlike the previous interpeters, GraalPython exhibits a certain promise when it 
 The second part of this study is to look at how different Python implementations work when executing different binary operations.
 
 \begin{figure}[!hbt]
-    \small
-    \center
-    \begin{tabular}{|lrrrrr||r|}
-        \toprule
-        benchmark    & Addition & Right Rotation & Left Rotation & Or      & XOR     & Average \\
-        \midrule
-        ActivePython & 676.980  & 763.208        & 651.783       & 743.016 & 728.828 & 712.76  \\
-        CPython2     & 441.082  & 435.886        & 430.846       & 415.247 & 419.081 & 428.43  \\
-        cpython3     & 595.209  & 685.085        & 563.839       & 657.972 & 655.560 & 531.53  \\
-        \hline
-        Cython       & 35.077   & 182.688        & 274.177       & 34.868  & 34.504  & 112.26  \\
-        Nuitka       & 33.260   & 32.980         & 33.256        & 33.472  & 33.030  & 33.2    \\
-        \hline
-        Numba2       & 9.102    & 8.411          & 9.460         & 9.375   & 9.755   & \best{9.22}    \\
-        Numba3       & 9.566    & 10.144         & 9.219         & 9.344   & 9.665   & \best{9.59}    \\
-        PyPy2        & 8.456    & 7.844          & 8.286         & 8.138   & 7.952   & \best{8.13}    \\
-        PyPy3        & 7.552    & 8.093          & 8.108         & 8.669   & 8.623   & \best{8.21}    \\
-        Shedskin     & 8.024    & 8.070          & 8.399         & 8.126   & 8.277   & \best{8.18}    \\
-        \bottomrule
-    \end{tabular}
-    \caption{Energy consumption of different implementations using bit operations benchmark (in Joules).}
-    \label{table:bitops}
+      \small
+      \center
+      \begin{tabular}{|lrrrrr||r|}
+            \toprule
+            benchmark    & Addition & Right Rotation & Left Rotation & Or      & XOR     & Average     \\
+            \midrule
+            ActivePython & 676.980  & 763.208        & 651.783       & 743.016 & 728.828 & 712.76      \\
+            CPython2     & 441.082  & 435.886        & 430.846       & 415.247 & 419.081 & 428.43      \\
+            cpython3     & 595.209  & 685.085        & 563.839       & 657.972 & 655.560 & 531.53      \\
+            \hline
+            Cython       & 35.077   & 182.688        & 274.177       & 34.868  & 34.504  & 112.26      \\
+            Nuitka       & 33.260   & 32.980         & 33.256        & 33.472  & 33.030  & 33.2        \\
+            \hline
+            Numba2       & 9.102    & 8.411          & 9.460         & 9.375   & 9.755   & \best{9.22} \\
+            Numba3       & 9.566    & 10.144         & 9.219         & 9.344   & 9.665   & \best{9.59} \\
+            PyPy2        & 8.456    & 7.844          & 8.286         & 8.138   & 7.952   & \best{8.13} \\
+            PyPy3        & 7.552    & 8.093          & 8.108         & 8.669   & 8.623   & \best{8.21} \\
+            Shedskin     & 8.024    & 8.070          & 8.399         & 8.126   & 8.277   & \best{8.18} \\
+            \bottomrule
+      \end{tabular}
+      \caption{Energy consumption of different implementations using bit operations benchmark (in Joules).}
+      \label{table:bitops}
 \end{figure}
 
 
@@ -447,10 +446,10 @@ The reason behind such behavior is the fact that Cython does not have a native i
 Therefore, it is safe to summarize all the operations into one that we call \emph{binary}.
 
 \begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{imgs/bitopts_mean}
-    \caption{Summary of the binary operations for different python implementations }
-    \label{fig:bitops}
+      \centering
+      \includegraphics[width=\linewidth]{imgs/bitopts_mean}
+      \caption{Summary of the binary operations for different python implementations }
+      \label{fig:bitops}
 \end{figure}
 
 Figure~\ref{fig:bitops} depicts the average energy consumption of different implementations for the binary operations.

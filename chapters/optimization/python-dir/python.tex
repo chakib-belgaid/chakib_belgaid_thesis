@@ -155,9 +155,9 @@ This can be useful to support developers in choosing which database engine they 
 Another interesting observation is the impact of the interpreter, as \Cref{fig:django} highlights.
 For example, using the \textsf{Pypy} interpreter reduces the energy consumption, even when we adopting the \textsf{Vanilla} strategy.
 
-Finally, we run the same experiment with the \textsf{Optimized} strategy 
+Finally, we run the same experiment with the \textsf{Optimized} strategy
 using joulehunter
-.Figure~\ref{fig:django_profiled_optimized} shows the new graph of the energy consumption. As one can notice. while the rendering method consumed the same amount of energy as in  the \textsf{Vanilla} strategy (arround 1.3KJ), the resolve part droped by $20\times$. 
+.Figure~\ref{fig:django_profiled_optimized} shows the new graph of the energy consumption. As one can notice. while the rendering method consumed the same amount of energy as in  the \textsf{Vanilla} strategy (arround 1.3KJ), the resolve part droped by $20\times$.
 
 \paragraph{Conclusion}
 We conclude this study by stating that the database and ORM selection have a major impact on the website's performance and energy consumption.
@@ -217,7 +217,7 @@ Interestingly, the \texttt{for in range} loop was by far the optimal one, follow
 \end{figure}
 
 %%% putting the idea, later i ll reformulate it 
-The reason behind such a behavior is mainly related to how the Python interpreter is implemented\footnote{\url{https://www.python.org/doc/essays/list2str}},\footnote{\url{https://www.pythonpool.com/for-vs-while-loop-python/}}.  
+The reason behind such a behavior is mainly related to how the Python interpreter is implemented\footnote{\url{https://www.python.org/doc/essays/list2str}},\footnote{\url{https://www.pythonpool.com/for-vs-while-loop-python/}}.
 To reduce the latency of Python applications, most of the built-in functions and operations are written in C, and the same goes for the function \texttt{range}.\footnote{\url{ http://python-history.blogspot.com/2010/06/from-list-comprehensions-to-generator.html?m=1}}
 Furthermore, the function \texttt{len} has a complexity of $\mathcal{O}(1)$ as it is based on the function \texttt{Py\_SIZE} of C, which stores the length in a field for the object~\footnote{\url{https://wiki.python.org/moin/TimeComplexity}}.
 Therefore, the \texttt{for in range} is creating a new iterator that has the same length as the first one and, for each iteration, requires second access (\texttt{l[i]}) instead of one---explaining the doubled time.
@@ -303,7 +303,6 @@ We used Pytorch 1.10.0 to train those models and pyjoules to measure the energy 
     \item accuracy : in \%
     \item execution time : in seconds for both the duration of each epoch and the total duration to a chieve a certain accuracy
     \item total energy consumption : for the CPU and the  GPU
-    \item
 \end{itemize}
 
 

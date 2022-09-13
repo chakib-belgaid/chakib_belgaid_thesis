@@ -61,7 +61,7 @@ Each implementation is packaged as a Docker image, which will allow us to add ne
 For the sake of experimental extensibility, we provide a GitHub repository that contains the implementation of all our experiments.\footnote{\url{https://github.com/chakib-belgaid/energy_benchmarking_grpc2}}
 Adding a new RPC \textbf{candidate} can be achieved by creating a new Docker image and putting it in a new folder named after the language.
 As for the \textbf{workload}, it can be extended easily by adding new files in the folder \textbf{payload}.
- 
+
 
 \subsection{Results \& Findings}
 \paragraph{\textsc{RQ}~1: How do RPC implementations consume with regard to the size of the incoming request?}
@@ -109,8 +109,8 @@ In this mode, the behavior of the server depends on the payload. We observe thre
     \item Increase in power without affecting the performances, such as Go or .Net.
           The energy consumption of a single request, is affected slightly but still increases;
     \item Increase in power and drop in performances.
-        Despite the increase of power consumption, the server becomes slightly slower, which increases the energy cost per request.
-        This cost is still better than the first case, which concludes that the servers in the first category are on the verge of breaking.
+          Despite the increase of power consumption, the server becomes slightly slower, which increases the energy cost per request.
+          This cost is still better than the first case, which concludes that the servers in the first category are on the verge of breaking.
 \end{enumerate}
 
 We can mention the case of Elixir that keeps scaling despite the lack of performances compared to other compiled languages (Go, CPP).
