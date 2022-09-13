@@ -280,7 +280,7 @@ Previous Joulemeter tests~\cite{jagroep2015profiling} demonstrated that the inst
 To adjust its models to the hardware on which it operates, Joulemeter must first go through a calibration step.
 It is able to only monitor one process at a time with a frequency of 1\,Hz.
 
-JRAPL is another example of an energy measurement tool estimating tool that has been utilized in a variety of publications\cite{guimaraes2016some,liu2015data}.
+JRAPL is another example of an energy measurement tool estimating tool that has been utilized in a variety of publications~\cite{guimaraes2016some,liu2015data}.
 This software enables for the energy usage of Java programs, functions, or even a block of code lines to be profiled and measured.
 The measurements are heavily reliant on the data supplied by RAPL.
 As a result, the global energy consumption collected by RAPL between two timestamps (the start and finish of the code to measure) is used to calculate the energy consumption of the Java code.
@@ -315,7 +315,6 @@ Every 10 ms, Jalen records the JVM's stack trace together with the CPU time of t
 % the place of the server in the room doesn't affect the energy variation \cite{diouri2013your}
 
 % comparaison of three measuring tools and they did exhebit 10\% variation each time \cite{inadomi2015analyzing}
-
 
 \section{Energy Variation}\label{sec:energy_variation}
 In theory, using identical CPU, same memory configuration, similar storage and networking capabilities, should increase the accuracy of physical measurements.
@@ -353,7 +352,7 @@ Moreover, changing hardware components, such as the hard drive, the memory or ev
 This result was recently assessed by~\cite{wang_potential_2018}, where the rack placement and power supply introduced a maximum of $2.8\,\%$ variation in the observed energy consumption.
 
 Beyond hardware components, the accuracy of power meters has also been questioned.
-Inadomi~\emph{et~al.}~\cite{inadomi_analyzing_2015} used three different power measurement tools: RAPL, Power Insight\footnote{\url{https://www.itssolution.com/products/trellis-power-insight-application}} and BGQ EMON.
+\citeauthor{inadomi_analyzing_2015}~\cite{inadomi_analyzing_2015} used three different power measurement tools: RAPL, Power Insight\footnote{\url{https://www.itssolution.com/products/trellis-power-insight-application}} and BGQ EMON.
 All of the three tools recorded the same $10\,\%$ of energy variation, that was supposedly related to the manufacturing process.
 
 \subsection{Mitigating Energy Variations.}
@@ -376,7 +375,7 @@ Over the previous decade, there has been a considerable increase of interest in 
 \subsection{Energy optimization in the conception phase}
 The first part of this section will focus on energy optimisation in the conception phase, where the goal is to make the final product use less energy by choosing the best set of programming languages, tools, libraries, etc. It also includes all the work and optimizations that developers can do to the source code to make the software use less energy when it is running.
 
-We start with the work of \citeauthor{pereira2017energy} where they  did an energy consumption comparison analysis of the most popular programming languages.
+We start with the work of \citeauthor{pereira_energy_2017} where they  did an energy consumption comparison analysis of the most popular programming languages.
 Using the pareto optimum, the paper  provides recommendations on how to combine some of these languages to enhance code quality while taking into account execution time, memory utilization, and energy consumption using the pareto optimum. Some of the study's findings demonstrate that interpreted languages, such as Python, have lower energy efficiency than compiled languages, such as C or Rust. The research also offers language combinations that developers might use together to improve energy economy, execution speed, and memory utilization.
 This paper's findings were based on the game benchmark, which is the most famous set of benchmarks that compares several programming languages.
 
@@ -387,21 +386,22 @@ In this paper, we define a ranking of energy efficiency in programming languages
 Finally, they produced an energy efficiency rating of programming languages.
 The paper~\cite{bujnowski2020java} compared the energy, performance and database response time of web applications written in Java versus those written in Kotlin. They discovered that there is no statistically significant difference in CPU load between individual measurements( less than 2\%) 2. Howerver, Kotlin implementation has never earned the best results in any collection of measurements.
 
-Other server works that have studied the impact of the website technology on the energy conusmptuon,\cite{philippot_characterization_2014},\cite{manotas2013investigating}. In their work~\cite{philippot_characterization_2014},\citeauthor{philippot_characterization_2014} measured the computer resources used during the loading of a website in a browser, such as memory utilization and energy consumption, for over 500 websites and proposed some best practices for developers.
+Other works that have studied the impact of the website technology on the energy conusmptuon,\cite{philippot_characterization_2014,manotas_investigating_2013}. In their work~\cite{philippot_characterization_2014},\citeauthor{philippot_characterization_2014} measured the computer resources used during the loading of a website in a browser, such as memory utilization and energy consumption, for over 500 websites and proposed some best practices for developers.
 
+Other works examined software energy consumption efficiency through source code changes and optimizations. For example, some papers [42, 122] studied the effect of Java collections on energy consumption, depending on the collection size and/or the most executed tasks on the collection (insertion, removal, search). They provided some insights into the energy efficiency of some collections for multiple scenarios. For example, Hasan et al. [52] compared the energy consumption of several Java data structures, analyzing the bytecode using the Wala framework8 and assessing the evolution of the energy consumption in different scenarios (insertion at the beginning, iteration, etc.). They also used some automated replacement of LinkedList and ArrayList to simulate best-and worst-case energy consumption scenarios in real production applications. Their study showed that using inappropriate collection can cause up to 300\% of energy consumption inefficiency.
 
+As for the impact of the source code on the energy consumption, we can cite~\cite{pinto_comprehensive_2016,fernandes_assisting_2017} where the authors investigated the impact of Java collections on energy usage based on collection size and its usage (insertion, removal, search) and They provide some insights into the energy efficiency of specific collections under various scenarios.
 
-% rosetta code \cite{nanz2015comparative} \cite{mirowski2020rosetta}
+\citeauthor{hasan_energy_2016} examinind the energy consumption of multiple Java data structures, analyzing the bytecode and evaluating the change in energy consumption in various circumstances(research,insertion, deletion, etc.). They also simulated best- and worst-case energy usage scenarios in real-world production systems by replacing the LinkedList and ArrayList, and discovered that incorrect collection can result in a 300\% increase in energy consumption\cite{hasan_energy_2016}.
 
-% network energy comparaison \cite{balasubramanian2009energy}
+Other studies\cite{longo_reducing_2019,kumar_energy_2017} looked into the energy use of Java primitive types, string operations, and the use of exceptions, loops, and arrays. \citeauthor{kumar_energy_2017}, for example, examined the energy usage of code snippets and micro-benchmarks and provided several conclusions, such as string concatenation would use less energy than StringBuilder and StringBuffer and static variables tends to consume 60\% more energy than instance variables.
 
-% Aequitas \cite{ribic2016aequitas}
+\citeauthor{pereira_helping_2017} \cite{pereira_helping_2017} presented SPELL, a tool that helps developers spot energy leaks in their source code. Using a statistical spectrum-based analysis and JRAPL\cite{guimaraes2016some,liu_data-oriented_2015}, the tool locates energy-inefficient code fragments. According to the authors, it is language and context independent.
 
-% vm placement \cite{mishra2018energy}
+\subsection{Energy optimization in the execution phase}
 
-% \citeauthor{mishra2018energy}
+The second part of this section will focus on energy optimization in the execution phase, where the goal is to optimize this energy consumption for already made software without making changes to the source code.
 
-% static cost of Vms \cite{kurpicz2016much}
 
 
 
@@ -463,9 +463,9 @@ constant overheat of the jvm \cite{lafond2006energy}
 
 infer the energy cost based on the byte code instructions \cite{ma2017biogeography}
 
-java collection energy footprint  \cite{pinto2016comprehensive} \cite{fernandes2017assisting}
+java collection energy footprint
 
-java classes energy footprint \cite{hasan2016energy}
+% java classes energy footprint \cite{hasan2016energy}
 
 framework to reduce java collections \cite{manotas2014seeds}
 
