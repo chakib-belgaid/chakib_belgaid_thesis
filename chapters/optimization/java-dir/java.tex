@@ -7,6 +7,16 @@ As we have seen in the previous chapter, an inappropriate combination of paramet
 in this chapter, we want to dig deeper into this aspect of Java and study its runtime.
 This chapter thus focuses on the impact of the runtime of Java applications on energy consumption.
 
+\subsection{characteristics of JVM}
+\begin{figure}%[ht]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/Jvm_architecture}
+    \caption{JVM architecture}
+    \label{fig:JVM_architecture}
+\end{figure}
+
+Java's portability is a core design goal, which means that Java applications will work exactly the same on any operating system and on any hardware.As we see in figure~\ref{fig:JVM_architecture}, Instead of machine code, this is accomplished by compiling Java language code to an intermediate representation known as Java bytecode. Java bytecode instructions are similar to machine code, but they are executed by a JVM rather than directly on the machine. As a result, Java programs will run slower and consume more memory than C++ programs. However, Just-in-Time (JIT) compilation, which is built into the JVM, improves performance by converting bytecode to machine code at runtime. Furthermore, an automatic garbage collector (GC) is used by Java to manage memory throughout the object lifecycle and to recover memory when objects are no longer in use.
+
 \subsection{Goal}
 In this section, we will investigate the following research questions:
 \begin{compactenum}[\indent\bf RQ\,1:]
@@ -15,19 +25,6 @@ In this section, we will investigate the following research questions:
 \end{compactenum}
 
 To answer those research questions, we conduct an empirical study to highlight the impact of this runtime.
-% \subsection{definition of the JVM}
-% The Java Virtual Machine is one of the most widely used execution environments to run software from a wide range of programming languages (Java, Kotlin, Clojure, Scala, etc.).
-% Java was originally developed by James Gosling at Sun Microsystems and released in 1995, before being acquired by Oracle in 2010. One key design goal of Java is portability, which means that Java applications must run identically on any combination of hardware and operating system with adequate runtime support. This is achieved by compiling the Java language code to an intermediate representation, called Java bytecode, instead of machine code. Java bytecode instructions are analogous to machine code but executed by a JVM, which is specific to the host machine. For example, Oracle provides the HOTSPOT JVM, while the official reference implementation is now the OPENJDK JVM—a free and open-source software used by most developers. Programs written in Java have a reputation for being slower and requiring more memory than those written in C++, but Just-in-Time (JIT) compilation, embedded in the JVM, delivers a boost of performance by opportunistically compiling bytecode to machine code at runtime. The JIT combines two compilers, C1 and C2 (also known as Client and Server VM), which are triggered based on the activity of the hosted application. Additionally, Java uses an automatic garbage collector (GC) to manage memory in the object lifecycle and recover the memory once objects are no longer in use. Each JVM usually includes multiple GCs, each designed to satisfy different requirements. By default, HOTSPOT uses both C1 and C2 as tiered compilers, and the Garbage-First (G1) GC, with a maximum number of GC threads limited by available CPU resources and heap size, whose initial size is 1/64 of physical memory and maximum size may reach 1/4 of physical memory.
-
-
-
-% TODO : ADD it to the introduction to 
-% \begin{figure}%[ht]
-%     \centering
-%     \includegraphics[width=\linewidth]{imgs/Jvm_architecture}
-%     \caption{JVM architecture}
-%     \label{fig:hotspot}
-% \end{figure}
 
 \section{Experimental Protocol}\label{sec:javaprotocol}
 To investigate the effect that can have the JVM distribution choice and/or parameters on software energy consumption, we conducted a wide set of experiments on a cluster of machines and used several established Java benchmarks and JVM configurations.
