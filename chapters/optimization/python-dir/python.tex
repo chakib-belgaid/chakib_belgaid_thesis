@@ -4,11 +4,11 @@ However, it remains unclear whether this category of dynamic programming languag
 
 \begin{figure}[htbp]
     \includegraphics[width=\linewidth]{imgs/programminglanguangespopularity.png}
-    \caption{PYPL Popularity of Programming Languages~\cite{noauthor_pypl_nodate}.}
+    \caption{PYPL Popularity of Programming Languages~\cite{noauthor_pypl_2018}.}
     \label{fig:pypl}
 \end{figure}
 
-In particular, Noureddine~\emph{et~al.}~\cite{noureddine_preliminary_2012} in 2012, and then Pereira~\emph{et~al.}~\cite{pereira_energy_2017} in 2017, conducted empirical power measurements on this topic, and both concluded that compiled programming languages overcome dynamic ones when it comes to power consumption.
+In particular,\citeauthor{noureddine_preliminary_2012}~\cite{noureddine_preliminary_2012} in 2012, and then Pereira~\emph{et~al.}~\cite{pereira_energy_2017} in 2017, conducted empirical power measurements on this topic, and both concluded that compiled programming languages overcome dynamic ones when it comes to power consumption.
 According to their experiments, an interpreted programming language, like Python, can impose up to a $7,588\,\%$ energy overhead compared to C~\cite{pereira_energy_2017} (cf. \Cref{fig:hannoi}).
 In this chapter, we explore the oblivious optimizations that can be applied to Python legacy applications to reduce their energy footprint.
 As Python is widely adopted by software services deployed in public and private cloud infrastructures, we believe that our contributions will benefit a wide diversity of legacy systems and not only favorably contribute to reducing the carbon emissions of ICT, but also reduce their cloud invoice for the resources consumed by these services.
@@ -83,7 +83,7 @@ The options in this survey were not mutually exclusive. As a result, the total o
 \end{figure}
 
 In this chapter, we investigate the energy footprint of Python in its most popular domains of adoption.
-We first explore the data and control structures, aiming to reveal some fundamental guidelines, as \citeauthor{hasan_energy_2016-1} did in~\cite{hasan_energy_2016-1}.
+We first explore the data and control structures, aiming to reveal some fundamental guidelines, as \citeauthor{hasan_energy_2016} did in~\cite{hasan_energy_2016}.
 Then, we measure the energy consumption of several Python implementations to propose a non-intrusive technique to improve energy efficiency.
 Therefore, this chapter will address the following research questions:
 \begin{compactenum}[\indent\bf RQ\,1:]
@@ -97,6 +97,7 @@ First, we study the energy behavior of Python in two application contexts: web a
 Then, we dive deeper into the energy consumption of Python core structures, before concluding with the impact of the Python interpreter on energy consumption.
 
 \section{Green Web Development}\label{sec:webdev}
+
 Django~\footnote{\url{https://www.djangoproject.com/}} and Flask\footnote{\url{https://flask.palletsprojects.com/}}  are the most popular frameworks for web development. According to a Jetbrains poll\footnote{\url{https://lp.jetbrains.com/python-developers-survey-2021/}} , Django is used in 40\% of the cases, while Flask is used in 41\% of the cases.
 
 In contrast to Flask, which is still a microframework, Django is a high-level web framework that provides a standard method for creating and maintaining complex and scalable database-driven websites quickly and effectively. Therefore, this study will focus on The latter one.
@@ -131,6 +132,7 @@ Joulehunter is an open source library that we developed in order to help practit
 %% REMARQUE the experiment with joulehunter isn't conducted within the same machine that is used for generating the boxplot graphs 
 % We have chosen Django as our web framework.
 Therefore,we chose to observe if the choice of the database and the ORM impacts the energy consumption and the performance of the website.
+\subsection{Experiment \& Results}
 To accomplish so, we examined the cost of a single request of the prior website using various ways to extract data from the database.
 We considered using two different databases, \textsc{PostgreSQL} and \textsc{SQlite3}, that store the same records, and three different ways to fetch the records.
 \begin{enumerate}
@@ -160,7 +162,7 @@ Finally, we run the same experiment with the \textsf{Optimized} strategy
 using joulehunter
 .Figure~\ref{fig:django_profiled_optimized} shows the new graph of the energy consumption. As one can notice. while the rendering method consumed the same amount of energy as in  the \textsf{Vanilla} strategy (arround 1.3KJ), the resolve part droped by $20\times$.
 
-\paragraph{Conclusion}
+\subsection{Conclusion}
 We conclude this study by stating that the database and ORM selection have a major impact on the website's performance and energy consumption.
 And unlike the rendering portion, there are many options available for the database, the ORM, and the data handling strategy.
 \begin{figure}[hbt]
@@ -193,10 +195,10 @@ While this strategy aims to save energy by leveraging the ACPI P-states and C-st
 % we discuss a deeper this behavior of the scheduler and in that case we confirm that it is not related to python but it is more generic behaviour %% maybe even this graph should go there 
 
 
-\subsection{Python Insights}
+\section{Python Insights}
 This section aims to formulate some actionable insights to optimize the energy consumption of Python applications without altering the source code.
-Therefore, we start by extending the work of \citeauthor{hasan_energy_2016} and \citeauthor{oliveira_recommending_nodate} to the context of Python environments.
-
+Therefore, we start by extending the work of \citeauthor{hasan_energy_2016} and \citeauthor{oliveira_recommending_nodate} to the context of Python environments \cite{hasan_energy_2016,oliveira_recommending_nodate}.
+\subsection{experiment and results}
 %%%% concurency 
 Another field of investigation is the type of data and control structures that might impact the energy consumption.
 We iterate over a list using 3 methods.

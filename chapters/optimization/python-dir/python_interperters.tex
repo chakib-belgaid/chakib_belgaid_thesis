@@ -4,7 +4,7 @@ Due to the lack of support for most non-conventional Python interpreters, we mai
 Except for \textsc{PyPy}, most of the Python implementations do not support extra Python libraries, despite those extra implementations being developed to optimize a specific library, such as \textsf{Numba} with \textsf{Numpy}, or \textsf{intelpython} with machine learning algorithms.
 
 
-\paragraph{Preliminary studies}
+\subsection{Preliminary studies}
 For the first studies, we used the official version of Python, because the goal was mainly to highlight the impact of the structure of code on energy consumption.
 One main drawback of the previous method is the work to be done to update the existing code base to reduce  energy consumption.
 To avoid such hustle, we tried to find a non-intrusive approach to make the Python code more eco-friendly without altering its structure.
@@ -195,12 +195,12 @@ In \Cref{fig:pythonimplementations}, we describe the implementations that we kep
 
 
 
-\section{Experimental Protocol}
+\subsection{Experimental Protocol}
 As discussed in the previous chapter, our idea is to design a benchmarking solution that allows practitioners to reproduce and extends our benchmarks.
 This benchmarking solution is also the one we use to answer the research questions addressed in this manuscript.
 %%%% probably ill resue the same things from other chapters
 
-\subsection{Measurement Context}
+\subsubsection{Measurement Context}
 \paragraph{Hardware settings.}
 All our benchmarks have been executed on a Dell PowerEdge C6420 server, whose hardware features are summarized in Table~\ref{fig:dahuconfig}.
 The server uses a minimal version of Debian\,9 (4.9.0 kernel version) where we install Docker (version 18.09.5).
@@ -225,7 +225,7 @@ The server uses a minimal version of Debian\,9 (4.9.0 kernel version) where we i
 
 \paragraph{Software settings.}
 For the sake of reproducibility, each experiment runs within a Docker container.
-\subsection{Key Performance Metrics}
+\subsubsection{Key Performance Metrics}
 Our focus will be mainly on CPU energy consumption as it is ten folds more than the DRAM one, since it is a task-based benchmarking, time is highly correlated within the energy, and it will be only useful to explain some specific energy behaviors, thus we do not put a lot of focus on this metric.
 %% basically i what i want to say is that we we care mostly about energy, because there are studies that were made on the performance, plus the DRAM is not that interested even within the heavy memory  benchmakrs
 
@@ -251,7 +251,7 @@ Figure~\ref{fig:powerapi} overviews the architecture of our benchmarking infrast
 
 The motivation for separating measurement collection from energy computations is to reduce any interference with the benchmark, our sensor being a lightweight C program running as a Docker container.
 
-\subsection{Benchmark Preparation}
+\subsubsection{Benchmark Preparation}
 \paragraph{Input workload.}
 To benchmark our implementations, we employed the \textsc{Tommti} microbenchmarks suite.\footnote{\url{http://www.tommti-systems.de/main-Dateien/reviews/languages/benchmarks.html}}
 \textsc{Tommti} is a set of 13 microbenchmarks that examine common language features, such as arithmetic operations, data structures and input/output manipulations, among others.
@@ -280,7 +280,7 @@ Furthermore, all the successful implementations are stored in a separate directo
 To add new candidate runtimes, one should add a base Docker file that contains the new implementation and, if there should be extra manipulation that should be added to the workload files such as adding new decorator or changing some parameters, then they should be added as an extra function in the script \texttt{generator.py}.
 Finally, they should be included in the Python candidates.
 
-\section{Results \& Findings}
+\subsection{Results \& Findings}
 This section will be dedicated to the results of the experiments and statistical analysis of these results.
 Because we are conducting a comparison study, we first did a Shapiro-Wilk~\cite{shapiro1968comparative} test to see if the data follows a normal distribution.
 Despite the fact that some implementations had a $p$-value higher than $a=0.05$ (such as CPython and ActivePython), other implementations like PyPy and Numba presented a $p$-values smaller than 0.01, which leads to reject the hypothesis $H0$ that all the distributions follow a normal distribution.
@@ -460,7 +460,7 @@ And the final one, which has been fully optimized, uses 50 percent less energy. 
 To conclude this experiment, JIT has a huge impact when it comes to binary operations, and an inadequate runtime selection can lead to a 100x increase in energy consumption.
 Furthermore, we observed that different binary operations exhibit the same energy footprint for all the implementations, except Cython.
 
-\section{Conclusion}
+\subsection{Conclusion}
 One can conclude that the choice of Python interpreter has a significant impact on the programs' energy consumption.
 This investigation is made more intriguing by the absence of a universal solution.
 The primary downside is the incompatibility of some of these solutions, which causes us to make concessions when we need a generic answer.
