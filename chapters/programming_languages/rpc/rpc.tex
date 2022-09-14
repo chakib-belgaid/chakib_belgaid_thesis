@@ -42,6 +42,7 @@ For better accuracy, we ran the HwPC sensor with a frequency of 1~Hz, and we use
 \end{figure}
 
 
+
 \paragraph{Performances.}
 For better accuracy and more details, We use an updated version of the open source RPC benchmarking tool, named GHZ (\url{https://ghz.sh/}).
 The modified version allows us to monitor the average power for each request from both the server and the client sides.
@@ -78,7 +79,14 @@ For this experiment, we investigate 4 observable variables:
     \item the \textsf{average energy cost} of a single request: unlike the first indicator, this one shows how green is the implementation considering performance.
 \end{enumerate}
 
-% The above figure depicts the overall behavior of each framework based on the size of request (payload).
+
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/energy_cost_payload}
+    \end{center}
+    \caption{Energy consumption based on the request size}\label{fig:energy_cost_payload}
+\end{figure}
+Figure~\ref{fig:energy_cost_payload} depicts the overall behavior of each framework based on the size of request (payload).
 For each framework, we can distinguish three modes, and they all depend on the payload size:
 \begin{enumerate}
     \item \textsf{Stress free} mode when the server has enough resources to satisfy the requests, as they require a memory less than a certain threshold (depends on the language and the platform),
@@ -125,8 +133,29 @@ The rest could be divided into two categories:
 
 
 [\textsc{RQ}~2:] How do RPC implementations react to the number of clients ?
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/energy_cost_clients}
+    \end{center}
+    \caption{Energy behaviour based on the number of the clients}\label{fig:rpcproenergy_cost_clients}
+\end{figure}
 
 \subsubsection{Power behaviour}
+
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/power_consumption_clients}
+    \end{center}
+    \caption{Average power consumption based on the number of the clients}\label{fig:power_consumption_clients}
+\end{figure}
+
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/power_consumption_payload}
+    \end{center}
+    \caption{Average power consumption based on the request size}\label{fig:power_consumption_payload}
+\end{figure}
+
 Based on the heatmap, we can distinguish two modes:
 \begin{itemize}
     \item \textsf{Low number of clients} when the number of concurrent clients is below 100,
@@ -169,14 +198,42 @@ However, there are some frameworks that have chosen a different approach, such a
 Furthermore, we tend to observe this behaviour among other frameworks, such as Python or Asynchronous NodeJs, when the number of the client exceeds 800.
 
 \paragraph{RPS}
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/rps_clients}
+    \end{center}
+    \caption{Number of requests per second based on the number of clients}\label{fig:rps_clients}
+\end{figure}
+
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/rps_payload}
+    \end{center}
+    \caption{Number of requests per second based on the request size}\label{fig:rps_payload}
+\end{figure}
 Most of the servers hit their RPS limit after 5 clients and 100 clients for vm based servers, and after this the number keeps constant, which will decrease the average RPS per client.
 .Net server is the most performant, followed by Java and Go, while Python and Ruby are the least performant.
 
 \paragraph{Tail Latency}
 The increase in the number of requests per second, does not necessarily mean a lower latency.
-As one can notice in Table~\ref{...}, until the 1000 clients, Go provides the least latency beside .Net.
+As one can notice in Fgirue~\ref{fig:tail99_clients}, until the 1000 clients, Go provides the least latency beside .Net.
 GraalVM provides the highest latency, on average.
 However, Dart tends to become slower when we increase the number of clients, until we pass the 600 simultaneous clients, and there it changes its behaviour, instead of satisfying most the requests it notify the clients directly that the server is saturated, hence a drop in satisfaction ratio, and an amelioration for the average latency.
+
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/tail99_clients}
+    \end{center}
+    \caption{Tail latency (99\%) based on the number of clients}\label{fig:tail99_clients}
+\end{figure}
+
+
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/tail99_payload}
+    \end{center}
+    \caption{Tail latency (99\%) based on the request size}\label{fig:tail99_payload}
+\end{figure}
 
 
 \subsubsection{Energy Per Request}
@@ -186,65 +243,14 @@ Except GraalVM when the cost of the a single request increases with when we add 
 Therefore, we conclude that the number of clients does not impact the energy significantly.
 Then, we study how the payload size of the requests impact the energy consumption of the framework.
 
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/energy_cost_clients}
-    \end{center}
-    \caption{Experimental software architecture}\label{fig:rpcprotocol}
-\end{figure}
-
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/energy_cost_payload}
-    \end{center}
-    \caption{Experimental software architecture}\label{fig:energy_cost_payload}
-\end{figure}
-
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/power_consumption_clients}
-    \end{center}
-    \caption{Experimental software architecture}\label{fig:power_consumption_clients}
-\end{figure}
-
-
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/power_consumption_payload}
-    \end{center}
-    \caption{Experimental software architecture}\label{fig:power_consumption_payload}
-\end{figure}
-
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rps_clients}
-    \end{center}
-    \caption{Experimental software architecture}\label{fig:rps_clients}
-\end{figure}
-
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rps_payload}
-    \end{center}
-    \caption{Experimental software architecture}\label{fig:rps_payload}
-\end{figure}
 
 
 
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/tail99_clients}
-    \end{center}
-    \caption{Experimental software architecture}\label{fig:tail99_clients}
-\end{figure}
 
 
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/tail99_payload}
-    \end{center}
-    \caption{Experimental software architecture}\label{fig:tail99_payload}
-\end{figure}
+
+
+
 
 
 \subsection{Threads to Validity}

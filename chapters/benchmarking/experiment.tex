@@ -3,14 +3,14 @@
 % for each aspect we present a set of guidelines and tools.
 %% This is a conclusion maaan  !! 
 \section{Improving Accuracy by Taming Energy Variations}\label{sec:taming-the-energy-variation}
-
+\subsection{introduction}
 While the previous section aimed to ensure the reproducibility of our software energy consumption experiments, this section provides a collection of tips and tools to help increase the accuracy of these experiments.
 We are well aware of the effect that hardware has on energy fluctuations.
 However, we feel that there is still an opportunity for practitioners to minimize this energy variance by employing solely tuneable factors.
 To that end, we conducted a series of empirical studies utilizing state-of-the-art recommendations to discover which controllable elements can limit the variations of benchmark energy usage.
 % We will first start with evaluating the parameters mentioned by \cite{heinrich_predicting}.
-
-In this section, we investigate the following research questions:
+\subsection{Research questions}
+This study will focus on the following research questions:
 \begin{description}
     \item[\textsc{RQ}~1:] Does the benchmarking protocol affect the energy variation?
     \item[\textsc{RQ}~2:] How important is the impact of the processor features on the energy variation?
@@ -27,7 +27,7 @@ There are three main contexts.
 \begin{itemize}
     \item different machines with different settings;
     \item different machines with the same settings ;
-    \item the same machine. 
+    \item the same machine.
 \end{itemize}
 
 We used the platform Grid5000 (G5K)~\cite{grid5000,margery:hal-00965708}, which is a large, flexible testbed for experiment-driven research that is spread out across all of France, to meet these needs. Grid5000 has several clusters that are made up of 4 to 124 identical machines with different configurations for each cluster. For our experiment, we looked at four groups. Our main criterion was the CPU configuration.
@@ -56,7 +56,7 @@ The table~\ref{table:g5k}  below, presents a description of the four clusters th
 
 As most of the nodes are equipped with two sockets (physical processors), we use the acronym \textsf{CPU} or \textsf{socket} to designate one of the two sockets and \textsf{PU} for the \emph{processing unit}. For our study we consider hyper-threads as distinct \textbf{PUs}.
 
-Figure~\ref{fig:topo}  shows the detailed topology of a node in the cluster \textsf{Dahu} as an example. 
+Figure~\ref{fig:topo}  shows the detailed topology of a node in the cluster \textsf{Dahu} as an example.
 
 \begin{figure}%[!htb]
     \center{\includegraphics[width=.9\linewidth]{imgs/lstopo}}
@@ -70,7 +70,7 @@ We picked the benchmarks based on two criteria.
 First, \textbf{scalability}: We wanted to learn as much as possible about the experiment in the time we had, so we needed some benchmarks that could grow or shrink with the number of PUs and work in different situations.
 The second criterion is whether or not the workload is \textbf{representative}. As stated in the challenges, a workload must represent the production environment or the experiment would be inconsistent~\cite{stephen_evaluate_2012}.
 
-To meet these criteria, we looked at the "state of the art" and found the most common benchmarks used to test the performance of hardware. We then chose the ones that could be scaled up. 
+To meet these criteria, we looked at the "state of the art" and found the most common benchmarks used to test the performance of hardware. We then chose the ones that could be scaled up.
 Our candidate is  emph{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NPB:125826.125925}: one of the most used benchmarks for \emph{HPC}. We used the applications (\textsf{LU}), the \emph{Conjugate Gradient} (\textsf{CG}) and \emph{Embarrassingly Parallel} (\textsf{EP}) computation-intensive benchmarks in our experiments, with the \textsf{C} data class.
 Furthermore we have used other applications to validate our results using more applications such as \texttt{Stress-ng v0.10.0},\footnote{\url{https://kernel.ubuntu.com/~cking/stress-ng}} \texttt{pbzip2 v1.1.9},\footnote{\url{https://launchpad.net/pbzip2/}} \texttt{linpack}\footnote{\url{http://www.netlib.org/linpack}} and \texttt{sha256 v8.26}.\footnote{\url{https://linux.die.net/man/1/sha256sum}}
 
@@ -340,14 +340,14 @@ This fine-grained power~meter allows the distribution of the RAPL global energy 
 Thus, it is possible to isolate the job energy consumption instead of the global energy consumption delivered by RAPL.
 To do so, we ran tests with a single process workload on the cluster \textsf{Dahu}, and used the \textsc{PowerAPI} toolkit to measure the energy consumption.
 Then, we compared the job energy consumption to the global RAPL data.
-We calculated the Pearson correlation~\cite{ref1} of the energy consumption and variation between global RAPL and \textsc{PowerAPI}, as illustrated in Figure~\ref{fig:correlation}.
+We calculated the Pearson correlation~\cite{ref1} of the energy consumption and variation between global RAPL and \textsc{PowerAPI}, as illustrated in Figure~\ref{fig:ev_correlation}.
 The job energy consumption and variation are strongly correlated with the global energy consumption and variation with the coefficients 93.6\,\% and 85.3\,\%, respectively.
 However, this does not completely exclude the OS activity, especially if the jobs have tight interaction with the OS through the signals and system calls.
 This brings a new question on whether applying extra-tuning on a minimal OS would reduce the variation? As well as what is the effect of the Meltdown security patch---that is known to be causing some performance degradation~\cite{Kocher2018spectre,Lipp2018meltdown}---on the energy variation?
 
 \begin{figure}
     \center{\includegraphics[width=.8\linewidth]{imgs/correlation}}
-    \caption{The correlation between the RAPL and the job consumption and variation}\label{fig:correlation}
+    \caption{The correlation between the RAPL and the job consumption and variation}\label{fig:ev_correlation}
 \end{figure}
 
 \paragraph{OS Tuning}

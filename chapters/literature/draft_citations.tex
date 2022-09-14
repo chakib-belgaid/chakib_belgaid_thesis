@@ -20,7 +20,7 @@ In computer science, the objective is essentially the same.Numerous studies have
 % In addition, the utilization expenses of data centers, networks, and terminals are also substantial (19 percent , 16 percent and 20 percent respectively).
 % TODO : ask romain about the graphics for energy distribution 
 
-As an example \citeauthor{avgerinou2017trends} evaluated the development of power use effectiveness (PUE) in data centers thkat belongs to various organizations participating in the European code of conduct for energy efficiency program \cite{avgerinou2017trends}.
+As an example \citeauthor{avgerinou_trends_2017} evaluated the development of power use effectiveness (PUE) in data centers thkat belongs to various organizations participating in the European code of conduct for energy efficiency program \cite{avgerinou_trends_2017}.
 The research found a gradual decline in the PUE of data centers, which measures the ratio of the overall energy supplied to the energy used by IT equipment.
 A low PUE implies that the majority of energy is utilized to power the data center's IT equipment, while just a small amount is needed for cooling and lighting.
 
@@ -30,9 +30,9 @@ In order to do this, we will elaborate a benchmarking process and a set of tools
 Thus, we will begin by examining the state of the art of empirical analysis and retrieving the best empirical experimentation methodologies in the research field.Then, we will narrow these practices down to computer science so that we can finally adapt them to energy consumption.
 
 Section~\ref{sec:soa_benchmarking} will discuss the pitfalls and best practices associated with empirical research before applying them to our field of interest.
-After that Section~\ref{sec:energymeasurement} describes software energy measurements.
+After that Section~\ref{sec:soa_energymeasurement} describes software energy measurements.
 It provides examples of hardware and software measuring instruments and describes their differences, benefits, and drawbacks. It also examines the sources of energy measurement variations, which represent a significant obstacle to achieving precise readings and a higher accuracy.
-Then, in section \ref{section:soa_optimization}, we will go through some of the previous work on improving the energy consumption of softwares.
+Then, in section \ref{section:soa_energyoptimization}, we will go through some of the previous work on improving the energy consumption of softwares.
 
 \newpage
 \section{Benchmarking}\label{sec:soa_benchmarking}
@@ -171,7 +171,7 @@ The work of this thesis will be based on this approach, since it provides a unif
 
 % In addition to these benchmarks, a new category of testing techniques has emerged to simulate the worst cases of the production environments. This new category of benchmarking called performance tests\cite{pradeep2019pragmatic}, which are benchmarks meant to evaluate the behavior of software under stress situations. We can use the Gatling\footnote{\url{https://gatling.io/}} as an illustration for web applications stresser and stress-ng for hardware heavy workload perormance measurements~\cite{king2017stress}.
 
-\section{Energy Measurement}
+\section{Energy Measurement}\label{sec:soa_energymeasurement}
 Now that we have discussed the importance of benchmarking and the different approaches that can be used to evaluate the performance of a system, we will focus on energy measurement, which will be the main metric in this thesis.Therefore,in this section, we will discuss the different approaches that can be used to measure the energy consumption of a system.
 Many studies have been conducted to estimate a such energy consumption. that varies from static analysis of the source code to infer its energy consumption like \citeauthor{pereira_helping_2017} where they provided a tool to highlight the most energy consuming parts of the code \cite{pereira_helping_2017}.
 The key advantage of this approach is that it allows you to estimate a program's energy usage without executing it.
@@ -367,7 +367,7 @@ In~\cite{chasapis_runtime-guided_2016}, the researchers showed how a parallel sy
 In~\cite{marathe_empirical_2017_m}, the authors highlight the increase of energy variation across the latest Intel micro-architectures by a factor of $4$ from Sandy~Bridge to Broadwell, a $15\,\%$ of run-to-run variation within the same processor and the increase of the inter-cores variation from $2.5\,\%$ to $5\,\%$ due to hardware-enforced constraints, concluding with some recommendations for Broadwell usage, such as running one hyper-thread per core.
 %  NOTE :/this might be interesting for greeFaaS
 
-\section{Energy optimisation}
+\section{Energy optimisation}\label{section:soa_energyoptimization},
 
 We will now turn our focus to the energy optimisation challenge after considering the various ways for measuring energy consumption in computers and understanding the energy variation problem.
 Over the previous decade, there has been a considerable increase of interest in this field, with many papers proposing different approaches to reduce the energy consumption of software applications. This section will passthrough the main contributions in this field, and will focus on the two following parts.
