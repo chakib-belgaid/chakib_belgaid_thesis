@@ -280,7 +280,7 @@ Previous Joulemeter tests~\cite{jagroep2015profiling} demonstrated that the inst
 To adjust its models to the hardware on which it operates, Joulemeter must first go through a calibration step.
 It is able to only monitor one process at a time with a frequency of 1\,Hz.
 
-JRAPL is another example of an energy measurement tool estimating tool that has been utilized in a variety of publications~\cite{guimaraes2016some,liu2015data}.
+JRAPL is another example of an energy measurement tool estimating tool that has been utilized in a variety of publications~\cite{guimaraes2016some,liu_data-oriented_2015}.
 This software enables for the energy usage of Java programs, functions, or even a block of code lines to be profiled and measured.
 The measurements are heavily reliant on the data supplied by RAPL.
 As a result, the global energy consumption collected by RAPL between two timestamps (the start and finish of the code to measure) is used to calculate the energy consumption of the Java code.
@@ -400,94 +400,105 @@ Other studies\cite{longo_reducing_2019,kumar_energy_2017} looked into the energy
 
 \subsection{Energy optimization in the execution phase}
 
-The second part of this section will focus on energy optimization in the execution phase, where the goal is to optimize this energy consumption for already made software without making changes to the source code.
+The second part of this section will focus on energy optimization in the execution phase, where the goal is to optimize this energy consumption for already developed software without making changes to the source code.The goal is to set up and create an environment in which software can run with the least amount of energy. This could involve process scheduling, system tunning and so on.
 
+We begin with Aequitas\cite{ribic2016aequitas}, a system that allows parallel applications to live on power domains that are co-managed (sharing the same CPU). The technology is founded on the premise that coexisting programs can regard power-management hardware as a shared resource and collaborate on power management decisions. As a result, it accomplishes its purpose by scheduling these applications with a time slicing technique ( as anexamample round robin). The authors claim that their strategy achieves a 12.9\% improvement while incurring only a 2.5\% performance cost.
 
+As for virtual machines, \citeauthor{kurpicz2016much}. analyzed the total energy consumption of a VM in a data center while emphasizing the static cost versus the dynamic one.In this paper~\cite{kurpicz2016much}, the authros introduced the transparent, reproducible, and predictive cost calculator model EPAVE for VM-based environments. The purpose of EPAVE is to provide the static cost of each VM on the server, which includes the air conditioning, power distribution, and the dynamic cost that is related to the VM activities.
 
-
-carbon footprint of training neural network \cite{strubell2019energy}
-
-SPELL, the energy leaks detector tool \cite{pereira2017helping}
-
-impact of energy profiling on software \cite{jagroep2017energy}
-
-impact of maintainability on software energy evolution \cite{calero2021does}
-
-definition \cite{wang1993grpc}
-
-comparison \cite{chamas2017comparing}
-
-empirical study \cite{de2021empirical}
-
-impact of website implementation on energy consumption \cite{philippot_characterization_2014} \cite{manotas2013investigating}
-
-PHP \cite{benmoussa_new_2019} \cite{das_comparison_2016}
-
-simulation of web cache \cite{cardenas_performance_2005}
-
-java spring analysis \cite{gajewski_analysis_2019}
-
-performance \cite{mishra2021web}
-
-
-cross compiler benchmarking \cite{yet2016cross}
-
-\subsection{Python}
-
-web frameworks on python \cite{pankiv_concurrent_nodate}
-
-hope library \cite{akeret_hope_2015}
-
-bytecode effect \cite{ben_asher_effect_2009}
-
-numba \cite{crist_dask_2016}
-
-intel python \cite{li_boosting_2016}
-
-python 2 vs 3 \cite{modzelewski_pyston_2020}
-
-python runtime performances \cite{redondo_comprehensive_2015} \cite{murri_performance_2013}
-
-static vs dynamic languages \cite{pang_what_nodate}
-
-concurent benchmark framework \cite{pankiv2019concurrent}
-
-
-\subsection{JVM}
-
-java vs python \cite{destefanis_statistical_2016}
-
-hotspot vs J9 \cite{oi2011power} - same but for big querries \cite{chiba2018towards}
-
-constant overheat of the jvm \cite{lafond2006energy}
-
-infer the energy cost based on the byte code instructions \cite{ma2017biogeography}
-
-java collection energy footprint
-
-% java classes energy footprint \cite{hasan2016energy}
-
-framework to reduce java collections \cite{manotas2014seeds}
-
-energy consumption of java dev tools \cite{baskar2013experimental}
-
-Microbenchmarks on jvm \cite{longo2019reducing} \cite{baskar2013experimental}
-
-android automatic refactoring to reduce energy consumption \cite{banerjee2016automated} \cite{rodriguez2017reducing}
-
-java vs native c in android \cite{corral2014method}
+The energy usage of virtual machine allocation and task placement has also been investigated\cite{mishra_energy_2018}.In this article, The authors propose a method for mapping workloads to virtual machines and virtual machines to the physical ones (PMs) in an energy-efficient manner. To solve the problem of high heterogeneity of activities and resources, the jobs are categorised based on their resource requirements, and then the relevant VM is found, followed by the appropriate PM where the selected VM can be deployed Using a cloud simulator, the authors claimed The suggested technique saves energy by reducing the number of active PMs while also minimizing the makespan and task rejection rate.
 
 
 
 
 
-\subsection{benchmarking}
-%%%%%%%%%%% further references 
-NAS \cite{bailey_nas_nodate}
-statistics \cite{he_statistics-based_2019}
-benchmark crimes \cite{van_der_kouwe_benchmarking_2018}
-microservices \cite{grambow_benchmarking_2020}
-impact of webservers on web applications energy \cite{manotas_investigating_2013}
+
+
+
+
+% carbon footprint of training neural network \cite{strubell2019energy}
+
+% SPELL, the energy leaks detector tool \cite{pereira2017helping}
+
+% impact of energy profiling on software \cite{jagroep2017energy}
+
+% impact of maintainability on software energy evolution \cite{calero2021does}
+
+% definition \cite{wang1993grpc}
+
+% comparison \cite{chamas2017comparing}
+
+% empirical study \cite{de2021empirical}
+
+% impact of website implementation on energy consumption \cite{philippot_characterization_2014} \cite{manotas2013investigating}
+
+% PHP \cite{benmoussa_new_2019} \cite{das_comparison_2016}
+
+% simulation of web cache \cite{cardenas_performance_2005}
+
+% java spring analysis \cite{gajewski_analysis_2019}
+
+% performance \cite{mishra2021web}
+
+
+% cross compiler benchmarking \cite{yet2016cross}
+
+% \subsection{Python}
+
+% web frameworks on python \cite{pankiv_concurrent_nodate}
+
+% hope library \cite{akeret_hope_2015}
+
+% bytecode effect \cite{ben_asher_effect_2009}
+
+% numba \cite{crist_dask_2016}
+
+% intel python \cite{li_boosting_2016}
+
+% python 2 vs 3 \cite{modzelewski_pyston_2020}
+
+% python runtime performances \cite{redondo_comprehensive_2015} \cite{murri_performance_2013}
+
+% static vs dynamic languages \cite{pang_what_nodate}
+
+% concurent benchmark framework \cite{pankiv2019concurrent}
+
+
+% \subsection{JVM}
+
+% java vs python \cite{destefanis_statistical_2016}
+
+% hotspot vs J9 \cite{oi2011power} - same but for big querries \cite{chiba2018towards}
+
+% constant overheat of the jvm \cite{lafond2006energy}
+
+% infer the energy cost based on the byte code instructions \cite{ma2017biogeography}
+
+% java collection energy footprint
+
+% % java classes energy footprint \cite{hasan2016energy}
+
+% framework to reduce java collections \cite{manotas2014seeds}
+
+% energy consumption of java dev tools \cite{baskar2013experimental}
+
+% Microbenchmarks on jvm \cite{longo2019reducing} \cite{baskar2013experimental}
+
+% android automatic refactoring to reduce energy consumption \cite{banerjee2016automated} \cite{rodriguez2017reducing}
+
+% java vs native c in android \cite{corral2014method}
+
+
+
+
+
+% \subsection{benchmarking}
+% %%%%%%%%%%% further references 
+% NAS \cite{bailey_nas_nodate}
+% statistics \cite{he_statistics-based_2019}
+% benchmark crimes \cite{van_der_kouwe_benchmarking_2018}
+% microservices \cite{grambow_benchmarking_2020}
+% impact of webservers on web applications energy \cite{manotas_investigating_2013}
 %%%%%%%%%%%%%%%%%  virtualisation 
 
 %%%%%%%%%%%%% energy mitigation
@@ -498,7 +509,7 @@ impact of webservers on web applications energy \cite{manotas_investigating_2013
 
 % reducing the energy consumption in parallel systems \cite{chasapis2016runtime}
 
-\cite{marathe2017empirical}
+% \cite{marathe2017empirical}
 
 
 
