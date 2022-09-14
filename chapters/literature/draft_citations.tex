@@ -408,10 +408,32 @@ As for virtual machines, \citeauthor{kurpicz2016much}. analyzed the total energy
 
 The energy usage of virtual machine allocation and task placement has also been investigated\cite{mishra_energy_2018}.In this article, The authors propose a method for mapping workloads to virtual machines and virtual machines to the physical ones (PMs) in an energy-efficient manner. To solve the problem of high heterogeneity of activities and resources, the jobs are categorised based on their resource requirements, and then the relevant VM is found, followed by the appropriate PM where the selected VM can be deployed Using a cloud simulator, the authors claimed The suggested technique saves energy by reducing the number of active PMs while also minimizing the makespan and task rejection rate.
 
+Besides the impact of the orchestration of virtual machine, some works have been targeting the runtime of specific programming languages.Using the TPC-DS benchmark  , \citeauthor{chiba2018towards} investigated the influence of HOTSPOT \footnote\url{https://openjdk.org/groups/hotspot/} and J9\footnote{\url{https://www.eclipse.org/openj9/}} on the performance of SQL-on-Hadoop systems (SPARK and TEZ) to reveal a three-fold disadvantage that one JVM can have over the other\cite{chiba2018towards}.
+\citeauthor{oi_power_2011} also compared the performance of HOTSPOT and J9. They demonstrated in their research~\cite{oi_power_2011} that the relative performance of a JVM is affected by the workload. They discovered that HOTSPOT's performance ranged from 44\% to 289\% of J9, while its dynamic power consumption ranged from 2.7W to 7.2W, using the SPECjvm2008~\cite{shiv2009specjvm2008} benchmarks.
+
+As for python, \citeauthor{redondo_comprehensive_2015}compared the performance and memory usage of various Python implementations (CPython, Jython, IronPython, PyPy, and so on) using a 215 set of benchmarks to discover that Python2 performed better with short applications, while Python3 versions covered more tests due to compatibility and the fact that Python2 became obsolete.\cite{redondo_comprehensive_2015}.
 
 
 
+% java vs python \cite{destefanis_statistical_2016}
 
+
+% constant overheat of the jvm \cite{lafond2006energy}
+
+
+% java collection energy footprint
+
+% % java classes energy footprint \cite{hasan2016energy}
+
+% framework to reduce java collections \cite{manotas2014seeds}
+
+% energy consumption of java dev tools \cite{baskar2013experimental}
+
+% Microbenchmarks on jvm \cite{longo2019reducing} \cite{baskar2013experimental}
+
+% android automatic refactoring to reduce energy consumption \cite{banerjee2016automated} \cite{rodriguez2017reducing}
+
+% java vs native c in android \cite{corral2014method}
 
 
 
@@ -466,27 +488,7 @@ The energy usage of virtual machine allocation and task placement has also been 
 
 % \subsection{JVM}
 
-% java vs python \cite{destefanis_statistical_2016}
 
-% hotspot vs J9 \cite{oi2011power} - same but for big querries \cite{chiba2018towards}
-
-% constant overheat of the jvm \cite{lafond2006energy}
-
-% infer the energy cost based on the byte code instructions \cite{ma2017biogeography}
-
-% java collection energy footprint
-
-% % java classes energy footprint \cite{hasan2016energy}
-
-% framework to reduce java collections \cite{manotas2014seeds}
-
-% energy consumption of java dev tools \cite{baskar2013experimental}
-
-% Microbenchmarks on jvm \cite{longo2019reducing} \cite{baskar2013experimental}
-
-% android automatic refactoring to reduce energy consumption \cite{banerjee2016automated} \cite{rodriguez2017reducing}
-
-% java vs native c in android \cite{corral2014method}
 
 
 
@@ -527,13 +529,12 @@ Therefore, to optimize the energy consumption we choose a spiral method based on
     \item infer the guidelines.
 \end{enumerate}
 
-
 \begin{figure}[!hbt]
     \center{\includegraphics[scale=0.3]{imgs/greenbenchmarkcycle}}
     \caption{the spiral method of energy optimization }\label{fig:spirals}
 \end{figure}
 
 The aim of this work is to present a set of guidelines to create a benchmarking system to to measure the energy consumption of different programs.
-After that, we will use this system to compare the energy consumption of different programming languages. We will extend the work of \citeauthor{pereira2017energy} to a closer distance to production environment by comparing a set of use cases.
+After that, we will use this system to compare the energy consumption of different programming languages. We will extend the work of \citeauthor{pereira_energy_2017} to a closer distance to production environment by comparing a set of use cases.
 Starting by GRPC framework, and a set of Web Frameworks.
 Finally, we will discuss the impact of the execution environment on the energy consumption of two of the most famous programming languages Java and Python and present how can tunning the Virtual Machine can reduce the energy consumption.
