@@ -17,7 +17,7 @@ This chapter thus focuses on the impact of the runtime of Java applications on e
 
 Java's portability is a core design goal, which means that Java applications will work exactly the same on any operating system and on any hardware.As we see in figure~\ref{fig:JVM_architecture}, Instead of machine code, this is accomplished by compiling Java language code to an intermediate representation known as Java bytecode. Java bytecode instructions are similar to machine code, but they are executed by a JVM rather than directly on the machine. As a result, Java programs will run slower and consume more memory than C++ programs. However, Just-in-Time (JIT) compilation, which is built into the JVM, improves performance by converting bytecode to machine code at runtime. Furthermore, an automatic garbage collector (GC) is used by Java to manage memory throughout the object lifecycle and to recover memory when objects are no longer in use.
 
-\subsection{Goal}
+\subsection{Research questions}
 In this section, we will investigate the following research questions:
 \begin{compactenum}[\indent\bf RQ\,1:]
     \item \emph{What is the impact of existing JVM distributions on the energy consumption of Java-based software services?}

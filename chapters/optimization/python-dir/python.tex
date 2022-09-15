@@ -1,3 +1,4 @@
+
 \section{Introduction}
 Dynamic programming languages, except Perl, have surpassed compiled programming languages in terms of popularity among software system developers over the past decade (cf. \Cref{fig:pypl}).
 However, it remains unclear whether this category of dynamic programming languages can truly compete with compiled ones in terms of power consumption.
@@ -197,7 +198,9 @@ While this strategy aims to save energy by leveraging the ACPI P-states and C-st
 
 \section{Python Insights}
 This section aims to formulate some actionable insights to optimize the energy consumption of Python applications without altering the source code.
-Therefore, we start by extending the work of \citeauthor{hasan_energy_2016} and \citeauthor{oliveira_recommending_nodate} to the context of Python environments \cite{hasan_energy_2016,oliveira_recommending_nodate}.
+Therefore, we start by extending the work of \citeauthor{hasan_energy_2016} and
+\citeauthor{oliveira_recommending_nodate} to the context of Python environments
+\cite{hasan_energy_2016,oliveira_recommending_nodate}.
 \subsection{experiment and results}
 %%%% concurency 
 Another field of investigation is the type of data and control structures that might impact the energy consumption.
@@ -240,11 +243,11 @@ The reason is that Python treats these functions as local variables, unlike the 
 Therefore, they are faster and consume less energy.  % same reference https://www.python.org/doc/essays/list2str/ 
 
 
-\paragraph{Conclusion}
+\subsection{Conclusion}
 This study demonstrates that the optimal way to reduce the energy consumption of Python application is to follow the guidelines and to privilege the built-in functions.
 
 
-\subsection{Python \& Multiprocessing}
+\section{Python \& Multiprocessing}
 \Cref{fig:python_multiprocessing} compares the behavior of python programs when we try to introduce parallelism.
 As we know python is a single-threaded program thanks to the GLS (\emph{Global Lock System}) however, due to the increase in the number of cores/threads per CPU, many libraries started to take advantage of this hardware feature by simulating multithreading as multiple instances of the processor. % TODO: TO VERIFY 
 
@@ -267,18 +270,17 @@ we discuss this behavior of the scheduler more deeply and we assess that it is n
 % add performance 
 % add dram \ a glimps 
 
-\subsection{Python \& Machine Learning}
+\section{Python \& Machine Learning}
 Machine learning is becoming an integral part of our daily lives, growing more potent and energy-hungry each year.
 As machine learning can have a significant impact on climate change, it is vital to investigate mitigation techniques.
-
+\subsection{Experimental Protocol}
+\subsubsection{Measurement context}
 \paragraph{Hardware settings}
 Chifflot 8 from Grid 5000's Lille site was used for all of the trials.
 The machine is outfitted with two Intel Xeon Gold 6126 CPUs, each having 12 physical cores, 192 GB of RAM, and two 32 GB Tesla V100 GPUs.
 
 \paragraph{Software settings}
 For the sake of reproducibility, each experiment is done within a Docker container using Jupyter lab. These tests are run on top of a minimal version of Debian-10 to increase the accuracy of the tests by eliminating any unnecessary processes.
-
-
 \subsubsection{Input Workload}
 \paragraph{Models}
 Several models were developed, however, only two were used in the final trials because they achieved 94 percent accuracy in an acceptable length of time.
@@ -309,7 +311,7 @@ We used Pytorch 1.10.0 to train those models and pyjoules to measure the energy 
 \end{itemize}
 
 
-\section{Results \& Findings}
+\subsection{Results \& Findings}
 As the model's accuracy increases, so does the energy required for the next accuracy increment.
 
 Figure~\ref{fig:cum_energy_vs_accuracy} depicts how the curve steepens as training progresses.
@@ -341,7 +343,8 @@ For example, training to 90\% accuracy requires three times the energy required 
     \label{fig:p2}
 \end{figure}
 
-\paragraph{Conclusion}
+
+\subsection{Conclusion}
 We discovered that when the model's accuracy improves, so does the energy required for a subsequent accuracy gain.
 This begs the question of when we should discontinue training.
 Is a 10\% increase in accuracy worth it if we have to spend three times the energy?
@@ -356,4 +359,5 @@ The next steps in this area could include exploring the reasons for these discre
 
 
 \input{python_interperters.tex}
-%% TODO : ADD General conclusion for the chapter 
+\subsection{threads to validity \note{missing}}
+\section{Conclusion \note{missing}}
