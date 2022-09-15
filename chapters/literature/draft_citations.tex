@@ -11,18 +11,18 @@ Figure~\ref{fig:soa_comparaisoncpu}\footnote{\url{https://www.cpubenchmark.net/c
     \label{fig:soa_comparaisoncpu}
 \end{figure}
 
-In computer science, the objective is essentially the same.Numerous studies have been conducted on energy optimization. Some of these studies concentrate on minimizing energy consumption at the hardware level, while others optimize energy consumption via software.
+In computer science, the objective is essentially the same. Numerous studies have been conducted on energy optimization. Some of these studies concentrate on minimizing energy consumption at the hardware level, while others optimize energy consumption via software.
 
 % displays the digital energy consumption distribution in 2017 \cite{andrae2015global}. ("p" for production and "u" for usage). 
 % It demonstrates that both the production and consumption stages have substantial effects.
 % In addition, the utilization expenses of data centers, networks, and terminals are also substantial (19 percent , 16 percent and 20 percent respectively).
-% TODO : ask romain about the graphics for energy distribution 
+
 
 As an example \citeauthor{avgerinou_trends_2017} evaluated the development of power use effectiveness (PUE) in data centers thkat belongs to various organizations participating in the European code of conduct for energy efficiency program \cite{avgerinou_trends_2017}.
 The research found a gradual decline in the PUE of data centers, which measures the ratio of the overall energy supplied to the energy used by IT equipment.
 A low PUE implies that the majority of energy is utilized to power the data center's IT equipment, while just a small amount is needed for cooling and lighting.
 
-We will place a greater emphasis on the software level in order to decrease the amount of energy that is used.more particularly on the execution phase of the program cycle.
+We will place a greater emphasis on the software level in order to decrease the amount of energy that is used, more particularly on the execution phase of the program cycle.
 We will be proceeding through an empirical analysis of the energy consumption of the software while changing some components of the source code without impacting its behavior.
 In order to do this, we will elaborate a benchmarking process and a set of tools that are intended to assist practitioners in better comprehending and optimizing the energy usage of their applications.
 Thus, we will begin by examining the state of the art of empirical analysis and retrieving the best empirical experimentation methodologies in the research field.Then, we will narrow these practices down to computer science so that we can finally adapt them to energy consumption.
@@ -177,7 +177,6 @@ As a result, static analysis may not accurately represent the behavior of the sa
 To address the issue of representativeness, many researchers measure the energy consumption of programs as they run. As a result, we will get more accurate results.
 There are various tools for measuring energy, and they cover a wide range of applications depending on how accurate and precise the results must be on the one hand, and the price that practitioners are prepared to pay for such accuracy and precision on the other.
 
-% TODO Add : diagram of the possible point where we can measure the energy 
 % depends on the scientific usage there are two apporaches :
 % 1. extern one or independent : when the most of researchs are using
 % the benifits of this is the simplicity of instalation however we pay the price either with a lack of temporal resolution ( low frequency ) or the spatial granularity
@@ -225,17 +224,14 @@ Powermore2 comes with smaller size that can fit within 3.5 inches rack drive.
 
 PowerInsight~\cite{laros2013powerinsight} is another fine-grained measurement tool that is based on an ARM bagelbone processor~\cite{coley2012beaglebone}, which is able to measure up to 30 channel simultaneously with a frequency of 1KHz per channel.
 
-On the other hand, GreenMiner \cite{hindle2014greenminer}, %%i dont think that  mobile measurement will be relevent for my case 
+% On the other hand, GreenMiner \cite{hindle2014greenminer}, %%i dont think that  mobile measurement will be relevent for my case 
 powerpack~\cite{ge2009powerpack} in the other hand is an api that synchronizes the data gathered from other monitoring tools such as Watt’s Up Pro, NI and RadioShack pro and the lines of code. %% maybe remove this one from the list because it is not well known.
 
 Other monitor tools have been realized by the manufactures, such as IBM Power executive~\cite{koomey2011growth}, which allows their customer to monitor the power consumption and thermal behavior of the of BladeCenter systems in the data center.
 
 
-
-%% TODO : add diagram where the distribution of the energy consumption is more related to the CPU rather than other tools - u can cite the tools dedicated to the GPU since it is is included in the software aggregators ? power api, pythoules ...etc 
-
-As we see in % two diagrams one for research the other one for power usage 
-The CPU is the part responsible for the most energy consumption in software. Hence, the finer we go to measure this energy consumption, the better it is for our work.
+Accoring to the work of \citeauthor{vasques2019review} and\citeauthor{wang2018modelling}
+The CPU is the part responsible for the most energy consumption in a data center\cite{vasques2019review,wang2018modelling}. Hence, the finer we go to measure this energy consumption, the better it is for our work.
 Fortunately, Intel and later AMD proposed a tool that estimates the power consumption of different parts of the CPI based on counter performances.
 RAPL (\emph{RUnning Average Power Limit}) \cite{hackenberg2013power,hackenberg2015energy} is a set of registers that was introduced by Intel in their CPU since Sandy bridge generation, and later it was followed by AMD, since Family 17h Zen.
 
@@ -334,9 +330,7 @@ As an example, one can cite~\cite{borkar_designing_2005,tschanz_adaptive_2002} w
 This variation has often been related to the manufacturing process~\cite{coles_comparing_2014}, but has also been a subject of many studies, considering several aspects that could impact and vary the energy consumption across executions and on different chips.
 On the one hand, the correlation between the processor temperature and the energy consumption was one of the most explored paths.
 Kistowski~\emph{et~al.} showed in~\cite{joakim_v_kisroski_variations_2016} that identical processors can exhibit significant energy consumption variation with no close correlation with the processor temperature and performance.
-On the other hand, the authors of~\cite{wang_potential_2018} claimed that the processor thermal effect is one of the most contributing factors to the energy variation, and the CPU temperature and the energy consumption variation are tightly coupled.
-
-%  TODO : add the corelation value
+On the other hand, the authors of~\cite{wang_potential_2018} claimed that the processor thermal effect is one of the most contributing factors to the energy variation, and the CPU temperature and the energy consumption variation are tightly coupled (up to 16\% increase in the variation when the temperature changed from 37.7°C to 74.5°C ).
 
 This exposes the processor temperature as a delicate factor to consider while comparing energy consumption variations across a set of homogeneous processors.%, but also, if a same workload can cause the CPUs to reach different temperatures.
 
