@@ -942,27 +942,29 @@ wish to left align your text}
 	\vspace{.15\PHD@titlepagespacing}
 \fi
 
-% Title
-{\usebox{\PHD@Title}} % subtitle is defined
-
 
 % Crest
 
 \ifPHD@collegeshield%
-	\vspace{.15\PHD@titlepagespacing}
-	{\usebox{\PHD@collegecrest}}
-	\vspace{.1\PHD@titlepagespacing}
+\vspace{.15\PHD@titlepagespacing}
+{\usebox{\PHD@collegecrest}}
+\vspace{.1\PHD@titlepagespacing}
 \else
-	\vspace{.25\PHD@titlepagespacing}
-	{\usebox{\PHD@crest}}
-	\vspace{.15\PHD@titlepagespacing}
+\vspace{.25\PHD@titlepagespacing}
+{\usebox{\PHD@crest}}
+\vspace{.15\PHD@titlepagespacing}
 \fi
 
+\vspace*{3em}
+
+% Title
+{\usebox{\PHD@Title}} % subtitle is defined
+\vspace*{3em}
 
 
 % Author
 {\usebox{\PHD@author}}
-\vspace*{1em}
+\vspace*{2em}
 
 % Supervisor
 \ifPHD@supervisor%
@@ -1150,7 +1152,7 @@ wish to left align your text}
 \newsavebox{\PHD@Title}
 \begin{lrbox}{\PHD@Title}
   \begin{minipage}[c]{0.98\textwidth}
-    \centering \Huge \bfseries{\@title}
+    \centering \huge \bfseries{\@title}
     \ifthenelse{\equal{\@subtitle}{}}{
       % subtitle is not defined
     }{
