@@ -7,14 +7,11 @@ To accomplish this, one should not overlook the benchmarking pitfalls highlighte
 Furthermore, when it comes to evaluating the energy consumption of software, other challenges occur, such as the impact of hardware, the difference between the machines used for measurements and those that may apply the results, and so on.
 Moreover, considerable advances in computer science have resulted in an increase in the number of obsolete results.
 Addressing all of them becomes significantly more difficult in studies that compare multiple treatments.
-
-Furthermore, between the exploratory experiment and the published results, there may have been the appearance of new candidates as well as the evolution of others.
-As a result, it is not only necessary to ensure the "reproducibility" of the results, but it is also essential to provide room for new candidates.
-As a result, we'd like to present "Extension", a new approach for leveraging experimentation.
-The ability to give not only the tools needed to replicate the tests but also to integrate more candidates, workloads, or important key performance indicators
+Also, between the exploratory experiment and when the results were made public, new candidates may have come up and others may have changed.
+So, not only is it important to make sure the results can be "reproduced," but it's also important to make room for new candidates.
 This chapter covers ways to overcome empirical analysis challenges in energy consumption studies. First, we go through the three components of a successful benchmark within the energy consumption experiment. Section~\ref{sec:benchmarking_reproducibility} concentrates on the "reproducibility" issue and how to deliver reproducible experiments without interfering with the energy measurement. Section~\ref{sec:taming-the-energy-variation} discusses accuracy in software energy consumption.
 Finally, Section~\ref{sec:bench_extension} presents tools for introducing new candidates, workloads, or other key performance indicators.
-Regarding the "representativeness" of the benchmarks, we will elaborate in the section entitled Perspectives.
+% Regarding the "representativeness" of the benchmarks, we will elaborate in the section entitled Perspectives.
 %% this is might be the part that treats reproducibility for my case 
 
 
@@ -90,11 +87,11 @@ Despite the fact that Type 1 is more performant than Type 2, the latter is the m
 
 
 \subsection{Docker \& Energy}
-Now that we have decided to use container technology to enclose our tests, what effect will this have on the amount of energy our tests use?
+Now that we have decided to use container technology to enclose our tests, what effect will this have on the amount of energy consumed by our tests ?
 %%%%%%%%%
 
 
-Using research from \cite{eddie_antonio_santos_how} who examined how adding the Docker layer affected energy consumption. \citeauthor{eddie_antonio_santos_how} conducted their experiment by running numerous benchmarks both with and without Ddocker. They contrasted the energy usage and execution time that resulted.
+Using research from \cite{eddie_antonio_santos_how} who examined how adding the Docker layer affected energy consumption, \citeauthor{eddie_antonio_santos_how} conducted their experiment by running numerous benchmarks both with and without Docker. They contrasted the energy usage and execution time that resulted.
 The first step was to observe the effects of the orchestrator and the Docker deamon while there was no work to be done.
 Then, they use three benchmarks in their experiments: Wordpress, Reddis and PostgreSQL.
 The values below show the system under test's energy consumption while it is idle.
@@ -106,7 +103,7 @@ Docker has an overhead of roughly $1,000$  joules, as seen in Figure~\ref{fig:do
     \caption{energy consumption of Idle system with and without docker \cite{eddie_antonio_santos_how}}\label{fig:docker_idle}
 \end{figure}
 
-Yet, as seen in Figure~\ref{fig:docker_reddis}, Docker increased the execution duration of the benchmark by 50 seconds,which led to a significant rise in the energy usage.
+Yet, as seen in Figure~\ref{fig:docker_reddis}, Docker increased the execution duration of the benchmark by 50 seconds, which led to a significant rise in the energy usage.
 According to the authors, this overhead is primarily caused by the Docker daemon and not by the fact that  the application is in a container.
 
 

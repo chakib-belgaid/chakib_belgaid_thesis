@@ -14,12 +14,12 @@ Beyond the economical cost of web applications, one can also question the global
 Given the tremendous success of web applications, their deployment has severely increased over the last years, thus causing a rebound effect on the power consumption of server infrastructure---being hosted or supported by cloud providers.
 While one can challenge the relevance of features that are continuously deployed by developers to keep engaging end-users, reconciling economical and environmental concerns remains an open challenge to address.
 
-Given this context, this paper intends to contribute to this challenge by investigating the energy footprint of web frameworks.
+Given this context, this Section intends to contribute to this challenge by investigating the energy footprint of web frameworks.
 In particular, we aim to support the developers of web applications with relevant guidelines that can help them to choose the web framework that is not only the most popular or provides the best performance but also exhibits a low energy footprint.
 By minimizing the energy consumed to process user requests, with no service quality penalty, developers can reduce the operational cost of their web applications and contribute to reducing worldwide carbon emissions of ICT.
 % While we assume this choice does not conflict with the appropriate selection of relevant user features, this topic remains out of the scope of this paper.
 
-To achieve this objective, we leverage the \textsc{TechEmpower} \emph{Web Framework Benchmarks} to incorporate server-side energy measurements obtained from a software-defined power meter, named \textsc{PowerAPI}~\cite{}.
+To achieve this objective, we leverage the \textsc{TechEmpower} \emph{Web Framework Benchmarks} to incorporate server-side energy measurements obtained from a software-defined power meter, named \textsc{PowerAPI}~\cite{bourdon:hal-00772454}.
 These measurements are then analyzed in depth to understand the key criteria that can impact the power consumption of web frameworks and derive guidelines to can help developers to pick the most energy-efficient web frameworks according to their requirements.
 
 % The remainder of this section is organized as follows.
@@ -29,11 +29,11 @@ Many studies have been conducted to compare the performance of web frameworks.
 We can cite \cite{gajewski_analysis_2019} who made a comparison between two of the most famous Java frameworks---Play and Spring---or the work of \cite{benmoussa_new_2019} who compared different PHP frameworks using 6 criteria: intrinsic durability, industrialized solution, technical adaptability, strategy, technical architecture, and speed.
 % TODO : ASK romain if we should remove this  part since it is soa 
 % In the previous section, we observed that all those 6 criteria have their own wait when it comes to choose which framework to take for a project.
-In our context, we push a 7th cr niterion that impacts the economic outcome of the project.
+In our context, we push a 7th criterion that impacts the economic outcome of the project.
 
 \subsubsection{Energy Efficiency in Software Engineering}
-In their paper~\cite{pereira_energy_2017}, the authors studied the impact of programming languages on energy, time, and Memory by using the CLBG benchmark, where they executed 10 different benchmarks [ add citation] across 27 wellknown programming languages [ add reference].
-The work of these authors was an extension of a research initiated by [ add sitation[6 in the authers paper ]] to measure the impact of programming languages choice in real-life applications, instead of microbenchmarks.
+In their paper~\cite{pereira_energy_2017}, the authors studied the impact of programming languages on energy, time, and Memory by using the CLBG benchmark, where they executed 10 different benchmarks\footnote{\url{https://salsa.debian.org/benchmarksgame-team/benchmarksgame}} across 27 wellknown programming languages~\cite{noauthor_pypl_2018}.
+The work of these authors was an extension of a research initiated by the work of \citeauthor{couto2017towards}~\cite{couto2017towards} to measure the impact of programming languages choice in real-life applications, instead of microbenchmarks.
 
 
 Irene~\emph{et~al.}~\cite{manotas_investigating_2013} investigated the impact of web servers on energy when handling web applications.
@@ -259,6 +259,7 @@ As we said in the threats to validity, being an outlier in this case does not me
 On the other hand, the cost of a single request is proportional to the number of requests per second of the web framework.
 To narrow the research space, we will look for a correlation between the metrics.
 The Pearson correlation coefficient~\cite{zar2005spearman} will be used to determine this correlation. Because the Shapiro-Wilk~\cite{shapiro1968comparative} test yielded a p-value of 0.0 for all metrics.
+% TODO : REPHRASE THIS SENTENCE
 \begin{figure}[htb]
     \centering
     \includegraphics[width=1.0\columnwidth]{imgs/correlation_all}
@@ -267,7 +268,7 @@ The Pearson correlation coefficient~\cite{zar2005spearman} will be used to deter
 \end{figure}
 
 Figre~\ref{fig:correlation} depicts the correlation between the metrics for the 6 scenarios. The Pearson correlation coefficient quantifies the linear correlation between two variables X and Y. It ranges from -1 to +1, with 1 being total positive linear correlation, 0 representing no linear correlation, and -1 representing whole negative linear correlation. The stronger the correlation, the closer the value is to 1 or -1. The weaker the correlation, the closer the value is to zero. The Pearson product-moment correlation coefficient is another name for the correlation coefficient. This correlation coefficient is also known as the Pearson product-moment correlation coefficient.
-One can notice that there is a strong correlation between the energy consumption of the CPU  and the DRAM for most of the scenarios.Moreover the Average energy consumption of DRAM is one sixth of the CPU energy consumption.Therefore, in this study we will focus more on the CPU energy consumption.
+One can notice that there is a strong correlation between the energy consumption of the CPU  and the DRAM for most of the scenarios. Moreover the Average energy consumption of DRAM is one sixth of the CPU energy consumption.Therefore, in this study we will focus more on the CPU energy consumption.
 For more insights about the DRAM consumption we refer the reader to our github repository \footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}.
 
 Another strong correlation is between the number of requests per second and the average cost of a single request. This is because the cost a single request is proportionate to the number of requests per second of the framework, since the Average Power consumption remains constant after a certain threshold of clients.
@@ -295,7 +296,7 @@ Therefore, we can safely focus our analysis on two variables, Number of requests
 
 
 \subsubsection{Scenario based Analysis}
-This, section will focus on the behaviour of all the implementation for each scenario. For visibily purpose, we will groupe the frameworks not by language but by family,therefore we will have 5 families.
+This section will focus on the behaviour of all the implementations for each scenario. For visibility purposes, we will group the frameworks not by language but by family, so we will have 5 families.
 \begin{itemize}
     \item compiled languages : such as rust , C, GO and C++
     \item interpreted languages : like Python , PHP and JAvascript
@@ -316,7 +317,7 @@ This part will treat average power behavior when the framework is in a rest mode
     \label{fig:av_power_idle}
 \end{figure}
 As one can notice, when in rest most of the families consumes between 20 Watts and 40 watts, 6\% of the compiled languages frameworks consumes less then 15 Watts. However 50\% of Java solutions tend to consume arround 50 Watts which makes it the most greedy family.
-If we look at the each of the programming languages from java seperatly in figure~\ref{fig:av_power_java_idle},we find that Java Based implementations tend to consume arround 50 Watts, while Kotlin,Clojure and Scala consume arround 30 Watts.
+If we look at the each of the programming languages from java seperatly in Figure~\ref{fig:av_power_java_idle},we find that Java Based implementations tend to consume arround 50 Watts, while Kotlin,Clojure and Scala consume arround 30 Watts.
 
 \begin{figure}[bht]
     \centering
@@ -331,7 +332,7 @@ To determine the general behaviour of the frameworkes ,first we will start with 
 \begin{enumerate}
     \item Relaxed state, where the number of clients is less then 16, most of the frameworks consumes arround 70 Watts.
     \item Average state. where the number of clients is between 16 and 64, most of the frameworks consumes arround 100 Watts.
-    \item Finally the stress state . After 128 parallel clients most of the frameworks consumes had a stable power consumption regardless of the number of clients.this is due to the fact that database server reached its maximum capacity. % TODO to verify avec plain text and json 
+    \item Finally the stress state . After 128 parallel clients most of the frameworks consumes had a stable power consumption regardless of the number of clients.this is due to the fact that database server reached its maximum capacity.
 \end{enumerate}
 \begin{figure}[hbt]
     \centering
@@ -349,7 +350,7 @@ Finally, the interpreted languages lack in terms of performance while keeping lo
 
 \begin{figure}[hbt]
     % \centering
-    \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients)}
+    \caption{total request vs average power consumption for the Single query test (size of circles represents the number of clients)}
     \label{fig:power_requests_db}
     \includegraphics[width=
         \columnwidth,angle=9
@@ -359,8 +360,8 @@ Finally, the interpreted languages lack in terms of performance while keeping lo
 
 \paragraph{Multiple queries}
 
-This scenario is used to test the framework ability to handle multiple row queries.As mentioned before,  for this study we will focus on the a fixed number of parallel clients while we increase the size of the request per each level.
-Figure~\ref{fig:av_power_query} presentsthe average power consumption for each level. As one can notice, the size of the query has not a strong impact on the average power consumption, furthermore the notice a slide decrease in the average power consumption (from 110 Watts to 90 Watts) while the size is bigger than 10 rows,this might be related to the time taken by the database to process the query.Therefore one can conclude that the the size of the query as more impact on the data base than the framework itself.
+This scenario is used to test the framework's ability to handle multiple row queries. As mentioned before, for this study we will focus on a fixed number of parallel clients while we increase the size of the request per level.
+Figure~\ref{fig:av_power_query} presents the average power consumption for each level. As one can notice, the size of the query has no strong impact on the average power consumption. Furthermore, one can notice a slight decrease in the average power consumption (from 110 watts to 90 watts) while the size is bigger than 10 rows. This might be related to the time taken by the database to process the query. Therefore, one can conclude that the size of the query has more impact on the database than the framework itself.
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=
@@ -388,13 +389,13 @@ Table~\ref{table:query_db_row} presents the average power consumption for each l
         \end{tabular}}
 \end{table*}
 
-Now that we have seen the overall distribution of the power within the multiple queries scenario. we Will analyse each family seperatly. Moreover we will include the performance meter which is represented by the number of requests per second (aka RPS). Figure~\ref{fig:power_requests_query} presents the total request per second for each level for each framework in a logarithmic scalse. As one can notice, the difference between the best perofrming framework aka Lithium\footnote{\url{https://matt-42.github.io/lithium/}} and the worst one aka hapi-nginxfootnote{\url{https://github.com/hapijs/hapi}}is 4000 times, while the average in power consumption is 5 times ( 120 for lithium vs 25 for hapi). This highlight the importance of target scale of the application when choosing the framework.
+Now that we have seen the overall distribution of power within the multiple query scenario, We will analyze each family separately. Moreover, we will include the performance meter, which is represented by the number of requests per second (aka RPS). Figure~\ref{fig:power_requests_query} presents the total request per second for each level for each framework in a logarithmic scalse. As one can notice, the difference between the best perofrming framework aka Lithium\footnote{\url{https://matt-42.github.io/lithium/}} and the worst one aka hapi-nginx\footnote{\url{https://github.com/hapijs/hapi}} is 4000 times, while the average in power consumption is 5 times ( 120 for lithium vs 25 for hapi). This highlight the importance of target scale of the application when choosing the framework.
 Java based frameworks tend to consume more power comared to other languages with a slight increase in performance.
 As for PHP, it is still one of the most efficient frameworks in terms of performance, while keeping low average power consumption.
 
 \begin{figure}[hbt]
     % \centering
-    \caption{total request vs average power consumption for the Single query test ( size of circles represents the number of clients) }
+    \caption{total request vs average power consumption for the Single query test (size of circles represents the number of clients) }
     \label{fig:power_requests_query}
     \includegraphics[width=
         \columnwidth,angle=9
@@ -416,7 +417,7 @@ Figure~\ref{fig:power_requests_update} Presents the number of requests per secon
 
 \begin{figure}[hbt]
     % \centering
-    \caption{total request vs average power consumption for the Update test ( size of circles represents the number of clients) }
+    \caption{total request vs average power consumption for the Update test (size of circles represents the number of clients) }
     \label{fig:power_requests_update}
     \includegraphics[width=
         \columnwidth,angle=9
@@ -425,14 +426,14 @@ Figure~\ref{fig:power_requests_update} Presents the number of requests per secon
 \end{figure}
 
 \paragraph{Plain Text and Json Serialization}
-Unfortunately for this text, the client hits its limit before the some servers which is explained in figures~\ref{fig:power_requests_plaintext},\ref{fig:power_requests_json}, The cieling is almost linear for the compiled frameworks the JVM based ones. This is also explained by the fact that the high level of stress are on the top, unlike other Scenarios.
+Unfortunately for this text, the client hits its limit before the some servers which is explained in Figures~\ref{fig:power_requests_plaintext},\ref{fig:power_requests_json}. The ceiling is almost linear for the compiled frameworks, the JVM based ones. This is also explained by the fact that the high level of stress is on the top, unlike other scenarios.
 
 
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=
         \columnwidth]{imgs/power_requests_plaintext}
-    \caption{total request vs average power consumption for plainText test ( size of circles represents the number of clients)}
+    \caption{total request vs average power consumption for plainText test (size of circles represents the number of clients)}
     \label{fig:power_requests_plaintext}
 \end{figure}
 
@@ -440,7 +441,7 @@ Unfortunately for this text, the client hits its limit before the some servers w
     \centering
     \includegraphics[width=
         \columnwidth]{imgs/power_requests_json}
-    \caption{total request vs average power consumption for JSON Serialization test ( size of circles represents the number of clients)}
+    \caption{total request vs average power consumption for JSON Serialization test (size of circles represents the number of clients)}
     \label{fig:power_requests_json}
 \end{figure}
 \subsection{Threats to Validity\note{missing}}
@@ -473,14 +474,14 @@ We are aware of the bias inducted by the implementation of a candidates, therefo
 %     \centering
 %     \includegraphics[width=
 %         \columnwidth]{imgs/power_requests_plaintext}
-%     \caption{total request vs average power consumption for plainText test ( size of circles represents the number of clients)}
+%     \caption{total request vs average power consumption for plainText test (size of circles represents the number of clients)}
 %     \label{fig:power_requests_plaintext}
 % \end{figure}
 % \begin{figure}[bht]
 %     \centering
 %     \includegraphics[width=
 %         \columnwidth]{imgs/power_requests_json}
-%     \caption{total request vs average power consumption for JSON Serialization test ( size of circles represents the number of clients)}
+%     \caption{total request vs average power consumption for JSON Serialization test (size of circles represents the number of clients)}
 %     \label{fig:power_requests_json}
 % \end{figure}
 % to reduce the space of research we will be looking for some correlation 
