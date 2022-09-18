@@ -337,8 +337,7 @@ To determine the general behaviour of the frameworkes ,first we will start with 
 \end{enumerate}
 \begin{figure}[hbt]
     \centering
-    \includegraphics[width=
-        \columnwidth]{imgs/histogram_av_power_cpu_db}
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/histogram_av_power_cpu_db}
     \caption{Average power consumption for the Single query test }
     \label{fig:av_power_db}
 \end{figure}
@@ -353,8 +352,7 @@ Finally, the interpreted languages lack in terms of performance while keeping lo
     % \centering
     \caption{total request vs average power consumption for the Single query test (size of circles represents the number of clients)}
     \label{fig:power_requests_db}
-    \includegraphics[width=
-        \columnwidth,angle=9
+    \includegraphics[height=\textwidth,width=\textheight,keepaspectratio,angle=9
         0]{imgs/power_requests_db}
 
 \end{figure}
@@ -365,8 +363,7 @@ This scenario is used to test the framework's ability to handle multiple row que
 Figure~\ref{fig:av_power_query} presents the average power consumption for each level. As one can notice, the size of the query has no strong impact on the average power consumption. Furthermore, one can notice a slight decrease in the average power consumption (from 110 watts to 90 watts) while the size is bigger than 10 rows. This might be related to the time taken by the database to process the query. Therefore, one can conclude that the size of the query has more impact on the database than the framework itself.
 \begin{figure}[hbt]
     \centering
-    \includegraphics[width=
-        \columnwidth]{imgs/histogram_av_power_cpu_query}
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/histogram_av_power_cpu_query}
     \caption{Average power consumption for the multiple queries }
     \label{fig:av_power_query}
 \end{figure}
@@ -398,8 +395,7 @@ As for PHP, it is still one of the most efficient frameworks in terms of perform
     % \centering
     \caption{total request vs average power consumption for the Single query test (size of circles represents the number of clients) }
     \label{fig:power_requests_query}
-    \includegraphics[width=
-        \columnwidth,angle=9
+    \includegraphics[height=\textwidth,width=\textheight,keepaspectratio,angle=9
         0]{imgs/power_requests_query_log}
 
 \end{figure}
@@ -409,8 +405,7 @@ In this scenario we will test the framework ability to handle update queries. As
 Figure~\ref{fig:av_power_update} presents the average power consumption for each level. As one can notice, the size of the query has not a strong impact on the average power consumption .Moreover, the overall average power consumption decreased by 20 Watts.
 \begin{figure}[hbt]
     \centering
-    \includegraphics[width=
-        \columnwidth]{imgs/histogram_av_power_cpu_update}
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/histogram_av_power_cpu_update}
     \caption{Average power consumption for the update test }
     \label{fig:av_power_update}
 \end{figure}
@@ -420,8 +415,7 @@ Figure~\ref{fig:power_requests_update} Presents the number of requests per secon
     % \centering
     \caption{total request vs average power consumption for the Update test (size of circles represents the number of clients) }
     \label{fig:power_requests_update}
-    \includegraphics[width=
-        \columnwidth,angle=9
+    \includegraphics[height=\textwidth,width=\textheight,keepaspectratio,angle=9
         0]{imgs/power_requests_update}
 
 \end{figure}
@@ -432,16 +426,14 @@ Unfortunately for this text, the client hits its limit before the some servers w
 
 \begin{figure}[hbt]
     \centering
-    \includegraphics[width=
-        \columnwidth]{imgs/power_requests_plaintext}
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/power_requests_plaintext}
     \caption{total request vs average power consumption for plainText test (size of circles represents the number of clients)}
     \label{fig:power_requests_plaintext}
 \end{figure}
 
 \begin{figure}[hbt]
     \centering
-    \includegraphics[width=
-        \columnwidth]{imgs/power_requests_json}
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/power_requests_json}
     \caption{total request vs average power consumption for JSON Serialization test (size of circles represents the number of clients)}
     \label{fig:power_requests_json}
 \end{figure}
