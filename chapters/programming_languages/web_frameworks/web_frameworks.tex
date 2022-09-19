@@ -348,7 +348,7 @@ If we look at the each of the programming languages from Java, separately in Fig
 \end{figure}
 
 \paragraph{Single query}
-As mentioned before, the purpose of this scenario is to benchmark the framework ability to handle a single entry.
+As mentioned before, the purpose of this scenario is to benchmark the framework efficiency to handle a single entry.
 To determine the general behavior of the frameworks, first we will start with an histogram of average power consumption.
 Figure~\ref{fig:av_power_db} reports on the  density plot of average power consumptions for all the experiments depending on the number of concurrent clients.
 As one can observe, there are three main states:
@@ -383,7 +383,7 @@ Finally, the interpreted languages lack in terms of performance while keeping lo
 \end{figure}
 
 \paragraph{Multiple queries}
-This scenario is used to benchmark the framework ability to handle multiple row queries.
+This scenario is used to benchmark the framework efficiency to handle multiple row queries.
 As mentioned before, this study focuses on a fixed number of concurrent clients while we increase the size of the request per level.
 Figure~\ref{fig:av_power_query} reports on the average power consumption for each level.
 As one can notice, the size of the query has no strong impact on the average power consumption.
@@ -402,7 +402,6 @@ Table~\ref{table:query_db_row} details the average power consumption per level f
 One can see, that for MySQL there were no changes regardless of the size of the query, while for Postgres and MongoDB there is a slight decrease in the average power consumption when the size of the query is bigger than 10 rows.
 %  should add into perspective to study the energy consumption of the data base server itself 
 
-
 \begin{table*}[bth]
     \raggedright
     \caption{Average power consumption of frameworks based on the database type}
@@ -419,47 +418,56 @@ One can see, that for MySQL there were no changes regardless of the size of the 
         \end{tabular}}
 \end{table*}
 
-Now that we have seen the overall distribution of power within the multiple query scenario, We will analyze each family separately. Moreover, we will include the performance meter, which is represented by the number of requests per second (aka RPS). Figure~\ref{fig:power_requests_query} presents the total request per second for each level for each framework in a logarithmic scalse. As one can notice, the difference between the best perofrming framework aka Lithium\footnote{\url{https://matt-42.github.io/lithium/}} and the worst one aka hapi-nginx\footnote{\url{https://github.com/hapijs/hapi}} is 4000 times, while the average in power consumption is 5 times ( 120 for lithium vs 25 for hapi). This highlight the importance of target scale of the application when choosing the framework.
-Java based frameworks tend to consume more power comared to other languages with a slight increase in performance.
-As for PHP, it is still one of the most efficient frameworks in terms of performance, while keeping low average power consumption.
+Now that we have seen the overall distribution of power within the multiple query scenario, we can analyze each family separately.
+We consider the number of requests per second (aka RPS) as related performance metrics. 
+Figure~\ref{fig:power_requests_query} presents the total RPS per level for each framework in a logarithmic scale.
+As one can notice, the difference between the best performing framework, aka Lithium,\footnote{\url{https://matt-42.github.io/lithium/}} and the worst one, aka hapi-nginx,\footnote{\url{https://github.com/hapijs/hapi}} is $4,000$ times, while the average in power consumption is 5 times (120 for lithium vs 25 for hapi).
+This highlight the importance of target scale of the application when choosing the framework.
+Java-based frameworks tend to consume more power compared to other languages with a slight increase in performance.
+PHP remains one of the most efficient frameworks in terms of performance, while keeping low average power consumption.
 
 \begin{figure}[hbt]
     % \centering
-    \caption{total request vs average power consumption for the Single query test (size of circles represents the number of clients) }
+    \includegraphics[height=\textwidth,width=\textheight,keepaspectratio,angle=90]{imgs/power_requests_query_log}
+    \caption{Total request vs average power consumption for the single query benchmark (size of circles represents the number of clients) }
     \label{fig:power_requests_query}
-    \includegraphics[height=\textwidth,width=\textheight,keepaspectratio,angle=9
-        0]{imgs/power_requests_query_log}
-
 \end{figure}
 
-\paragraph{update}
-In this scenario we will test the framework ability to handle update queries. As mentioned before,  for this study we will focus on the a fixed number of parallel clients while we increase the size of the request per each level.
-Figure~\ref{fig:av_power_update} presents the average power consumption for each level. As one can notice, the size of the query has not a strong impact on the average power consumption .Moreover, the overall average power consumption decreased by 20 Watts.
+\paragraph{Update}
+This scenario benchmark the framework efficiency to handle update queries.
+As mentioned before, for this study we will focus on the a fixed number of parallel clients while we increase the size of the request per each level.
+Figure~\ref{fig:av_power_update} presents the average power consumption for each level.
+As one can notice, the size of the query has not a strong impact on the average power consumption.
+Moreover, the overall average power consumption decreased by 20 Watts.
+
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/histogram_av_power_cpu_update}
-    \caption{Average power consumption for the update test }
+    \caption{Average power consumption for the update benchmark}
     \label{fig:av_power_update}
 \end{figure}
-Figure~\ref{fig:power_requests_update} Presents the number of requests per second for each level for each framework. Swoole droped in the term of performance, while reducing the average power unlike compiled languages based framework such as lithium and actise. net gained in term of prerformances while keeping the same amount of power consumption. another interesting observation is the linearity between the drop in performance when it comes to requests that containes more than 10 rows. This drop comes with a slight decrease in average power.
+
+Figure~\ref{fig:power_requests_update} reports on the number of RPS per level for each framework.
+Swoole dropped in the term of performance, while reducing the average power unlike compiled languages based framework, such as lithium and actise.net gained in term of performances while keeping the same power consumption.
+Another interesting observation is the linearity between the drop in performance when it comes to requests that contains more than 10 rows.
+This drop comes with a slight decrease in average power.
 
 \begin{figure}[hbt]
     % \centering
-    \caption{total request vs average power consumption for the Update test (size of circles represents the number of clients) }
+    \includegraphics[height=\textwidth,width=\textheight,keepaspectratio,angle=90]{imgs/power_requests_update}
+    \caption{Total request Vs average power consumption for the Update benchmark (size of circles represents the number of clients)}
     \label{fig:power_requests_update}
-    \includegraphics[height=\textwidth,width=\textheight,keepaspectratio,angle=9
-        0]{imgs/power_requests_update}
-
 \end{figure}
 
 \paragraph{Plain Text and Json Serialization}
-Unfortunately for this text, the client hits its limit before the some servers which is explained in Figures~\ref{fig:power_requests_plaintext},\ref{fig:power_requests_json}. The ceiling is almost linear for the compiled frameworks, the JVM based ones. This is also explained by the fact that the high level of stress is on the top, unlike other scenarios.
-
+In this scenario, the client hits its limit before servers, as highlighted in Figures~\ref{fig:power_requests_plaintext,fig:power_requests_json}.
+The ceiling is almost linear for the compiled frameworks and the JVM-based ones.
+This is also explained by the fact that the high level of stress is on the top, unlike other scenarios.
 
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/power_requests_plaintext}
-    \caption{total request vs average power consumption for plainText test (size of circles represents the number of clients)}
+    \caption{Total request Vs average power consumption for plainText benchmark (size of circles represents the number of clients)}
     \label{fig:power_requests_plaintext}
 \end{figure}
 
@@ -469,8 +477,10 @@ Unfortunately for this text, the client hits its limit before the some servers w
     \caption{total request vs average power consumption for JSON Serialization test (size of circles represents the number of clients)}
     \label{fig:power_requests_json}
 \end{figure}
+
 \subsection{Threats to Validity\note{missing}}
-We are aware of the bias inducted by the implementation of a candidates, therefore we propose  the framework ( see the part of extension) to allow the readers to confirm themselves any new hypothesis. regarding a new framework , an new workload a new database ..etc
+We are aware of the bias inducted by the implementation of a candidates, therefore we propose the framework (see the part of extension) to allow the readers to confirm themselves any new hypothesis.
+Regarding a new framework , an new workload a new database ..etc
 
 \subsection{Conclusion\note{missing}}
 
