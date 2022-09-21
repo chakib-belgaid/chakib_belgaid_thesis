@@ -1,5 +1,9 @@
 
 \section{Introduction}
+% TODO : MOVE this to SOA 
+
+% new structure : 
+%  introduction  / motivation -> definition of python -> the plan of experiments -> experiments 
 Dynamic programming languages, except Perl, have surpassed compiled programming languages in terms of popularity among software system developers over the past decade (cf. \Cref{fig:pypl}).
 However, it remains unclear whether this category of dynamic programming languages can truly compete with compiled ones in terms of power consumption.
 
@@ -11,6 +15,12 @@ However, it remains unclear whether this category of dynamic programming languag
 
 In particular, \citeauthor{noureddine_preliminary_2012} in 2012~\cite{noureddine_preliminary_2012}, and then Pereira~\emph{et~al.}~\cite{pereira_energy_2017} in 2017, conducted empirical power measurements on this topic, and both concluded that compiled programming languages overcome dynamic ones when it comes to power consumption.
 According to their experiments, an interpreted programming language, like Python, can impose up to a $7,588\,\%$ energy overhead compared to C~\cite{pereira_energy_2017} (cf. \Cref{fig:hannoi}).
+\begin{figure}[htbp]
+    \includegraphics[width=\linewidth]{imgs/hannoiimplementation.png}
+    \caption{Energy consumption of a recursive implementation of Tower of Hanoi program in different languages~\cite{noureddine_preliminary_2012}}
+    \label{fig:hannoi}
+\end{figure}
+
 In this chapter, we explore the oblivious optimizations that can be applied to Python legacy applications to reduce their energy footprint.
 As Python is widely adopted by software services deployed in public and private cloud infrastructures, we believe that our contributions will benefit a wide diversity of legacy systems and not only favorably contribute to reducing the carbon emissions of ICT, but also reduce their cloud invoice for the resources consumed by these services.
 More specifically, this chapter focuses on runtime optimizations that can be adopted by developers to leverage the power consumption of Python applications.
@@ -18,11 +28,6 @@ We start by studying the impact of programmer choices, such as the type of data 
 Then, we discuss other factors, such as the levels of concurrency, before we investigate other non-intrusive approaches to optimize the energy consumption of applications.
 One type of optimization includes alternative interpreters and libraries that are dedicated to optimizing the code without changing its structures, such as \emph{ahead-of-time} (AOT) compilation and \emph{just-in-time} (JIT) libraries that are maintained by the community.
 
-\begin{figure}[htbp]
-    \includegraphics[width=\linewidth]{imgs/hannoiimplementation.png}
-    \caption{Energy consumption of a recursive implementation of Tower of Hanoi program in different languages~\cite{noureddine_preliminary_2012}}
-    \label{fig:hannoi}
-\end{figure}
 
 \section{Motivation}
 
