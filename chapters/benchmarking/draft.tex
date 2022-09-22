@@ -9,8 +9,9 @@ Moreover, considerable advances in computer science have resulted in an increase
 Addressing all of them becomes significantly more difficult in studies that compare multiple treatments.
 Also, between the exploratory experiment and when the results were made public, new candidates may have come up and others may have changed.
 So, not only is it important to make sure the results can be "reproduced," but it's also important to make room for new candidates.
-This chapter covers ways to overcome empirical analysis challenges in energy consumption studies. First, we go through the three components of a successful benchmark within the energy consumption experiment. Section~\ref{sec:benchmarking_reproducibility} concentrates on the "reproducibility" issue and how to deliver reproducible experiments without interfering with the energy measurement. Section~\ref{sec:taming-the-energy-variation} discusses accuracy in software energy consumption.
-Finally, Section~\ref{sec:bench_extension} presents tools for introducing new candidates, workloads, or other key performance indicators.
+% TODO :  something missing here  to link between these two paragraphs.
+
+
 % Regarding the "representativeness" of the benchmarks, we will elaborate in the section entitled Perspectives.
 %% this is might be the part that treats reproducibility for my case 
 
@@ -113,19 +114,45 @@ To summarize, Docker-based software tends to consume more energy since it takes 
 The execution of the Docker daemon causes an increase in average power consumption of only \textbf{2\,Watts}.
 This overhead can reach up to 5\% in IO-intensive applications, while it is barely visible in CPU- or DRAM-intensive workloads.
 
-
-
 \begin{figure}[!bht]
     \includegraphics[width=.5\linewidth]{imgs/docker_vs_vm_energy_paper/reddis_time}
     \includegraphics[width=.5\linewidth]{imgs/docker_vs_vm_energy_paper/reddis_energy}
     \caption{Execution time \& energy consumption of Redis with and without Docker~\cite{eddie_antonio_santos_how}}\label{fig:docker_reddis}
 \end{figure}
 
+As can be seen, the introduction of the supervisor has increased the impact of Docker on energy that will be applied equitably to all experiments.
+Therefore, when it comes to comparison analysis, it will mitigate its impact automatically.
+Furthermore, because we have access to the host hardware, we do not need to worry about capturing the SUT's energy use.
+As a result, we will use Docker to keep all of our tests distinct, as it will assure reproducibility in a simple and clear manner.
+
+\subsection{Extension}
+Whith a rapid evolution of the software industry, it is important to be able to include new candidates
+We propose to extend the benchmarking framework suggested by the \em{Collaboratory on Experimental Evaluation of Software and Systems in Computer Science}\footnote{\url{http://evaluate.inf.usi.ch/}} to address those limitations.
+Instead of only presenting the four primary aspects of their guidelines that were mentioned previously in Section~\ref{sec:benchmarking_reproducibility}, we propose an abstract model to describe an empirical experiment:
+
+\em{context}: the hardware and the software configuration for the actual experiment, the purpose of this part is to provide extra information to help readers have a better judgement on the results and to be able reproduce the experiment while diminishing the impact of the external factor .
+An \em{orchestrator} : which its job to run the experiment.
+The orchestrator provides three interfaces:
+
+\em{Workload interface}: provides a set of functions that should be implemented by the workload and called by each candidate in the experiment.
+The Observer interface provides a set of metrics that are collected by the orchestrator during the experiment. Note that some of those metrics are external, such as the energy consumption of the system , execution time, execution stack, etc .
+\begin{figure}[!htb]
+    \center{\includegraphics[width=\linewidth]{imgs/benchmarkingprotocol}}
+    \caption{Benchmarking protocol}\label{fig:benchmarkingprotocol}
+\end{figure}
+
+Figure~\ref{fig:benchmarkingprotocol} explains in detail the relationship within each component of the protocol.
+First of all, we should start with the orchestrator which is the kernel of the experiment. Most of the time this kernel should represent the constants parts of the experiment.
+The orchestrator is responsible for the following  for the coordination between the workload and the candidate, therefore it provides an interface that is implemented by each workload.
+Later this interface will be provided to each candidate by the orchestrator. Like this we will remove any bias of dependency between the workload and the candidates, which will alow us to extend both parts without any change in the code.
+Instead of retrieving the data directly from the experiment, we suggest to use an observator to allow the extension of the metrics, this observer in general should be outside the experiment to be able to gather as many informations without impacting the the code.
+
+
 
 \subsection{Conclusion}
-As can be seen, the introduction of the supervisor has increased the impact of Docker on energy that will be applied equitably to all experiments.
-Therefore when it comes to comparison analysis, it will mitigate its impact automatically.
-Furthermore, because we have access to the host Hardware, we do not need to worry about capturing the SUT's energy use.
-As a result, we will use Docker as an encapsulation solution for all of our experiments.
-It will ensure the reproducibility of our experiments in a simple and straightforward manner.
+
+In this section, we have discussed the different options for encapsulating the system-under-test in order to ensure experiment reproducibility.
+We have shown that the use of VMs is not suitable for performance-related tests, while containers are a good alternative. and then we discussed the pros and cons of using Docker while measuring the energy consumption of our experiments.
+
+
 \clearpage

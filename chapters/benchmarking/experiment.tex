@@ -1,4 +1,4 @@
-\newpage
+
 % To satisfy those three requirements. we elaborated a benchmarking protocol that aims to help reaserchers and practicioners in their experementations.
 % for each aspect we present a set of guidelines and tools.
 %% This is a conclusion maaan  !! 
@@ -568,15 +568,7 @@ This hardware heterogeneity also makes reproduction complex and requires the usa
 
 
 \subsection{Conclusion}
-In this part, we conducted an empirical study of controllable factors that can increase the energy variations on platforms with some of the latest CPU, and for several workloads.
-We provide a set of guidelines that can be implemented and tuned (through the OS GRUB for example), especially with the new data centers isolation trend and the cloud usage, even for scientific and R\&D purposes.
-Our guidelines aim at helping the user in reducing the CPU energy variation during systems benchmarking, and conduct more stable experiments when the variation is critical.
-For example, when comparing the energy consumption of two versions of an algorithm or a software system, where the difference can be tight and need to be measured accurately.
-
-Overall, our results are not intended to nullify the variability of the CPU, as some of this variability is related to the chip manufacturing process and its thermal behavior.
-The aim of our work is to be able to tame and mitigate this variability along controlled experiments.
-We studied some previously discussed aspects on some recent CPU, considered new factors that have not been deeply analyzed to the best of our knowledge, and constituted a set of guidelines to achieve the variability mitigating purpose.
+In order to increase the accuracy in comparative experiments, we conducted an empirical study of controllable factors that may increase the energy variations on platforms with some of the latest CPUs and for several workloads.
+this study is not intended to nullify the variability of the CPU, as some of this variability is related to the chip manufacturing process and its thermal behavior. Instead, it aims to tame and mitigate this variability along controlled experiments.
+In this study, We investigated some previously discussed aspects on some recent CPU, considered new factors that have not been deeply analyzed to the best of our knowledge, and constituted a set of guidelines to increase the accuracy of energy measurement.
 Some of these factors, like the C-states usage, can reduce the energy variation up to 500\,\% at low workloads, while choosing the wrong cores/PU strategy can cause up to $30\times$ more variability.
-
-We believe that our approach can also be used to study/discover other potential variability factors, and extend our results to alternative CPU generations/brands.
-Most importantly, this should motivate future works on creating a better knowledge on the variability due to CPU manufacturing process and other factors.
