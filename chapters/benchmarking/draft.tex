@@ -1,17 +1,18 @@
 \section{Reproducibility within the context of energy}\label{sec:benchmarking_reproducibility}
 \subsection{Introduction}
 
-%  NOTE : add introduction and change this into motivation ?? 
 Empirical measurements are critical to capture the effect of developers' choices on software energy consumption.
 To accomplish this, one should not overlook the benchmarking pitfalls highlighted in the state of the art~\cite{van_der_kouwe_benchmarking_2018}.
-Furthermore, when it comes to evaluating the energy consumption of software, other challenges occur, such as the impact of hardware, the difference between the machines used for measurements and those that may apply the results, and so on.
-Moreover, considerable advances in computer science have resulted in an increase in the number of obsolete results.
-Addressing all of them becomes significantly more difficult in studies that compare multiple treatments.
-Also, between the exploratory experiment and when the results were made public, new candidates may have come up and others may have changed.
-So, not only is it important to make sure the results can be "reproduced," but it's also important to make room for new candidates.
-% TODO :  something missing here  to link between these two paragraphs.
 
+Second, one should not ignore tremendous progress in computer science, which have led to a rise in the number of obsolete results.
+Furthermore, when it comes to comparative research, the execution environment may have an impact on the study itself.
+Finally, between the exploratory experiment and the publication of the results, new candidates may have emerged and others may have changed.
 
+As a result, it is critical not only to ensure that the results can be "reproduced", so one can test their hypothesis in different environments, but also to provide room for new candidates.
+In this section, we will address these issues and investigate several ways of encapsulating the systems-under-test to ensure experiment reproducibility in the context of energy consumption tests while providing the benefits and drawbacks of each strategy.
+Later in this section, we will also propose a protocol to ensure that the results are not only reproducible but extensible.
+
+% Furthermore, when it comes to evaluating the energy consumption of software, other challenges occur, such as the impact of hardware, the difference between the machines used for measurements and those that may apply the results, and so on.
 % Regarding the "representativeness" of the benchmarks, we will elaborate in the section entitled Perspectives.
 %% this is might be the part that treats reproducibility for my case 
 
@@ -45,7 +46,7 @@ So, not only is it important to make sure the results can be "reproduced," but i
 
 % Now that we have covered the general strucutre of the protocol, this section details the specific aspects of the protocol that are relevant to the energy consumption analysis.
 % We will first discuss how to insure the extension of the candidates. later we will talk about the energy metrics and how to ensure the accuracy when it comes to the measurement of the energy consumption.
-This section addresses various strategies for encapsulating the systems-under-test in order to ensure experiment reproducibility.
+
 
 \subsection{Virtual Machines}
 The very first choice should be to use \emph{Virtual Machines} (VM), which allow researchers to select the most appropriate tools, software, and operating system that they are most comfortable with without incurring the cost of changing the actual working environment, giving them more control over dependencies and the execution environment.
