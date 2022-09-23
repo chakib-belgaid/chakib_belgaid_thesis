@@ -66,6 +66,7 @@ As for the \textbf{workload}, it can be extended easily by adding new files in t
 
 \subsection{Results \& Findings}
 \paragraph{\textsc{RQ}~1: How do RPC implementations consume with regard to the size of the incoming request?}
+
 The purpose of this question is to study the energy consumption of the RPC server when transferring large objects.
 To do so, we send $80,000$ requests to the server whose size scales from 10 bytes up to 10 Megabytes, resulting in $10,000$ requests per size per server.
 To eliminate extra factors, we let the server handle the rate at which it can answer each request.
@@ -243,17 +244,7 @@ Except GraalVM when the cost of the a single request increases with when we add 
 Therefore, we conclude that the number of clients does not impact the energy significantly.
 Then, we study how the payload size of the requests impact the energy consumption of the framework.
 
-
-
-
-
-
-
-
-
-
-
-\subsection{Threads to Validity \note{missing}}
+% \subsection{Threads to Validity \note{missing}}
 
 
 
