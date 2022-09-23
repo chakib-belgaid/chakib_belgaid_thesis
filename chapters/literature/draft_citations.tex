@@ -38,7 +38,7 @@ Thus, we will begin by examining the state of the art in empirical analysis and 
 Section~\ref{sec:soa_benchmarking} will discuss the pitfalls and best practices associated with empirical research before applying them to our field of interest.
 After that Section~\ref{sec:soa_energymeasurement} describes software energy measurements.
 It provides examples of hardware and software measuring instruments and describes their differences, benefits, and drawbacks. It also examines the sources of energy measurement variations, which represent a significant obstacle to achieving precise readings and higher accuracy.
-Then, in section \ref{section:soa_energyoptimization}, we will go through some of the previous work on improving the energy consumption of software.
+Then, in Section~\ref{section:soa_energyoptimization}, we will go through some of the previous work on improving the energy consumption of software.
 
 \newpage
 \section{Benchmarking}\label{sec:soa_benchmarking}
@@ -56,12 +56,12 @@ As a result, the experiments should reflect what happens in production contexts.
 \subsubsection{Reproducibility}\label{subsec:soa_reproducibility}
 
 Experiment reproducibility is frequently listed as one of the most difficult challenges faced by researchers.
-Reproducing an experiment has been one of the major tools science has used to help establish the validity and importance of scientific findings since the Philosophical Transactions of the Royal Society were established in 1665~\cite{hankins1986debate}. 
+Reproducing an experiment has been one of the major tools science has used to help establish the validity and importance of scientific findings since the Philosophical Transactions of the Royal Society were established in 1665~\cite{hankins1986debate}.
 Many of the outcomes are not reproducible,\footnote{Trouble at the lab, The Economist, 19 October 2013;  www.economist.com/news/briefing/ 21588057-scientists-think-science-self-correcting- alarming-degree-it-not-trouble.} which led to a \emph{replication crisis}.
 As a result of the crisis affecting the majority of empirical studies, most reviews now include reproducibility as a minimum standard for judging scientific merit~\cite{peng2011reproducible}.
 One of the criteria for supporting reproducibility is the publication of the dataset and the algorithms run on the raw data to derive the results.
-There is even some disagreement about what the terms "reproducibility" or "replicability" by themselves mean \cite{goodman2016does}.
-According to \cite{echtler2018open}, \emph{replicability} extends \emph{reproducibility} with the ability to collect a new raw dataset comparable to the original one by re-executing the experiment under similar conditions, instead of just the ability to get the same results by running the statistical analyses on the original data set.
+There is even some disagreement about what the terms "reproducibility" or "replicability" by themselves mean~\cite{goodman2016does}.
+According to~\cite{echtler2018open}, \emph{replicability} extends \emph{reproducibility} with the ability to collect a new raw dataset comparable to the original one by re-executing the experiment under similar conditions, instead of just the ability to get the same results by running the statistical analyses on the original data set.
 
 
 \subsubsection{Accuracy}
@@ -127,18 +127,18 @@ To analyze the magnitude of the phenomenon, they have identified a set of 22 "be
 Researchers have proposed several solutions to overcome these challenges in the computer science field. We will discuss some of them below.
 %% BENCHMARKING FRAMEWORK -- ADD IT later \cite{sonnenwald2003evaluating}
 %further references 
-First, we start with the work of \citeauthor{mytkowicz2009producing}, where they evaluated 133 studies from ASPLOS, PACT, PLDI, and CGO, to find out that none of the experimental findings papers appropriately considered measurement bias. Which can lead derive incorrect results from an experiment if a seemingly insignificant feature of the experimental design is altered. They treated this problem by proposing two strategies for detecting measurement bias by using causal analysis and preventing it with setup randomization \cite{mytkowicz2009producing}.
-another study that was published in the book "Measuring computer performance: a practitioner's guide"\cite{lilja2005measuring},\citeauthor{lilja2005measuring} examined performance indicators and gave in-depth treatment of benchmark program tactics. they provided clear explanations of the basic statistical methods required for interpreting measured performance data.
+First, we start with the work of \citeauthor{mytkowicz2009producing}, where they evaluated 133 studies from ASPLOS, PACT, PLDI, and CGO, to find out that none of the experimental findings papers appropriately considered measurement bias. Which can lead derive incorrect results from an experiment if a seemingly insignificant feature of the experimental design is altered. They treated this problem by proposing two strategies for detecting measurement bias by using causal analysis and preventing it with setup randomization~\cite{mytkowicz2009producing}.
+another study that was published in the book "Measuring computer performance: a practitioner's guide"~\cite{lilja2005measuring},\citeauthor{lilja2005measuring} examined performance indicators and gave in-depth treatment of benchmark program tactics. they provided clear explanations of the basic statistical methods required for interpreting measured performance data.
 They also outlined the overall design of the experimental method and demonstrated how to collect the most information with the least amount of work.
 This practical book will appeal to anybody seeking a comprehensive, yet intuitive, grasp of computer system performance analysis.
 
 \citeauthor{bukh1992art} wrote a book about computer performance analysis, where they discussed some familiar topics that are relevant to statistical analysis, such as null hypotheses, chi-squared tests, regression, discrete event simulation, Bayes' theorem, how and when to use them for experimental design, measurement, simulation, and modeling for computer systems.
-The article \cite{brown2018issues} provides an intellectual framework for understanding the pervasiveness of mistakes in the scientific discovery process and presents methodological, cultural, and system-level techniques for minimizing the frequency of often seen errors.
+The article~\cite{brown2018issues} provides an intellectual framework for understanding the pervasiveness of mistakes in the scientific discovery process and presents methodological, cultural, and system-level techniques for minimizing the frequency of often seen errors.
 
 Another article~\cite{patil2018training} expands on this line of thought by evaluating the uncertainty caused by replications in the new research.
 They offered some strategies to capture uncertainty in inferential investigations, such as cross-study validation and ensemble models.
 
-In their paper\cite{stodden2018empirical}, the authors found that, even though it's a big step in the right direction, journal policies that require authors to give back digital scholarly objects after publication, like the data and code that back up the claims, don't get more than half of these objects back.
+In their paper~\cite{stodden2018empirical}, the authors found that, even though it's a big step in the right direction, journal policies that require authors to give back digital scholarly objects after publication, like the data and code that back up the claims, don't get more than half of these objects back.
 Then, using these artifacts, about a fourth of the published computational claims in the study could be made.
 They suggested putting out the claims in the literature and the digital scholarly objects that back them up at the same time.
 
@@ -188,7 +188,7 @@ The work of this thesis will be based on this approach since it provides a unifi
 \section{Energy Measurement}\label{sec:soa_energymeasurement}
 Now that we have discussed the importance of benchmarking and the different approaches that can be used to evaluate the performance of a system, we will focus on energy measurement, which will be the main metric in this thesis.
 Therefore, in this section, we will discuss the different approaches that can be used to measure the energy consumption of a system.
-Many studies have been conducted to estimate such energy consumption that varies from static analysis of the source code to infer its energy consumption like \citeauthor{pereira_helping_2017} where they provided a tool to highlight the most energy consuming parts of the code \cite{pereira_helping_2017}.
+Many studies have been conducted to estimate such energy consumption that varies from static analysis of the source code to infer its energy consumption like \citeauthor{pereira_helping_2017} where they provided a tool to highlight the most energy consuming parts of the code~\cite{pereira_helping_2017}.
 The key advantage of this approach is that it allows you to estimate a program's energy usage without executing it.
 Unlike program complexity, energy consumption is strongly dependent on the execution environment.
 As a result, static analysis may not accurately represent the behavior of the same program when run in a production context.
@@ -200,7 +200,7 @@ There are various tools for measuring energy, and they cover a wide range of app
 % the benifits of this is the simplicity of instalation however we pay the price either with a lack of temporal resolution ( low frequency ) or the spatial granularity
 % ( most of them measure the energy consumption of the whole machine )
 % 2. dedicated one , they are based on the instrumentation of some parts of the computer , however they have a high cost and they are defficult to scale since they require an instrumentation of the execusion environment.
-According to \citeauthor{hackenberg2014hdeem}, there are four main criteria to evaluate an energy measurement tool \cite{hackenberg2014hdeem}:
+According to \citeauthor{hackenberg2014hdeem}, there are four main criteria to evaluate an energy measurement tool~\cite{hackenberg2014hdeem}:
 \begin{itemize}
     \item \em{Spatial granularity}: the more specific the target of monitoring we can measure, the more efficient we can do optimization since we will know what causes the pitfalls of the energy consumption,
     \item \em{Temporal granularity}: same as spatial granularity, temporal granularity helps us to identify the sequence of code that need to be optimized,
@@ -223,8 +223,7 @@ As said earlier, the true purpose of those tools is more monitoring than analyzi
 %% add something to link with wattsup pro 
 WattsUp Pro, is a device that can be installed between the power source of the machine and the system under test.
 It allows a sampling frequency up to 1\,Hz and has an internal memory to store a wide variety of data, such as the maximum voltage, and current, that later can be exported via USB port for personal usage or lined to some graph programs like Logger Pro or LabQuest.
-The main advantage of this tool is the ability to monitor the energy consumption from a different device which will reduce the risk of interference with the energy consumption of the test % a revoir 
-\cite{hirst2013watts}
+The main advantage of this tool is the ability to monitor the energy consumption from a different device which will reduce the risk of interference with the energy consumption of the test~\cite{hirst2013watts}
 
 Despite its high temporal granularity, WattsUp Pro lacks in term of spatial granularity since it monitors the energy consumption of the whole system.
 To have a finer granularity we need to isolate the energy consumption of each component.
@@ -236,7 +235,7 @@ To have a finer granularity we need to isolate the energy consumption of each co
 % NVML\cite{fahad2019comparative}
 %%%% 
 
-PowerMon and its upgraded version powerMon2 \cite{bedard2010powermon} are based on a micro-controller chip that can monitor up to 6 channels (8 for powermon2), simultaneously.
+PowerMon and its upgraded version powerMon2~\cite{bedard2010powermon} are based on a micro-controller chip that can monitor up to 6 channels (8 for powermon2), simultaneously.
 Therefore, we are able to monitor the power consumption of 4 devices at the same time.
 The frequency sample of this tool is up to 50\,Hz, with an accuracy of 1.2\%.
 Powermore2 comes in a smaller size that can fit within 3.5 inches rack drive.
@@ -266,7 +265,7 @@ The CPU package can be monitored for both server and desktop processors. However
 The advantage of such an approach is the absence of any intrusive measurement tools.
 Furthermore, they have a high temporal granularity with a sampling frequency of up to 1\,KHz~\cite{ilsche_power_2015}.
 
-With a similar approach, we can find NVIDIA reporting tools, such as GPU TESLA \cite{burtscher2014measuring} and the NVML library~\cite{fahad2019comparative}.
+With a similar approach, we can find NVIDIA reporting tools, such as GPU TESLA~\cite{burtscher2014measuring} and the NVML library~\cite{fahad2019comparative}.
 
 \subsection{Software Tools}
 Software-based measurement tools are based on other hardware tools to monitor energy use. Granularity is the core value of these technologies, unlike hardware tools, which only provide the total energy usage of the system/component (computer, server, motherboard, etc.) in most cases.
@@ -398,28 +397,28 @@ In this paper, we define a ranking of energy efficiency in programming languages
 Finally, they produced an energy efficiency rating of programming languages.
 The paper~\cite{bujnowski2020java} compared the energy, performance and database response time of web applications written in Java versus those written in Kotlin. They discovered that there is no statistically significant difference in CPU load between individual measurements( less than 2\%) 2. However, Kotlin implementation has never earned the best results in any collection of measurements.
 
-Other works that have studied the impact of website technology on energy consumption,\cite{philippot_characterization_2014,manotas_investigating_2013}. In their work~\cite{philippot_characterization_2014},\citeauthor{philippot_characterization_2014} measured the computer resources used during the loading of a website in a browser, such as memory utilization and energy consumption, for over 500 websites and proposed some best practices for developers.
+Other works that have studied the impact of website technology on energy consumption,~\cite{philippot_characterization_2014,manotas_investigating_2013}. In their work~\cite{philippot_characterization_2014},\citeauthor{philippot_characterization_2014} measured the computer resources used during the loading of a website in a browser, such as memory utilization and energy consumption, for over 500 websites and proposed some best practices for developers.
 
 Other works examined software energy consumption efficiency through source code changes and optimizations. For example, some papers [42, 122] studied the effect of Java collections on energy consumption, depending on the collection size and/or the most executed tasks on the collection (insertion, removal, search). They provided some insights into the energy efficiency of some collections for multiple scenarios. For example, Hasan et al. [52] compared the energy consumption of several Java data structures, analyzing the bytecode using the Wala framework8 and assessing the evolution of the energy consumption in different scenarios (insertion at the beginning, iteration, etc.). They also used some automated replacements of LinkedList and ArrayList to simulate best-and worst-case energy consumption scenarios in real production applications. Their study showed that using inappropriate collection can cause up to 300\% of energy consumption inefficiency.
 
 As for the impact of the source code on the energy consumption, we can cite~\cite{pinto_comprehensive_2016,fernandes_assisting_2017} where the authors investigated the impact of Java collections on energy usage based on collection size and its usage (insertion, removal, search) and They provide some insights into the energy efficiency of specific collections under various scenarios.
 
-\citeauthor{hasan_energy_2016} examined the energy consumption of multiple Java data structures, analyzing the bytecode and evaluating the change in energy consumption in various circumstances(research, insertion, deletion, etc.). They also simulated best- and worst-case energy usage scenarios in real-world production systems by replacing the LinkedList and ArrayList, and discovered that incorrect collection can result in a 300\% increase in energy consumption\cite{hasan_energy_2016}.
+\citeauthor{hasan_energy_2016} examined the energy consumption of multiple Java data structures, analyzing the bytecode and evaluating the change in energy consumption in various circumstances(research, insertion, deletion, etc.). They also simulated best- and worst-case energy usage scenarios in real-world production systems by replacing the LinkedList and ArrayList, and discovered that incorrect collection can result in a 300\% increase in energy consumption~\cite{hasan_energy_2016}.
 
-Other studies\cite{longo_reducing_2019,kumar_energy_2017} looked into the energy use of Java primitive types, string operations, and the use of exceptions, loops, and arrays. \citeauthor{kumar_energy_2017}, for example, examined the energy usage of code snippets and micro-benchmarks and provided several conclusions, such as string concatenation would use less energy than StringBuilder and StringBuffer and static variables tends to consume 60\% more energy than instance variables.
+Other studies~\cite{longo_reducing_2019,kumar_energy_2017} looked into the energy use of Java primitive types, string operations, and the use of exceptions, loops, and arrays. \citeauthor{kumar_energy_2017}, for example, examined the energy usage of code snippets and micro-benchmarks and provided several conclusions, such as string concatenation would use less energy than StringBuilder and StringBuffer and static variables tends to consume 60\% more energy than instance variables.
 
-\citeauthor{pereira_helping_2017} \cite{pereira_helping_2017} presented SPELL, a tool that helps developers spot energy leaks in their source code. Using a statistical spectrum-based analysis and JRAPL\cite{guimaraes2016some,liu_data-oriented_2015}, the tool locates energy-inefficient code fragments. According to the authors, it is language and context-independent.
+\citeauthor{pereira_helping_2017}~\cite{pereira_helping_2017} presented SPELL, a tool that helps developers spot energy leaks in their source code. Using a statistical spectrum-based analysis and JRAPL~\cite{guimaraes2016some,liu_data-oriented_2015}, the tool locates energy-inefficient code fragments. According to the authors, it is language and context-independent.
 
 \subsection{Energy Optimizations in the Execution Phase}
 The second part of this section will focus on energy optimization in the execution phase, where the goal is to optimize this energy consumption for already developed software without making changes to the source code. The goal is to set up and create an environment in which software can run with the least amount of energy. This could involve process scheduling, system tunning and so on.
 
-We begin with Aequitas\cite{ribic2016aequitas}, a system that allows parallel applications to live on power domains that are co-managed (sharing the same CPU). The technology is founded on the premise that coexisting programs can regard power-management hardware as a shared resource and collaborate on power management decisions. As a result, it accomplishes its purpose by scheduling these applications with a time slicing technique ( as an example round robin). The authors claim that their strategy achieves a 12.9\% improvement while incurring only a 2.5\% performance cost.
+We begin with Aequitas~\cite{ribic2016aequitas}, a system that allows parallel applications to live on power domains that are co-managed (sharing the same CPU). The technology is founded on the premise that coexisting programs can regard power-management hardware as a shared resource and collaborate on power management decisions. As a result, it accomplishes its purpose by scheduling these applications with a time slicing technique ( as an example round robin). The authors claim that their strategy achieves a 12.9\% improvement while incurring only a 2.5\% performance cost.
 
 As for virtual machines, \citeauthor{kurpicz2016much}. analyzed the total energy consumption of a VM in a data center while emphasizing the static cost versus the dynamic one. In this paper~\cite{kurpicz2016much}, the authors introduced the transparent, reproducible, and predictive cost calculator model EPAVE for VM-based environments. The purpose of EPAVE is to provide the static cost of each VM on the server, which includes the air conditioning, power distribution, and the dynamic cost that is related to the VM activities.
 
-The energy usage of virtual machine allocation and task placement has also been investigated\cite{mishra_energy_2018}.In this article, The authors propose a method for mapping workloads to virtual machines and virtual machines to the physical ones (PMs) in an energy-efficient manner. To solve the problem of high heterogeneity of activities and resources, the jobs are categorized based on their resource requirements, and then the relevant VM is found, followed by the appropriate PM where the selected VM can be deployed Using a cloud simulator, the authors claimed The suggested technique saves energy by reducing the number of active PMs while also minimizing the makespan and task rejection rate.
+The energy usage of virtual machine allocation and task placement has also been investigated~\cite{mishra_energy_2018}.In this article, The authors propose a method for mapping workloads to virtual machines and virtual machines to the physical ones (PMs) in an energy-efficient manner. To solve the problem of high heterogeneity of activities and resources, the jobs are categorized based on their resource requirements, and then the relevant VM is found, followed by the appropriate PM where the selected VM can be deployed Using a cloud simulator, the authors claimed The suggested technique saves energy by reducing the number of active PMs while also minimizing the makespan and task rejection rate.
 
-Besides the impact of the orchestration of virtual machine, some works have been targeting the runtime of specific programming languages. Using the TPC-DS benchmark, \citeauthor{chiba2018towards} investigated the influence of HOTSPOT \footnote\url{https://openjdk.org/groups/hotspot/} and J9\footnote{\url{https://www.eclipse.org/openj9/}} on the performance of SQL-on-Hadoop systems (SPARK and TEZ) to reveal a three-fold disadvantage that one JVM can have over the other\cite{chiba2018towards}.
+Besides the impact of the orchestration of virtual machine, some works have been targeting the runtime of specific programming languages. Using the TPC-DS benchmark, \citeauthor{chiba2018towards} investigated the influence of HOTSPOT \footnote{\url{https://openjdk.org/groups/hotspot/}} and J9\footnote{\url{https://www.eclipse.org/openj9/}} on the performance of SQL-on-Hadoop systems (SPARK and TEZ) to reveal a three-fold disadvantage that one JVM can have over the other~\cite{chiba2018towards}.
 \citeauthor{oi_power_2011} also compared the performance of HOTSPOT and J9. They demonstrated in their research~\cite{oi_power_2011} that the relative performance of a JVM is affected by the workload. They discovered that HOTSPOT's performance ranged from 44\% to 289\% of J9, while its dynamic power consumption ranged from 2.7W to 7.2W, using the SPECjvm2008~\cite{shiv2009specjvm2008} benchmarks.
 
 As for python, \citeauthor{redondo_comprehensive_2015} compared the performance and memory usage of various Python implementations (CPython, Jython, IronPython, PyPy, and so on) using a 215 set of benchmarks to discover that Python2 performed better with short applications, while Python3 versions covered more tests due to compatibility and the fact that Python2 became obsolete.\cite{redondo_comprehensive_2015}.

@@ -33,7 +33,7 @@ There are three main contexts.
 We used the platform Grid5000 (G5K)~\cite{grid5000,margery:hal-00965708}, which is a large, flexible testbed for experiment-driven research that is spread out across all of France, to meet these needs. Grid5000 has several clusters that are made up of 4 to 124 identical machines with different configurations for each cluster. For our experiment, we looked at four groups. Our main criterion was the CPU configuration.
 Table~\ref{table:g5k}  below, presents a description of the four clusters that have been chosen for our experiments.
 
-\begin{table}[!hbt]
+\begin{table}[hbt]
     \centering
     \caption{Description of clusters included in the study}
     \label{table:g5k}
@@ -58,7 +58,7 @@ As most of the nodes are equipped with two sockets (physical processors), we use
 
 Figure~\ref{fig:topo}  shows the detailed topology of a node in the cluster \textsf{Dahu} as an example.
 
-\begin{figure}%[!htb]
+\begin{figure}[htb]
     \center{\includegraphics[width=.9\linewidth]{imgs/lstopo}}
     \caption{Topology of the nodes of the cluster \textsf{Dahu}}\label{fig:topo}
 \end{figure}
@@ -529,12 +529,12 @@ Half of these experiments has been performed at a 50\,\% workload and the other 
 The choice of these two workloads is related to the optimization guidelines that are mainly effective at low and medium workloads.
 We note that we used the cluster \textsf{Dahu} over \textsf{Ecotype} to highlight the guidelines effect on the nodes where the variation is susceptible to be higher.
 
-\begin{figure*}%[!htb]
+\begin{figure*}[htb]
     \center{\includegraphics[width=\linewidth]{imgs/all}}
     \caption{Energy variation comparison with/without applying our guidelines}\label{fig:optimized}
 \end{figure*}
 
-\begin{figure}%[!htb]
+\begin{figure}[htb]
     \center{\includegraphics[width=.9\linewidth]{imgs/stressng}}
     \caption{Energy variation comparison with/without applying our guidelines for \textsc{Stress-NG}}\label{fig:stress}
 \end{figure}
