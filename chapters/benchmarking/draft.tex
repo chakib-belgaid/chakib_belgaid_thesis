@@ -124,36 +124,74 @@ This overhead can reach up to 5\% in IO-intensive applications, while it is bare
 As can be seen, the introduction of the supervisor has increased the impact of Docker on energy that will be applied equitably to all experiments.
 Therefore, when it comes to comparison analysis, it will mitigate its impact automatically.
 Furthermore, because we have access to the host hardware, we do not need to worry about capturing the SUT's energy use.
-As a result, we will use Docker to keep all of our tests distinct, as it will assure reproducibility in a simple and clear manner.
+As a result, we will use Docker to keep all of our tests separate, as it will make sure that they can be repeated in a clear and simple way.
 
 \subsection{Extension}
-Whith a rapid evolution of the software industry, it is important to be able to include new candidates
-We propose to extend the benchmarking framework suggested by the \em{Collaboratory on Experimental Evaluation of Software and Systems in Computer Science}\footnote{\url{http://evaluate.inf.usi.ch/}} to address those limitations.
-Instead of only presenting the four primary aspects of their guidelines that were mentioned previously in Section~\ref{sec:benchmarking_reproducibility}, we propose an abstract model to describe an empirical experiment:
+% TODO : proofread
+\subsubsection{Definition of Extention}
+With the rapid evolution of the software industry, Even ensuring the reproducibility of the same research won't be enough.
+Each day, new versions of the software are released, and new features are added. Even more, the goal of the research might evolve. As a result, nowadays, especially in comparative studies, it is essential to leave room for expansion.
 
-\em{context}: the hardware and the software configuration for the actual experiment, the purpose of this part is to provide extra information to help readers have a better judgement on the results and to be able reproduce the experiment while diminishing the impact of the external factor .
-An \em{orchestrator} : which its job to run the experiment.
-The orchestrator provides three interfaces:
+One can extand their experiment through three axes :
+\begin{itemize}
+    \item \textbf{proposed solutions}: Where one will expand their research by including additional solutions and comparing them to earlier ones
+    \item \textbf{evaluation criteria}: This axe's objective is to broaden the evaluation criteria to incorporate additional measures like as performance, cost, and security, among others.
+    \item \textbf{benchmarks}: The purpose of this axe is to enlarge the benchmarks to include other ones in order to broaden the scope of the research.
+\end{itemize}
 
-\em{Workload interface}: provides a set of functions that should be implemented by the workload and called by each candidate in the experiment.
-The Observer interface provides a set of metrics that are collected by the orchestrator during the experiment. Note that some of those metrics are external, such as the energy consumption of the system , execution time, execution stack, etc .
-\begin{figure}[!htb]
+\subsubsection{The architecture of the extension}
+\begin{figure}
     \center{\includegraphics[width=\linewidth]{imgs/benchmarkingprotocol}}
     \caption{Benchmarking protocol}\label{fig:benchmarkingprotocol}
 \end{figure}
+To be able to extend the empirical experiments through these axes,
+We propose to enhance the benchmarking framework suggested by the \emph{Collaboratory on Experimental Evaluation of Software and Systems in Computer Science}\footnote{\url{http://evaluate.inf.usi.ch/}}.
+Instead of only presenting the four primary aspects of their guidelines that were mentioned previously in Section~\ref{sec:benchmarking_reproducibility}, we suggest an abstract model to describe an empirical experiment.
+Figure~\ref{fig:benchmarkingprotocol} shows the proposed model while providing a comparaison between the existing solution and the proposed one.
 
-Figure~\ref{fig:benchmarkingprotocol} explains in detail the relationship within each component of the protocol.
-First of all, we should start with the orchestrator which is the kernel of the experiment. Most of the time this kernel should represent the constants parts of the experiment.
-The orchestrator is responsible for the following  for the coordination between the workload and the candidate, therefore it provides an interface that is implemented by each workload.
-Later this interface will be provided to each candidate by the orchestrator. Like this we will remove any bias of dependency between the workload and the candidates, which will alow us to extend both parts without any change in the code.
-Instead of retrieving the data directly from the experiment, we suggest to use an observator to allow the extension of the metrics, this observer in general should be outside the experiment to be able to gather as many informations without impacting the the code.
+The model is composed of different components that are described below,
+\paragraph{Context}
+The hardware and the software configuration for the actual experiment, the purpose of this part is to provide extra information to help readers have a better judgement on the results and to be able reproduce the experiment while diminishing the impact of  external factors .
+
+\paragraph{orchestrator}
+
+The core design of the experiment which is responsible for running the experiment regrardless of the context.
+In the experiment,it is  the only component that is allowed to interact with the SUT.
+The orchestrator provides three interfaces:
+\begin{itemize}
+    \item \emph{Workload interface} : provides a set of functions that should be implemented by the workload and called by each candidate in the experiment.This interface is responsible for extending the experiment with new benchmarks.
+    \item \emph{The Observer interface}: provides a set of metrics that are collected by the orchestrator during the experiment. Implementing the observer interface allows the user to extend the experiment with new metrics.
+    \item \emph{The Candidate interface} : It provides a set of functions that should be implemented by the candidate and called by the orchestrator. This interface is responsible for extending the experiment with new solutions.
+\end{itemize}
+
+\paragraph{Data}
+The row data collected collected by the experiment. In ourcase it will be provided by the observator, one ore more observators can be used to collect different metrics. The purpose of this data is to ensure the \emph{replication} of the experiment which will allow the reader to perform extra analysis without rexucuting the experiment.
+
+
+\paragraph{Analysis}
+The final part, that should provide the set of methodes and functions used to do the empirical analysis in order to answer the research questions.
+
+
+
+% It starts with the orchestrator is the core design of the experiment  for the coordination between the workload and the candidate, therefore it provides an interface that is implemented by each workload.
+% Later this interface will be provided to each candidate by the orchestrator. Like this we will remove any bias of dependency between the workload and the candidates, which will alow us to extend both parts without any change in the code.
+% Instead of retrieving the data directly from the experiment, we suggest to use an observator to allow the extension of the metrics, this observer in general should be outside the experiment to be able to gather as many informations without impacting the the code.
+
+
+
+
+
+
 
 
 
 \subsection{Conclusion}
 
-In this section, we have discussed the different options for encapsulating the system-under-test in order to ensure experiment reproducibility.
-We have shown that the use of VMs is not suitable for performance-related tests, while containers are a good alternative. and then we discussed the pros and cons of using Docker while measuring the energy consumption of our experiments.
+In this section, we addressed the first challenge of empirical research, which is the \textbf{reproducibility} of the experiments.
+We started by listing the different options for encapsulating the system-under-test.
+Then, we have shown that the use of VMs is not suitable for performance-related tests nor energy-related ones, while containers are a good alternative. Laterm, we discussed the pros and cons of using Docker for experiments related to energy consumption and have shown that it has a constant overhead which is self-mitigated when it comes to comparison analysis.
+Lastly, we have proposed an addition to the benchmarking framework that would allow the experiment to be extended along the three axes already mentioned.
+
 
 
 \clearpage
