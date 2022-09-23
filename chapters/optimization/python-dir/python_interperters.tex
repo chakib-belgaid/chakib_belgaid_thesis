@@ -55,7 +55,7 @@ To do so, we gathered a list of interpreters, transpilers and other optimization
             A static transpiler that translates implicitly statically typed python into C++ code;
       \item \textbf{Hope}~\cite{akeret_hope_2015}:
             A Python library that aims to introduce JIT compiler into the Python code;
-      \item \textbf{Parakeet}~\cite{DBLP:conf/hotpar/RubinsteynHWS12}:
+      \item \textbf{Parakeet}~\cite{rubinsteyn2012parakeet}:
             A runtime accelerator for an array-oriented subset of Python;
       \item \textbf{Stackless\,Python}:\footnote{\url{https://github.com/stackless-dev/stackless/wiki}}
             An interpreter that focuses on enhancing multi-threading programming;
@@ -314,7 +314,6 @@ Table~\ref{table:manwithyu} shows that this cluster is by far the most energy-ef
 While Numba2 and Numba3 are also JIT libraries, they differ from PyPy due to their manual optimization.
 Unlike PyPy, which will decide by itself which part of Python to optimize.
 In Numba, the developer must target the portion of the code that will be passed to JIT, while the rest of the code will be executed by the regular interpreter (aka CPython).
-
 \paragraph{Remark:}
 Because GraalPython was still in its early stages, some techniques required an abnormally lengthy time, affecting the clustering algorithm.
 
@@ -323,7 +322,7 @@ Figure~\ref{fig:tommi_all} introduces a radar plot for all the implementations t
 
 \begin{figure}[!htb]
       \centering
-      \includegraphics[width=1.0\linewidth]{imgs/alltomti_performance}
+      \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/alltomti_performance}
       \caption{Different interpreter's energy scores.}
       \label{fig:tommi_all}
 \end{figure}
@@ -462,5 +461,9 @@ Furthermore, we observed that different binary operations exhibit the same energ
 
 \subsection{Conclusion}
 One can conclude that the choice of Python interpreter has a significant impact on the programs' energy consumption.
+While most of the candidates used Python2, we observed that different strategies that were implemented within each candidate have a significant impact on the energy consumption. 
+The major improvement of the energy was related to the use of JIT, which is a technique that compiles the code into machine code at runtime. 
+The effect of the compilation of the python code into machine code was also confirmed with the use of translators such as shedskin. 
+
 This investigation is made more intriguing by the absence of a universal solution.
 The primary downside is the incompatibility of some of these solutions, which causes us to make concessions when we need a generic answer.
