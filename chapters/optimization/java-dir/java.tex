@@ -7,25 +7,24 @@ As we have seen in the previous chapter, an inappropriate combination of paramet
 in this chapter, we want to dig deeper into this aspect of Java and study its runtime.
 This chapter thus focuses on the impact of the runtime of Java applications on energy consumption.
 
-\subsection{Goal}
+\subsection{Characteristics of JVM}
+\begin{figure}%[ht]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/Jvm_architecture}
+    \caption{JVM architecture}
+    \label{fig:JVM_architecture}
+\end{figure}
+
+Java's portability is a core design goal, which means that Java applications will work exactly the same on any operating system and on any hardware.As we see in figure~\ref{fig:JVM_architecture}, Instead of machine code, this is accomplished by compiling Java language code to an intermediate representation known as Java bytecode. Java bytecode instructions are similar to machine code, but they are executed by a JVM rather than directly on the machine. As a result, Java programs will run slower and consume more memory than C++ programs. However, Just-in-Time (JIT) compilation, which is built into the JVM, improves performance by converting bytecode to machine code at runtime. Furthermore, an automatic garbage collector (GC) is used by Java to manage memory throughout the object lifecycle and to recover memory when objects are no longer in use.
+
+\subsection{Research questions}
 In this section, we will investigate the following research questions:
 \begin{compactenum}[\indent\bf RQ\,1:]
-    %  TODO : generalize this format of Rq  to all the thesis 
     \item \emph{What is the impact of existing JVM distributions on the energy consumption of Java-based software services?}
     \item \emph{What are the relevant JVM settings that can reduce the energy consumption of a given software service?}
 \end{compactenum}
 
 To answer those research questions, we conduct an empirical study to highlight the impact of this runtime.
-Figure
-
-% \subsection{definition of the JVM}
-% TODO : ADD it to the introduction to 
-% \begin{figure}%[ht]
-%     \centering
-%     \includegraphics[width=\linewidth]{imgs/Jvm_architecture}
-%     \caption{JVM architecture}
-%     \label{fig:hotspot}
-% \end{figure}
 
 \section{Experimental Protocol}\label{sec:javaprotocol}
 To investigate the effect that can have the JVM distribution choice and/or parameters on software energy consumption, we conducted a wide set of experiments on a cluster of machines and used several established Java benchmarks and JVM configurations.
@@ -156,7 +155,7 @@ We used Intel\,RAPL as a physical power~meter to analyze the energy consumption 
 RAPL is one of the most accurate tools to report on the global energy consumption of a processor~\cite{Khan:2018:RAE:3199681.3177754,10.1145/2989081.2989088}.
 We note that, due to CPU energy consumption variations issues~\cite{opaper}, we used the same node for all our experiments.
 % In other words, we used the same node to ran all the JVM from the different providers and with numerous configurations for each single benchmark application.
-Moreover, we tried to be very careful, while running our experiments, not to fall in the most common benchmarking "crimes"~\cite{crimes}.
+Moreover, we tried to be very careful, while running our experiments, not to fall in the most common benchmarking "crimes"~\cite{DBLP:journals/corr/abs-1801-02381}.
 Every single experiment, therefore, reports on energy metrics obtained from at least $20$ executions of $50$ iterations per benchmark.
 All of our experiments are available for use/reproducibility from our anonymous repository.\footnote{\url{https://anonymous.4open.science/r/jvm-comparaison-213E/Readme.md}}
 
@@ -641,24 +640,24 @@ The tool is available as \emph{open-source software} (OSS) from our GitHub repos
     \end{tabular}
 \end{table}
 
+\clearpage
+\section{Summary}
 
-\section{Conclusion}
-The results of our investigations show that many JVMs share energy efficiencies and can be grouped into 3 classes: \textsc{HotSpot}, J9, and \textsc{GraalVM}.
-The 3 selected JVM classes can however report a different energy efficiency for different software and/or workloads, sometimes by a large margin.
-While we did not observe a unique champion when it comes to energy consumption, \textsc{GraalVM} reported the best energy efficiency for a majority of benchmarks.
-Nonetheless, each JVM can achieve the best or the worst depending on the hosted application.
-One cause can be thread management strategies, as observed with J9 when advantageously running \textsf{Avrora}.
-Moreover, some JVM settings can cause energy consumption variations.
-Our experiments showed that the default JIT compiler of the JVM is often near-optimal, in at least ~80\% of our experiments.
-The default GC, however, was outperforming alternative strategies in half of our experiments, with some large gains observed when using some alternative GC depending on the application characteristics.
+This chapter describes an empirical investigation of contrast in energy consumption that some of the most well-known and widely supported JVM platforms can exhibit as well as the important factors that can influence this energy consumption.
+During our experiments, we investigated 12 well-known and diverse-purpose Java benchmarks, as well as 52 JVMs, including many versions of 11 different distributions. 
+Our findings revealed that various JVMs share energy efficiency and may be classified into three major classes: \textsc{HotSpot}, \textsc{J9}, and \textsc{GraalVM}.
+However, the three JVM classes can show substantially different energy efficiency depending on the workloads and/or application.
+While there was no clear champion in terms of energy consumption,\textsc{GraalVM} recorded the highest energy efficiency for the most of benchmarks. Nevertheless, depending on the workload, each JVM can achieve higher or worse efficiency.
+One explanation could be thread management policy, as seen with \textsc{J9} when running \textsf{Avrora}.
 
-Our main conclusions and guidelines can be thus summarized as:
+Additionally, numerous JVM settings can cause changes in energy consumption. Our experiments revealed that the JVM's default JIT compiler is frequently near-optimal in at least 80\% of the experiments. 
+
+On the other hand , the default GC outperformed the other strategies in just half of our experiments, with some significant benefits reported when employing different GCs based on the application characteristics. Our primary observations and recommendations can be stated as follows:
 \begin{inparaenum}[\em i)]
     \item testing software on the 3 classes of JVM and identifying the one that consumes the least is a good practice, especially for multi-threading purposes,
     \item while the JVM default JIT give often good energy consumption results, some settings may improve the energy consumption and could be tested,
     \item the choice of the GC may lead to a large impact on the energy consumption in many situations, thus encouraging a careful tuning of this parameter before deployment.
 \end{inparaenum}
-To ease the integration of the above guidelines, we propose a tool, named \textsf{J-Referral}, to recommend the most energy-efficient JVM distribution and configuration among more than a hundred considered possibilities.
-It establishes a full report on the energy consumption of both CPU and DRAM components for each JVM distribution and/or configuration to help the user to choose the one with the least consumption for Java software.
-% TODO : add or change the graphes of the use case 
-% TODO : add the description and a diagrame for the experimental protocol  
+
+To make the above principles easier to implement, we propose \emph{J-Referral}, a tool that recommends the best energy-efficient JVM distribution and configuration from among more than a hundred options.
+It generates a comprehensive report on the energy consumption of both CPU and DRAM components for each JVM distribution and/or configuration in order to assist the user in selecting the one with the lowest consumption for Java applications.

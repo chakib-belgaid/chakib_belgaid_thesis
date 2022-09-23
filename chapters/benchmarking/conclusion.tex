@@ -1,34 +1,38 @@
-%  CONCLUSION au lieu de extension 
+\section{Summary}
+there As seen in Section~\cref{sec:soa_benchmarking} of the state of the art, a successful benchmark faces three challenges: reproducibility, accuracy and representativeness. 
+This chapter has covered two of the three criteria.
 
-%% maybe add extension as a part of the conclusion for this chapter 
-\subsection{Extension}\label{sec:bench_extension}
-We propose to extend the benchmarking framework suggested by the \emph{Collaboratory on Experimental Evaluation of Software and Systems in Computer Science}\footnote{\url{http://evaluate.inf.usi.ch/}} to address those limitations.
-Instead of only presenting the four primary aspects of their guidelines that were mentioned previously in section ~\ref{sec:soa_reproducibility}, we propose an abstract model to describe an empirical experiment:
+The first section covered the reproducibility challenge by studying the existing techniques that ensure reproducibility. We have observed that there are two primary methods for encapsulating experimental systems. The first is to utilize virtual machines,while the second one is based on containers. We established that Docker is more suitable for energy-related studies for three reasons.
 
-\emph{context}: the hardware and the software configuration for the actual experiment, the purpose of this part is to provide extra information to help readers have a better judgement on the results and to be able reproduce the experiment while diminishing the impact of the external factor .
-An \emph{orchestrator} which its job to run the experiment.
-The orchestrator provides three interfaces:
+\begin{enumerate}
+    \item It is more lightweight than virtual machines.
+    \item It offers the interactivity with the hardware of the host machine which will enable us to gather more metrics.
+    \item It has a constant overhead, a key factor to nullify the encapsulation impact on the energy consumption when performing empirical analyses.
+\end{enumerate}
 
-\emph{Workload interface}: provides a set of functions that should be implemented by the workload  and called by the each candidate in the experiment.
-Observer interface: provides a set of metrics that are collected by the orchestrator during the expermentation. note that some of those metrics are external, such the energy consumption of the system , execution time, execution stack ..etc .
+After settling on the most suitable choice to encapsulate experiments, we highlighted the need to enhance the reproducibility of empirical tests along several axes (benchmarks, metrics, and candidates) for the purpose To keep up with the rapid pace of software development. 
+Furthermore, we have provided a model that enables to extend comparative expriment.
+The foundation of this model is the separation of the experiment into multiple independent components: an orchestrator that executes the experiment, one or more observers that collect metrics, the candidates being tested, and the benchmark against which these candidates are being compared.
 
-Figure~\ref{fig:benchmarkingprotocol} explains in detail the relationship within each component of the protocol.
-First of all, we should start with the orchestrator which is the kernel of the experiment. Most of the time this kernel should represent the constants parts of the experiment.
-The orchestrator is responsible for the following  for the coordination between the workload and the candidate, therefore it provides an interface that is implemented by each workload.
-Later this interface will be provided to each candidate by the orchestrator. Like this we will remove any bias of dependency between the workload and the candidates, which will alow us to extend both parts without any change in the code.
-Instead of retrieving the data directly from the experiment, we suggest to use an observator to allow the extension of the metrics, this observer in general should be outside the experiment to be able to gather as many informations without impacting the the code.
-\begin{figure}[!htb]
-    \center{\includegraphics[width=\linewidth]{imgs/benchmarkingprotocol}}
-    \caption{Benchmarking protocol}\label{fig:benchmarkingprotocol}
-\end{figure}
+As for the second section, we addressed the accuracy challenge in the context of energy-based experiments.
+We started by analyzing the impact of the chosen encapsulation method from the previous section on this challenge. to find out that the impact is negligible.
+Then, we conducted an empirical study utilizing some of the well-known benchmarks in literature, \texttt{Stress-ng}~\footnote{\url{https://kernel.ubuntu.com/~cking/stress-ng}} and \texttt{NAS Parallel Benchmark}~\cite{Bailey:1991:NPB:125826.125925}, on a variety of machines with diverse hardware combinations and operating system setups and tunings. We've shown that optimizing the operating system can have a big effect on how accurately energy is used. This effect can affect the accuracy of the experiments  from an increase of $5\times$ to a penalty of $30\times$.
+
+We have also shown in this section the harm that this taming of the variation can cause to the representativeness of the results,since some aspects that help increase the accuracy of the results in the research environment can't be applied in the production environment, such as turning off the C-states. Another impact of increasing this accuracy was the increase in the overall energy consumption of the tests. Even if the overall was for all the candidates, this remains an issue to be addressed.
+
+Overall, the goal of this chapter is to establish a reproducible and accurate protocol for conducting energy-related experiments. From now on, we shall use this protocol in our studies for the purpose of reducing the energy usage of software.
 
 
 
-By the end of this study, we have gathered enough guidelines to make the tests more reproducible, accurate and extensible.
-We created a set of new tests named \textbf{energy tests} which are more similar to performance tests.
-Thanks to the work of two interns [Mamadou and Adrien] we created a CI/CD platform to measure the energy consumption of Java projects and we could track the evolution of the this energy across different stages of the project.
-In the figure below we see an example of this plugin.
-For more details please visit the gitlab repository\footnote{\url{https://gitlab.inria.fr/mamdiall/J-Joules}}~\footnote{\url{https://gitlab.inria.fr/mamdiall/jjoules-plugin}} .
+
+
+%  THIS SHOULD BE WITHIN THE perspective chapter 
+% By the end of this study, we have gathered enough guidelines to make the tests more reproducible, accurate and extensible.
+% We created a set of new tests named \textbf{energy tests} which are more similar to performance tests.
+% Thanks to the work of two interns [Mamadou and Adrien] we created a CI/CD platform to measure the energy consumption of Java projects and we could track the evolution of the this energy across different stages of the project.
+% In the figure below we see an example of this plugin.
+% For more details please visit the gitlab repository\footnote{\url{https://gitlab.inria.fr/mamdiall/J-Joules}}~\footnote{\url{https://gitlab.inria.fr/mamdiall/jjoules-plugin}} .
+
 
 % \begin{figure}%[!htb]
 %     \center{\includegraphics[width=.9\linewidth]{imgs/JunitSonarplugin}}
