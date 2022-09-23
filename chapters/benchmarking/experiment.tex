@@ -71,7 +71,7 @@ First, \textbf{scalability}: We wanted to learn as much as possible about the ex
 The second criterion is whether or not the workload is \textbf{representative}. As stated in the challenges, a workload must represent the production environment or the experiment would be inconsistent~\cite{stephen_evaluate_2012}.
 
 To meet these criteria, we looked at the "state of the art" and found the most common benchmarks used to test the performance of hardware. We then chose the ones that could be scaled up.
-Our candidate is  emph{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NPB:125826.125925}: one of the most used benchmarks for \emph{HPC}. We used the applications (\textsf{LU}), the \emph{Conjugate Gradient} (\textsf{CG}) and \emph{Embarrassingly Parallel} (\textsf{EP}) computation-intensive benchmarks in our experiments, with the \textsf{C} data class.
+Our candidate is \texttt{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NPB:125826.125925}: one of the most used benchmarks for \emph{HPC}. We used the applications (\textsf{LU}), the \emph{Conjugate Gradient} (\textsf{CG}) and \emph{Embarrassingly Parallel} (\textsf{EP}) computation-intensive benchmarks in our experiments, with the \textsf{C} data class.
 Furthermore we have used other applications to validate our results using more applications such as \texttt{Stress-ng v0.10.0},\footnote{\url{https://kernel.ubuntu.com/~cking/stress-ng}} \texttt{pbzip2 v1.1.9},\footnote{\url{https://launchpad.net/pbzip2/}} \texttt{linpack}\footnote{\url{http://www.netlib.org/linpack}} and \texttt{sha256 v8.26}.\footnote{\url{https://linux.die.net/man/1/sha256sum}}
 
 
@@ -568,7 +568,7 @@ This hardware heterogeneity also makes reproduction complex and requires the usa
 
 
 \subsection{Conclusion}
-In order to increase the accuracy in comparative experiments, we conducted an empirical study of controllable factors that may increase the energy variations on platforms with some of the latest CPUs and for several workloads.
-this study is not intended to nullify the variability of the CPU, as some of this variability is related to the chip manufacturing process and its thermal behavior. Instead, it aims to tame and mitigate this variability along controlled experiments.
-In this study, We investigated some previously discussed aspects on some recent CPU, considered new factors that have not been deeply analyzed to the best of our knowledge, and constituted a set of guidelines to increase the accuracy of energy measurement.
-Some of these factors, like the C-states usage, can reduce the energy variation up to 500\,\% at low workloads, while choosing the wrong cores/PU strategy can cause up to $30\times$ more variability.
+In order to increase the \textbf{accuracy} in comparative experiments, we conducted an empirical study of controllable factors that may increase the energy variations on platforms with some of the latest CPUs and for several benchmarks.
+This study is not intended to nullify the variability of the CPU, as some of this variability is related to the chip manufacturing process and its thermal behavior. Instead, it aims to tame and mitigate this variability along controlled experiments.
+In this study, We investigated some previously discussed aspects on some recent CPUs, considered new factors that have not been deeply analyzed to the best of our knowledge, and constituted a set of guidelines to increase this accuracy for energy related experiments.
+Some of these factors, like the \emph{C-states} usage, can reduce the energy variation up to 500\,\% at low workloads, while choosing the wrong cores/PU strategy can cause up to $30\times$ more variability.
