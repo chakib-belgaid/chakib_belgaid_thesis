@@ -640,22 +640,24 @@ The tool is available as \emph{open-source software} (OSS) from our GitHub repos
     \end{tabular}
 \end{table}
 
+\clearpage
+\section{Summary}
 
-\section{Conclusion}
-The results of our investigations show that many JVMs share energy efficiencies and can be grouped into 3 classes: \textsc{HotSpot}, J9, and \textsc{GraalVM}.
-The 3 selected JVM classes can however report a different energy efficiency for different software and/or workloads, sometimes by a large margin.
-While we did not observe a unique champion when it comes to energy consumption, \textsc{GraalVM} reported the best energy efficiency for a majority of benchmarks.
-Nonetheless, each JVM can achieve the best or the worst depending on the hosted application.
-One cause can be thread management strategies, as observed with J9 when advantageously running \textsf{Avrora}.
-Moreover, some JVM settings can cause energy consumption variations.
-Our experiments showed that the default JIT compiler of the JVM is often near-optimal, in at least ~80\% of our experiments.
-The default GC, however, was outperforming alternative strategies in half of our experiments, with some large gains observed when using some alternative GC depending on the application characteristics.
+This chapter describes an empirical investigation of contrast in energy consumption that some of the most well-known and widely supported JVM platforms can exhibit as well as the important factors that can influence this energy consumption.
+During our experiments, we investigated 12 well-known and diverse-purpose Java benchmarks, as well as 52 JVMs, including many versions of 11 different distributions. 
+Our findings revealed that various JVMs share energy efficiency and may be classified into three major classes: \textsc{HotSpot}, \textsc{J9}, and \textsc{GraalVM}.
+However, the three JVM classes can show substantially different energy efficiency depending on the workloads and/or application.
+While there was no clear champion in terms of energy consumption,\textsc{GraalVM} recorded the highest energy efficiency for the most of benchmarks. Nevertheless, depending on the workload, each JVM can achieve higher or worse efficiency.
+One explanation could be thread management policy, as seen with \textsc{J9} when running \textsf{Avrora}.
 
-Our main conclusions and guidelines can be thus summarized as:
+Additionally, numerous JVM settings can cause changes in energy consumption. Our experiments revealed that the JVM's default JIT compiler is frequently near-optimal in at least 80\% of the experiments. 
+
+On the other hand , the default GC outperformed the other strategies in just half of our experiments, with some significant benefits reported when employing different GCs based on the application characteristics. Our primary observations and recommendations can be stated as follows:
 \begin{inparaenum}[\em i)]
     \item testing software on the 3 classes of JVM and identifying the one that consumes the least is a good practice, especially for multi-threading purposes,
     \item while the JVM default JIT give often good energy consumption results, some settings may improve the energy consumption and could be tested,
     \item the choice of the GC may lead to a large impact on the energy consumption in many situations, thus encouraging a careful tuning of this parameter before deployment.
 \end{inparaenum}
-To ease the integration of the above guidelines, we propose a tool, named \textsf{J-Referral}, to recommend the most energy-efficient JVM distribution and configuration among more than a hundred considered possibilities.
-It establishes a full report on the energy consumption of both CPU and DRAM components for each JVM distribution and/or configuration to help the user to choose the one with the least consumption for Java software.
+
+To make the above principles easier to implement, we propose \emph{J-Referral}, a tool that recommends the best energy-efficient JVM distribution and configuration from among more than a hundred options.
+It generates a comprehensive report on the energy consumption of both CPU and DRAM components for each JVM distribution and/or configuration in order to assist the user in selecting the one with the lowest consumption for Java applications.

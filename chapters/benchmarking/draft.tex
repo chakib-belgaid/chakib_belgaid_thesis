@@ -1,16 +1,18 @@
 \section{Reproducibility within the context of energy}\label{sec:benchmarking_reproducibility}
 \subsection{Introduction}
 
-%  NOTE : add introduction and change this into motivation ?? 
 Empirical measurements are critical to capture the effect of developers' choices on software energy consumption.
 To accomplish this, one should not overlook the benchmarking pitfalls highlighted in the state of the art~\cite{van_der_kouwe_benchmarking_2018}.
-Furthermore, when it comes to evaluating the energy consumption of software, other challenges occur, such as the impact of hardware, the difference between the machines used for measurements and those that may apply the results, and so on.
-Moreover, considerable advances in computer science have resulted in an increase in the number of obsolete results.
-Addressing all of them becomes significantly more difficult in studies that compare multiple treatments.
-Also, between the exploratory experiment and when the results were made public, new candidates may have come up and others may have changed.
-So, not only is it important to make sure the results can be "reproduced," but it's also important to make room for new candidates.
-This chapter covers ways to overcome empirical analysis challenges in energy consumption studies. First, we go through the three components of a successful benchmark within the energy consumption experiment. Section~\ref{sec:benchmarking_reproducibility} concentrates on the "reproducibility" issue and how to deliver reproducible experiments without interfering with the energy measurement. Section~\ref{sec:taming-the-energy-variation} discusses accuracy in software energy consumption.
-Finally, Section~\ref{sec:bench_extension} presents tools for introducing new candidates, workloads, or other key performance indicators.
+
+Second, one should not ignore tremendous progress in computer science, which have led to a rise in the number of obsolete results.
+Furthermore, when it comes to comparative research, the execution environment may have an impact on the study itself.
+Finally, between the exploratory experiment and the publication of the results, new candidates may have emerged and others may have changed.
+
+As a result, it is critical not only to ensure that the results can be "reproduced", so one can test their hypothesis in different environments, but also to provide room for new candidates.
+In this section, we will address these issues and investigate several ways of encapsulating the systems-under-test to ensure experiment reproducibility in the context of energy consumption tests while providing the benefits and drawbacks of each strategy.
+Later in this section, we will also propose a protocol to ensure that the results are not only reproducible but extensible.
+
+% Furthermore, when it comes to evaluating the energy consumption of software, other challenges occur, such as the impact of hardware, the difference between the machines used for measurements and those that may apply the results, and so on.
 % Regarding the "representativeness" of the benchmarks, we will elaborate in the section entitled Perspectives.
 %% this is might be the part that treats reproducibility for my case 
 
@@ -44,7 +46,7 @@ Finally, Section~\ref{sec:bench_extension} presents tools for introducing new ca
 
 % Now that we have covered the general strucutre of the protocol, this section details the specific aspects of the protocol that are relevant to the energy consumption analysis.
 % We will first discuss how to insure the extension of the candidates. later we will talk about the energy metrics and how to ensure the accuracy when it comes to the measurement of the energy consumption.
-This section addresses various strategies for encapsulating the systems-under-test in order to ensure experiment reproducibility.
+
 
 \subsection{Virtual Machines}
 The very first choice should be to use \emph{Virtual Machines} (VM), which allow researchers to select the most appropriate tools, software, and operating system that they are most comfortable with without incurring the cost of changing the actual working environment, giving them more control over dependencies and the execution environment.
@@ -113,19 +115,83 @@ To summarize, Docker-based software tends to consume more energy since it takes 
 The execution of the Docker daemon causes an increase in average power consumption of only \textbf{2\,Watts}.
 This overhead can reach up to 5\% in IO-intensive applications, while it is barely visible in CPU- or DRAM-intensive workloads.
 
-
-
 \begin{figure}[!bht]
     \includegraphics[width=.5\linewidth]{imgs/docker_vs_vm_energy_paper/reddis_time}
     \includegraphics[width=.5\linewidth]{imgs/docker_vs_vm_energy_paper/reddis_energy}
     \caption{Execution time \& energy consumption of Redis with and without Docker~\cite{eddie_antonio_santos_how}}\label{fig:docker_reddis}
 \end{figure}
 
+As can be seen, the introduction of the supervisor has increased the impact of Docker on energy that will be applied equitably to all experiments.
+Therefore, when it comes to comparison analysis, it will mitigate its impact automatically.
+Furthermore, because we have access to the host hardware, we do not need to worry about capturing the SUT's energy use.
+As a result, we will use Docker to keep all of our tests separate, as it will make sure that they can be repeated in a clear and simple way.
+
+\subsection{Extension}
+% TODO : proofread
+\subsubsection{Definition of Extention}
+With the rapid evolution of the software industry, Even ensuring the reproducibility of the same research won't be enough.
+Each day, new versions of the software are released, and new features are added. Even more, the goal of the research might evolve. As a result, nowadays, especially in comparative studies, it is essential to leave room for expansion.
+
+One can extand their experiment through three axes :
+\begin{itemize}
+    \item \textbf{proposed solutions}: Where one will expand their research by including additional solutions and comparing them to earlier ones
+    \item \textbf{evaluation criteria}: This axe's objective is to broaden the evaluation criteria to incorporate additional measures like as performance, cost, and security, among others.
+    \item \textbf{benchmarks}: The purpose of this axe is to enlarge the benchmarks to include other ones in order to broaden the scope of the research.
+\end{itemize}
+
+\subsubsection{The architecture of the extension}
+\begin{figure}
+    \center{\includegraphics[width=\linewidth]{imgs/benchmarkingprotocol}}
+    \caption{Benchmarking protocol}\label{fig:benchmarkingprotocol}
+\end{figure}
+To be able to extend the empirical experiments through these axes,
+We propose to enhance the benchmarking framework suggested by the \emph{Collaboratory on Experimental Evaluation of Software and Systems in Computer Science}\footnote{\url{http://evaluate.inf.usi.ch/}}.
+Instead of only presenting the four primary aspects of their guidelines that were mentioned previously in Section~\ref{sec:benchmarking_reproducibility}, we suggest an abstract model to describe an empirical experiment.
+Figure~\ref{fig:benchmarkingprotocol} shows the proposed model while providing a comparaison between the existing solution and the proposed one.
+
+The model is composed of different components that are described below,
+\paragraph{Context}
+The hardware and the software configuration for the actual experiment, the purpose of this part is to provide extra information to help readers have a better judgement on the results and to be able reproduce the experiment while diminishing the impact of  external factors .
+
+\paragraph{orchestrator}
+
+The core design of the experiment which is responsible for running the experiment regrardless of the context.
+In the experiment,it is  the only component that is allowed to interact with the SUT.
+The orchestrator provides three interfaces:
+\begin{itemize}
+    \item \emph{Workload interface} : provides a set of functions that should be implemented by the workload and called by each candidate in the experiment.This interface is responsible for extending the experiment with new benchmarks.
+    \item \emph{The Observer interface}: provides a set of metrics that are collected by the orchestrator during the experiment. Implementing the observer interface allows the user to extend the experiment with new metrics.
+    \item \emph{The Candidate interface} : It provides a set of functions that should be implemented by the candidate and called by the orchestrator. This interface is responsible for extending the experiment with new solutions.
+\end{itemize}
+
+\paragraph{Data}
+The row data collected collected by the experiment. In ourcase it will be provided by the observator, one ore more observators can be used to collect different metrics. The purpose of this data is to ensure the \emph{replication} of the experiment which will allow the reader to perform extra analysis without rexucuting the experiment.
+
+
+\paragraph{Analysis}
+The final part, that should provide the set of methodes and functions used to do the empirical analysis in order to answer the research questions.
+
+
+
+% It starts with the orchestrator is the core design of the experiment  for the coordination between the workload and the candidate, therefore it provides an interface that is implemented by each workload.
+% Later this interface will be provided to each candidate by the orchestrator. Like this we will remove any bias of dependency between the workload and the candidates, which will alow us to extend both parts without any change in the code.
+% Instead of retrieving the data directly from the experiment, we suggest to use an observator to allow the extension of the metrics, this observer in general should be outside the experiment to be able to gather as many informations without impacting the the code.
+
+
+
+
+
+
+
+
 
 \subsection{Conclusion}
-As can be seen, the introduction of the supervisor has increased the impact of Docker on energy that will be applied equitably to all experiments.
-Therefore when it comes to comparison analysis, it will mitigate its impact automatically.
-Furthermore, because we have access to the host Hardware, we do not need to worry about capturing the SUT's energy use.
-As a result, we will use Docker as an encapsulation solution for all of our experiments.
-It will ensure the reproducibility of our experiments in a simple and straightforward manner.
+
+In this section, we addressed the first challenge of empirical research, which is the \textbf{reproducibility} of the experiments.
+We started by listing the different options for encapsulating the system-under-test.
+Then, we have shown that the use of VMs is not suitable for performance-related tests nor energy-related ones, while containers are a good alternative. Laterm, we discussed the pros and cons of using Docker for experiments related to energy consumption and have shown that it has a constant overhead which is self-mitigated when it comes to comparison analysis.
+Lastly, we have proposed an addition to the benchmarking framework that would allow the experiment to be extended along the three axes already mentioned.
+
+
+
 \clearpage

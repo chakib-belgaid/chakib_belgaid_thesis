@@ -1,4 +1,4 @@
-\newpage
+
 % To satisfy those three requirements. we elaborated a benchmarking protocol that aims to help reaserchers and practicioners in their experementations.
 % for each aspect we present a set of guidelines and tools.
 %% This is a conclusion maaan  !! 
@@ -33,7 +33,7 @@ There are three main contexts.
 We used the platform Grid5000 (G5K)~\cite{grid5000,margery:hal-00965708}, which is a large, flexible testbed for experiment-driven research that is spread out across all of France, to meet these needs. Grid5000 has several clusters that are made up of 4 to 124 identical machines with different configurations for each cluster. For our experiment, we looked at four groups. Our main criterion was the CPU configuration.
 Table~\ref{table:g5k}  below, presents a description of the four clusters that have been chosen for our experiments.
 
-\begin{table}[!hbt]
+\begin{table}[hbt]
     \centering
     \caption{Description of clusters included in the study}
     \label{table:g5k}
@@ -58,7 +58,7 @@ As most of the nodes are equipped with two sockets (physical processors), we use
 
 Figure~\ref{fig:topo}  shows the detailed topology of a node in the cluster \textsf{Dahu} as an example.
 
-\begin{figure}%[!htb]
+\begin{figure}[htb]
     \center{\includegraphics[width=.9\linewidth]{imgs/lstopo}}
     \caption{Topology of the nodes of the cluster \textsf{Dahu}}\label{fig:topo}
 \end{figure}
@@ -71,7 +71,7 @@ First, \textbf{scalability}: We wanted to learn as much as possible about the ex
 The second criterion is whether or not the workload is \textbf{representative}. As stated in the challenges, a workload must represent the production environment or the experiment would be inconsistent~\cite{stephen_evaluate_2012}.
 
 To meet these criteria, we looked at the "state of the art" and found the most common benchmarks used to test the performance of hardware. We then chose the ones that could be scaled up.
-Our candidate is  emph{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NPB:125826.125925}: one of the most used benchmarks for \emph{HPC}. We used the applications (\textsf{LU}), the \emph{Conjugate Gradient} (\textsf{CG}) and \emph{Embarrassingly Parallel} (\textsf{EP}) computation-intensive benchmarks in our experiments, with the \textsf{C} data class.
+Our candidate is \texttt{NAS Parallel Benchmark} (NPB v3.3.1)~\cite{Bailey:1991:NPB:125826.125925}: one of the most used benchmarks for \emph{HPC}. We used the applications (\textsf{LU}), the \emph{Conjugate Gradient} (\textsf{CG}) and \emph{Embarrassingly Parallel} (\textsf{EP}) computation-intensive benchmarks in our experiments, with the \textsf{C} data class.
 Furthermore we have used other applications to validate our results using more applications such as \texttt{Stress-ng v0.10.0},\footnote{\url{https://kernel.ubuntu.com/~cking/stress-ng}} \texttt{pbzip2 v1.1.9},\footnote{\url{https://launchpad.net/pbzip2/}} \texttt{linpack}\footnote{\url{http://www.netlib.org/linpack}} and \texttt{sha256 v8.26}.\footnote{\url{https://linux.die.net/man/1/sha256sum}}
 
 
@@ -529,12 +529,12 @@ Half of these experiments has been performed at a 50\,\% workload and the other 
 The choice of these two workloads is related to the optimization guidelines that are mainly effective at low and medium workloads.
 We note that we used the cluster \textsf{Dahu} over \textsf{Ecotype} to highlight the guidelines effect on the nodes where the variation is susceptible to be higher.
 
-\begin{figure*}%[!htb]
+\begin{figure*}[htb]
     \center{\includegraphics[width=\linewidth]{imgs/all}}
     \caption{Energy variation comparison with/without applying our guidelines}\label{fig:optimized}
 \end{figure*}
 
-\begin{figure}%[!htb]
+\begin{figure}[htb]
     \center{\includegraphics[width=.9\linewidth]{imgs/stressng}}
     \caption{Energy variation comparison with/without applying our guidelines for \textsc{Stress-NG}}\label{fig:stress}
 \end{figure}
@@ -568,15 +568,7 @@ This hardware heterogeneity also makes reproduction complex and requires the usa
 
 
 \subsection{Conclusion}
-In this part, we conducted an empirical study of controllable factors that can increase the energy variations on platforms with some of the latest CPU, and for several workloads.
-We provide a set of guidelines that can be implemented and tuned (through the OS GRUB for example), especially with the new data centers isolation trend and the cloud usage, even for scientific and R\&D purposes.
-Our guidelines aim at helping the user in reducing the CPU energy variation during systems benchmarking, and conduct more stable experiments when the variation is critical.
-For example, when comparing the energy consumption of two versions of an algorithm or a software system, where the difference can be tight and need to be measured accurately.
-
-Overall, our results are not intended to nullify the variability of the CPU, as some of this variability is related to the chip manufacturing process and its thermal behavior.
-The aim of our work is to be able to tame and mitigate this variability along controlled experiments.
-We studied some previously discussed aspects on some recent CPU, considered new factors that have not been deeply analyzed to the best of our knowledge, and constituted a set of guidelines to achieve the variability mitigating purpose.
-Some of these factors, like the C-states usage, can reduce the energy variation up to 500\,\% at low workloads, while choosing the wrong cores/PU strategy can cause up to $30\times$ more variability.
-
-We believe that our approach can also be used to study/discover other potential variability factors, and extend our results to alternative CPU generations/brands.
-Most importantly, this should motivate future works on creating a better knowledge on the variability due to CPU manufacturing process and other factors.
+In order to increase the \textbf{accuracy} in comparative experiments, we conducted an empirical study of controllable factors that may increase the energy variations on platforms with some of the latest CPUs and for several benchmarks.
+This study is not intended to nullify the variability of the CPU, as some of this variability is related to the chip manufacturing process and its thermal behavior. Instead, it aims to tame and mitigate this variability along controlled experiments.
+In this study, We investigated some previously discussed aspects on some recent CPUs, considered new factors that have not been deeply analyzed to the best of our knowledge, and constituted a set of guidelines to increase this accuracy for energy related experiments.
+Some of these factors, like the \emph{C-states} usage, can reduce the energy variation up to 500\,\% at low workloads, while choosing the wrong cores/PU strategy can cause up to $30\times$ more variability.
