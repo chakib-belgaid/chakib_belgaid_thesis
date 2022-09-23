@@ -247,12 +247,12 @@ However, due to the increase of cores/threads per CPU, many Python libraries sta
 For example, the multiprocessing library\footnote{\url{https://docs.python.org/3/library/multiprocessing.html}} spawns sub-processes to increase the degree of concurrency of Python applications.
 As one can see in \Cref{fig:python_multiprocessing}, the energy consumption is correlated with the number of threads until reaching the limit of physical cores, when concurrent processes start to compete for the CPU.
 
-\begin{figure}[hbt]
-    \centering
-    \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
-    \caption{Energy consumption of Python multiprocessing depending on the number of exploited threads.}
-    \label{fig:python_multiprocessing}
-\end{figure}
+% \begin{figure}[hbt]
+%     \centering
+%     \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
+%     \caption{Energy consumption of Python multiprocessing depending on the number of exploited threads.}
+%     \label{fig:python_multiprocessing}
+% \end{figure}
 
 Before reaching the limit of physical cores, we also observe that the scheduler of the operating system tends to favor the execution of processes on the same physical core, by taking advantage of the hyper-thread feature.
 While this strategy aims to save energy by leveraging the ACPI P-states and C-states of unallocated cores, this leads to increase execution times.

@@ -317,6 +317,8 @@ In Numba, the developer must target the portion of the code that will be passed 
 \paragraph{Remark:}
 Because GraalPython was still in its early stages, some techniques required an abnormally lengthy time, affecting the clustering algorithm.
 
+
+%  Switch this to conclusion 
 To help practitioners to choose the best implementation for their use case, we have created a chart that describes the behavior of each implementation toward a specific aspect of programming.
 Figure~\ref{fig:tommi_all} introduces a radar plot for all the implementations that have been used in this experimentation.
 
@@ -338,7 +340,7 @@ Therefore, one can conclude that the work done on those interpreters is primaril
 ActivePython states that their version is focused on security and prepackaged libraries, which explains why it is slower than other versions due to the addition of this security support.\footnote{\url{https://www.activestate.com/solutions/why-activestate/}}
 As for IntelPython, it is designed for machine learning.
 Unfortunately, the \textsc{Tommti} benchmark is geared for general-purpose programming.
-Despite the fact that Nuitka is a compiler, there was no discernible difference in energy consumption.
+Despite the fact that Nuitxka is a compiler, there was no discernible difference in energy consumption.
 It was even more similar to the reference Python implementation than other interpreters.
 However, if we look at the Nuitka techniques, we can see that they simply encapsulate the Python code with an interpreter into a single executable.
 Finally, Shedskin reports on the best energy consumption pattern when it comes to arithmetic operations.
@@ -464,6 +466,6 @@ One can conclude that the choice of Python interpreter has a significant impact 
 While most of the candidates used Python2, we observed that different strategies that were implemented within each candidate have a significant impact on the energy consumption. 
 The major improvement of the energy was related to the use of JIT, which is a technique that compiles the code into machine code at runtime. 
 The effect of the compilation of the python code into machine code was also confirmed with the use of translators such as shedskin. 
-
 This investigation is made more intriguing by the absence of a universal solution.
 The primary downside is the incompatibility of some of these solutions, which causes us to make concessions when we need a generic answer.
+we did a classification and clusturing of different python implementations based on their energy consumption.
