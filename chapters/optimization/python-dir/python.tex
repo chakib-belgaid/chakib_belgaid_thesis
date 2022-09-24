@@ -1,12 +1,8 @@
 
 \section{Introduction}
-% TODO : MOVE this to SOA 
 
-% new structure : 
-%  introduction  / motivation -> definition of python -> the plan of experiments -> experiments 
 Dynamic programming languages, except Perl, have surpassed compiled programming languages in terms of popularity among software system developers over the past decade (cf. \Cref{fig:pypl}).
 However, it remains unclear whether this category of dynamic programming languages can truly compete with compiled ones in terms of power consumption.
-
 \begin{figure}[htbp]
     \includegraphics[width=\linewidth]{imgs/programminglanguangespopularity.png}
     \caption{PYPL Popularity of Programming Languages~\cite{noauthor_pypl_2018}.}
@@ -21,15 +17,15 @@ According to their experiments, an interpreted programming language, like Python
     \label{fig:hannoi}
 \end{figure}
 
-In this chapter, we explore the oblivious optimizations that can be applied to Python legacy applications to reduce their energy footprint.
-As Python is widely adopted by software services deployed in public and private cloud infrastructures, we believe that our contributions will benefit a wide diversity of legacy systems and not only favorably contribute to reducing the carbon emissions of ICT, but also reduce their cloud invoice for the resources consumed by these services.
-More specifically, this chapter focuses on runtime optimizations that can be adopted by developers to leverage the power consumption of Python applications.
-We start by studying the impact of programmer choices, such as the type of data or control structures, on the global energy consumption of the execution code.
-Then, we discuss other factors, such as the levels of concurrency, before we investigate other non-intrusive approaches to optimize the energy consumption of applications.
-One type of optimization includes alternative interpreters and libraries that are dedicated to optimizing the code without changing its structures, such as \emph{ahead-of-time} (AOT) compilation and \emph{just-in-time} (JIT) libraries that are maintained by the community.
 
 
-\section{Motivation}
+In this chapter, we aim to reduce the energy consumption of Python code.
+We first start by presenting the motivation behind our work in Section~\ref{python:sec_motivation}.
+Then we provide some insights on the impact of programmer choices in the second section. To do so, we will conduct a set of experiments on different Python aspects, from data structures and iteration mechanisms to the impact of training algorithms in machine learning, passing by the impact of the concurrency strategy and the use of orms in web development.
+Finally, in Section~\ref{python:sec_interpreters},we investigate other non-intrusive approaches to optimizing the energy consumption of applications by comparing multiple Python implementations, which include alternative interpreters and libraries that are dedicated to optimizing the code without changing its structures, such as ahead-of-time (AOT) compilation and just-in-time (JIT) libraries that are maintained by the community.
+
+
+\section{Motivation}\label{python:sec_motivation}
 
 \subsection{Python Popularity}
 Nowadays, Python attracts a large community of developers who are interested in data analysis, web development, system administration, and machine learning.
@@ -73,7 +69,7 @@ Therefore, it requires a faster interpreter to execute its programs to compete a
 \end{table}
 
 
-\subsection{Python Limits}
+\subsection{Python usecases}
 To reduce the energy consumption of Python, we started by targeting the main usage of this programming language, which is revealed to be data science and web development.
 \Cref{fig:usecase} illustrates a study published by the JetBrain company on Python developers.\footnote{\url{https://www.jetbrains.com/lp/python-developers-survey-2020}}
 57\% of the respondents reported that they use Python for data science, 51\% said they are using it for web development, and around 40\% are using it for system administration.\footnote{The options in this survey were not mutually exclusive.As a result, the total of the percentages is greater than $100\%$.}
@@ -85,7 +81,8 @@ To reduce the energy consumption of Python, we started by targeting the main usa
     \label{fig:usecase}
 \end{figure}
 
-In this chapter, we investigate the energy footprint of Python in its most popular domains of adoption.
+\section{Energy optimization of python on the source code level}\label{python:sec_insights}
+In this section , we investigate the energy footprint of Python in its most popular domains of adoption.
 We first explore the data and control structures, aiming to reveal some fundamental guidelines, as \citeauthor{hasan_energy_2016} did in~\cite{hasan_energy_2016}.
 Then, we measure the energy consumption of several Python implementations to propose a non-intrusive technique to improve energy efficiency.
 Therefore, this chapter will address the following research questions:
@@ -99,7 +96,7 @@ To answer these questions, we report on 4 case studies that intend to answer the
 First, we study the energy behavior of Python in two application contexts: web applications (cf. \Cref{sec:webdev}) and machine learning.
 Then, we dive deeper into the energy consumption of Python core structures, before concluding with the impact of the Python interpreter on energy consumption.
 
-\section{Green Web Development}\label{sec:webdev}
+\subsection{Green Web Development}\label{sec:webdev}
 
 Django\footnote{\url{https://www.djangoproject.com/}} and Flask\footnote{\url{https://flask.palletsprojects.com/}} are the most popular frameworks for web development.
 According to a Jetbrains poll,\footnote{\url{https://lp.jetbrains.com/python-developers-survey-2021/}} Django is used in 40\% of the cases, while Flask is used in 41\% of the cases.
@@ -107,7 +104,7 @@ According to a Jetbrains poll,\footnote{\url{https://lp.jetbrains.com/python-dev
 In contrast to Flask, which is a micro-framework, Django is a high-level web framework that provides a standard method for creating and maintaining complex and scalable database-driven websites quickly and effectively.
 Therefore, this study will focus on the latter one.
 
-\subsection{Life-cycle of a Request in Django}
+\subsubsection{Life-cycle of a Request in Django}
 Django is a MVT (\emph{Model-View-Template}) framework, which means that it follows the MVC (\emph{Model-View-Controller}) pattern.
 Figure~\ref{fig:django-life-cycle} describes the life-cycle of a request in this framework.
 Whenever a request arrives in Django, it is processed by the middleware layers, one at a time.
@@ -186,12 +183,12 @@ And, unlike the rendering portion, there are many options available for the data
 % we discuss a deeper this behavior of the scheduler and in that case we confirm that it is not related to python but it is more generic behaviour %% maybe even this graph should go there 
 
 
-\section{Python Insights}
+\subsection{Python Insights}
 This section aims to formulate some actionable insights to optimize the energy consumption of Python applications without altering the source code.
 Therefore, we start by extending the work of Hasan~\emph{et~al.} and Oliveira~\emph{et~al.} to the context of Python environments
 \cite{hasan_energy_2016,oliveira_recommending}.
 
-\subsection{experiment and results}
+\subsubsection{experiment and results}
 %%%% concurency 
 Another field of investigation is the type of data and control structures that might impact the energy consumption.
 We iterate over a list using 3 methods.
@@ -233,14 +230,14 @@ The reason is that Python treats these functions as local variables, unlike the 
 Therefore, they are faster and consume less energy.  % same reference https://www.python.org/doc/essays/list2str/ 
 
 
-\subsection{Synthesis}
+\subsubsection{Synthesis}
 This study demonstrates that the optimal way to reduce the energy consumption of Python application is to follow the guidelines and to privilege the built-in functions.
 
 
-\section{Python \& Multiprocessing}
+\subsection{Python \& Multiprocessing}
 
 
-\subsubsection{Cost of Parallelism in Python}
+% \subsubsection{Cost of Parallelism in Python}
 Additionally, \Cref{fig:python_multiprocessing} reports on the energy consumption of Python applications when introducing parallelism.
 Python applications are single-threaded systems constrained by the \emph{global lock system} (GLS).
 However, due to the increase of cores/threads per CPU, many Python libraries started to take advantage of this hardware feature by allowing concurrent execution of Python processes.
@@ -281,23 +278,23 @@ we discuss this behavior of the scheduler more deeply and we assess that it is n
 % add performance 
 % add dram \ a glimps 
 
-\section{Python \& Machine Learning}
+\subsection{Python \& Machine Learning}
 Machine learning is becoming an integral part of our daily lives, growing more potent and energy-hungry each year.
 As machine learning can have a significant impact on climate change, it is vital to investigate mitigation techniques.
-\subsection{Experimental Protocol}
-\subsubsection{Measurement context}
-\paragraph{Hardware settings}
+\subsubsection{Experimental Protocol}
+\paragraph{Measurement context}
+\subparagraph{Hardware settings}
 Chifflot 8 from Grid 5000's Lille site was used for all of the trials.
 The machine is outfitted with two Intel Xeon Gold 6126 CPUs, each having 12 physical cores, 192 GB of RAM, and two 32 GB Tesla V100 GPUs.
 
-\paragraph{Software settings}
+\subparagraph{Software settings}
 For the sake of reproducibility, each experiment is done within a Docker container using Jupyter lab. These tests are run on top of a minimal version of Debian-10 to increase the accuracy of the tests by eliminating any unnecessary processes.
 \subsubsection{Input Workload}
-\paragraph{Models}
+\subparagraph{Models}
 Several models were developed, however, only two were used in the final trials because they achieved 94 percent accuracy in an acceptable length of time.
 David Page's cifar10-fast~\footnote{\url{https://github.com/davidcpage/cifar10-fast}} and Woonhyuk Baek's torch skeleton~\footnote{\url{https://github.com/wbaek/torchskeleton}} are shown here.
 
-\paragraph{Datasets}
+\subparagraph{Datasets}
 The CIFAR-10 dataset was the major source of data for the studies.
 It is made up of 60000 32x32 color images grouped into ten categories.
 
@@ -305,7 +302,7 @@ Some experiments were done using the MNIST dataset of handwritten digits to vali
 The model did not need to be updated because the 60000 28x28 grayscale photos were padded.
 
 
-\subsubsection{candidates}
+\paragraph{candidates}
 The experiments were run with several different CPU and GPU configurations:
 \begin{itemize}
     \item with and without GPU,
@@ -313,7 +310,7 @@ The experiments were run with several different CPU and GPU configurations:
     \item different number of CPU physical cores.
 \end{itemize}
 
-\subsubsection{Key Performance Metrics}
+\paragraph{Key Performance Metrics}
 We used Pytorch 1.10.0 to train those models and pyjoules to measure the energy consumption of the GPU and CPU.
 \begin{itemize}
     \item accuracy : in \%
@@ -322,7 +319,7 @@ We used Pytorch 1.10.0 to train those models and pyjoules to measure the energy 
 \end{itemize}
 
 
-\subsection{Results \& Findings}
+\subsubsection{Results \& Findings}
 As the model's accuracy increases, so does the energy required for the next accuracy increment.
 
 Figure~\ref{fig:cum_energy_vs_accuracy} depicts how the curve steepens as training progresses.
@@ -371,6 +368,7 @@ The next steps in this area could include exploring the reasons for these discre
 
 \input{python_interperters.tex}
 % \subsection{threads to validity \note{missing}}
+\skippage
+
 \section{Summary}: 
-
-
+As Python is widely adopted by software services deployed in public and private cloud infrastructures, we believe that our contributions will benefit a wide diversity of legacy systems and not only favorably contribute to reducing the carbon emissions of ICT but also reduce their cloud invoice for the resources consumed by these services.

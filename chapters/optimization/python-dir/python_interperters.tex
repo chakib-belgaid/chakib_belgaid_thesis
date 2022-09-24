@@ -1,16 +1,13 @@
-\section{Python Interpreters}\label{sec:pythoninterpreters}
-%%% note : add this to the section of python interpreters
-Due to the lack of support for most non-conventional Python interpreters, we mainly focus on micro-benchmarks.
-Except for \textsc{PyPy}, most of the Python implementations do not support extra Python libraries, despite those extra implementations being developed to optimize a specific library, such as \textsf{Numba} with \textsf{Numpy}, or \textsf{intelpython} with machine learning algorithms.
-
-
-\subsection{Preliminary studies}
+\section{Python Interpreters}\label{python:sec_interpreters}
 For the first studies, we used the official version of Python, because the goal was mainly to highlight the impact of the structure of code on energy consumption.
 One main drawback of the previous method is the work to be done to update the existing code base to reduce  energy consumption.
-To avoid such hustle, we tried to find a non-intrusive approach to make the Python code more eco-friendly without altering its structure.
-Python is an interpreted language, which led many initiatives to implement their own interpreter to improve one or many aspects of the Python code.
-In the following section, we discuss the impact of those implementations on the energy consumption of python programs, and in which case, one should use a non-conventional interpreter to save the energy consumption of their application.
+Despite the availability of numerous tools for code refactoring and automatic code optimization, the optimization process remains a manual effort. This is due to the fact that code optimization is a task that requires extensive understanding of both the codebase and the language itself.
 
+To avoid such hustle, we tried to find a non-intrusive approach to make the Python code more eco-friendly without altering its structure.
+Python is an interpreted language, which led many initiatives to implement their own interpreter to improve one or many aspects of the Python code. 
+Therefore, nn this section, we will examine at how different Python interpreters affect the energy consumption of software,and in which case, one should use a non-conventional interpreter to save the energy consumption of their application. 
+
+\subsection{Python runtimes}\label{python:sec_interpreters}
 To do so, we gathered a list of interpreters, transpilers and other optimization libraries that can contribute to reduce the energy consumption of legacy Python applications:
 \begin{enumerate}
       \item \textbf{CPython}:\footnote{\url{https://www.python.org/}}
@@ -281,15 +278,16 @@ To add new candidate runtimes, one should add a base Docker file that contains t
 Finally, they should be included in the Python candidates.
 
 \subsection{Results \& Findings}
-This section will be dedicated to the results of the experiments and statistical analysis of these results.
-Because we are conducting a comparison study, we first did a Shapiro-Wilk~\cite{shapiro1968comparative} test to see if the data follows a normal distribution.
+This part will be dedicated to the results of the experiments and statistical analysis of these results.
+First and foremost, we want to know whether our samples have a normal distribution. As a result, we ran a Shapiro-Wilk~\cite{shapiro1968comparative} test on our data.
 Despite the fact that some implementations had a $p$-value higher than $a=0.05$ (such as CPython and ActivePython), other implementations like PyPy and Numba presented a $p$-values smaller than 0.01, which leads to reject the hypothesis $H0$ that all the distributions follow a normal distribution.
 Therefore, to compare the different implementations, we performed the non-parametric Mann-Whitney U test~\cite{zimmerman1987comparative}, with CPython2 and CPython3 as base references.
 
-The Mann-Whitney U test results for each implementation are shown in Table \ref{table:manwithyu}. The first column displays the implementation's average energy usage, while the second provides the p-value of the test when compared to the reference Python implementation. If the p-value is less than 0.05, the test result is significant. This implies that the given implementation's energy consumption differs significantly from the reference implementation's.As one can notice, most of the implementations differ significantly from the reference implementation.
+The Mann-Whitney U test results for each implementation are shown in Table \ref{table:manwithyu}. The first column shows the average energy usage of the implementation, while the second shows the p-value of the test when compared to the reference Python implementation. If the p-value is less than 0.05, the test result is significant, indicating that the energy consumption of the given implementation differs significantly from that of the reference implementation.
+As can be seen, the majority of the implementations deviate significantly from the reference implementation.
 \input{table-envs-based-cpython.tex}
 
-As we want to study the position of these implementations with regards to the references, we proceed with agglomerative \emph{hierarchical cluster analysis} (HCA)~\cite{johnson1967hierarchical}.
+As we want to study the position of these implementations with regards to the reference implementation (aka Cpython2 and Cpython3), we proceed with agglomerative \emph{hierarchical cluster analysis} (HCA)~\cite{johnson1967hierarchical}.
 HCA is a method that groups the different implementations based on their energy consumption.
 This technique is a bottom-up approach as it starts with each implementation being a single cluster, and then merges the two most similar clusters until all the clusters are merged into a single cluster.
 The similarity between two clusters is measured by the maximum distance between their furthest points.
@@ -314,9 +312,7 @@ Table~\ref{table:manwithyu} shows that this cluster is by far the most energy-ef
 While Numba2 and Numba3 are also JIT libraries, they differ from PyPy due to their manual optimization.
 Unlike PyPy, which will decide by itself which part of Python to optimize.
 In Numba, the developer must target the portion of the code that will be passed to JIT, while the rest of the code will be executed by the regular interpreter (aka CPython).
-\paragraph{Remark:}
-Because GraalPython was still in its early stages, some techniques required an abnormally lengthy time, affecting the clustering algorithm.
-
+\bigskip
 
 %  Switch this to conclusion 
 To help practitioners to choose the best implementation for their use case, we have created a chart that describes the behavior of each implementation toward a specific aspect of programming.
@@ -324,14 +320,14 @@ Figure~\ref{fig:tommi_all} introduces a radar plot for all the implementations t
 
 \begin{figure}[!htb]
       \centering
-      \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/alltomti_performance}
+      \includegraphics[height=\textheight,keepaspectratio]{imgs/alltomti_performance}
       \caption{Different interpreter's energy scores.}
       \label{fig:tommi_all}
 \end{figure}
 
 This graph summarizes each implementation energy score when executing our benchmark.
 The lower the energy consumption, the higher the score.
-We adopted a logarithmic scale to help the practitioners to compare numerous implementations due to the large differences between them.
+We adopted a \textsc{logarithmic scale} to help the practitioners to compare numerous implementations due to the large differences between them.
 
 
 As one can notice in Figure~\ref{fig:tommi_all}, there is no evolution between CPython2 and CPython3.
@@ -348,7 +344,9 @@ One can conclude it is due to the fact of the native type of the variables, unli
 
 Regarding the other VM-based interpereters, Jython and Ipy lacked in terms of energy optimization, which expected as they were at the beginning of the development stage and the main purpose of such implementation is to link the bytecode generated by Jython and IronPython with their respective virtual machines.
 
-Unlike the previous interpeters, GraalPython exhibits a certain promise when it comes to complex algorithms (nested loops in particular).
+Unlike the previous interpeters, GraalPython exhibits a certain promise when it comes to complex algorithms (nested loops in particular). However, it is still in its early stages of development and it is not yet ready for production. Since some benchmarks required an abnormally lengthy time, such as array manipulation and sorting. 
+
+
 % Finally, MicroPython is dedicated to embedded systems, so claiming it is a powerful CPU machine will be misleading.
 
 % When it comes to  the input outputs operations , 
@@ -410,62 +408,69 @@ Unlike the previous interpeters, GraalPython exhibits a certain promise when it 
 % pypy handles exceptions very well
 
 
-\subsection{Python \& Binary Operations}
-The second part of this study is to look at how different Python implementations work when executing different binary operations.
+% \subsection{Python \& Binary Operations}
+% The second part of this study is to look at how different Python implementations work when executing different binary operations.
 
-\begin{figure}[!hbt]
-      \small
-      \center
-      \begin{tabular}{|lrrrrr||r|}
-            \toprule
-            benchmark    & Addition & Right Rotation & Left Rotation & Or      & XOR     & Average     \\
-            \midrule
-            ActivePython & 676.980  & 763.208        & 651.783       & 743.016 & 728.828 & 712.76      \\
-            CPython2     & 441.082  & 435.886        & 430.846       & 415.247 & 419.081 & 428.43      \\
-            cpython3     & 595.209  & 685.085        & 563.839       & 657.972 & 655.560 & 531.53      \\
-            \hline
-            Cython       & 35.077   & 182.688        & 274.177       & 34.868  & 34.504  & 112.26      \\
-            Nuitka       & 33.260   & 32.980         & 33.256        & 33.472  & 33.030  & 33.2        \\
-            \hline
-            Numba2       & 9.102    & 8.411          & 9.460         & 9.375   & 9.755   & \best{9.22} \\
-            Numba3       & 9.566    & 10.144         & 9.219         & 9.344   & 9.665   & \best{9.59} \\
-            PyPy2        & 8.456    & 7.844          & 8.286         & 8.138   & 7.952   & \best{8.13} \\
-            PyPy3        & 7.552    & 8.093          & 8.108         & 8.669   & 8.623   & \best{8.21} \\
-            Shedskin     & 8.024    & 8.070          & 8.399         & 8.126   & 8.277   & \best{8.18} \\
-            \bottomrule
-      \end{tabular}
-      \caption{Energy consumption of different implementations using bit operations benchmark (in Joules).}
-      \label{table:bitops}
-\end{figure}
+% \begin{figure}[!hbt]
+%       \small
+%       \center
+%       \begin{tabular}{|lrrrrr||r|}
+%             \toprule
+%             benchmark    & Addition & Right Rotation & Left Rotation & Or      & XOR     & Average     \\
+%             \midrule
+%             ActivePython & 676.980  & 763.208        & 651.783       & 743.016 & 728.828 & 712.76      \\
+%             CPython2     & 441.082  & 435.886        & 430.846       & 415.247 & 419.081 & 428.43      \\
+%             cpython3     & 595.209  & 685.085        & 563.839       & 657.972 & 655.560 & 531.53      \\
+%             \hline
+%             Cython       & 35.077   & 182.688        & 274.177       & 34.868  & 34.504  & 112.26      \\
+%             Nuitka       & 33.260   & 32.980         & 33.256        & 33.472  & 33.030  & 33.2        \\
+%             \hline
+%             Numba2       & 9.102    & 8.411          & 9.460         & 9.375   & 9.755   & \best{9.22} \\
+%             Numba3       & 9.566    & 10.144         & 9.219         & 9.344   & 9.665   & \best{9.59} \\
+%             PyPy2        & 8.456    & 7.844          & 8.286         & 8.138   & 7.952   & \best{8.13} \\
+%             PyPy3        & 7.552    & 8.093          & 8.108         & 8.669   & 8.623   & \best{8.21} \\
+%             Shedskin     & 8.024    & 8.070          & 8.399         & 8.126   & 8.277   & \best{8.18} \\
+%             \bottomrule
+%       \end{tabular}
+%       \caption{Energy consumption of different implementations using bit operations benchmark (in Joules).}
+%       \label{table:bitops}
+% \end{figure}
 
 
-Table~\ref{table:bitops} provides a detailed report on the energy consumption of different implementations of the code.
-Besides \emph{Cython}, each implementation treats the binary operation the same.
-As one can see, Table~\ref{table:bitops} shows no difference in the energy consumption of those operations.
-However, when it comes to Cython, the rotation operations tend to consume 5 times more energy than the other operations, and left rotations consume even more than the right ones.
-The reason behind such behavior is the fact that Cython does not have a native implementation for these two operations, so it replaces them with more complex operations, which leads to an overhead of $6s$ for the right rotation and $10s$ for the left, compared to $1.5s$ for the other operations.
-Therefore, it is safe to summarize all the operations into one that we call \emph{binary}.
+% Table~\ref{table:bitops} provides a detailed report on the energy consumption of different implementations of the code.
+% Besides \emph{Cython}, each implementation treats the binary operation the same.
+% As one can see, Table~\ref{table:bitops} shows no difference in the energy consumption of those operations.
+% However, when it comes to Cython, the rotation operations tend to consume 5 times more energy than the other operations, and left rotations consume even more than the right ones.
+% The reason behind such behavior is the fact that Cython does not have a native implementation for these two operations, so it replaces them with more complex operations, which leads to an overhead of $6s$ for the right rotation and $10s$ for the left, compared to $1.5s$ for the other operations.
+% Therefore, it is safe to summarize all the operations into one that we call \emph{binary}.
 
-\begin{figure}
-      \centering
-      \includegraphics[width=\linewidth]{imgs/bitopts_mean}
-      \caption{Summary of the binary operations for different python implementations }
-      \label{fig:bitops}
-\end{figure}
+% \begin{figure}
+%       \centering
+%       \includegraphics[width=\linewidth]{imgs/bitopts_mean}
+%       \caption{Summary of the binary operations for different python implementations }
+%       \label{fig:bitops}
+% \end{figure}
 
-Figure~\ref{fig:bitops} depicts the average energy consumption of different implementations for the binary operations.
-One can notice 3 clusters.
-The first, which is the interpreted one, uses approximately 500 Joules per operation.
-The second is a non-optimized compilation that includes Cython and Nuitka and uses 10 times less energy than the first.
-And the final one, which has been fully optimized, uses 50 percent less energy. This category includes JIT libraries, also known as Numba, Python implementations that include JIT, also known as PyPy, and Shedskin, which transpile the source code into C and then use a C/C++ compiler to generate the binary, as opposed to Cython and Nuitka, which directly compile the Python code.
-To conclude this experiment, JIT has a huge impact when it comes to binary operations, and an inadequate runtime selection can lead to a 100x increase in energy consumption.
-Furthermore, we observed that different binary operations exhibit the same energy footprint for all the implementations, except Cython.
+% Figure~\ref{fig:bitops} depicts the average energy consumption of different implementations for the binary operations.
+% One can notice 3 clusters.
+% The first, which is the interpreted one, uses approximately 500 Joules per operation.
+% The second is a non-optimized compilation that includes Cython and Nuitka and uses 10 times less energy than the first.
+% And the final one, which has been fully optimized, uses 50 percent less energy. This category includes JIT libraries, also known as Numba, Python implementations that include JIT, also known as PyPy, and Shedskin, which transpile the source code into C and then use a C/C++ compiler to generate the binary, as opposed to Cython and Nuitka, which directly compile the Python code.
+% To conclude this experiment, JIT has a huge impact when it comes to binary operations, and an inadequate runtime selection can lead to a 100x increase in energy consumption.
+% Furthermore, we observed that different binary operations exhibit the same energy footprint for all the implementations, except Cython.
+
+
+\subsubsection{threads to validity }
+Due to the lack of support for most non-conventional Python interpreters, we mainly focus on micro-benchmarks.
+Except for \textsc{PyPy}, most of the Python implementations do not support extra Python libraries, despite those extra implementations being developed to optimize a specific library, such as \textsf{Numba} with \textsf{Numpy}, or \textsf{intelpython} with machine learning algorithms.
+Furthermore, we excluded from this study runtimes that were unable to complete our benchmarks because we judged that this was the bare minimum for an implementation to be employed in a real-world application.
+Besides this, since the goal of this study was to provide a non-intrusive technique to decrease the energy consumption of software, we opted to omit some of the implementations that required extra work on the sourcecode to run on them, such as \textsf{Cython}.
 
 \subsection{Conclusion}
-One can conclude that the choice of Python interpreter has a significant impact on the programs' energy consumption.
-While most of the candidates used Python2, we observed that different strategies that were implemented within each candidate have a significant impact on the energy consumption. 
-The major improvement of the energy was related to the use of JIT, which is a technique that compiles the code into machine code at runtime. 
-The effect of the compilation of the python code into machine code was also confirmed with the use of translators such as shedskin. 
-This investigation is made more intriguing by the absence of a universal solution.
-The primary downside is the incompatibility of some of these solutions, which causes us to make concessions when we need a generic answer.
-we did a classification and clusturing of different python implementations based on their energy consumption.
+
+One can conclude that the Python interpreter used has a considerable impact on the energy consumption of the programs. Furthermore, the absence of a universal solution makes this invistigation more intriguing.
+While Python2 was employed by the majority of the candidates, Python3 provided better compatibility coverage.
+Except for Pypy, a standout interpreter, the type of optimization strategy had a substantial impact on energy usage because each class was grouped together regardless of Python version.
+Finally The use of JIT, a technology that converts code into machine code at runtime, was responsible for the significant gain in energy efficiency. The usage of translators such as Shedskin confirmed the effect of compiling Python code into machine code. Hence, making PyPy, an interpreter that has a built-in JIT, within the same class as the complied ones such as Shedskin
+
+
