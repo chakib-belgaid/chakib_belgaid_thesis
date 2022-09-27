@@ -344,18 +344,32 @@ A comprehension list is a Pythonic way to create a new list by applying a functi
 As for the map function, it is a higher-order function that applies a given function to each element of a collection. It is also possible to use an anonymous function, which is a function that is not bound to a name but only to its definition, which in the Python case is called a lambda function/expression.
 
 As one can notice in~\Cref{fig:pythontreatement}, the built-in methods are the most energy-saving ones, while the customize \texttt{while} loop is the heaviest.
-Moreover, when increasing the size of the collection, the map with lambda functions tends to consume less energy than the predetermined one.
+Moreover, when increasing the size of the collection, the map with lambda functions tends to consume less energy than the predefined one.
 The reason behind such behavior is that Python treats these functions as local variables, unlike the predefined ones, which are global in our case. Therefore, they are faster and consume less energy.
 
 
-\paragraph*{subsubsection}{Synthesis}
+\paragraph*{Synthesis}
 This study demonstrates that the optimal way to reduce the energy consumption of Python application is to follow the guidelines and to privilege the built-in functions.
 
 
 \subsubsection{Python \& Multiprocessing}
+The purpose of this part is to study the impact of concurrency on the energy consumption for Python applications.
+To do so, we run a simple code snippet that computes the sum of the first $N$ numbers using the standard concurrency libraries \texttt{multiprocessing} and \texttt{multihtreading}. Using Desktop  machine with Intel(R) Core(TM) i7-4800MQ CPU @ 2.70GHz with four cores and four hyperthreads, we run the following strategies.
+%  N ==5e5
+\begin{itemize}
+    \item Sequentiel: and here we just compute the sum of the first $N$ numbers without any concurency
+    \item Multithreading: and here we use the \texttt{ ThreadPoolExecutor} library to compute the sum of the first $N$ numbers, We devide $N$ by the number of threads and each thread will compute the sum of the numbers in its range. For our case we used 4 threads.
+    \item multiprocessing : and in this case, we use the \texttt{ProcessPoolExecutor} library to calculate the sum of the first $N$ numbers. We divide $N$ by the number of processes, and each process sums the numbers in its range. In this situation, we employed 2,4,8,16 processes, correspondingly.
+\end{itemize}
 
+Figure~\ref{fig:python_multiprocessing_strategies} shows the results of the experiment. As one can notice
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\linewidth]{imgs/python_multiprocessing}
+    \caption{Energy behaviour resulting from diffrent python concurrency strategies (number of workers) }
+    \label{fig:python_multiprocessing_strategies}
+\end{figure}
 
-% \subsubsection{Cost of Parallelism in Python}
 Additionally, \Cref{fig:python_multiprocessing} reports on the energy consumption of Python applications when introducing parallelism.
 Python applications are single-threaded systems constrained by the \emph{global lock system} (GLS).
 However, due to the increase of cores/threads per CPU, many Python libraries started to take advantage of this hardware feature by allowing concurrent execution of Python processes.
@@ -402,7 +416,7 @@ we discuss this behavior of the scheduler more deeply and we assess that it is n
 % add performance 
 % add dram \ a glimps 
 
-
+\clearpage
 \input{python_interperters.tex}
 % \subsection{threads to validity \note{missing}}
 \clearpage
