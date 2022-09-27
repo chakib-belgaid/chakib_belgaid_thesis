@@ -17,11 +17,11 @@ According to their experiments, an interpreted programming language, like Python
     \label{fig:hannoi}
 \end{figure}
 
-% TODO proof read this 
+
 In this chapter, we aim to reduce the energy consumption of Python code.
 We first start by presenting the motivation behind our work in Section~\ref{python:sec_motivation}.
-Then we provide some insights on the impact of programmer choices in the second section. To do so, we will conduct a set of experiments on different Python aspects, from data structures and iteration mechanisms to the impact of training algorithms in machine learning, passing by the impact of the concurrency strategy and the use of orms in web development.
-Finally, in Section~\ref{python:sec_interpreters},we investigate other non-intrusive approaches to optimizing the energy consumption of applications by comparing multiple Python implementations, which include alternative interpreters and libraries that are dedicated to optimizing the code without changing its structures, such as ahead-of-time (AOT) compilation and just-in-time (JIT) libraries that are maintained by the community.
+In the second section, we share some insights on the impact of programmer choices. To do this, we will run a series of experiments to examine the energy behavior of Python code in the most of its use cases.Section\ref{python:sec_insights} will then end by investigating several features of Python structure and their impact on energy consumption.
+After that, in Section~\ref{python:sec_interpreters},we investigate other non-intrusive approaches to optimizing the energy consumption of applications by comparing multiple Python implementations, which include alternative interpreters and libraries that are dedicated to optimizing the code without changing its structures, such as ahead-of-time (AOT) compilation and just-in-time (JIT) libraries that are maintained by the community.
 
 
 \section{Motivation}\label{python:sec_motivation}
@@ -92,8 +92,8 @@ Therefore, this chapter will address the following research questions:
 \end{compactenum}
 
 To answer these questions, we report on 4 case studies that intend to answer these research questions.
-First, we study the energy behavior of Python in two application contexts: machine learning (cf. \Cref{sec:webdev}) web applications (cf. \Cref{sec:ml}).
-Then, we dive deeper into the energy consumption of Python core structures, before concluding with the impact of the Python interpreter on energy consumption.
+First, we study the energy behavior of Python in two application contexts: machine learning (cf. \Cref{sec:webdev}) and  web applications (cf. \Cref{sec:ml}).
+Then, we dive deeper into the energy consumption of Python core structures, before concluding with the impact of parallelism on energy consumption.
 
 
 \subsection{Python \& Machine Learning}\label{sec:ml}
@@ -138,7 +138,7 @@ We used Pytorch 1.10.0 to train those models and pyjoules to measure the energy 
 
 
 \subsubsection{Results \& Findings}
-% TODO : Missing analysis of the results
+
 As the model's accuracy increases, so does the energy required for the next accuracy increment.
 
 Figure~\ref{fig:cum_energy_vs_accuracy} depicts how the curve steepens as training progresses.
@@ -148,7 +148,7 @@ For example, training to 90\% accuracy requires three times the energy required 
     \centering
     \includegraphics[width=\linewidth]{imgs/accuracy_basedonepoch}
     \caption{Accuracy along epochs.}
-    \label{fig:p2}
+    \label{fig:eopochvsaccuracy}
 \end{figure}
 
 \begin{figure}
@@ -158,33 +158,45 @@ For example, training to 90\% accuracy requires three times the energy required 
     \label{fig:cum_energy_vs_accuracy}
 \end{figure}
 
+cref{fig:eopochvsaccuracy}shows the accuracy of the model based on the number of epochs. This figure shows that there is a non-significant impact on the choice of the strategy on the accuracy; it is only a matter of the number of epochs. Hover, the increase in accuracy is not linear, as can be seen. It took only 10 epochs to reach an accuracy of 84\%, but it required more than twice the number of epochs to add axtra 6\% accuracy. This highlights the price that one should pay to increase the accuracy of the model. This has been confirmed by the energy consumption, as shown in \cref{fig:cum_energy_vs_accuracy}.
+As one can see the training the model up to 90\% accuracy requires three times the energy required for training to 80\% accuracy. Moreover, one can notice that this price is mostly payed by the calcul units such as CPU and GPU, while the memory is not that impacted.
+
+Interestingly there were no significant difference between different strategies -arround $1.3\%$- As one can seen in Figures ~\ref{fig:av_energy_setup}. Howerver this gap may increase as the number of epochs increases.
+
+On the other hand, as the number of epochs increases, the average power consumption decreases until it reaches a steady state after 10 epochs. This could be connected to the caching methods utilized by the CPU and GPU. This evolution, however, is still insignificant in comparison to the baseline value. This is shown in Figure~\ref{fig:ephoch_power}.
+
+As one can see in figures \ref{fig:ephoch_power}~\ref{fig:epoch_duration}, the average power consumption and the average duration of an epoch don't have a significant variation, as most of them were around 3.7 seconds. However, there was an intermediate correlation between these two values if we exclude the strategy based on one core plus its hyper thread. The reason why the last strategy exhibits more power even when its duration isn't optimal is the context switched between the core and its hyper thread.
+
+
+
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{imgs/power_gpu_baedonepoche}
+    \includegraphics[width=\linewidth]{imgs/cumulative_energy_fast10.pdf}
+    \caption{Average energy for training the model based on the strategy.}
+    \label{fig:av_energy_setup}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/power_gpu_baedonepoche.pdf}
     \caption{Evolution of average GPU power along epochs.}
-    \label{fig:p2}
+    \label{fig:ephoch_power}
 \end{figure}
+
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{imgs/cumulative_energy_fast10}
-    \caption{cumulative energy of fast10 benchmark within different configurations }
-    \label{fig:p2}
+    \includegraphics[width=\linewidth]{imgs/epoch_duration.pdf}
+    \caption{Distribtion of the duration of each epoch.}
+    \label{fig:epoch_duration}
 \end{figure}
-
-
-\subsection{Conclusion}
+\subsubsection{conculsion}
 We discovered that when the model's accuracy improves, so does the energy required for a subsequent accuracy gain.
 This begs the question of when we should discontinue training.
 Is a 10\% increase in accuracy worth it if we have to spend three times the energy?
-Even while utilizing a GPU consumes more total power, the training time is significantly reduced.
-As a result, the utilization of a GPU is required to lower the energy consumption of the training.
-Some experiments revealed unusual behavior that was not studied during this internship.
-These could be examined in future studies and perhaps used to achieve more energy savings.
-The execution time did not depend on the number of cores employed in several studies.
-This parameter had a significant impact on training time in others.
-As a result, the best core configuration will be determined by the script.
-The next steps in this area could include exploring the reasons for these discrepancies and possibly creating a script that can automatically find the ideal core configuration for a specific script.
+While using the GPU, the CPU has no significant impact on the energy consumption of the training. Therefore, one can limit the number of CPU cores used during the execution without sacrificing either the execution time nor the accuracy.
+
 
 
 \subsection{Green Web Development}\label{sec:webdev}
@@ -359,7 +371,7 @@ The reason behind this is the scheduler of the operating system.
 More specifically, it favors hyper-threads instead of physical cores, hence increasing context switches which cause the performance bottleneck.
 Howerver,the other two physical cores are not consuming energy, neither their hyper-threads, which explains the energy savings.
 In the Chapter , %% reference the work of intern from lyon  
-we discuss this behavior of the scheduler more deeply and we assess that it is not due to Python, but is a more generic behavior. 
+we discuss this behavior of the scheduler more deeply and we assess that it is not due to Python, but is a more generic behavior.
 %% maybe even this graph should go there 
 % Another key finding is when we hit the number of physical cores. there was an increase of execution time but still reduced energy, the reason behind this is the scheduler of the operating system. Basically it favors the hyper threads than the physical core which will lead to some context switches which cause the slow behavior, however in the other hand the other two physical cores are not consuming energy, neither their hyper threads which explains the gain of the energy consumption in this case.
 % in the Chapter %% reference the work of intern from lyon  
@@ -372,7 +384,7 @@ we discuss this behavior of the scheduler more deeply and we assess that it is n
 \input{python_interperters.tex}
 % \subsection{threads to validity \note{missing}}
 \clearpage
-\section{Summary} 
+\section{Summary}
 Because Python is widely used by software services deployed in public and private cloud infrastructures, increasing the energy efficiency of Python-based applications will reduce ICT carbon emissions.
 This chapter discusses various ways for increasing the energy efficiency of Python-based applications. It first explains why such a choice was made, and then it develops a method to enhance the energy efficiency of the most commonly employed use cases, which are revealed to include web development and machine learning.
 In web development, we found that the majority of the energy is wasted while processing requests, therefore adopting the proper strategy can reduce energy consumption by tenfold.
