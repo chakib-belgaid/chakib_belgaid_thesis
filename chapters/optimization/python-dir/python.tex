@@ -328,10 +328,6 @@ Furthermore, the function \texttt{len} has a complexity of $\mathcal{O}(1)$ as i
 Therefore, the \texttt{for in range} is creating a new iterator that has the same length as the first one and, for each iteration, requires second access (\texttt{l[i]}) instead of one---explaining the doubled time.
 The \texttt{while} is even slower due to the implicit increment of the variable, which causes an extra operation during the loop.
 
-To confirm this hypothesis, we tried to construct a new list by editing the elements of the previous one (cf. \Cref{fig:pythontreatement}).
-And, as predicted, the built-in methods are the most energy-saving ones, while the customize \texttt{while} loop is the heaviest.
-
-
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/python_treatemens}
@@ -339,15 +335,24 @@ And, as predicted, the built-in methods are the most energy-saving ones, while t
     \label{fig:pythontreatement}
 \end{figure}
 
-Another interesting finding is the impact of anonymous functions (also known as lambda expressions) on energy consumption.
-The reason is that Python treats these functions as local variables, unlike the predefined ones, which are global in our case.
-Therefore, they are faster and consume less energy.
 
-\subsubsection{Synthesis}
+To confirm this hypothesis, we tried to construct a new list by editing the elements of the previous one (cf. \Cref{fig:pythontreatement}).
+We used four different methods to do so: \texttt{comprehension list}, \texttt{while loop}, \texttt{a map with predefined function}, and \texttt{a map with an anonymous function}.
+
+A comprehension list is a Pythonic way to create a new list by applying a function to each element of the previous one.It is based on the mathematical set-builder notation~\cite{editiondiscrete}.
+
+As for the map function, it is a higher-order function that applies a given function to each element of a collection. It is also possible to use an anonymous function, which is a function that is not bound to a name but only to its definition, which in the Python case is called a lambda function/expression.
+
+As one can notice in~\Cref{fig:pythontreatement}, the built-in methods are the most energy-saving ones, while the customize \texttt{while} loop is the heaviest.
+Moreover, when increasing the size of the collection, the map with lambda functions tends to consume less energy than the predetermined one.
+The reason behind such behavior is that Python treats these functions as local variables, unlike the predefined ones, which are global in our case. Therefore, they are faster and consume less energy.
+
+
+\paragraph*{subsubsection}{Synthesis}
 This study demonstrates that the optimal way to reduce the energy consumption of Python application is to follow the guidelines and to privilege the built-in functions.
 
 
-\subsection{Python \& Multiprocessing}
+\subsubsection{Python \& Multiprocessing}
 
 
 % \subsubsection{Cost of Parallelism in Python}
