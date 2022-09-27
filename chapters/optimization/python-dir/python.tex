@@ -354,7 +354,7 @@ This study demonstrates that the optimal way to reduce the energy consumption of
 
 \subsubsection{Python \& Multiprocessing}
 The purpose of this part is to study the impact of concurrency on the energy consumption for Python applications.
-To do so, we run a simple code snippet that computes the sum of the first $N$ numbers using the standard concurrency libraries \texttt{multiprocessing} and \texttt{multihtreading}. Using Desktop  machine with Intel(R) Core(TM) i7-4800MQ CPU @ 2.70GHz with four cores and four hyperthreads, we run the following strategies.
+To do so, we run a simple code snippet that computes the sum of the first $N$ numbers using the standard concurrency libraries \texttt{multiprocessing~\footnote{\url{https://docs.python.org/3/library/multiprocessing.html}}} and \texttt{multihtreading~\footnote{\url{https://docs.python.org/3/library/threading.html}}}. Using Desktop  machine with Intel(R) Core(TM) i7-4800MQ CPU @ 2.70GHz with four cores and four hyperthreads, we run the following strategies.
 %  N ==5e5
 \begin{itemize}
     \item Sequentiel: and here we just compute the sum of the first $N$ numbers without any concurency
@@ -362,7 +362,7 @@ To do so, we run a simple code snippet that computes the sum of the first $N$ nu
     \item multiprocessing : and in this case, we use the \texttt{ProcessPoolExecutor} library to calculate the sum of the first $N$ numbers. We divide $N$ by the number of processes, and each process sums the numbers in its range. In this situation, we employed 2,4,8,16 processes, correspondingly.
 \end{itemize}
 
-Figure~\ref{fig:python_multiprocessing_strategies} shows the results of the experiment. As one can notice
+
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\linewidth]{imgs/python_multiprocessing}
@@ -370,18 +370,30 @@ Figure~\ref{fig:python_multiprocessing_strategies} shows the results of the expe
     \label{fig:python_multiprocessing_strategies}
 \end{figure}
 
-Additionally, \Cref{fig:python_multiprocessing} reports on the energy consumption of Python applications when introducing parallelism.
+Figure~\ref{fig:python_multiprocessing_strategies} shows the results of the experiment. As one can notice
+
+performance
+- sequentiel took less time then mulit threading
+- 4 process was the optimal one
+-- for cpu power the multi threading reached 13 watts whule the 4 process multiprocessing was 42 watts
+-- for global energy  the sequentiel one took the most, then the multithreading after that the muli processing , while keeping the 4 process always the optimial one
+
+
+
+
+
+Additionally, \Cref{fig:python_multiprocessing} reports on the energy consumption of Python applications.
 Python applications are single-threaded systems constrained by the \emph{global lock system} (GLS).
 However, due to the increase of cores/threads per CPU, many Python libraries started to take advantage of this hardware feature by allowing concurrent execution of Python processes.
 For example, the multiprocessing library\footnote{\url{https://docs.python.org/3/library/multiprocessing.html}} spawns sub-processes to increase the degree of concurrency of Python applications.
 As one can see in \Cref{fig:python_multiprocessing}, the energy consumption is correlated with the number of threads until reaching the limit of physical cores, when concurrent processes start to compete for the CPU.
 
-\begin{figure}[hbt]
-    \centering
-    \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
-    \caption{Energy consumption of Python multiprocessing depending on the number of exploited threads.}
-    \label{fig:python_multiprocessing}
-\end{figure}
+% \begin{figure}[hbt]
+%     \centering
+%     \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
+%     \caption{Energy consumption of Python multiprocessing depending on the number of exploited threads.}
+%     \label{fig:python_multiprocessing}
+% \end{figure}
 
 % \begin{figure}[hbt]
 %     \centering
