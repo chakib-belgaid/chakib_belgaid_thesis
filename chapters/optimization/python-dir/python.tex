@@ -280,40 +280,57 @@ And, unlike the rendering portion, there are many options available for the data
 \end{figure}
 
 
-
-
 \subsection{Python Insights}
-% This part aims to formulate some actionable insights to optimize the energy consumption of Python applications without altering the source code.
-% Therefore, we start by extending the work of Hasan~\emph{et~al.} and Oliveira~\emph{et~al.} to the context of Python environments
-% \cite{hasan_energy_2016,oliveira_recommending}.
 Another field of investigation is the type of data and control structures that might impact the energy consumption.
+In this study, we will run some basic algortims with different data structures and control structures to see if there is any difference in energy consumption.
+\subsubsection{experimental Protocol}
+All of the tests in this study are done on the grid5000 cluster using the same machine, Python interpreter, and library version. Due to PowerAPI's frequency constraint, we measure the energy of 1000 algorithm iterations for each test. And, for completeness, we perform each test 20 times, deleting the cache between each run. The data is then averaged and presented in graphs.
 
+\subsubsection{Python loops}
+In the first experiment we want to study the impact of the loop type on the energy consumption. to do so, we run the following code snippet:
+\begin{algorithm}[!htb]
+    \begin{algorithmic}[1]
+        \State $sum \gets 0$
+        \For{$i \gets 0$ to $N$}
+        \State $sum \gets sum+1$
+        \EndFor
+        \State \Return {$sum$}
+    \end{algorithmic}
+\end{algorithm}
 
-We iterate over a list using 3 methods.
 First, the classical \texttt{for(i in range(len(n)))}.
 However, as we can see here, unlike other programming languages, it requires extra operations, such as determining the length of the collection and then using the iterator range.
 So, we tried the more adapted version \texttt{for(element in collection)}.
 Moreover, in most programming languages. the \texttt{for} loop is translated to a \texttt{while} loop ( transformation from D type to B type -- asm -- ), therefore we wanted to compare this with a \texttt{while} version.
-After determining the main ways to iterate over a \texttt{loop}, we run the collection algorithms of different data types to observe if they impact the energy consumption of the code, and we repeated it for the size of the collection.
+Therefore our candidates will be :
 
-As one can see in \Cref{fig:pythonloops}, the type of the data has no impact on the energy consumption.
-However, the way one iterates over the collection has a huge factor.
-Interestingly, the \texttt{for in range} loop was by far the optimal one, followed by the regular \texttt{for in collection}, and the \texttt{while} part was the last one with an overhead of 400\% compared to the first option.
+\begin{itemize}[]
+    \item \texttt{for(i in range(len(n)))}
+    \item \texttt{for(element in collection)}
+    \item \texttt{while}
+\end{itemize}
 
-\begin{figure}
+For each of these implementations, we will run the same code snippet with different primitive data types : Int, Float, and String.
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{imgs/python_iterations}
     \caption{Comparison of the energy consumption of different Python loops.}
     \label{fig:pythonloops}
 \end{figure}
 
+Figure~\ref{fig:pythonloops} shows the results of the experiment. As one can notice, the type of the data has negligibale impact on the energy consumption.
+However, the way one iterates over the collection has a huge factor.
+Interestingly, the \texttt{for in range} loop was by far the optimal one, followed by the regular \texttt{for in collection}, and the \texttt{while} part was the last one with an overhead of 400\% compared to the first option.
+
 The reason behind such a behavior is mainly related to how the Python interpreter is implemented\footnote{\url{https://www.python.org/doc/essays/list2str}},\footnote{\url{https://www.pythonpool.com/for-vs-while-loop-python/}}.
 To reduce the latency of Python applications, most of the built-in functions and operations are written in C, and the same goes for the function \texttt{range}.\footnote{\url{ http://python-history.blogspot.com/2010/06/from-list-comprehensions-to-generator.html?m=1}}
 Furthermore, the function \texttt{len} has a complexity of $\mathcal{O}(1)$ as it is based on the function \texttt{Py\_SIZE} of C, which stores the length in a field for the object~\footnote{\url{https://wiki.python.org/moin/TimeComplexity}}.
 Therefore, the \texttt{for in range} is creating a new iterator that has the same length as the first one and, for each iteration, requires second access (\texttt{l[i]}) instead of one---explaining the doubled time.
 The \texttt{while} is even slower due to the implicit increment of the variable, which causes an extra operation during the loop.
+
 To confirm this hypothesis, we tried to construct a new list by editing the elements of the previous one (cf. \Cref{fig:pythontreatement}).
 And, as predicted, the built-in methods are the most energy-saving ones, while the customize \texttt{while} loop is the heaviest.
+
 
 \begin{figure}
     \centering
