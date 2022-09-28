@@ -1,14 +1,15 @@
 \section{Python Interpreters}\label{python:sec_interpreters}
-For the first studies, we used the official version of Python, because the goal was mainly to highlight the impact of the structure of code on energy consumption.
-One main drawback of the previous method is the work to be done to update the existing code base to reduce  energy consumption.
-Despite the availability of numerous tools for code refactoring and automatic code optimization, the optimization process remains a manual effort. This is due to the fact that code optimization is a task that requires extensive understanding of both the codebase and the language itself.
+We used the official version of Python for the first studies because the goal was mainly to highlight the code structure's impact on energy consumption.
+One main drawback of the previous method is the work to be done to update the existing code base to reduce energy consumption.
+Despite the availability of numerous tools for code refactoring and automatic code optimization, the optimization process remains a manual effort. This is because code optimization is a task that requires extensive understanding of both the codebase and the language itself.
 
 To avoid such hustle, we tried to find a non-intrusive approach to make the Python code more eco-friendly without altering its structure.
-Python is an interpreted language, which led many initiatives to implement their own interpreter to improve one or many aspects of the Python code. 
-Therefore, nn this section, we will examine at how different Python interpreters affect the energy consumption of software,and in which case, one should use a non-conventional interpreter to save the energy consumption of their application. 
+Python is an interpreted language, which led to many initiatives to implement their interpreter to improve one or many aspects of the Python code. 
+Therefore, in this section, we will examine at how different Python interpreters affect the energy consumption of software, and in which ca
+se, one should use a non-conventional interpreter to save the energy consumption of their application. 
 
 \subsection{Python runtimes}\label{python:sec_interpreters}
-To do so, we gathered a list of interpreters, transpilers and other optimization libraries that can contribute to reduce the energy consumption of legacy Python applications:
+To do so, we gathered a list of interpreters, transpilers, and other optimization libraries that can contribute to reducing the energy consumption of legacy Python applications:
 \begin{enumerate}
       \item \textbf{CPython}:\footnote{\url{https://www.python.org/}}
             This Python interpreter, written in C, is the reference interpreter of Python.
@@ -18,14 +19,14 @@ To do so, we gathered a list of interpreters, transpilers and other optimization
             An alternative implementation of the Python interpreter.
             It is written using \emph{RPython} to use the JIT.
             It compiles the most used portions of the Python code into a binary code for better performance.
-            To benefit from these optimizations, the program has to be executed for at least for few seconds so the JIT has enough time to warm up, the JIT optimization are only applied to the code written by the developer and not to external libraries;
+            To benefit from these optimizations, the program has to be executed for at least for few seconds, so the JIT has enough time to warm up; the JIT optimization is only applied to the code written by the developer and not to external libraries;
       \item \textbf{Cython}:\footnote{\url{https://github.com/cython/cython}}
             A static compiler for Python.
-            It translates the Python code into C, and then compiles it using a C compiler.
-            It also supports an extended version of the Python language that allows programmers to call \emph{C functions}, declare \emph{C types} and use static types, which will help the translation of Python objects into native types, such as integers, float.
-            This often means better performances, since native C libraries are almost all the time faster than the Python written once~\cite{pereira_energy_2017};
+            It translates the Python code into C and then compiles it using a C compiler.
+            It also supports an extended version of the Python language that allows programmers to call \emph{C functions}, declare \emph{C types}, and use static types, which will help translate Python objects into native types, such as integers, and float.
+            This often means better performances since native C libraries are almost all the time faster than the Python written once~\cite{pereira_energy_2017};
       \item \textbf{Intel\,Python}:\footnote{\url{https://software.intel.com/en-us/distribution-for-python}}
-            A customized interpreter developed by Intel to enhance performances of Python programs.
+            A customized interpreter developed by Intel to enhance the performance of Python programs.
             It is dedicated to data sciences and high-performance computing.
             It uses some Intel kernel libraries, such as Math Kernel Library (Intel MKL\footnote{\url{https://software.intel.com/en-us/mkl}}) and data analytics acceleration library (Intel DAAL\footnote{\url{https://software.intel.com/en-us/intel-daal}}).
             It supports both versions of Python;
@@ -33,25 +34,25 @@ To do so, we gathered a list of interpreters, transpilers and other optimization
             It is developed by the Activestates company and provides a standardized Python distribution to ensure license compliance, security, compatibility and performance.
             Therefore, ActivePython implements its built-in packages (more than 300 packages) and supports both versions of Python;
       \item \textbf{IronPython}:\footnote{\url{https://ironpython.net}}
-            A .Net-based Python interpretation platform written in C\# that is used with the .Net virtual machine or Mono.
+            A .Net-based Python interpretation platform is written in C\# and used with the .Net virtual machine or Mono.
             It benefits from all the optimizations of .Net virtual machines, such as the JIT and garbage collector mechanisms;
       \item \textbf{GraalPython}:\footnote{\url{https://github.com/graalvm/graalpython/}}
             A Python interpreter that is based on GraalVM\footnote{\url{https://www.graalvm.org/docs/why-graal/}} (a universal virtual machine developed by oracle for running applications written in different programming languages).
-            For the time being, it only supports Python~3 and it is still in the experimental stage;
+            For the time being, it only supports Python~3, and it is still in the experimental stage;
       \item \textbf{Jython}:\footnote{\url{https://jython.github.io}}
             An implementation of Python programming language written in Java for the \emph{Java Virtual Machine} (JVM).
-            Similar to IronPython and GraalPython, it leverages the optimization mechanisms provided by the JVM to enhance the Python performances;
+            Similar to IronPython and GraalPython, it leverages the optimization mechanisms provided by the JVM to enhance Python performances;
       \item \textbf{MicroPython}:\footnote{\url{http://micropython.org}}
             A lightweight Python version dedicated to embedded systems and micro-controllers;
       \item \textbf{Nuitka}:\footnote{\url{http://nuitka.net/pages/overview.html}}
-            A Python compiler written in Python that generates a binary executable from Python code.
+            A Python compiler is written in Python that generates a binary executable from Python code.
             It translates the Python code into a C program that is then compiled into a binary executable;
       \item \textbf{Numba}:\footnote{\url{https://numba.pydata.org}}
-            A library that includes JIT compiler to enhance the performances of Python functions using the industry-standard LLVM compiler library;
+            A library that includes a JIT compiler to enhance the performances of Python functions using the industry-standard LLVM compiler library;
       \item \textbf{Shedskin}:\footnote{\url{https://github.com/shedskin/shedskin}}
             A static transpiler that translates implicitly statically typed python into C++ code;
       \item \textbf{Hope}~\cite{akeret_hope_2015}:
-            A Python library that aims to introduce JIT compiler into the Python code;
+            A Python library that aims to introduce a JIT compiler into the Python code;
       \item \textbf{Parakeet}~\cite{rubinsteyn2012parakeet}:
             A runtime accelerator for an array-oriented subset of Python;
       \item \textbf{Stackless\,Python}:\footnote{\url{https://github.com/stackless-dev/stackless/wiki}}
@@ -64,7 +65,7 @@ To do so, we gathered a list of interpreters, transpilers and other optimization
       \item \textbf{Grumpy}:\footnote{\url{https://github.com/google/grumpy}}
             A source-to-source transpiler that translates the Python code into Go before being compiled to a binary executable.
             It also offers an interpreter, called \emph{grumprun}, which can directly execute the Python code.
-            Unfortunately, we cannot use it because the project is already outdated (last commit is in 2017) and it has a lot of limitations in terms of supporting the Python language, such as some built-in functions and standard libraries;
+            Unfortunately, we cannot use it because the project is already outdated (the last commit was in 2017), and it has many limitations in terms of supporting the Python language, such as some built-in functions and standard libraries;
       \item \textbf{Psyco}:\footnote{\url{http://psyco.sourceforge.net}}
             A JIT compiler for Python;
       \item \textbf{Unladen\,Swallow}:\footnote{\url{https://unladen-swallow.readthedocs.io/en/latest/}}
@@ -75,7 +76,7 @@ To do so, we gathered a list of interpreters, transpilers and other optimization
 \subsection{Runtime Classification}
 Before further proceeding with the list of candidate runtime for Python applications, we propose a classification according to several criteria:
 \begin{description}
-      \item[\bf Type] refers to the category of runtime infrastructure that supports the execution of a Python application.
+      \item[\bf Type] refers to the runtime infrastructure category that supports a Python application's execution.
             In particular, we consider 3 types of environments: \emph{Interpreter}, \emph{Compiler} and \emph{Library};
             \emph{Interpreter} refers to the class of environment that does not require any preprocessing of Python source code;
             \emph{Compiler} introduces a compilation phase before the execution of the application.
@@ -177,11 +178,11 @@ Before further proceeding with the list of candidate runtime for Python applicat
       \end{tabular}
 \end{table}
 
-There are other implementations that we did not consider because either the project aborted many years ago or it has very limited support for Python features.
+We did not consider other implementations because either the project aborted many years ago or it has insufficient Python features.
 After the inventory of those implementations, we filtered them.
 To keep only the versions that are still maintained and support most Python features.
-We then classified them into 3 categories depending on their integration with the Python code.
-In \Cref{fig:pythonimplementations}, we describe the implementations that we kept, the version of each implementation and its category.
+We then classified them into three categories depending on their integration with the Python code.
+In \Cref{fig:pythonimplementations}, we describe the implementations we kept, each implementation's version, and its category.
 
 \begin{figure}
       \centering
@@ -194,8 +195,8 @@ In \Cref{fig:pythonimplementations}, we describe the implementations that we kep
 
 \subsection{Experimental Protocol}
 As discussed in the previous chapter, our idea is to design a benchmarking solution that allows practitioners to reproduce and extends our benchmarks.
-This benchmarking solution is also the one we use to answer the research questions addressed in this manuscript.
-%%%% probably ill resue the same things from other chapters
+This benchmarking solution is also used to answer the research questions addressed in this manuscript.
+
 
 \subsubsection{Measurement Context}
 \paragraph{Hardware settings.}
@@ -223,11 +224,11 @@ The server uses a minimal version of Debian\,9 (4.9.0 kernel version) where we i
 \paragraph{Software settings.}
 For the sake of reproducibility, each experiment runs within a Docker container.
 \subsubsection{Key Performance Metrics}
-Our focus will be mainly on CPU energy consumption as it is ten folds more than the DRAM one, since it is a task-based benchmarking, time is highly correlated within the energy, and it will be only useful to explain some specific energy behaviors, thus we do not put a lot of focus on this metric.
+Our focus will be mainly on CPU energy consumption as it is ten folds more than the DRAM one; since it is a task-based benchmarking, time correlates highly with the energy, and it will be only useful to explain some specific energy behaviors. Thus we do not put much focus on this metric.
 %% basically i what i want to say is that we we care mostly about energy, because there are studies that were made on the performance, plus the DRAM is not that interested even within the heavy memory  benchmakrs
 
 \paragraph{Energy measurement.}
-As we know, the energy of a program is integral of its power over time.
+As we know, a program's energy is integral to its power over time.
 For our case, we used Intel \emph{Running Power Average Limit} (RAPL)~\cite{Khan:2018:RAE:3199681.3177754} to collect the power samples of the running tests.
 We run \textsc{PowerAPI}~\cite{DBLP:journals/jss/ColmantRKSFS18}, to report on measurements collected by Intel RAPL and upload them to a so-called \emph{computing machine}, then we calculate the Energy using the trapezoidal rule:
 % \begin{figure}[hbt]
@@ -250,19 +251,19 @@ The motivation for separating measurement collection from energy computations is
 
 \subsubsection{Benchmark Preparation}
 \paragraph{Input workload.}
-To benchmark our implementations, we employed the \textsc{Tommti} microbenchmarks suite.\footnote{\url{http://www.tommti-systems.de/main-Dateien/reviews/languages/benchmarks.html}}
-\textsc{Tommti} is a set of 13 microbenchmarks that examine common language features, such as arithmetic operations, data structures and input/output manipulations, among others.
-In addition to these microbenchmarks, we implemented some binary operations to investigate the behavior of the previous implementations when it comes to low-level operations that only works with registries.
+We employed the \textsc{Tommti} microbenchmarks suite to benchmark our implementations.\footnote{\url{http://www.tommti-systems.de/main-Dateien/reviews/languages/benchmarks.html}}
+\textsc{Tommti} is a set of 13 microbenchmarks that examine common language features, such as arithmetic operations, data structures, and input/output manipulations, among others.
+In addition to these microbenchmarks, we implemented some binary operations to investigate the behavior of the previous implementations when it comes to low-level operations that only work with registries.
 
-To study the energy behavior of the Python implementations, we have to focus on the effect of the implementations and mitigate any side effect, such as the organization of the code or any extra consumption due to the operating system or third-party libraries.
+To study the energy behavior of the Python implementations, we have to focus on the effect of the implementations and mitigate any side effects, such as the organization of the code or any extra consumption due to the operating system or third-party libraries.
 Therefore, for each benchmark, we took the implementation written in Python2 as a reference and tried to use it in other implementations as it is.
-If it is not supported by Python3, we converted the code using the official library \emph{2to3}.\footnote{\url{https://docs.python.org/3.7/library/2to3.html}}
-In the case of the libraries using \emph{JIT} adding a decorator to the function that we want to optimize was enough, if there are other changes, we assume that they alter the original code which is against our purpose.
+If Python3 does not support it, we converted the code using the official library \emph{2to3}.\footnote{\url{https://docs.python.org/3.7/library/2to3.html}}
+In the case of the libraries using \emph{JIT}, adding a decorator to the function we want to optimize was enough; if there are other changes, we assume that they alter the original code, which is against our purpose.
 Each benchmark is isolated in a Docker container for several reasons:
 \begin{itemize}
       \item Isolation: each container has only the benchmark program implemented with a single python runtime to remove any interference between different implementations,
       \item Deployment: to use the benchmarking machine without extra configurations that may alter the behavior of the operating system toward energy consumption,
-      \item Reproducibility: one of the most frequent benchmark crimes~\cite{DBLP:journals/corr/abs-1801-02381} in research is the lack of reproducibility---by using Docker we ensure that each benchmark has an image that will be publicly accessible.
+      \item Reproducibility: one of the most frequent benchmark crimes~\cite{DBLP:journals/corr/abs-1801-02381} in research is the lack of reproducibility---by using Docker, we ensure that each benchmark has an image that will be publicly accessible.
 \end{itemize}
 
 Despite the presence of the official docker images for most of the runtimes, we preferred to build our own using the same reference image to remove any bias due to the OS used in the official images.
@@ -271,16 +272,16 @@ We used ArchLinux with kernel version 4.9.184 as a base image for all our benchm
 \paragraph{Benchmark extension.}
 As we have done with the previous chapters, we provide a tool that allows extending the benchmarks with new workloads and new candidates.
 In the repository listing the Python implementations under study,\footnote{\url{https://github.com/chakib-belgaid/python-implementations}} we propose a dedicated tool to generate new workloads and new candidates.
-The script \texttt{generator.py} allows practitioners to create new benchmarks by implementing a Python code within different interpreters.
+The script \texttt{generator.py} allows practitioners to create new benchmarks by implementing Python code within different interpreters.
 Then, it generates \texttt{launcher-benchmark.sh} that can be executed to run the associated benchmark.
-Furthermore, all the successful implementations are stored in a separate directory and the ones that failed (\emph{e.g.}, mostly because of compatibility issues) are stored in a recap file called \texttt{benchmarkTest.md}, where \texttt{benchmark} is the name of the new workload.
-To add new candidate runtimes, one should add a base Docker file that contains the new implementation and, if there should be extra manipulation that should be added to the workload files such as adding new decorator or changing some parameters, then they should be added as an extra function in the script \texttt{generator.py}.
+Furthermore, all the successful implementations are stored in a separate directory, and the ones that failed (\emph{e.g.}, mostly because of compatibility issues) are put in a recap file called \texttt{benchmarkTest.md}, where \texttt{benchmark} is the name of the new workload.
+To add new candidate runtimes, one should add a base Docker file that contains the new implementation. Suppose extra manipulation should be performed on the workload files, such as adding a new decorator or changing some parameters. In that case, they should be added as an extra function in the script \texttt{generator.py}.
 Finally, they should be included in the Python candidates.
 
 \subsection{Results \& Findings}
 This part will be dedicated to the results of the experiments and statistical analysis of these results.
 First and foremost, we want to know whether our samples have a normal distribution. As a result, we ran a Shapiro-Wilk~\cite{shapiro1968comparative} test on our data.
-Despite the fact that some implementations had a $p$-value higher than $a=0.05$ (such as CPython and ActivePython), other implementations like PyPy and Numba presented a $p$-values smaller than 0.01, which leads to reject the hypothesis $H0$ that all the distributions follow a normal distribution.
+Even though some implementations had a $p$-value higher than $a=0.05$ (such as CPython and ActivePython), other implementations like PyPy and Numba presented a $p$-values smaller than 0.01, which leads to rejecting the hypothesis $H0$ that all the distributions follow a normal distribution.
 Therefore, to compare the different implementations, we performed the non-parametric Mann-Whitney U test~\cite{zimmerman1987comparative}, with CPython2 and CPython3 as base references.
 
 The Mann-Whitney U test results for each implementation are shown in Table \ref{table:manwithyu}. The first column shows the average energy usage of the implementation, while the second shows the p-value of the test when compared to the reference Python implementation. If the p-value is less than 0.05, the test result is significant, indicating that the energy consumption of the given implementation differs significantly from that of the reference implementation.
@@ -289,10 +290,10 @@ As can be seen, the majority of the implementations deviate significantly from t
 
 As we want to study the position of these implementations with regards to the reference implementation (aka Cpython2 and Cpython3), we proceed with agglomerative \emph{hierarchical cluster analysis} (HCA)~\cite{johnson1967hierarchical}.
 HCA is a method that groups the different implementations based on their energy consumption.
-This technique is a bottom-up approach as it starts with each implementation being a single cluster, and then merges the two most similar clusters until all the clusters are merged into a single cluster.
+This technique is a bottom-up approach as it starts with each implementation being a single cluster and then merges the two most similar clusters until all the clusters are merged into a single cluster.
 The similarity between two clusters is measured by the maximum distance between their furthest points.
 The distance between two points is calculated as the Euclidean distance between the two points.
-Figure~\ref{fig:dendogram} displays the Dendogram produced by the HCA.
+Figure~\ref{fig:dendogram} displays the Dendrogram produced by the HCA.
 
 \begin{figure}[!htb]
       \centering
@@ -301,17 +302,16 @@ Figure~\ref{fig:dendogram} displays the Dendogram produced by the HCA.
       \label{fig:dendogram}
 \end{figure}
 
-Except GraalPython, one can notice 3 main clusters.
+Except for GraalPython, one can notice three main clusters.
 The first cluster contains the reference implementations (CPython2 and CPython3) and the implementations that are based on interpreters (IronPython, IntelPython, ActivePython, Jython, and Nuitka).
 Moreover, each implementation is the closest to its reference Python version.
 The interpreters that are based on other virtual machines, such as Jython with JVM and IronPython with .NET, behave slightly differently from the reference implementation.
 As for the MicroPython, It is the furthest from the references due to his behavior toward exceptions.
 The second cluster groups the interpreter implementations that are based on a JIT compiler (PyPy2 and PyPy3).
-Closer to them we find Shedskin, which is a translator that converts the Python code into C++ code to be later compiled into binary code.
+Closer to them, we find Shedskin, which is a translator that converts the Python code into C++ code to be later compiled into binary code.
 Table~\ref{table:manwithyu} shows that this cluster is by far the most energy-efficient one.
 While Numba2 and Numba3 are also JIT libraries, they differ from PyPy due to their manual optimization.
-Unlike PyPy, which will decide by itself which part of Python to optimize.
-In Numba, the developer must target the portion of the code that will be passed to JIT, while the rest of the code will be executed by the regular interpreter (aka CPython).
+Unlike PyPy, which decides the code parts to optimize, Numba gives this responsibility to the developer.
 \bigskip
 
 %  Switch this to conclusion 
@@ -327,24 +327,24 @@ Figure~\ref{fig:tommi_all} introduces a radar plot for all the implementations t
 
 This graph summarizes each implementation energy score when executing our benchmark.
 The lower the energy consumption, the higher the score.
-We adopted a \textsc{logarithmic scale} to help the practitioners to compare numerous implementations due to the large differences between them.
+We adopted a \textsc{logarithmic scale} to help the practitioners compare numerous implementations due to their large differences.
 
 
 As one can notice in Figure~\ref{fig:tommi_all}, there is no evolution between CPython2 and CPython3.
 Moreover, IntelPython, and ActivePython all behave similarly to the reference implementation.
-Therefore, one can conclude that the work done on those interpreters is primarily to improve a specific purpose and not the core interpreter.
-ActivePython states that their version is focused on security and prepackaged libraries, which explains why it is slower than other versions due to the addition of this security support.\footnote{\url{https://www.activestate.com/solutions/why-activestate/}}
+Therefore, one can conclude that the work done on those interpreters is primarily to improve a specific purpose, not the core interpreter.
+ActivePython states that its version is focused on security and prepackaged libraries, which explains why it is slower than other versions due to the addition of this security support.\footnote{\url{https://www.activestate.com/solutions/why-activestate/}}
 As for IntelPython, it is designed for machine learning.
 Unfortunately, the \textsc{Tommti} benchmark is geared for general-purpose programming.
-Despite the fact that Nuitxka is a compiler, there was no discernible difference in energy consumption.
+Although Nuitxka is a compiler, there was no discernible difference in energy consumption.
 It was even more similar to the reference Python implementation than other interpreters.
-However, if we look at the Nuitka techniques, we can see that they simply encapsulate the Python code with an interpreter into a single executable.
-Finally, Shedskin reports on the best energy consumption pattern when it comes to arithmetic operations.
-One can conclude it is due to the fact of the native type of the variables, unlike in the JIT, where they are treated as objects in the beginning.
+However, looking at the Nuitka techniques, we can see that they simply encapsulate the Python code with an interpreter into a single executable.
+Finally, Shedskin reports on the best energy consumption pattern in arithmetic operations.
+One can conclude it is due to the native type of the variables, unlike in the JIT, where they are treated as objects initially.
 
-Regarding the other VM-based interpereters, Jython and Ipy lacked in terms of energy optimization, which expected as they were at the beginning of the development stage and the main purpose of such implementation is to link the bytecode generated by Jython and IronPython with their respective virtual machines.
+Regarding the other VM-based interpreters, Jython and Ipy lacked in terms of energy optimization, which was expected as they were at the beginning of the development stage. The primary purpose of such implementation is to link the bytecode generated by Jython and IronPython with their respective virtual machines.
 
-Unlike the previous interpeters, GraalPython exhibits a certain promise when it comes to complex algorithms (nested loops in particular). However, it is still in its early stages of development and it is not yet ready for production. Since some benchmarks required an abnormally lengthy time, such as array manipulation and sorting. 
+Unlike the previous interpreters, GraalPython exhibits a specific promise regarding complex algorithms (nested loops in particular). However, it is still in its early stages of development. It is not yet ready for production since some benchmarks, such as array manipulation and sorting, require an abnormally lengthy time. 
 
 
 % Finally, MicroPython is dedicated to embedded systems, so claiming it is a powerful CPU machine will be misleading.
@@ -462,15 +462,15 @@ Unlike the previous interpeters, GraalPython exhibits a certain promise when it 
 
 \subsubsection{threads to validity }
 Due to the lack of support for most non-conventional Python interpreters, we mainly focus on micro-benchmarks.
-Except for \textsc{PyPy}, most of the Python implementations do not support extra Python libraries, despite those extra implementations being developed to optimize a specific library, such as \textsf{Numba} with \textsf{Numpy}, or \textsf{intelpython} with machine learning algorithms.
-Furthermore, we excluded from this study runtimes that were unable to complete our benchmarks because we judged that this was the bare minimum for an implementation to be employed in a real-world application.
-Besides this, since the goal of this study was to provide a non-intrusive technique to decrease the energy consumption of software, we opted to omit some of the implementations that required extra work on the sourcecode to run on them, such as \textsf{Cython}.
+Except for \textsc{PyPy}, most of the Python implementations do not support extra Python libraries, despite those different implementations being developed to optimize a specific library, such as \textsf{Numba} with \textsf{Numpy}, or \textsf{intelpython} with machine learning algorithms.
+Furthermore, we excluded from this study runtime that could not complete our benchmarks because we judged that this was the bare minimum for an implementation to be employed in a real-world application.
+Besides this, since the goal of this study was to provide a non-intrusive technique to decrease the energy consumption of software, we opted to omit some of the implementations that required extra work on the source code to run on them, such as \textsf{Cython}.
 
 \subsection{Conclusion}
 
-One can conclude that the Python interpreter used has a considerable impact on the energy consumption of the programs. Furthermore, the absence of a universal solution makes this invistigation more intriguing.
-While Python2 was employed by the majority of the candidates, Python3 provided better compatibility coverage.
-Except for Pypy, a standout interpreter, the type of optimization strategy had a substantial impact on energy usage because each class was grouped together regardless of Python version.
-Finally The use of JIT, a technology that converts code into machine code at runtime, was responsible for the significant gain in energy efficiency. The usage of translators such as Shedskin confirmed the effect of compiling Python code into machine code. Hence, making PyPy, an interpreter that has a built-in JIT, within the same class as the complied ones such as Shedskin
+One can conclude that the Python interpreter used considerably impacts the programs' energy consumption. Furthermore, the absence of a universal solution makes this investigation more intriguing.
+While most of the candidates employed Python2, Python3 provided better compatibility coverage.
+Except for Pypy, a standout interpreter, the optimization strategy substantially impacted energy usage because each class was grouped regardless of the Python version.
+Finally, JIT, a technology that converts code into machine code at runtime, was responsible for the significant gain in energy efficiency. The usage of translators such as Shedskin confirmed the effect of compiling Python code into machine code. Hence, PyPy, an interpreter with a built-in JIT, is within the same class as the complied ones, such as Shedskin.
 
 

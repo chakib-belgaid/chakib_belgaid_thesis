@@ -36,7 +36,7 @@ Rather, we believe that a better option consists of leveraging the strength of t
 % On the other hand, because of the interpreted nature of Python code, this programming language has paid a high price in terms of performance~\ref{fig:clbg}, memory and energy consumption.
 According to~\cite{pinto_energy_2017} and~\cite{noureddine_preliminary_2012}, Python tends to be one more energy hungry programming language.
 As one can notice in \Cref{fig:hannoi}, Python consumes $30$ times more than C or C++.
-The benchmark was done with an implementation of the \fnurl{Tower of Hanoi}{https://en.wikipedia.org/wiki/Tower_of_Hanoi} of 30 disks.
+The benchmark was implemented with the \fnurl{Tower of Hanoi}{https://en.wikipedia.org/wiki/Tower_of_Hanoi} of 30 disks.
 
 As shown in \Cref{fig:clbg}, one can observe that, for most of the applications taken for the \emph{Computer Language Benchmark Game} (CLBG), Python takes more time to execute---the only case that he was not the worst one was in the benchmark \textsf{regx-redux} where he beats Go---and in some cases the gap was huge, such as in \textsf{n-body} where Python took around $100$ times more than C++.\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}}
 
@@ -71,7 +71,7 @@ Therefore, it requires a faster interpreter to execute its programs to compete a
 \subsection{Python usecases}
 To reduce the energy consumption of Python, we started by targeting the main usage of this programming language, which is revealed to be data science and web development.
 \Cref{fig:usecase} illustrates a study published by the JetBrain company on Python developers.\footnote{\url{https://www.jetbrains.com/lp/python-developers-survey-2020}}
-57\% of the respondents reported that they use Python for data science, 51\% said they are using it for web development, and around 40\% are using it for system administration~\footnote{The options in this survey were not mutually exclusive.As a result, the total of the percentages is greater than $100\%$.}.
+57\% of the respondents reported that they use Python for data science, and 51\% said they use it for web development. Around 40\% are using it for system administration~\footnote{The options in this survey were not mutually exclusive. As a result, the total of the percentages is greater than $100\%$.}.
 
 \begin{figure}[hbt]
     \centering
@@ -81,7 +81,7 @@ To reduce the energy consumption of Python, we started by targeting the main usa
 \end{figure}
 
 \section{Energy optimization of python on the source code level}\label{python:sec_insights}
-In this section , we investigate the energy footprint of Python in its most popular domains of adoption.
+In this section, we investigate the energy footprint of Python in its most popular domains of adoption.
 We first explore the data and control structures, aiming to reveal some fundamental guidelines, as \citeauthor{hasan_energy_2016} did in~\cite{hasan_energy_2016}.
 Then, we measure the energy consumption of several Python implementations to propose a non-intrusive technique to improve energy efficiency.
 Therefore, this chapter will address the following research questions:
@@ -92,8 +92,8 @@ Therefore, this chapter will address the following research questions:
 \end{compactenum}
 
 To answer these questions, we report on 4 case studies that intend to answer these research questions.
-First, we study the energy behavior of Python in two application contexts: machine learning (cf. \Cref{sec:webdev}) and  web applications (cf. \Cref{sec:ml}).
-Then, we dive deeper into the energy consumption of Python core structures, before concluding with the impact of parallelism on energy consumption.
+First, we study the energy behavior of Python in two application contexts: machine learning (cf. \Cref{sec:webdev}) and web applications (cf. \Cref{sec:ml}).
+Then, we dive deeper into the energy consumption of Python core structures before concluding with the impact of parallelism on energy consumption.
 
 
 \subsection{Python \& Machine Learning}\label{sec:ml}
@@ -106,10 +106,10 @@ Chifflot 8 from Grid 5000's Lille site was used for all of the trials.
 The machine is outfitted with two Intel Xeon Gold 6126 CPUs, each having 12 physical cores, 192 GB of RAM, and two 32 GB Tesla V100 GPUs.
 
 \subparagraph{Software settings}
-For the sake of reproducibility, each experiment is done within a Docker container using Jupyter lab. These tests are run on top of a minimal version of Debian-10 to increase the accuracy of the tests by eliminating any unnecessary processes.
+Each experiment is done within a Docker container using Jupyter lab to ensure reproducibility. These tests are run on top of a minimal version of Debian-10 to increase the tests' accuracy by eliminating unnecessary processes.
 \subsubsection{Input Workload}
 \subparagraph{Models}
-Several models were developed, however, only two were used in the final trials because they achieved 94 percent accuracy in an acceptable length of time.
+Several models were developed. However, only two were used in the final trials because they achieved 94 percent accuracy in an acceptable length of time.
 David Page's cifar10-fast~\footnote{\url{https://github.com/davidcpage/cifar10-fast}} and Woonhyuk Baek's torch skeleton~\footnote{\url{https://github.com/wbaek/torchskeleton}} are shown here.
 
 \subparagraph{Datasets}
@@ -131,15 +131,15 @@ The experiments were run with several different CPU and GPU configurations:
 \paragraph{Key Performance Metrics}
 We used Pytorch 1.10.0 to train those models and pyjoules to measure the energy consumption of the GPU and CPU.
 \begin{itemize}
-    \item accuracy : in \%
-    \item execution time : in seconds for both the duration of each epoch and the total duration to a chieve a certain accuracy
-    \item total energy consumption : for the CPU and the  GPU
+    \item accuracy: in \%
+    \item execution time: in seconds for both the duration of each epoch and the total duration to achieve a certain accuracy
+    \item total energy consumption: for the CPU and the  GPU
 \end{itemize}
 
 
 \subsubsection{Results \& Findings}
 
-As the model's accuracy increases, so does the energy required for the next accuracy increment.
+As the model's accuracy increases, so do the energy required for the next accuracy increment.
 
 Figure~\ref{fig:cum_energy_vs_accuracy} depicts how the curve steepens as training progresses.
 For example, training to 90\% accuracy requires three times the energy required for training to 80\% accuracy.
@@ -158,14 +158,14 @@ For example, training to 90\% accuracy requires three times the energy required 
     \label{fig:cum_energy_vs_accuracy}
 \end{figure}
 
-cref{fig:eopochvsaccuracy}shows the model's accuracy based on the number of epochs. This figure shows that there is a non-significant impact on the choice of the strategy on the accuracy; it is only a matter of the number of epochs. Hover, the increase in accuracy is not linear, as can be seen. It took only ten epochs to reach an accuracy of 84\%, but it required more than twice the number of epochs to add axtra 6\% accuracy. This highlights the price that one should pay to increase the accuracy of the model. This has been confirmed by the energy consumption, as shown in \cref{fig:cum_energy_vs_accuracy}.
-As one can see the training the model up to 90\% accuracy requires three times the energy required for training to 80\% accuracy. Moreover, one can notice that this price is mostly payed by the calcul units such as CPU and GPU, while the memory is not that impacted.
+cref{fig:eopochvsaccuracy}shows the model's accuracy based on the number of epochs. This figure shows that there is a non-significant impact on the choice of the strategy on the accuracy; it is only a matter of the number of epochs. Hover, the increase in accuracy is not linear, as can be seen. It took only ten epochs to reach an accuracy of 84\%, but it required more than twice the number of epochs to add axtra 6\% accuracy. This highlights the price one should pay to increase the model's accuracy.\cref{fig:cum_energy_vs_accuracy} confirm a such claim.
+As one can see, the training of the model up to 90\% accuracy requires three times the energy required for training to 80\% accuracy. Moreover, one can notice that this price is paid mainly by the CPU and GPU, while the memory is not that impacted.
 
-Interestingly there were no significant difference between different strategies -arround $1.3\%$- As one can seen in Figures ~\ref{fig:av_energy_setup}. Howerver this gap may increase as the number of epochs increases.
+Interestingly there were no significant differences between different strategies -around $1.3\%$- As shown in Figures ~\ref{fig:av_energy_setup}. However, this gap may increase as the number of epochs increases.
 
-On the other hand, as the number of epochs increases, the average power consumption decreases until it reaches a steady state after 10 epochs. This could be connected to the caching methods utilized by the CPU and GPU. This evolution, however, is still insignificant in comparison to the baseline value. This is shown in Figure~\ref{fig:ephoch_power}.
+On the other hand, as the number of epochs increases, the average power consumption decreases until it reaches a steady state after ten epochs. This could be connected to the caching methods utilized by the CPU and GPU. However, this evolution is still insignificant compared to the baseline value. This is shown in Figure~\ref{fig:ephoch_power}.
 
-As one can see in figures \ref{fig:ephoch_power}~\ref{fig:epoch_duration}, the average power consumption and the average duration of an epoch don't have a significant variation, as most of them were around 3.7 seconds. However, there was an intermediate correlation between these two values if we exclude the strategy based on one core plus its hyper thread. The reason why the last strategy exhibits more power even when its duration isn't optimal is the context switched between the core and its hyper thread.
+As one can see in figures \ref{fig:ephoch_power}~\ref{fig:epoch_duration}, the average power consumption and the average duration of an epoch don't have a significant variation, as most of them were around 3.7 seconds. However, there was an intermediate correlation between these two values if we excluded the strategy based on one core plus its hyper thread. The reason why the last strategy exhibits more power even when its duration isn't optimal is the context switched between the core and its hyper thread.
 
 
 
@@ -208,14 +208,14 @@ In contrast to Flask, which is a micro-framework, Django is a high-level web fra
 Therefore, this study will focus on the latter one.
 
 \subsubsection{Life-cycle of a Request in Django}
-Django is a MVT (\emph{Model-View-Template}) framework, which means that it follows the MVC (\emph{Model-View-Controller}) pattern.
+Django is an MVT (\emph{Model-View-Template}) framework, which means that it follows the MVC (\emph{Model-View-Controller}) pattern.
 Figure~\ref{fig:django-life-cycle} describes the life-cycle of a request in this framework.
 Whenever a request arrives in Django, it is processed by the middleware layers, one at a time.
 These middleware layers are in charge of authentication, security, and so on.
-Once the request is processed by these layers, it is passed to the URL router, which extracts the URL from the request and tries to match it to the defined URLs.
+Once these layers process the request, it is passed to the URL router, which extracts the URL from the request and tries to match it to the defined URLs.
 After getting the matching URL, the corresponding view function is called.
 This function is responsible for treating the request, gathering the data, and then generating the response that will be put inside a template to be returned as a response.
-As Django adopts a MVT model, it also offers an automatic way to retrieve data from the database to the view using the \emph{Object Relational Mapping} (ORM)~\cite{o2008object}.
+As Django adopts an MVT model, it also offers an automatic way to retrieve data from the database to the view using the \emph{Object Relational Mapping} (ORM)~\cite{o2008object}.
 
 \begin{figure}[!htb]
     \centering
@@ -224,33 +224,33 @@ As Django adopts a MVT model, it also offers an automatic way to retrieve data f
     \label{fig:django-life-cycle}
 \end{figure}
 
-First, we start by investigating the energy consumption of the request-response life cycle in Django, to determine which layer consumes the most energy.
+First, we investigate the energy consumption of the request-response life cycle in Django to determine which layer consumes the most energy.
 To do so, we created a sample Django application that returns the response to the request. We tracked its energy consumption using JouleHunter~\footnote{\url{https://github.com/powerapi-ng/joulehunter}}.
-JouleHunter is an open-source library that I developed to help practitioners identify energy hotspots in their applications using statistical profilers.
-In the case of Django, it can be added as an extension with no additional setup or change to the source code.
+JouleHunter is an open-source library that we developed to help practitioners identify energy hotspots in their applications using statistical profilers.
+In the case of Django, Joulehunter will be added as a middleware with no additional setup or change to the source code.
 The energy consumption of the request-response life-cycle in Django is shown in Figure~\ref{fig:django_life_cycle_naive}.
-As we can notice, 91.4\% of the total energy consumption is spent on resolving the request by retrieving the data, while only 5.27\% is spent on rendering the response.
+As we can notice, 91.4\% of the total energy consumption is spent on resolving the request by retrieving the data, while only 5.27\% is consumed on rendering the response.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{imgs/django_life_cycle_naive}
-    \caption{Tree representation of the energy consumption of a single request in django (naive version)}
+    \caption{Tree representation of the energy consumption of a single request in Django (naive version)}
     \label{fig:django_life_cycle_naive}
 \end{figure}
 
 %% REMARQUE the experiment with joulehunter isn't conducted within the same machine that is used for generating the boxplot graphs 
 % We have chosen Django as our web framework.
-Therefore, we chose to study if the choice of the database and the ORM impacts the energy consumption and the performance of the website.
+Therefore, we chose to study if the choice of the database and the ORM impacts the energy consumption and the website's performance.
 % \subsection{Experiment \& Results}
 To accomplish so, we examined the cost of a single request of the prior website using various ways to extract data from the database.
-We considered using two different databases, \textsc{PostgreSQL} and \textsc{SQlite3}, that store the same records, and three different ways to fetch the records:
+We considered using two different databases, \textsc{PostgreSQL} and \textsc{SQlite3}, that store the same records and three different ways to fetch the records:
 \begin{enumerate}
     \item \textsf{Vanilla} relies only on the ORM to retrieve the data,
     \item \textsf{Prefetch} queries the data before being requested,
     \item \textsf{Optimized} leverages SQL without passing by the ORM.
 \end{enumerate}
 
-As one can observe in \Cref{fig:django}, the strategy to query stored data has a huge impact on energy consumption.
+As one can observe in \Cref{fig:django}, the strategy to query stored data greatly impacts energy consumption.
 As the \textsf{Vanilla} strategy can consume up to $10\times$ more energy than the \textsf{Optimized} one.
 Conversely, the choice of the database does not exhibit a key impact on the total energy, despite their different behavior regarding the execution time and the average power.
 This can be useful to support developers in choosing which database engine they can adopt, guided by the number of expected requests and the targeted performance.
@@ -263,15 +263,15 @@ This can be useful to support developers in choosing which database engine they 
 \end{figure}
 
 Another interesting observation is the impact of the interpreter, as \Cref{fig:django} highlights.
-For example, using the \textsf{PyPy} interpreter reduces energy consumption, even when adopting the \textsf{Vanilla} strategy. We will further discuss the choice of the interpreter in the next section.
+For example, using the \textsf{PyPy} interpreter reduces energy consumption, even when adopting the \textsf{Vanilla} strategy. We will further discuss the choice of an interpreter in the next section.
 
 Finally, we run the same experiment with the \textsf{Optimized} strategy using JouleHunter.
 Figure~\ref{fig:django_profiled_optimized} depicts the resulting energy consumption.
 As one can notice, while the rendering method consumed the same amount of energy as in the \textsf{Vanilla} strategy (around 1.3\,kJ), the resolve part dropped by $20\times$.
 \paragraph{Synthesis}
 
-We can therefore conclude that the database and ORM selection have a major impact on the website's performance and energy consumption.
-And, unlike the rendering portion, there are many options available for the database, the ORM, and the data handling strategy.
+We can conclude that the database and ORM selection significantly impact the website's performance and energy consumption.
+Moreover, unlike the rendering portion, many options are available for the database, the ORM, and the data handling strategy.
 
 \begin{figure}[!hbt]
     \centering
@@ -282,13 +282,13 @@ And, unlike the rendering portion, there are many options available for the data
 
 
 \subsection{Python Insights}
-Another field of investigation is the type of data and control structures that might impact the energy consumption.
+Another field of investigation is the type of data and control structures that might impact energy consumption.
 In this study, we will run some basic algortims with different data structures and control structures to see if there is any difference in energy consumption.
 \subsubsection{experimental Protocol}
-All of the tests in this study are done on the grid5000 cluster using the same machine, Python interpreter, and library version. Due to PowerAPI's frequency constraint, we measure the energy of 1000 algorithm iterations for each test. And, for completeness, we perform each test 20 times, deleting the cache between each run. The data is then averaged and presented in graphs.
+All of the tests in this study are done on the grid5000 cluster using the same machine, Python interpreter, and library version. Due to PowerAPI's frequency constraint, we measure the energy of 1000 algorithm iterations for each test. Furthermore, we perform each test 20 times for completeness, deleting the cache between each run. The data is then averaged and presented in graphs.
 
 \subsubsection{Python loops}
-In the first experiment we want to study the impact of the loop type on the energy consumption. to do so, we run the following code snippet:
+In the first experiment, we want to study the impact of the loop type on energy consumption. To do so, we run the following code snippet:
 \begin{algorithm}[!htb]
     \begin{algorithmic}[1]
         \State $sum \gets 0$
@@ -300,7 +300,7 @@ In the first experiment we want to study the impact of the loop type on the ener
 \end{algorithm}
 
 First, the classical \texttt{for(i in range(len(n)))}.
-However, as we can see here, unlike other programming languages, it requires extra operations, such as determining the length of the collection and then using the iterator range.
+However, as we can see here, unlike other programming languages, it requires extra operations, such as determining the collection length and then using the iterator range.
 So, we tried the more adapted version \texttt{for(element in collection)}.
 Moreover, in most programming languages. the \texttt{for} loop is translated to a \texttt{while} loop ( transformation from D type to B type -- asm -- ), therefore we wanted to compare this with a \texttt{while} version.
 Therefore our candidates will be :
@@ -311,7 +311,7 @@ Therefore our candidates will be :
     \item \texttt{while}
 \end{itemize}
 
-For each of these implementations, we will run the same code snippet with different primitive data types : Int, Float, and String.
+We will run the same code snippet for each of these implementations with different primitive data types: Int, Float, and String.
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{imgs/python_iterations}
@@ -319,12 +319,12 @@ For each of these implementations, we will run the same code snippet with differ
     \label{fig:pythonloops}
 \end{figure}
 
-Figure~\ref{fig:pythonloops} shows the results of the experiment. As one can notice, the type of the data has negligibale impact on the energy consumption.
+Figure~\ref{fig:pythonloops} shows the results of the experiment. As one can notice, the data type has a negligible impact on energy consumption.
 However, the way one iterates over the collection has a huge factor.
 Interestingly, the \texttt{for in range} loop was by far the optimal one, followed by the regular \texttt{for in collection}, and the \texttt{while} part was the last one with an overhead of 400\% compared to the first option.
 
-The reason behind such a behavior is mainly related to how the Python interpreter is implemented\footnote{\url{https://www.python.org/doc/essays/list2str}},\footnote{\url{https://www.pythonpool.com/for-vs-while-loop-python/}}.
-To reduce the latency of Python applications, most of the built-in functions and operations are written in C, and the same goes for the function \texttt{range}.\footnote{\url{ http://python-history.blogspot.com/2010/06/from-list-comprehensions-to-generator.html?m=1}}
+The reason behind such behavior is mainly related to how the Python interpreter is implemented\footnote{\url{https://www.python.org/doc/essays/list2str}},\footnote{\url{https://www.pythonpool.com/for-vs-while-loop-python/}}.
+Most of the built-in functions and operations are written in C to reduce the latency of Python applications, and the same goes for the function \texttt{range}.\footnote{\url{ http://python-history.blogspot.com/2010/06/from-list-comprehensions-to-generator.html?m=1}}
 Furthermore, the function \texttt{len} has a complexity of $\mathcal{O}(1)$ as it is based on the function \texttt{Py\_SIZE} of C, which stores the length in a field for the object~\footnote{\url{https://wiki.python.org/moin/TimeComplexity}}.
 Therefore, the \texttt{for in range} is creating a new iterator that has the same length as the first one and, for each iteration, requires second access (\texttt{l[i]}) instead of one---explaining the doubled time.
 The \texttt{while} is even slower due to the implicit increment of the variable, which causes an extra operation during the loop.
@@ -340,27 +340,27 @@ The \texttt{while} is even slower due to the implicit increment of the variable,
 To confirm this hypothesis, we tried to construct a new list by editing the elements of the previous one (cf. \Cref{fig:pythontreatement}).
 We used four different methods to do so: \texttt{comprehension list}, \texttt{while loop}, \texttt{a map with predefined function}, and \texttt{a map with an anonymous function}.
 
-A comprehension list is a Pythonic way to create a new list by applying a function to each element of the previous one.It is based on the mathematical set-builder notation~\cite{editiondiscrete}.
+A comprehension list is a Pythonic way to create a new list by applying a function to each element of the previous one. It is based on the mathematical set-builder notation~\cite{editiondiscrete}.
 
-As for the map function, it is a higher-order function that applies a given function to each element of a collection. It is also possible to use an anonymous function, which is a function that is not bound to a name but only to its definition, which in the Python case is called a lambda function/expression.
+The map function is a higher-order function that applies a given function to each collection element. It is also possible to use an anonymous function, which is a function that is not bound to a name but only to its definition, which in the Python case is called a lambda function/expression.
 
 As one can notice in~\Cref{fig:pythontreatement}, the built-in methods are the most energy-saving ones, while the customize \texttt{while} loop is the heaviest.
-Moreover, when increasing the size of the collection, the map with lambda functions tends to consume less energy than the predefined one.
+Moreover, when increasing the collection size, the map with lambda functions tends to consume less energy than the predefined one.
 The reason behind such behavior is that Python treats these functions as local variables, unlike the predefined ones, which are global in our case. Therefore, they are faster and consume less energy.
 
 
 \paragraph*{Synthesis}
-This study demonstrates that the optimal way to reduce the energy consumption of Python applications is to follow the guidelines and to privilege the built-in functions.
+This study demonstrates that the optimal way to reduce the energy consumption of Python applications is to follow the guidelines and privilege the built-in functions.
 
 
 \subsubsection{Python \& Multiprocessing}
-The purpose of this part is to study the impact of concurrency on the energy consumption for Python applications.
-To do so, we run a simple code snippet that computes the sum of the first $N$ numbers using the standard concurrency libraries \texttt{multiprocessing~\footnote{\url{https://docs.python.org/3/library/multiprocessing.html}}} and \texttt{multihtreading~\footnote{\url{https://docs.python.org/3/library/threading.html}}}. Using Desktop  machine with Intel(R) Core(TM) i7-4800MQ CPU @ 2.70GHz with four cores and four hyperthreads, we run the following strategies.
+The purpose of this part is to study the impact of concurrency on energy consumption for Python applications.
+To do so, we run a simple code snippet that computes the sum of the first $N$ numbers using the standard concurrency libraries \texttt{multiprocessing~\footnote{\url{https://docs.python.org/3/library/multiprocessing.html}}} and \texttt{multihtreading~\footnote{\url{https://docs.python.org/3/library/threading.html}}}. We run the following strategies using a Desktop machine with Intel(R) Core(TM) i7-4800MQ CPU @ 2.70GHz with four cores and four hyperthreads.
 %  N ==5e5
 \begin{itemize}
     \item Sequentiel: and here we just compute the sum of the first $N$ numbers without any concurency
-    \item Multithreading: and here we use the \texttt{ ThreadPoolExecutor} library to compute the sum of the first $N$ numbers, We devide $N$ by the number of threads and each thread will compute the sum of the numbers in its range. For our case we used 4 threads.
-    \item multiprocessing : and in this case, we use the \texttt{ProcessPoolExecutor} library to calculate the sum of the first $N$ numbers. We divide $N$ by the number of processes, and each process sums the numbers in its range. In this situation, we employed 2,4,8,16 processes, correspondingly.
+    \item Multithreading: Here, we use the \texttt{ ThreadPoolExecutor} library to compute the sum of the first $N$ numbers, We devide $N$ by the number of threads, and each thread will compute the sum of the numbers in its range. For our case, we used four threads.
+    \item multiprocessing: and in this case, we use the \texttt{ProcessPoolExecutor} library to calculate the sum of the first $N$ numbers. We divide $N$ by the number of processes, and each process sums the numbers in its range. In this situation, we employed 2,4,8,16 processes correspondingly.
 \end{itemize}
 
 
@@ -408,8 +408,8 @@ By using the multithreading strategy, it was also found that sometimes the perfo
 Since many software services use Python in public and private cloud infrastructures, making Python-based apps more energy efficient will lower ICT carbon emissions.
 This chapter discusses various ways of optimizing the energy consumption of Python-based applications. It first explains why such a choice is relevant. Then it studies the energy behavior of Python within its most commonly employed use cases, which are revealed to be web development and machine learning.
 
-%  TODO : add description about the technology used in the training model 
-First, we studied the energy consumption of a machine learning algorithm using the Cifar-10 benchmark to train a model. We discovered that this energy consumption increases exponentially while the model accuracy increases.
+
+First, we studied the energy consumption of a machine learning algorithm using a benchmark of 60000 entries to train the cifar10-fast model. We discovered that this energy consumption increases exponentially while the model accuracy increases.
 As a result, a reduction in accuracy can result in considerable energy savings.
 We investigated how data structures, parallelism, and iterative methods affect energy use.
 
