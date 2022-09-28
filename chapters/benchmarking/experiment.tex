@@ -54,9 +54,9 @@ Table~\ref{table:g5k}  below, presents a description of the four clusters that h
     \end{tabular}
 \end{table}
 
-As most of the nodes are equipped with two sockets (physical processors), we use the acronym \textsf{CPU} or \textsf{socket} to designate one of the two sockets and \textsf{PU} for the \emph{processing unit}. For our study we consider hyper-threads as distinct \textbf{PUs}.
-
-Figure~\ref{fig:topo}  shows the detailed topology of a node in the cluster \textsf{Dahu} as an example.
+As most of the nodes are equipped with two sockets (physical processors), we use the acronym \textsf{CPU} or \textsf{socket} to designate one of the two sockets and \textsf{PU} for the \emph{processing unit}.
+For our study, we consider hyper-threads as distinct \textbf{PUs}.
+Figure~\ref{fig:topo} shows the detailed topology of a node in the cluster \textsf{Dahu} as an example.
 
 \begin{figure}[htb]
     \center{\includegraphics[width=.9\linewidth]{imgs/lstopo}}
@@ -86,25 +86,26 @@ This allows \textsc{PowerAPI} to measure all the running containers, even the RA
 
 Every experiment is conducted on $100$ iterations, on multiple nodes and using the 3 NPB benchmarks we mentioned, with a warmup phase of 10 iterations for each experiment.
 In most cases, we were seeking to evaluate the \emph{STandard Deviation} (STD), which is the most representative factor of the energy variation.
-We tried to be very careful, while running our experiments, not to fall in the most common benchmarking "crimes"~\cite{DBLP:journals/corr/abs-1801-02381}.
+We tried to be very careful, while running our experiments, not to fall into the most common benchmarking "crimes"~\cite{DBLP:journals/corr/abs-1801-02381}.
 As we study the STD difference of measurements we observed from empirical experiments, we use the bootstrap method~\cite{efron2000bootstrap} to randomly build multiple subsets of data from the original dataset, and we draw the STD density of those sets, as illustrated in Figure~\ref{fig:docker}.
-Given the space constraints, we report on aggregated results for nodes, benchmarks and workloads. However, the raw data we collected is available through the public repository we published.\footnote{\url{https://github.com/anonymous-data/Energy-Variation}}
+Given the space constraints, we report on aggregated results for nodes, benchmarks and workloads.
+However, the raw data we collected is available through the public repository we published.\footnote{\url{https://github.com/anonymous-data/Energy-Variation}}
 We believe this can help to achieve better and more reliable comparisons.
-We mainly consider 3 different workloads in our experiments: \textsf{single process}, 50\,\%, and 100\,\%, to cover the low, medium and high CPU usage when analyzing the studied parameters effect, respectively.
+We mainly consider 3 different workloads in our experiments: \textsf{single process}, 50\,\%, and 100\,\%, to cover the low, medium and high CPU usage when analyzing the effect of the studied parameters, respectively.
 These workloads reflect the ratio of used PU count to the total available PU.
 
 \subsection{Analysis}\label{subsec:parameters}
-In this part, we aim to establish experimental guidelines to reduce the CPU energy variation.
-We therefore explore many potential factors and parameters that could have a considerable effect on the energy variation.
+In this part, we aim to establish experimental guidelines to reduce CPU energy variation.
+We, therefore, explore many potential factors and parameters that could have a considerable effect on the energy variation.
 
 \subsection{Docker \& Accuracy}
-As the state of the art assesses the impact of Docker on the energy consumption, one can also consider its impact on accuracy.
+As the state of the art assesses the impact of Docker on energy consumption, one can also consider its impact on accuracy.
 In other words:\\
 \textbf{RQ:} does Docker affect the energy variation of the experiments?
 
 To answer this question we conducted a preliminary experiment by running the same benchmarks \textsf{LU}, \textsf{CG} and \textsf{EP} in a Docker container and a flat binary format on 3 nodes of the cluster \textsf{Dahu} to assess if Docker induces an additional variation.
-Figure~\ref{fig:docker} reports that this is not the case, as the energy consumption variation does not get noticeably affected by Docker while running a same compiled version of the benchmarks at 5\,\%, 50\,\% and 100\,\% workloads.
-In fact, while Docker increases the energy consumption due to the extra layer it implements~\cite{eddie_antonio_santos_how}, it does not noticeably affect the energy variation.
+Figure~\ref{fig:docker} reports that this is not the case, as the energy consumption variation does not get noticeably affected by Docker while running the same compiled version of the benchmarks at 5\,\%, 50\,\% and 100\,\% workloads.
+While Docker increases the energy consumption due to the extra layer it implements~\cite{eddie_antonio_santos_how}, it does not noticeably affect the energy variation.
 The \emph{standard deviation} (STD) is even slightly smaller ($STD_{Docker}=192 mJ$,$STD_{Binary}=207 mJ$), taking into account the measurements errors and the OS activity.
 
 \begin{figure}
@@ -114,7 +115,7 @@ The \emph{standard deviation} (STD) is even slightly smaller ($STD_{Docker}=192 
 
 \subsubsection{\textsc{RQ}~1: Benchmarking Protocol}
 To achieve a robust and reproducible experiment, practitioners often tend to repeat their tests multiple times, in order to analyze the related performance indicators, such as execution time, memory consumption or energy consumption.
-We therefore aim to study the benchmarking protocol to identify how to efficiently iterate the tests to capture a trustable energy consumption evaluation.
+We, therefore, aim to study the benchmarking protocol to identify how to efficiently iterate the tests to capture a trustable energy consumption evaluation.
 % This process of repeating executions should not be random in order to avoid different results because of the CPU behavior, the cache data, the memory size and plenty of other aspects.
 
 In this first experiment, we investigate if changing the testing protocol affects the energy variation.
@@ -128,12 +129,12 @@ It could also be beneficial to reset the CPU frequency and temperature, the stor
 However, the reboot task takes a considerable amount of time, so rebooting the node after every single operation is not the fastest nor the most eco-friendly solution, but it deserves to be checked to investigate if it effectively enhances the overall energy variation or not.
 
 Figure~\ref{fig:running-process} reports on $300$ aggregated executions of the  benchmarks \textsf{LU}, \textsf{CG} and \textsf{EP}, on 4 machines of the cluster \textsf{Dahu} (cf. Table~\ref{table:g5k}) for different workloads.
-We note that the results have been executed with different datasets sizes (\textsf{B}, \textsf{C} and \textsf{D} for single process, 50\,\% and 100\,\% respectively) to remedy to the brief execution times at high workloads for small datasets.
-This justifies the scale differences of reported energy consumptions between the 3 modes in Figure~\ref{fig:running-process}.
+We note that the results have been executed with different datasets sizes (\textsf{B}, \textsf{C} and \textsf{D} for a single process, 50\,\% and 100\,\% respectively) to remedy to the brief execution times at high workloads for small datasets.
+This justifies the scale differences in reported energy consumption between the 3 modes in Figure~\ref{fig:running-process}.
 As one can observe, picking one of these strategies does not have a strong impact on the energy variation for most workloads.
 In fact, all the strategies seem to exhibit the same variation with all the workloads we considered---\emph{i.e.}, the STD is tightly close between the three modes.
 The only exception is the \textsf{reboot} mode at 100\,\% load, where the STD is 150\,\% times worst, due to an important amount of outliers.
-This goes against our expectation, even when setting a warm-up time after reboot to stabilize the OS.
+This goes against our expectations, even when setting a warm-up time after reboot to stabilize the OS.
 
 \begin{figure*}
     \center{\includegraphics[width=\linewidth]{imgs/running-process}}
@@ -141,8 +142,8 @@ This goes against our expectation, even when setting a warm-up time after reboot
 \end{figure*}
 
 In Figure~\ref{fig:reboot}, we study the standard deviation of the three modes by constituting $5,000$ random 30-iterations sets from the previous executions set and we compute the STD in each case, considering mainly the 100\,\% workload as the STD was 150\,\% higher for the \textsf{reboot} mode with that load.
-We can observe that the considerable amount of outliers in the \textsf{reboot} mode is not negligible, as the STD density is clearly higher than the two other modes.
-This makes the \textsf{reboot} mode as the less appropriate for the energy variation at high workloads.
+We can observe that the considerable amount of outliers in the \textsf{reboot} mode is not negligible, as the STD density is higher than the two other modes.
+This makes the \textsf{reboot} mode less appropriate for the energy variation at high workloads.
 
 \begin{figure}
     \center{\includegraphics[width=.9\linewidth]{imgs/reboot}}
@@ -151,7 +152,7 @@ This makes the \textsf{reboot} mode as the less appropriate for the energy varia
 
 \begin{mdframed}[skipabove=\topsep,skipbelow=\topsep]
 
-    To answer \textsc{RQ~1}, we conclude that the benchmarking protocol \textbf{partially affects} the energy variation, as highlighted by the \textsf{reboot} mode results for high workloads.
+    To answer \textsc{RQ~1}, we conclude that the benchmarking protocol \textbf{partially affects} the energy variation, as highlighted by the \textsf{reboot} mode results in high workloads.
 
 \end{mdframed}
 
@@ -166,18 +167,18 @@ On each node, we ran the same set of benchmarks with two modes: \textsf{C-states
 Each iteration includes 100 executions of the same benchmark at a given workload, with three workload levels.
 We note that our results have been confirmed with the benchmarks \texttt{LU}, \texttt{CG} and \texttt{EP}.
 
-We can clearly see the effect that has the \textsf{C-states off} mode when running a single-process application/benchmark.
+We can see the effect that has the \textsf{C-states off} mode when running a single-process application/benchmark.
 The energy consumption varies 5~times less than the default mode.
 In this case, only one CPU core is used among $2\times16$ physical cores.
 The other cores are switched to a low consumption state when C-states are on, the switching operation causes an important energy consumption difference between the cores, and could be affected by other activities, such as the kernel activity, causing a notable energy consumption variation.
-On the other hand, switching off the C-states would keep all the cores---even the unused ones---at a high frequency usage.
+On the other hand, switching off the C-states would keep all the cores---even the unused ones---at a high-frequency usage.
 This highly reduces the variation, but causes up to 50\,\% of extra energy consumption in this test ($Mean_{C-states-off}=11,665 mJ$,$Mean_{C-states-on}=7,641 mJ$).
 
-At a 100\,\% workload, disabling the C-states seems to have no effect on the total energy consumption nor its variation.
-In fact, all the cores are used at 100\,\% and the C-states module would have no effect, as the cores are not idle.
+At a 100\,\% workload, disabling the C-states seems to not affect the total energy consumption nor its variation.
+All the cores are used at 100\,\% and the C-states module would have no effect, as the cores are not idle.
 The same reason would apply for the 50\,\% load, as the hyper-threading is active on all cores, thus causing the usage of most of them.
 For single process workloads, disabling the C-states causes the process to consume 50\,\% more energy as reported in Figure~\ref{fig:c-states}, but reduces the variation by 5~times compared to the \textsf{C-states on} mode.
-This leads to mainly two questions: Can a process pinning method reduce/increase the energy variation? And, how does the energy consumption variation evolve at different PU usage level?
+This leads to mainly two questions: Can a process pinning method reduce/increase the energy variation? And, how does the energy consumption variation evolve at different PU usage levels?
 
 \begin{figure*}
     \center{\includegraphics[width=\linewidth]{imgs/c-states}}
@@ -188,13 +189,13 @@ This leads to mainly two questions: Can a process pinning method reduce/increase
 To answer the first question, we repeated the previous test at 50\,\% workload.
 In this experiment, we considered three cores usage strategies, the first one (\textsf{S1}) would pin the processes on all the PU of one of the two sockets (including hyper-threads), so it will be used at 100\,\%, and leave the other CPU idle.
 The second strategy (\textsf{S2}) splits the workload on the two sockets so each CPU will handle 50\,\% of the load.
-In this strategy, we only use the core PU and not the hyper-threads PU, so every process would not share his core usage (all the cores are being used).
-The third strategy (\textsf{S3}) consists also on splitting the workload between the two sockets, but considering the usage of the hyper-threads on each core---\emph{i.e.}, half of the cores are being used over the two CPU.
+In this strategy, we only use the core PU and not the hyper-threads PU, so every process would not share its core usage (all the cores are being used).
+The third strategy (\textsf{S3}) consists also of splitting the workload between the two sockets, but considering the usage of the hyper-threads on each core---\emph{i.e.}, half of the cores are being used over the two CPU.
 Figure~\ref{fig:cores-pinning} reports on the energy consumption of the three strategies when running the benchmark \texttt{CG} on the cluster \textsf{Dahu}.
 We can notice the big difference between these three execution modes that we obtained only by changing the PU pinning method (that we acknowledged with more than 100 additional runs over more than 30 machines and with the benchmarks \texttt{LU} and \texttt{EP}).
-For example, \textsf{S2} is the least power consuming strategy.
+For example, \textsf{S2} is the least power-consuming strategy.
 We argue that the reason is related to the isolation of every process on a single physical core, reducing the context switch operations.
-In the first and third strategy, $32$ processes are being scheduled on $16$ physical cores using the hyper-threads PU, which will introduce more context switching, and thus more energy consumption.
+In the first and third strategies, $32$ processes are being scheduled on $16$ physical cores using the hyper-threads PU, which will introduce more context switching, and thus more energy consumption.
 
 \begin{figure}
     \center{\includegraphics[width=.8\linewidth]{imgs/cores_pinning}}
@@ -205,9 +206,9 @@ We note that even if the first and third strategies are very similar (both use h
 This shows that the usage of the hyper-threads technology is not the main reason behind the variation, the first strategy has even less variation than the second one and still uses the hyper-threading.
 
 The reason for the \textsf{S1} low energy consumption is that one of the two sockets is idle and will likely be in a lower power P-state, even with the disabled C-states.
-The \textsf{S2} case is also low energy consuming because by distributing the threads across all the cores, it completes the task faster than in the other cases.
+The \textsf{S2} case reports on low energy consumption because by distributing the threads across all the cores, it completes the task faster than in the other cases.
 Hence, it consumes less energy.
-The \textsf{S3} is a high consuming strategy because both sockets are being used, but only half the cores are active.
+The \textsf{S3} is a highly consuming strategy because both sockets are being used, but only half the cores are active.
 This means that we pay the energy cost for both sockets being operational and for the experiments taking longer to run because of the recurrent context switching.
 
 Our hypothesis regarding the worst results that we observed when using the third strategy is the recurrent context switching, added to the OS scheduling that could reschedule processes from a socket to another, which invalids the cache usage as a process can not take profit of the socket local L3 cache when it moves from a CPU to another (cf. Figure~\ref{fig:topo}).
@@ -216,7 +217,7 @@ Moreover, the fact that the variation is 4--5 times higher when using the strate
 While the mean execution time for the strategy \textsf{S3} is very high ($MeanTime_{S3}= 46 s$) compared to the two other strategies ($MeanTime_{S1}= 11 s$, $MeanTime_{S2}= 7 s$), we see no correlation between the execution time and the energy variation, as the \textsf{S1} still give less variations than \textsf{S2} even if it takes 36\,\% more time to run.
 
 Table~\ref{table:corespinning} reports on additional aggregated results for the STD comparison on four other nodes of the cluster \textsf{Dahu} at 50\,\%, with the benchmarks \textsf{LU}, \textsf{CG} and \textsf{EP}.
-In fact, the CPU usage strategy \textsf{S1} is by far the experimentation mode that gave the least variation.
+The CPU usage strategy \textsf{S1} is by far the experimentation mode that gave the least variation.
 The STD is almost 5 times better than the strategy \textsf{S2}, but is up to 10\,\% more energy consuming ($Mean_{S1}=4469 mJ$, $Mean_{S2}=4016 mJ$).
 On the other hand, the strategy \textsf{S3} is the worst, where the energy consumption can be up to 5 times higher than the strategy \textsf{S2} ($Mean_{S2}=4016 mJ$, $Mean_{S3}=21645 mJ$) and the variation is much worst (30 times compared to the first strategy).
 These results allow us to have a better understanding of the different processes-to-PU pinning strategies, where isolating the workload on a single CPU is the best strategy.
@@ -250,9 +251,9 @@ Figure~\ref{fig:process-tresh} compares the aggregated energy variation when the
 This figure confirms that disabling the CPU C-states does not decrease the variation for all the workloads, as we can clearly observe, the variation is increasing along with the number of processes.
 When running only 2 processes, turning off the C-states reduces the STD up to 6~times, but consumes 20\,\% more energy ($Mean_{C-states-on}=10,334 mJ$, $Mean_{C-states-off}=12,594 mJ$).
 This variation is 4~times lower when running 4 processes and almost equal to the \textsf{C-states on} mode when running 8 processes.
-In fact, running more processes implies to use more CPU cores, which reduces the idle cores count, so the cores will more likely stay at a higher consumption state even if the C-states mechanism is on.
+In fact, running more processes implies using more CPU cores, which reduces the idle cores count, so the cores will more likely stay at a higher consumption state even if the C-states mechanism is on.
 
-In our case, using 4 PU reduces the variation by 4~times and consumes almost the same energy as keeping the C-states mechanism on ($Mean_{C-states-on}=7,048 mJ$, $Mean_{C-states-off}=7,119 mJ$).
+In our case, using 4 PU reduces the variation by 4 times and consumes almost the same energy as keeping the C-states mechanism on ($Mean_{C-states-on}=7,048 mJ$, $Mean_{C-states-off}=7,119 mJ$).
 This case would be the closest to reality as we do not want to increase the energy consumption while reducing the variation, but using a lower number of PU still results in less variation, even if it increases the overall energy consumption.
 
 \begin{figure*}
@@ -263,14 +264,14 @@ This case would be the closest to reality as we do not want to increase the ener
 We note that disabling the C-states is not recommended in production environments, as it introduces extra energy consumption for low workloads (around 50\,\% in our case for a single process job).
 However, our goal is not to optimize the energy consumption, but to minimize the energy variation.
 Thus, disabling the C-states is very important to stabilize the measurements in some cases when the variation matters the most.
-Comparing the energy consumptions of two algorithms or two versions of a software systems is an example of use case benefiting from this recommendation.
+Comparing the energy consumption of two algorithms or two versions of a software system is an example of a use case benefiting from this recommendation.
 
 \paragraph{Turbo Boost}
 The Turbo Boost---also known as \emph{Dynamic Overclocking}---is a feature that has been incorporated in Intel CPU since the Sandy~Bridge micro-architecture, and is now widely available on all of the Core\,i5, Core\,i7, Core\,i9 and Xeon series.
-It automatically raises some of the CPU cores operating frequency for short periods of time, and thus boost performances under specific constraints.
+It automatically raises some of the CPU cores operating frequency for short periods, and thus boosts performances under specific constraints.
 When demanding tasks are running, the operating system decides on using the highest performance state of the processor.
 
-Disabling or enabling the Turbo~Boost has a direct impact on the CPU frequency behavior, as enabling it allows the CPU to reach higher frequencies in order to execute some tasks for a short period of time.
+Disabling or enabling the Turbo~Boost has a direct impact on the CPU frequency behavior, as enabling it allows the CPU to reach higher frequencies to execute some tasks for a short period.
 However, its usage does not have a trivial impact on the energy variation.
 Acun~\emph{et~al.}~\cite{acun_variation_2016} tried to track the Turbo~Boost impact on the Ivy~Bridge and the Sandy~Bridge architectures.
 They concluded that it is one of the main responsible for the energy variation, as it increases the variation from 1\,\% to 16\,\%.
@@ -278,13 +279,13 @@ In our study, we included a Turbo~Boost experiment in our testbed, to check this
 
 The experiment we conducted showed that disabling the Turbo Boost does not exhibit any considerable positive or negative effect on the energy variation.
 Table~\ref{table:turboboost} compares the STD when enabling/disabling the Turbo~Boost, where the columns are a combination of workload and benchmark.
-In fact, we only got some minor measurements differences when switching on and off the Turbo~Boost, and where in favor or against the usage of the Turbo~Boost while repeating tests, considering multiple nodes and benchmarks.
+We only got some minor measurement differences when switching on and off the Turbo~Boost, and were in favor or against the usage of the Turbo~Boost while repeating tests, considering multiple nodes and benchmarks.
 This behavior is mainly related to the \emph{thermal design power} (TDP), especially at high workloads executions.
 When a CPU is used at its maximum capacity, the cores would be heating up very fast and would hit the maximum TDP limit.
 In this case, the Turbo~Boost cannot offer more power to the CPU because of the CPU thermal restrictions.
-At lower workloads, the tests we conducted proved that the Turbo~Boost is not one of the main reasons of the energy variation.
-In fact, the variation difference is barely noticeable when disabling the Turbo~Boost, which cannot be considered as a result regarding the OS activity and the measurement error margin.
-We cannot affirm that the Turbo~Boost does not have an impact on all the CPU, as we only tested on two recent Xeon CPU (clusters \textsf{Chetemi} and \textsf{Dahu}).
+At lower workloads, the tests we conducted proved that the Turbo~Boost is not one of the main reasons for the energy variation.
+The variation difference is barely noticeable when disabling the Turbo~Boost, which cannot be considered as a result of the OS activity and the measurement error margin.
+We cannot affirm that the Turbo~Boost does not have an impact on all the CPUs, as we only tested on two recent Xeon CPUs (clusters \textsf{Chetemi} and \textsf{Dahu}).
 We confirmed our experiments on these machines 100 times at 5\,\%, 25\,\%, 50\,\% and 100\,\% workloads.
 
 \begin{table}%[h!]
@@ -318,15 +319,15 @@ We confirmed our experiments on these machines 100 times at 5\,\%, 25\,\%, 50\,\
 \subsubsection{\textsc{RQ}~3: Operating System}
 The \emph{operating system} (OS) is the layer that exploits the hardware capabilities efficiently.
 It has been designed to ease the execution of most tasks with multitasking and resource sharing.
-In some delicate tests and measurements, the OS activity and processes can cause a significant overhead and therefore a potential threat to the validity. % experiments validity
-The purpose behind this experiment is to determine if the sampled consumption can be reliably related to the tested application, especially for low-workload applications where CPU resources are not heavily used by the application.
+In some delicate tests and measurements, the OS activity and processes can cause significant overhead and therefore a potential threat to the validity. % experiments validity
+The purpose of this experiment is to determine if the sampled consumption can be reliably related to the tested application, especially for low-workload applications where CPU resources are not heavily used by the application.
 
-The first way to do is to evaluate the OS idle activity consumption, and to compare it to a low workload running job.
+The first way to do this is to evaluate the OS idle activity consumption and to compare it to a low workload running job.
 Therefore, we ran 100 iterations of a single process benchmark \textsf{EP}, \textsf{LU} and \textsf{CG} on multiple nodes from the cluster \textsf{Dahu}, and compared the energy behavior of the node with its idle state on the same duration.
 The aggregated results, illustrated in Figure~\ref{fig:os-idle}, depict that the idle energy variation is up to 140\,\% worst than when running a job, even if it consumes 120\,\% less energy ($Mean_{Job}=8,746 mJ$, $Mean_{Idle}=3,927 mJ$).
 In fact, for the three nodes, randomly picked from the cluster \textsf{Dahu}, the idle variation is way more important than when a test was running, even if it is a single process test on a $32$-cores node.
-This result shows that OS idle consumption varies widely, due to the lack of activity and the different CPU frequencies states, but it does not mean that this variation is the main responsible for the overall energy variation.
-The OS behaves differently when a job is running, even if the amount of available cores is more than enough for the OS to keep his idle behavior when running a single process.
+This result shows that OS idle consumption varies widely, due to the lack of activity and the different CPU frequency states, but it does not mean that this variation is the main responsible for the overall energy variation.
+The OS behaves differently when a job is running, even if the amount of available cores is more than enough for the OS to keep its idle behavior when running a single process.
 
 \begin{figure}
     \center{\includegraphics[width=.9\linewidth]{imgs/idle}}
@@ -334,16 +335,17 @@ The OS behaves differently when a job is running, even if the amount of availabl
 \end{figure}
 
 Inspecting the OS idle energy variation is not sufficient to relate the energy variation to the active job.
-In fact, the OS can behave differently regarding the resource usage when running a task.
+The OS can behave differently regarding resource usage when running a task.
 To evaluate the OS and the job energy consumption separately, we used the \textsc{PowerAPI} toolkit.
 This fine-grained power~meter allows the distribution of the RAPL global energy across all the Cgroups of the OS using a power model.
 Thus, it is possible to isolate the job energy consumption instead of the global energy consumption delivered by RAPL.
-To do so, we ran tests with a single process workload on the cluster \textsf{Dahu}, and used the \textsc{PowerAPI} toolkit to measure the energy consumption.
+To do so, we ran tests with a single process workload on the cluster \textsf{Dahu} and used the \textsc{PowerAPI} toolkit to measure the energy consumption.
 Then, we compared the job energy consumption to the global RAPL data.
 We calculated the Pearson correlation~\cite{ref1} of the energy consumption and variation between global RAPL and \textsc{PowerAPI}, as illustrated in Figure~\ref{fig:ev_correlation}.
 The job energy consumption and variation are strongly correlated with the global energy consumption and variation with the coefficients 93.6\,\% and 85.3\,\%, respectively.
 However, this does not completely exclude the OS activity, especially if the jobs have tight interaction with the OS through the signals and system calls.
-This brings a new question on whether applying extra-tuning on a minimal OS would reduce the variation? As well as what is the effect of the Meltdown security patch---that is known to be causing some performance degradation~\cite{Kocher2018spectre,Lipp2018meltdown}---on the energy variation?
+This brings a new question on whether applying extra-tuning on a minimal OS would reduce the variation.
+As well as what is the effect of the Meltdown security patch---that is known to be causing some performance degradation~\cite{Kocher2018spectre,Lipp2018meltdown}---on the energy variation?
 
 \begin{figure}
     \center{\includegraphics[width=.8\linewidth]{imgs/correlation}}
@@ -351,16 +353,16 @@ This brings a new question on whether applying extra-tuning on a minimal OS woul
 \end{figure}
 
 \paragraph{OS Tuning}
-An OS is a pack of running processes and services that might or not be required its execution.
-In fact, even using a minimal version of a Debian Linux, we could list many OS running services and process that could be disabled/stopped without impacting the test execution.
+An OS is a pack of running processes and services that might or not be required for its execution.
+Even using a minimal version of Debian Linux, we could list many OS running services and processes that could be disabled/stopped without impacting the test execution.
 This extra-tuning may not be the same depending on the nature of the test or the OS.
 Thus, we conducted a test with a deeply-tuned OS version.
-We disabled all the services/processes that are not essential to the OS/test running, including the OS networking interfaces and logging modules, and we only kept the strict minimum required to the experiment's execution.
+We disabled all the services/processes that are not essential to the OS/test running, including the OS networking interfaces and logging modules, and we only kept the strict minimum required for the experiment's execution.
 Table~\ref{table:osmin} reports on the aggregated results for running single process measurements with the benchmarks \textsf{CG}, \textsf{LU} and \textsf{EP}, on three servers of the cluster \textsf{Dahu}, before and after tuning the OS.
 Every cell contains the \emph{STD} value before the tuning, plus/minus a ratio of the energy variation after the tuning.
 We notice that the energy variation varies less than 10\,\% after the extra-tuning.
-We argue that this variation is not substantial, as it is not stable from a node to another.
-Moreover, 10\,\% of variation is not a representative difference, due to many factors that can affect it as the CPU temperature or the measurement errors.
+We argue that this variation is not substantial, as it is not stable from one node to another.
+Moreover, 10\,\% of the variation is not a representative difference, due to many factors that can affect it as the CPU temperature or the measurement errors.
 
 \begin{table}
     \centering
@@ -383,21 +385,21 @@ Moreover, 10\,\% of variation is not a representative difference, due to many fa
 % \subsubsection{Meltdown Security Patch}
 
 \paragraph{Speculative Executions}
-Meltdown and Spectre are two of the most famous hardware vulnerabilities discovered in 2018, and exploiting them allows a malicious process to access others processes data that is supposed to be private~\cite{Kocher2018spectre,Lipp2018meltdown}.
-They both exploit the speculative execution technique where a process anticipates some upcoming tasks, which are not guaranteed to be executed, when extra resources are available, and revert those changes if not.
+Meltdown and Spectre are two of the most famous hardware vulnerabilities discovered in 2018, and exploiting them allows a malicious process to access others processes' data that is supposed to be private~\cite{Kocher2018spectre,Lipp2018meltdown}.
+They both exploit the speculative execution technique where a process anticipates some upcoming tasks, which are not guaranteed to be executed when extra resources are available, and revert those changes if not.
 Some OS-level patches had been applied to prevent/reduce the criticality of these vulnerabilities.
-On the Linux kernel, the patch has been automatically applied since the version 4.14.12.
+On the Linux kernel, the patch has been automatically applied since version 4.14.12.
 It mitigates the risk by isolating the kernel and the user space and preventing the mapping of most of the kernel memory in the user space.
 % These patches have been reported as decreasing the performance of a system. 
 Nikolay~\emph{et~al.} have studied in~\cite{DBLP:journals/corr/abs-1801-04329} the impact of patching the OS on the performance.
-The results showed that the overall performance decrease is around 2--3\,\% for most of the benchmarks and real-world applications, only some specific functions can meet a high performance decrease.
+The results showed that the overall performance decrease is around 2--3\,\% for most of the benchmarks and real-world applications, only some specific functions can meet a high-performance decrease.
 In our study, we are interested in the applied patch's impact on the energy variation, as the performance decrease could mean an energy consumption increase.
 Thus, we ran the same benchmarks \textsf{LU}, \textsf{CG} ad \textsf{EP} on the cluster \textsf{Dahu} with different workloads, using the same OS, with and without the security patch.
 Table~\ref{table:meltdown} reports on the STD values before disabling the security patch.
 A minus means that the energy varies less without the patch being applied, while a plus means that it varies more.
 These results help us to conclude that the security patch's effect on the energy variation is not substantial and can be absorbed through the error margin for the tested benchmarks.
-In fact, the best case to consider is the benchmark \textsf{LU} where the energy variation is less than 10\,\% when we disable the security patch, but this difference is still moderate.
-The little performance difference discussed in~\cite{Kocher2018spectre,Lipp2018meltdown} may only be responsible of a small variation, which will be absorbed through the measurement tools and external noise error margin in most cases.
+The best case to consider is the benchmark \textsf{LU} where the energy variation is less than 10\,\% when we disable the security patch, but this difference is still moderate.
+The little performance difference discussed in~\cite{Kocher2018spectre,Lipp2018meltdown} may only be responsible for a small variation, which will be absorbed through the measurement tools and external noise error margin in most cases.
 
 \begin{table}[h!]
     \centering
@@ -426,12 +428,12 @@ The little performance difference discussed in~\cite{Kocher2018spectre,Lipp2018m
 
 \subsubsection{\textsc{RQ}~4: Processor Generation}
 Intel microprocessors have noticeably evolved during these last 20 years.
-Most of the new CPU come with new enhancements to the chip density, the maximum Frequency or some optimization features like the C-states or the Turbo~Boost.
-This active evolution caused that different generations of CPU can handle a task differently.
-The aim of this expriment is not to justify the evolution of the variation across CPU versions/generations, but to observe if the user can choose the best node to execute her experiments.
+Most of the new CPUs come with new enhancements to the chip density, the maximum Frequency or some optimization features like the C-states or the Turbo~Boost.
+This active evolution caused different generations of CPUs can handle a task differently.
+The aim of this experiment is not to justify the evolution of the variation across CPU versions/generations, but to observe if the user can choose the best node to execute her experiments.
 Previous papers have discussed the evolution of the energy consumption variation across CPU generations and concluded that the variation is getting higher with the latest CPU generations~\cite{wang_experimental_nodate,marathe_empirical_2017_m}, which makes measurements stability even worse.
-In this experiment, we therefore compare four different generations of CPU with the aim to evaluate the energy variation for each CPU and its correlation with the generation.
-Table~\ref{table:cpus} indicates the characteristics of each of the tested CPU.
+In this experiment, we, therefore, compare four different generations of CPU to evaluate the energy variation for each CPU and its correlation with the generation.
+Table~\ref{table:cpus} indicates the characteristics of each of the tested CPUs.
 
 \begin{table}
     \centering
@@ -463,13 +465,13 @@ Table~\ref{table:cpus} also shows the aggregated energy variation of the differe
 The results attest that the latest versions of CPU do not necessarily cause more variation.
 In the experiments we ran, the nodes from the cluster \textsf{Paranoia} tend to cause more variation at high workloads, even if they are from the latest generation.
 While the Skylake CPU of the cluster \textsf{Dahu} cause often more energy variation than \textsf{Chetemi} and the Ecotype Broadwell CPU.
-We argue that the hypothesis "\emph{the energy consumption on newer CPU varies more}" could be true or not depending on the compared generations, but most importantly, the chips energy behaviors.
-On the other hand, our experiments showed the lowest energy variation when using the \textsf{Ecotype CPU}, these CPU are not the oldest nor the latest, but are tagged with "\texttt{L}" for their low power/TDP.
+We argue that the hypothesis "\emph{the energy consumption on newer CPU varies more}" could be true or not depending on the compared generations, but most importantly, the chip's energy behaviors.
+On the other hand, our experiments showed the lowest energy variation when using the \textsf{Ecotype CPU}, these CPUs are not the oldest nor the latest, but are tagged with "\texttt{L}" for their low power/TDP.
 This result rises another hypothesis when considering CPU choice, which implies selecting the CPU with a low TDP.
 This hypothesis has been confirmed on all the \textsf{Ecotype} cluster nodes, especially at low and medium workloads.
 
-Figure~\ref{fig:cpugen} is an illustration of the aggregated STD density of more than $5,000$-random values sets taken from all the conducted experiments.
-This shows that the cluster \textsf{Paranoia} reports the worst variation in most cases, and that \textsf{Ecotype} is the best cluster to consider to get the least variations, as it has a higher density for small variation values.
+Figure~\ref{fig:cpugen} is an illustration of the aggregated STD density of more than $5,000$-random value sets taken from all the conducted experiments.
+This shows that the cluster \textsf{Paranoia} reports the worst variation in most cases and that \textsf{Ecotype} is the best cluster to consider to get the least variations, as it has a higher density for small variation values.
 
 \begin{figure}
     \center{\includegraphics[width=.9\linewidth]{imgs/cpugen}}
@@ -481,13 +483,10 @@ This shows that the cluster \textsf{Paranoia} reports the worst variation in mos
 \end{mdframed}
 
 
-
-
-
 \subsection{Experimental Guidelines}
-To summarize our experiments, we provide some experimental guidelines in Table~\ref{table:guidelines}, based on the multiple experiments and analysis we did.
+To summarize our experiments, we provide some experimental guidelines in Table~\ref{table:guidelines}, based on the multiple experiments and analyses we did.
 These guidelines constitute a set of minimal requirements or best practices, depending on the workload and the criticality of the energy measurement precision.
-It therefore intends to help practitioners in taming the energy variation on the selected CPU, and conduct the experiments with the least variations.
+It, therefore, intends to help practitioners in taming the energy variation on the selected CPU, and conduct the experiments with the least variations.
 
 \begin{table}[h!]
     \centering
@@ -512,22 +511,22 @@ It therefore intends to help practitioners in taming the energy variation on the
         \hline
         Rather focus the optimization efforts on the system under test than the OS                                                                                        & Any           & ---               \\
         \hline
-        Execute all the similar and comparable experiments on a same machine. Identical machines can exhibit many differences regarding their energy behavior             & Any           & Up to $1.3\times$ \\
+        Execute all the similar and comparable experiments on the same machine. Identical machines can exhibit many differences regarding their energy behavior             & Any           & Up to $1.3\times$ \\
         \hline
     \end{tabular}
     \label{table:guidelines}
 \end{table}
 
-Table~\ref{table:guidelines} gives a proper understanding of known factors, like the C-states and its variation reduction at low workloads.
+Table~\ref{table:guidelines} gives a proper understanding of known factors, like the C-states and their variation reduction at low workloads.
 However, it also lists some new factors that we identified along the analysis we conducted in Section, such as the results related to the OS or the reboot mode.
-Some of the guidelines are more useful/efficient for specific workloads, as showed in our experiments.
+Some of the guidelines are more useful/efficient for specific workloads, as shown in our experiments.
 Thus, qualifying the workload before conducting the experiments can help in choosing the proper guidelines to apply.
 Other studied factors are not been mentioned in the guidelines, like the Turbo~Boost or the Speculative execution, due to the small effect that has been observed in our study.
 
-In order to validate the accuracy of our guidelines among a varied set of benchmarks on one hand, and their effect on the variation between identical machines on the other hand, we ran seven experiments with benchmarks and real applications on a set of four identical nodes from the cluster \textsf{Dahu}, before (\textsf{normal} mode where everything is left to default and to the charge of the OS) and after (\textsf{optimized}) applying our guidelines.
-Half of these experiments has been performed at a 50\,\% workload and the other half on single process jobs.
+To validate the accuracy of our guidelines among a varied set of benchmarks on one hand, and their effect on the variation between identical machines, on the other hand, we ran seven experiments with benchmarks and real applications on a set of four identical nodes from the cluster \textsf{Dahu}, before (\textsf{normal} mode where everything is left to default and to the charge of the OS) and after (\textsf{optimized}) applying our guidelines.
+Half of these experiments have been performed at a 50\,\% workload and the other half on single process jobs.
 The choice of these two workloads is related to the optimization guidelines that are mainly effective at low and medium workloads.
-We note that we used the cluster \textsf{Dahu} over \textsf{Ecotype} to highlight the guidelines effect on the nodes where the variation is susceptible to be higher.
+We note that we used the cluster \textsf{Dahu} over \textsf{Ecotype} to highlight the effect of the guidelines on the nodes where the variation is susceptible to be higher.
 
 \begin{figure*}[htb]
     \center{\includegraphics[width=\linewidth]{imgs/all}}
@@ -544,31 +543,31 @@ They demonstrate the intra-node STD reduction at low and medium workloads for al
 Concretely, for low workloads, the energy variation is 2--6 times lower after applying the optimization guidelines for the benchmarks \textsf{LU} and \textsf{EP}, as well as \textsc{Linpack}, while it is 1.2--1.8 times better for \texttt{Sha256}.
 For this workload, the overall energy consumption after optimization can be up to 80\,\% higher due to disabling the C-states to keep all the unused cores at a high power consumption state ($Mean_{LU-normal-Dahu2}=11,500 mJ$, $Mean_{LU-optimized-Dahu2}=20,508 mJ$).
 For medium workloads, the STD, and thus variation, is up to 100\,\% better for the benchmark \textsf{CG}, 20--150\,\% better for the \texttt{pbzip2} application and up to 100\% for \textsc{Stress-NG}.
-We note that the optimized version consumes less energy thanks to an appropriate core pinning method.
+We note that the optimized version consumes fewer energy thanks to an appropriate core pinning method.
 
 Figures~\ref{fig:optimized} and~\ref{fig:stress} also highlight that applying the guidelines does not reduce the inter-nodes variation in all the cases.
 This variation can be up to 30\,\% in modern CPU~\cite{wang_experimental_nodate}.
 However, taming the intra-node variation is a good strategy to identify more relevant mediums and medians, and then perform accurate comparisons between the nodes variation.
-Even though, using the same node is always better, to avoid the extra inter-nodes variation and thus improve the stability of measurements.
+Even though using the same node is always better, it avoids the extra inter-nodes variation and thus improves the stability of measurements.
 
 
 \subsection{Threats to Validity}
 A number of issues affect the validity of our work.
-For most of our experiments, we used the Intel RAPL tool, which has evolved along Intel CPU generations to be known as one of the most accurate tools for modern CPU, but still adds an important overhead if we adopt a sampling at high frequency.
+For most of our experiments, we used the Intel RAPL tool, which has evolved along Intel CPU generations to be known as one of the most accurate tools for modern CPUs, but still adds an important overhead if we adopt a sampling at high frequency.
 The other fine-grained tool we used for measurements is \textsc{PowerAPI}.
-It allows to measure the energy consumption at the granularity of a process or a Cgroup by dividing the RAPL global energy over the running processes using a power model.
+It allows measuring the energy consumption at the granularity of a process or a Cgroup by dividing the RAPL global energy over the running processes using a power model.
 The usage of \textsc{PowerAPI} adds an error margin because of the power model built over RAPL.
-The RAPL tool mainly measures the CPU and DRAM energy consumption.
+The RAPL tool mainly measures CPU and DRAM energy consumption.
 However, even running CPU/RAM intensive benchmarks would keep a degree on uncertainty concerning the hard disk and networking energy consumption.
 In addition, the operating system adds a layer of confusion and uncertainty.
 
-The Intel CPU chip manufacturing process and the materials micro-heterogeneity is one of the biggest issues, as we cannot track or justify some of the energy variation between identical CPU or cores.
+The Intel CPU chip manufacturing process and the material's micro-heterogeneity are one of the biggest issues, as we cannot track or justify some of the energy variations between identical CPUs or cores.
 These CPU/cores might handle frequencies and temperature differently and behave consequently.
 This hardware heterogeneity also makes reproduction complex and requires the usage of the same nodes on the cluster with the same OS.
 
 
-\subsection{Conclusion}
-In order to increase the \textbf{accuracy} in comparative experiments, we conducted an empirical study of controllable factors that may increase the energy variations on platforms with some of the latest CPUs and for several benchmarks.
-This study is not intended to nullify the variability of the CPU, as some of this variability is related to the chip manufacturing process and its thermal behavior. Instead, it aims to tame and mitigate this variability along controlled experiments.
-In this study, We investigated some previously discussed aspects on some recent CPUs, considered new factors that have not been deeply analyzed to the best of our knowledge, and constituted a set of guidelines to increase this accuracy for energy related experiments.
+\subsection{Summary}
+To increase the \textbf{accuracy} in comparative experiments, we conducted an empirical study of controllable factors that may increase the energy variations on platforms with some of the latest CPUs and for several benchmarks.
+This study is not intended to nullify the variability of the CPU, as some of this variability is related to the chip manufacturing process and its thermal behavior. Instead, it aims to tame and mitigate this variability through controlled experiments.
+In this study, We investigated some previously discussed aspects of some recent CPUs, considered new factors that have not been deeply analyzed to the best of our knowledge, and constituted a set of guidelines to increase this accuracy for energy-related experiments.
 Some of these factors, like the \emph{C-states} usage, can reduce the energy variation up to 500\,\% at low workloads, while choosing the wrong cores/PU strategy can cause up to $30\times$ more variability.
