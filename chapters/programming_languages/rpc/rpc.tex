@@ -1,26 +1,36 @@
 \subsection{Introduction}
 With the success of the Internet and the emergence of cloud technologies, many communication protocols compete to take the lead.
 In particular, most software architectures are now based on multi-services and micro-service technologies.
-And, to cope with the increased versatility of developers, multiple companies choose to open their services to different programming languages.
+Moreover, to cope with the increased versatility of developers, multiple companies choose to open their services to different programming languages.
 This approach is interesting because it wants to use the best parts of each programming language to meet different needs.
-However, the challenge nowadays is to make the bridge between those platforms.
-We have many initiatives, such as OpenAPI, that try to create a taxonomy for RESTful APIs, while other approaches implement all the different interfaces of the protocol by themselves, such as RPC.
+However, the challenge nowadays is to make the bridge between these platforms.
+We have many initiatives, such as OpenAPI, that try to create a taxonomy for RESTful APIs, while other approaches implement all the different interfaces of the protocol by themselves, such as The Remote Procedure Call (aka RPC) protocol.
+In this Section 
 
-\subsection{Research Questions}
+\subsubsection{Research Questions}
 In this section, we first explore the ease of implementation of this protocol, and then we will try to answer the following research questions:
 \begin{description}
-    \item[\textsc{RQ}~1:] How do RPC implementations consume with regard to the size of the incoming request?
-    \item[\textsc{RQ}~2:] How do RPC implementations consume with regard to the number of concurrent clients?
+    \item[\textsc{RQ}~1:] How do RPC implementations consume energy concerning the size of the incoming request?
+    \item[\textsc{RQ}~2:] How do RPC implementations consume energy regarding the number of concurrent clients?
 \end{description}
 
 \subsection{Experimental Protocol}
+To answer these questions, we will define an interface using the Proto2~\footnote{\url{https://developers.google.com/protocol-buffers}}language, and then we will implement it in multiple servers, each one using a different programming language.
+We will then compare the energy consumption of each implementation using a custom version of \texttt{GHZ}~\footnote{\url{https://github.com/chakib-belgaid/energy_ghz}}, a tool that allows us to stress test our servers. This fork of \texttt{GHZ} allows us to measure the server's energy consumption during the test's execution and synchronize it with other performance statistics such as Tail latency and the number of requests per second the server can reach.
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=.8\linewidth]{imgs/rpcprotocol}
+    \end{center}
+    \caption{Experimental software architecture.}\label{fig:rpcprotocol}
+\end{figure}
+Figure~\ref{fig:rpcprotocol} show the experimental protocol. We will use different messages inserted in the file \texttt{helloworld.proto}. 
+The rest of this part will be dedicated to explaining each aspect of the experiment.
 \subsubsection{Measurement Context}
 \paragraph{Hardware settings.}
 All the experiments are run on the cluster \textsf{paravance} of the G5K platform.
-This cluster is composed of 72 identical machines, each one is equipped with 2 Intel Xeon E5-2630 V3, with 128\,GB of RAM.
+This cluster comprises 72 identical machines; each is equipped with 2 Intel Xeon E5-2630 V3, with 128\,GB of RAM.
 For more accuracy, our SUT (\emph{System Under Test}) runs a minimal version of Debian\,9 (4.9.0 kernel version), which enforces the core processes required for our experiment.
 Furthermore, we used Docker containers technology for reproducibility of the experiments and the isolation of the servers.
-
 \paragraph{Client \& server environments.}
 To limit the impact of the network on the experiments, we run both the client and the server on the same machine.
 However, we isolate each part on a separate CPU socket to reduce the noise that the client might have on the server and \emph{vice-versa}.
@@ -31,41 +41,32 @@ Therefore, the only process being executed in \textsf{socket\,1} is the server t
 
 \subsubsection{Key Performance Metrics}
 \paragraph{Energy measurements.}
-To report on the energy consumption, we used HwPC sensor [TOCITE], which is based on Intel RAPL technology, one of the most accurate tools to measure the energy consumption of the CPU and DRAM [TOCITE].
-For better accuracy, we ran the HwPC sensor with a frequency of 1~Hz, and we used the same machine for all the experiments to reduce the variability [TOCITE].
-
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=.8\linewidth]{imgs/rpcprotocol}
-    \end{center}
-    \caption{Experimental software architecture.}\label{fig:rpcprotocol}
-\end{figure}
-
-
+To report on energy consumption, we used the \texttt{HWPC} sensor\footnote{\url{https://github.com/powerapi-ng/hwpc-sensor}}, based on Intel \texttt{RAPL} technology, one of the most accurate tools to measure the CPU's and DRAM's energy consumption~\cite{hackenberg2013power,hackenberg2015energy}.
+For better accuracy, we ran the HwPC sensor with a frequency of 1~Hz, and we used the same machine for all the experiments to reduce the variability~\cite{ilsche_power_2015}.
 
 \paragraph{Performances.}
-For better accuracy and more details, We use an updated version of the open source RPC benchmarking tool, named GHZ (\url{https://ghz.sh/}).
+For better accuracy and more details, We updated the open source RPC benchmarking tool GHZ (\url{https://ghz.sh/}).
 The modified version allows us to monitor the average power for each request from both the server and the client sides.
 The new version is available in the repository.\footnote{\url{https://github.com/chakib-belgaid/energy_ghz}}
 
 \subsubsection{Input Workload}
 The purpose of the experiment is to analyze the behavior of different GRPC implementations.
-Therefore, we have two kind of worlkoads: \emph{number of clients} is the number of concurrent clients that we want to benchmark (handled by the GHZ client) and the \emph{payload} reflects the size of each request (varies from 50 Bytes up to 10 MB).
+Therefore, we have two kinds of workloads: \emph{number of clients} is the number of concurrent clients that we want to benchmark (handled by the GHZ client), and the \emph{payload} reflects the size of each request (varies from 50 Bytes up to 10 MB).
 The client consumes the protocol description found in the file \texttt{helloworld.proto} to generate an implementation for the message and then forks multiple instances that send the same request to the server.
 
 \subsubsection*{Candidates}
 The server implementations are based on the official implementation by Google for most of the languages.
 Each server uses 16 cores and is limited to 512\,MB of RAM.
-Each implementation is packaged as a Docker image, which will allow us to add new implementations easily.
+Each implementation is packaged as a Docker image, allowing us to add new implementations easily.
 
 \subsubsection{Extension}
 For the sake of experimental extensibility, we provide a GitHub repository that contains the implementation of all our experiments.\footnote{\url{https://github.com/chakib-belgaid/energy_benchmarking_grpc2}}
 Adding a new RPC \textbf{candidate} can be achieved by creating a new Docker image and putting it in a new folder named after the language.
-As for the \textbf{workload}, it can be extended easily by adding new files in the folder \textbf{payload}.
+As for the \textbf{workload}, it can be extended easily by adding new files in the folder \textbf{payload} and by changing the number of clients in the benchmarking tool.
 
 
 \subsection{Results \& Findings}
-\paragraph{\textsc{RQ}~1: How do RPC implementations consume with regard to the size of the incoming request?}
+\paragraph{\textsc{RQ}~1: How do RPC implementations consume energy concerning the size of the incoming request?}
 
 The purpose of this question is to study the energy consumption of the RPC server when transferring large objects.
 To do so, we send $80,000$ requests to the server whose size scales from 10 bytes up to 10 Megabytes, resulting in $10,000$ requests per size per server.
