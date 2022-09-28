@@ -114,7 +114,7 @@ These tests are run atop a minimal version of Debian-10 to increase the tests' a
 \subsubsection{Input Workload}
 \subparagraph{Models:}
 Several models were developed.
-However, only two were used in the final trials, because they achieved 94\% accuracy with an acceptable training time.
+However, only two were used in the final trials because they achieved 94\% accuracy with an acceptable training time.
 David Page's \textsf{cifar10-fast}\footnote{\url{https://github.com/davidcpage/cifar10-fast}} and Woonhyuk Baek's torch skeleton\footnote{\url{https://github.com/wbaek/torchskeleton}} are reported here.
 
 \subparagraph{Datasets:}
@@ -143,14 +143,14 @@ The key performance metrics are, therefore:
 
 
 \subsubsection{Results \& Findings}
-As the model's accuracy increases, so does the energy required for the next accuracy increment.
+As the model's accuracy increases, so do the energy required for the next accuracy increment.
 Figure~\ref{fig:cum_energy_vs_accuracy} depicts how the curve steepens as training progresses.
 For example, training to 90\% accuracy requires three times the energy required for training to 80\% accuracy.
 
 \Cref{fig:eopochvsaccuracy} shows the model's accuracy based on the number of epochs.
 This figure shows that there is a non-significant impact on the choice of the strategy on the accuracy; it is only a matter of the number of epochs.
 However, the increase in accuracy is not linear, as can be observed.
-It took only 10 epochs to reach an accuracy of 84\%, but it required more than twice the number of epochs to add an axtra 6\% accuracy.
+It took only 10 epochs to reach an accuracy of 84\%, but it required more than twice the number of epochs to add an extra 6\% accuracy.
 This highlights the price one should pay to increase the model's accuracy.
 
 \begin{figure}
@@ -167,7 +167,7 @@ Moreover, one can notice that this price is paid mainly by the CPU and GPU, whil
 \begin{figure}
     \centering
     \includegraphics[width=1.1\textwidth]{imgs/cumulative_energy_vs_accuracy}
-    \caption{Cumulative energy consumption vs accuracy.}
+    \caption{Cumulative energy consumption vs. accuracy.}
     \label{fig:cum_energy_vs_accuracy}
 \end{figure}
 
@@ -194,8 +194,8 @@ This is shown in Figure~\ref{fig:ephoch_power}.
 \end{figure}
 
 As one can see in Figures~\ref{fig:ephoch_power} and~\ref{fig:epoch_duration}, the average power consumption and the average duration of an epoch do not have a significant variation, as most of them last around 3.7 seconds.
-However, there is an intermediate correlation between these two values if we excluded the strategy based on one core and its hyper-thread.
-The reason why the last strategy exhibits more power---even when its duration is not optimal---is the context switches between the core and its hyper-thread.
+However, these two values have an intermediate correlation if we exclude the strategy based on one core and its hyper-thread.
+The last strategy exhibits more power- even when its duration is not optimal- because the context switches between the core and its hyper-thread.
 
 \begin{figure}
     \centering
@@ -209,7 +209,7 @@ We discovered that when the model's accuracy improves, so does the energy requir
 This begs the question of when we should discontinue training.
 Is a 10\% increase in accuracy worth it if we have to spend three times the energy?
 While using the GPU, the CPU has no significant impact on the energy consumption of the training.
-Therefore, one can limit the number of CPU cores used during the execution without sacrificing either the execution time nor the accuracy.
+Therefore, one can limit the number of CPU cores used during the execution without sacrificing the execution time and accuracy.
 
 
 \subsection{Python for Web Development}\label{sec:webdev}
@@ -253,7 +253,7 @@ As we can notice, 91.4\% of the total energy consumption is spent on resolving t
 
 %% REMARQUE the experiment with joulehunter isn't conducted within the same machine that is used for generating the boxplot graphs 
 % We have chosen Django as our web framework.
-Therefore, we chose to study if the choice of the database and the ORM impacts the energy consumption and the web application performance.
+Therefore, we chose to study if the choice of the database and the ORM impact energy consumption and web application performance.
 % \subsection{Experiment \& Results}
 To accomplish so, we examined the cost of a single request of the prior website using various ways to extract data from the database.
 We considered using two different databases, \textsc{PostgreSQL} and \textsc{SQlite3}, that store the same records and three different ways to fetch the records:

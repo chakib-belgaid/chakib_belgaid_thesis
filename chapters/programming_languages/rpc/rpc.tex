@@ -64,7 +64,7 @@ For the sake of experimental extensibility, we provide a GitHub repository that 
 Adding a new RPC \textbf{candidate} can be achieved by creating a new Docker image and putting it in a new folder named after the language.
 As for the \textbf{workload}, it can be extended easily by adding new files in the folder \textbf{payload} and by changing the number of clients in the benchmarking tool.
 
-
+% TODO : change php to the interpreted part 
 \subsection{Results \& Findings}
 \paragraph{\textsc{RQ}~1: How do RPC implementations consume energy concerning the size of the incoming request?}
 
@@ -73,12 +73,12 @@ To do so, we send $80,000$ requests to the server whose size scales from 10 byte
 To eliminate extra factors, we let the server handle the rate at which it can answer each request.
 However, we put a 20 seconds timeout deadline for each request.
 Therefore, our boundary condition is only the number of requests received by the server.
-For this experiment, we investigate 4 observable variables:
+For this experiment, we investigate four observable variables:
 \begin{enumerate}
     \item the \textsf{average power consumption} during the scenario indicates the overall behavior of the server when working for long durations,
-    \item the \textsf{tail latency} for the 99th percentile, which indicates how efficient is the server,
+    \item the \textsf{tail latency} for the 99th percentile, which indicates how efficient the server is,
     \item the \textsf{average number of requests per second}, which indicates the average number of clients that the server can handle,
-    \item the \textsf{average energy cost} of a single request: unlike the first indicator, this one shows how green is the implementation considering performance.
+    \item the \textsf{average energy cost} of a single request: unlike the first indicator, this one shows how green the implementation is considering performance.
 \end{enumerate}
 
 
@@ -88,22 +88,22 @@ For this experiment, we investigate 4 observable variables:
     \end{center}
     \caption{Energy consumption based on the request size}\label{fig:energy_cost_payload}
 \end{figure}
-Figure~\ref{fig:energy_cost_payload} depicts the overall behavior of each framework based on the size of request (payload).
+Figure~\ref{fig:energy_cost_payload} depicts the overall behavior of each framework based on the request size (payload).
 For each framework, we can distinguish three modes, and they all depend on the payload size:
 \begin{enumerate}
-    \item \textsf{Stress free} mode when the server has enough resources to satisfy the requests, as they require a memory less than a certain threshold (depends on the language and the platform),
+    \item \textsf{Stress-free} mode when the server has enough resources to satisfy the requests, as they require a memory less than a certain threshold (depends on the language and the platform),
     \item \textsf{Escalation} mode when the requests tend to be bigger, but the server can still manage to handle them, at the price of a change in the energy and performance behaviors,
     \item \textsf{Broken state} mode when the requests are much heavier and the server break—like 10 MB.%ROMAIN unclear to me what this means
 \end{enumerate}
 
-\subsubsection{Stress Free Mode}
-In this mode, the compiled languages tend to consume fewer resources (average power).
+\subsubsection{Stress-Free Mode}
+The compiled languages consume fewer resources (average power) in this mode.
 JVM-based languages tend to consume more energy, especially Scala.
-However, we do not observe the same behavior when it comes to efficiency.
-Unlike the other interpreted programming languages, PHP's performance can be compared to the compiled ones, such as CPP or GO, and even better to some others, such as Swift.
+However, we do not observe the same behavior regarding efficiency.
+Unlike the other interpreted programming languages, PHP's performance can be compared to the compiled ones, such as CPP or GO, and even better to others, such as Swift.
 JVM-based languages tend to have better performance than interpreted ones.
 Furthermore, OpenJDK has shown more efficiency than GraalVM.
-Overall, we can have 3 groups when it comes the cost of each request:
+Overall, we can have three groups when it comes to the cost of each request:
 \begin{itemize}
     \item Energy-efficient class: C++, GO, RUST, ELIXIR, and PHP,
     \item Middle class: Most of the interpreted languages and VM-based ones,
@@ -114,7 +114,7 @@ Overall, we can have 3 groups when it comes the cost of each request:
 In this mode, the behavior of the server depends on the payload. We observe three cases:
 \begin{enumerate}
     \item drop in performances without an increased power source, such as Net core, Java Micronaut, Crystal, and Dart.
-    In this case, the server keeps using the same resources, and sometimes less, because it takes more time to handle the fewer requests.
+    In this case, the server uses the same resources, sometimes less, because it takes more time to handle fewer requests.
     This class of languages tends to be the most energy-consuming when it comes to the cost per request;
     \item increase in power without affecting the performance, such as Go or.Net.
     The energy consumption of a single request is affected slightly but still increases.
@@ -129,12 +129,12 @@ We can mention the case of Elixir that keeps scaling despite the lack of perform
 Only four of the 25 configurations could parse the 10 MB files, and only one of those could achieve a 76\% acceptance rate, which is Elixir. The other 3 had less than a 3\% success rate (Rust, Swift, and Dart).
 The rest could be divided into two categories:
 \begin{itemize}
-    \item \textsf{Timeout} where requests took too much time that the client canceled them, in this category we find most of dynamic codes, such as OpenJDK and Kotlin,
-    \item \textsf{Size of request} exceeded the maximum size when the implementation could not handle requests with large size, as observed with .Net, Go, .Net core, CPP, PHP, Scala, Nodejs, Ruby, Python.
+    \item \textsf{Timeout} where requests took too much time that the client canceled them, in this category, we find most of the dynamic codes, such as OpenJDK and Kotlin,
+    \item \textsf{Size of request} exceeded the maximum size when the implementation could not handle requests with a large size, as observed with .Net, Go, .Net core, CPP, PHP, Scala, Nodejs, Ruby, and Python.
 \end{itemize}
 
 
-[\textsc{RQ}~2:] How do RPC implementations react to the number of clients ?
+[\textsc{RQ}~2:] How do RPC implementations react to the number of clients?
 \begin{figure}[!hbt]
     \begin{center}
         \includegraphics[width=1.2\linewidth]{imgs/energy_cost_clients}
@@ -142,7 +142,7 @@ The rest could be divided into two categories:
     \caption{Energy behaviour based on the number of the clients}\label{fig:rpcproenergy_cost_clients}
 \end{figure}
 
-\subsubsection{Power behaviour}
+\subsubsection{Power behavior}
 
 \begin{figure}[!hbt]
     \begin{center}
@@ -161,7 +161,7 @@ The rest could be divided into two categories:
 Based on the heatmap, we can distinguish two modes:
 \begin{itemize}
     \item \textsf{Low number of clients} when the number of concurrent clients is below 100,
-    \item \textsf{Moderate to high number of clients} when the number of clients exceeds 100.
+    \item \textsf{Moderate to a high number of clients} when the number of clients exceeds 100.
 \end{itemize}
 
 
@@ -173,17 +173,17 @@ The benchmarked implementations can be grouped into two classes:
 \end{enumerate}
 
 In each programming category, we observe both energy-efficient and energy-greedy behaviors.
-Therefore, we conclude that it depends more on the implementation of the library itself than on the category of the programming language.
-Scala and Kotlin are excellent examples to support this hypothesis, as both of them run on the same virtual machine as Java (OpenJDK 16.1).
-Yet, their average power is 130\% higher than the Java implementation.
+Therefore, we conclude that it depends more on the library's implementation than the programming language category.
+Scala and Kotlin are excellent examples to support this hypothesis, as both run on the same virtual machine as Java (OpenJDK 16.1).
+However, their average power is 130\% higher than the Java implementation.
 
 \paragraph{Stressed mode}
-Although the same classes remained the same, not all the languages had the same evolution, and here we can clearly observe a correlation with the category of the programming language rather than the implementation itself.
-We can easily point out that the average amount of power used by VM-based languages doubles when they have more than 100 clients at the same time.
-Except PHP, all the interpreted and compiled languages preserved their energetic behaviour.
-Our hypothesis points to the JIT, since it compiles the code and makes it run faster, hence stressing the CPU.
-An interesting behavior has been noticed for the GraalVM: the decrease in energy consumption when increasing the number of clients.
-This is related to the performance drop, which was probably due to the bottleneck situation where the GraalVM could not handle more than 100 clients simultaneously.
+Although the same classes remained the same, not all languages had the same evolution. Here we can observe a correlation with the category of the programming language rather than the implementation itself.
+We can quickly point out that the average amount of power used by VM-based languages doubles when they have more than 100 clients simultaneously.
+Except for PHP, all the interpreted and compiled languages preserved their energetic behavior.
+Our hypothesis points to the JIT since it compiles the code and makes it run faster, hence stressing the CPU.
+An interesting behavior has been noticed for the GraalVM: decreasing energy consumption when increasing the number of clients.
+This is related to the performance drop, probably due to the bottleneck situation where the GraalVM could not handle more than 100 clients simultaneously.
 
 \subsubsection{Performance Behaviour}
 In this section, we study only the number of requests per second processed by the server without looking at its energy.
@@ -195,8 +195,8 @@ We consider three observable variables:
 \end{itemize}
 
 \paragraph{Satisfaction ratio}
-Most of the considered frameworks satisfy all the requests by either reducing the number of requests per second or increasing the processing time.
-However, there are some frameworks that have chosen a different approach, such as Dart or Scala, where the choice was to keep a certain limit of latency even if not all the requests are answered.
+Most of the considered frameworks satisfy all the requests by reducing the number of requests per second or increasing the processing time.
+However, some frameworks have chosen a different approach, such as Dart or Scala, where the choice was to keep a specific latency limit even if not all the requests are answered.
 Furthermore, we tend to observe this behavior among other frameworks, such as Python or Asynchronous NodeJS, when the number of clients exceeds 800.
 
 \paragraph{RPS}
@@ -213,14 +213,14 @@ Furthermore, we tend to observe this behavior among other frameworks, such as Py
     \end{center}
     \caption{Number of requests per second based on the request size}\label{fig:rps_payload}
 \end{figure}
-Most of the servers hit their RPS limit after 5 clients and 100 clients for VM-based servers, and after this the number keeps constant, which will decrease the average RPS per client.
+Most of the servers hit their RPS limit after five clients and 100 clients for VM-based servers, and after this, the number keeps constant, which will decrease the average RPS per client.
 . The Net server is the most performant, followed by Java and Go, while Python and Ruby are the least performant.
 
 \paragraph{Tail Latency}
-Even if the number of requests per second goes up, that doesn't mean the latency will go down.
+Even if the number of requests per second increases, that does not mean the latency will go down.
 As one can notice in figure~\ref{fig:tail99_clients}, until the 1000 clients, Go provides the least latency besides.Net.
 GraalVM provides the highest average latency.
-However, Dart tends to become slower when we increase the number of clients, until we pass the 600 simultaneous clients, and then it changes its behavior. Instead of satisfying most of the requests, it notifies the clients directly that the server is saturated, resulting in a drop in satisfaction ratio and an amelioration in average latency.
+However, Dart tends to become slower when we increase the number of clients until we pass the 600 simultaneous clients, and then it changes its behavior. Instead of satisfying most of the requests, it notifies the clients directly that the server is saturated, resulting in a drop in satisfaction ratio and an amelioration in average latency.
 
 \begin{figure}[!hbt]
     \begin{center}
@@ -239,10 +239,10 @@ However, Dart tends to become slower when we increase the number of clients, unt
 
 
 \subsubsection{Energy Per Request}
-Now, after we made a separation between the energy and the performances, we have seen that most of the performance servers tend to be energy-greedy, so we propose to investigate this trade-off between energy and performances.
+After separating the energy and the performances, we have seen that most performance servers tend to be energy-greedy, so we propose investigating this trade-off between energy and performance.
 To do so, we report the average cost of a single request in joules.
-Except GraalVM when the cost of the a single request increases with when we add more clients, all the frameworks report on a constant cost, Java, .net and go are the most energy efficient, while Python and Ruby may cost up to 10x more.
-Therefore, we conclude that the number of clients does not significantly impact the energy consumption.
+Except for GraalVM, when the cost of the single request increases when we add more clients, all the frameworks report on an ongoing cost; Java, .Net, and go are the most energy efficient, while Python and Ruby may cost up to 10x more.
+Therefore, we conclude that the number of clients does not significantly impact energy consumption.
 Then, we study how the payload size of the requests impacts the energy consumption of the framework.
 
 % \subsection{Threads to Validity \note{missing}}
