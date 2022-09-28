@@ -8,7 +8,7 @@ Python is an interpreted language, which led to many initiatives to implement th
 Therefore, in this section, we will examine at how different Python interpreters affect the energy consumption of software, and in which ca
 se, one should use a non-conventional interpreter to save the energy consumption of their application. 
 
-\subsection{Python runtimes}\label{python:sec_interpreters}
+\subsection{Python Runtimes}\label{python:sec_interpreters}
 To do so, we gathered a list of interpreters, transpilers, and other optimization libraries that can contribute to reducing the energy consumption of legacy Python applications:
 \begin{enumerate}
       \item \textbf{CPython}:\footnote{\url{https://www.python.org/}}
@@ -467,7 +467,7 @@ Except for \textsc{PyPy}, most of the Python implementations do not support extr
 Furthermore, we excluded from this study runtime that could not complete our benchmarks because we judged that this was the bare minimum for an implementation to be employed in a real-world application.
 Besides this, since the goal of this study was to provide a non-intrusive technique to decrease the energy consumption of software, we opted to omit some of the implementations that required extra work on the source code to run on them, such as \textsf{Cython}.
 
-\subsection{Conclusion}
+\subsection{Summary}
 One can conclude that the Python interpreter used considerably impacts the programs' energy consumption.
 Furthermore, the absence of a universal solution makes this investigation more intriguing.
 While most of the candidates employed \textsf{Python2}, \textsf{Python3} provided better compatibility coverage.
