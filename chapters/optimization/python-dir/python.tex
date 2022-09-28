@@ -31,7 +31,7 @@ After that, in Section~\ref{python:sec_interpreters}, we investigate other non-i
 \subsection{Python Popularity}
 Nowadays, Python attracts a large community of developers who are interested in data analysis, web development, system administration, and machine learning.
 According to a survey conducted in 2018 by JetBrains,\footnote{\url{https://www.jetbrains.com/research/python-developers-survey-2018/}} one can fear that the wide adoption of dynamic programming languages in production, like Python, may critically hamper the power consumption of ICT.
-As the popularity of such dynamic programming languages partly builds on the wealth and the diversity of their ecosystem (\emph{e.g.}, the NumPY, SciKit\,Learn, and Panda libraries in Python), one cannot reasonably expect that developers will likely move to an alternative programming language mostly for energy considerations.
+As the popularity of such dynamic programming languages partly builds on the wealth and the diversity of their ecosystem (\emph{e.g.}, the NumPY, SciKit\, Learn, and Panda libraries in Python), one cannot reasonably expect that developers will likely move to an alternative programming language mainly for energy considerations.
 Rather, we believe that a better option consists of leveraging the strength of this rich ecosystem to promote energy-efficient solutions to improve the power consumption of legacy software systems.
 
 \subsection{Python Gluttony}
@@ -415,7 +415,7 @@ Nevertheless, the \textsc{Multiprocessing} strategy is still the most energy-eff
 Although increasing the number of processes will reduce the execution time because we split the tasks on the number of processes, there is a point where the execution time increases.
 As one can see in \Cref{fig:python_multiprocessing}, the energy consumption correlates with the number of processes until the limit of physical cores, when concurrent processes compete for the CPU.
 
-Before reaching the limit of physical cores, we also observe that the scheduler of the operating system tends to favor the execution of processes on the same physical core by taking advantage of the hyper-thread feature.
+Before reaching the limit of physical cores, we also observe that the operating system's scheduler tends to favor the execution of processes on the same physical core by taking advantage of the hyper-thread feature.
 While this strategy aims to save energy by leveraging the ACPI P-states and C-states of unallocated cores, this leads to increased execution times.
 
 \paragraph*{Synthesis}
