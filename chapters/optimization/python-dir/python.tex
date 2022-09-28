@@ -29,7 +29,7 @@ After that, in Section~\ref{python:sec_interpreters}, we investigate other non-i
 \subsection{Python Popularity}
 Nowadays, Python attracts a large community of developers who are interested in data analysis, web development, system administration, and machine learning.
 According to a survey conducted in 2018 by JetBrains,\footnote{\url{https://www.jetbrains.com/research/python-developers-survey-2018/}} one can fear that the wide adoption of dynamic programming languages in production, like Python, may critically hamper the power consumption of ICT.
-As the popularity of such dynamic programming languages partly builds on the wealth and the diversity of their ecosystem (\emph{e.g.}, the NumPY, SciKit\,Learn, and Panda libraries in Python), one cannot reasonably expect that developers will likely move to an alternative programming language mostly for energy considerations.
+As the popularity of such dynamic programming languages partly builds on the wealth and the diversity of their ecosystem (\emph{e.g.}, the NumPY, SciKit\, Learn, and Panda libraries in Python), one cannot reasonably expect that developers will likely move to an alternative programming language mainly for energy considerations.
 Rather, we believe that a better option consists of leveraging the strength of this rich ecosystem to promote energy-efficient solutions to improve the power consumption of legacy software systems.
 
 \subsection{Python Gluttony}
@@ -69,7 +69,7 @@ Therefore, it requires a faster interpreter to execute its programs to compete a
 
 
 \subsection{Python usecases}
-To reduce the energy consumption of Python, we started by targeting the main usage of this programming language, which is revealed to be data science and web development.
+To reduce the energy consumption of Python, we started by targeting the primary usage of this programming language, which is revealed to be data science and web development.
 \Cref{fig:usecase} illustrates a study published by the JetBrain company on Python developers.\footnote{\url{https://www.jetbrains.com/lp/python-developers-survey-2020}}
 57\% of the respondents reported that they use Python for data science, and 51\% said they use it for web development. Around 40\% are using it for system administration~\footnote{The options in this survey were not mutually exclusive. As a result, the total of the percentages is greater than $100\%$.}.
 
@@ -113,7 +113,7 @@ Several models were developed. However, only two were used in the final trials b
 David Page's cifar10-fast~\footnote{\url{https://github.com/davidcpage/cifar10-fast}} and Woonhyuk Baek's torch skeleton~\footnote{\url{https://github.com/wbaek/torchskeleton}} are shown here.
 
 \subparagraph{Datasets}
-The CIFAR-10 dataset was the major source of data for the studies.
+The CIFAR-10 dataset was the primary source of data for the studies.
 It is made up of 60000 32x32 color images grouped into ten categories.
 
 Some experiments were done using the MNIST dataset of handwritten digits to validate the results acquired from the first dataset.
@@ -154,7 +154,7 @@ For example, training to 90\% accuracy requires three times the energy required 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{imgs/cumulative_energy_vs_accuracy}
-    \caption{Cumulative energy consumption vs accuracy.}
+    \caption{Cumulative energy consumption vs. accuracy.}
     \label{fig:cum_energy_vs_accuracy}
 \end{figure}
 
@@ -195,14 +195,14 @@ As one can see in figures \ref{fig:ephoch_power}~\ref{fig:epoch_duration}, the a
 We discovered that when the model's accuracy improves, so does the energy required for a subsequent accuracy gain.
 This begs the question of when we should discontinue training.
 Is a 10\% increase in accuracy worth it if we have to spend three times the energy?
-While using the GPU, the CPU has no significant impact on the energy consumption of the training. Therefore, one can limit the number of CPU cores used during the execution without sacrificing either the execution time nor the accuracy.
+While using the GPU, the CPU has no significant impact on the energy consumption of the training. Therefore, one can limit the number of CPU cores used during the execution without sacrificing the execution time and accuracy.
 
 
 
 \subsection{Green Web Development}\label{sec:webdev}
 
 Django\footnote{\url{https://www.djangoproject.com/}} and Flask\footnote{\url{https://flask.palletsprojects.com/}} are the most popular frameworks for web development.
-According to a Jetbrains poll,\footnote{\url{https://lp.jetbrains.com/python-developers-survey-2021/}} Django is used in 40\% of the cases, while Flask is used in 41\% of the cases.
+According to the Jetbrains poll,\footnote{\url{https://lp.jetbrains.com/python-developers-survey-2021/}} Django is used in 40\% of the cases, while Flask is used in 41\% of the cases.
 
 In contrast to Flask, which is a micro-framework, Django is a high-level web framework that provides a standard method for creating and maintaining complex and scalable database-driven websites quickly and effectively.
 Therefore, this study will focus on the latter one.
@@ -282,7 +282,7 @@ Moreover, unlike the rendering portion, many options are available for the datab
 
 
 \subsection{Python Insights}
-Another field of investigation is the type of data and control structures that might impact energy consumption.
+Another field of investigation is the data and control structures that might impact energy consumption.
 In this study, we will run some basic algortims with different data structures and control structures to see if there is any difference in energy consumption.
 \subsubsection{experimental Protocol}
 All of the tests in this study are done on the grid5000 cluster using the same machine, Python interpreter, and library version. Due to PowerAPI's frequency constraint, we measure the energy of 1000 algorithm iterations for each test. Furthermore, we perform each test 20 times for completeness, deleting the cache between each run. The data is then averaged and presented in graphs.
@@ -367,38 +367,36 @@ To do so, we run a simple code snippet that computes the sum of the first $N$ nu
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\linewidth]{imgs/python_multiprocessing}
-    \caption{Energy behaviour resulting from diffrent python concurrency strategies (number of workers) }
+    \caption{Energy behavior resulting from different python concurrency strategies (number of workers) }
     \label{fig:python_multiprocessing}
 \end{figure}
 
-Figure~\ref{fig:python_multiprocessing} shows the results of the experiment regarding four metrics: power, execution time , DRAM energy, and CPU energy .
+Figure~\ref{fig:python_multiprocessing} shows the experiment's results regarding four metrics: power, execution time, DRAM energy, and CPU energy.
 
-As one can notice, CPU energy is ten folds higher than the DRAMS one.Therefore we will focus on the CPU for this study.
+One can notice that CPU energy is tenfold higher than the DRAMS one. Therefore we will focus on the CPU for this study.
 
-In general, the multi-processing strategy is the most energy efficient one as well as the fastest one. However, unexpectedly, the multithreaded option took more time to execute the code snippet than the sequential one.
-Therefore, we will divide our analysis into two parts: the first one will focus on multithreading versus the sequential strategies, while the second one will study the behavior of the multiprocessing strategy.
+In general, the multi-processing strategy is the most energy-efficient one as well as the fastest one. However, unexpectedly, the multithreaded option took more time to execute the code snippet than the sequential one.
+Therefore, we will divide our analysis into two parts: the first will focus on multithreading versus sequential strategies. In contrast, the second one will study the behavior of the multiprocessing strategy.
 
-\paragraph*{Multithreading vs Sequential}
-The unexpected behavior of the multithreading strategy is due to the fact that the Python interpreter is not thread-safe.
-Because of the \emph{global lock system} (GLS), Python can't run multiple threads at the same time. Therefore, the multithreading strategy is slower than the sequential one.
-On the other hand, a side effect of this is the context switching between threads, which will put the CPU in a lower power state. The multi-threading strategy depicts an average power of $13 Watts$ compared to the sequential one, which is around $22 Watts$. This difference in power consumption has overcome the lack of performance of the multithreading strategy, which leads to better energy efficiency.
+\paragraph*{Multithreading vs. Sequential}
+The unexpected behavior of the multithreading strategy is that the Python interpreter is not thread-safe.
+Because of the \emph{global lock system} (GLS), Python cannot run multiple threads simultaneously. Therefore, the multithreading strategy is slower than the sequential one.
+On the other hand, a side effect of this is the context switching between threads, which will put the CPU in a lower power state. The multi-threading strategy depicts an average power of $13 Watts$ compared to the sequential one, which is around $22 Watts$. This difference in power consumption has overcome the multithreading strategy's lack of performance, leading to better energy efficiency.
 
 
 \paragraph*{Multiprocessing}
-Unlike the multi-threading strategy, the multi-processing strategy is based on forking the program into multiple processes, which are independent of each other. This allows the Python interpreter to run multiple processes simultaneously, which explains the better performance of the multi-processing strategy. However, this will increase the Average power consumption of the CPU, which is around $40 Watts$, compared to the sequential one, which is around $22 Watts$. Nevertheless, the multi-processing strategy is still the most energy-efficient one.
+Unlike the multi-threading strategy, the multi-processing strategy is based on forking the program into multiple processes independent of each other. This allows the Python interpreter to run multiple processes simultaneously, which explains the better performance of the multi-processing strategy. However, this will increase the Average power consumption of the CPU, which is around $40 Watts$, compared to the sequential one, which is around $22 Watts$. Nevertheless, the multi-processing strategy is still the most energy-efficient one.
 
 
 Although increasing the number of processes will reduce the execution time because we split the tasks on the number of processes, there is a point where the execution time will increase. As one can see in \Cref{fig:python_multiprocessing}, the energy consumption correlates with the number of processes until the limit of physical cores, when concurrent processes compete for the CPU.
 
 
-Before reaching the limit of physical cores, we also observe that the scheduler of the operating system tends to favor the execution of processes on the same physical core by taking advantage of the hyper-thread feature.
+Before reaching the limit of physical cores, we also observe that the operating system's scheduler tends to favor the execution of processes on the same physical core by taking advantage of the hyper-thread feature.
 While this strategy aims to save energy by leveraging the ACPI P-states and C-states of unallocated cores, this leads to increased execution times.
 
 \paragraph*{Synthesis}
-This study demonstrates that the optimal way to reduce the energy consumption of Python applications is to use the multiprocessing strategy, which is the most energy-efficient one. However, this strategy should be used cautiously as it can lead to increased execution times.
+This study demonstrates that the optimal way to reduce the energy consumption of Python applications is to use the multiprocessing strategy, which is the most energy-efficient. However, this strategy should be used cautiously, leading to increased execution times.
 This study demonstrates that the optimal number of processes is equal to the number of physical cores, which is four in our case.
-By using the multithreading strategy, it was also found that sometimes the performance of the application has to be given up in order to save energy.
-
 \clearpage
 \input{python_interperters.tex}
 % \subsection{threads to validity \note{missing}}
