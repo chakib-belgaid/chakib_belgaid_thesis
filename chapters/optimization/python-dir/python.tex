@@ -367,66 +367,36 @@ To do so, we run a simple code snippet that computes the sum of the first $N$ nu
     \centering
     \includegraphics[width=\linewidth]{imgs/python_multiprocessing}
     \caption{Energy behaviour resulting from diffrent python concurrency strategies (number of workers) }
-    \label{fig:python_multiprocessing_strategies}
+    \label{fig:python_multiprocessing}
 \end{figure}
 
-Figure~\ref{fig:python_multiprocessing_strategies} shows the results of the experiment. As one can notice
+Figure~\ref{fig:python_multiprocessing} shows the results of the experiment regarding four metrics: power, execution time , DRAM energy, and CPU energy .
 
-performance
-- sequentiel took less time then mulit threading
-- 4 process was the optimal one
--- for cpu power the multi threading reached 13 watts whule the 4 process multiprocessing was 42 watts
--- for global energy  the sequentiel one took the most, then the multithreading after that the muli processing , while keeping the 4 process always the optimial one
+As one can notice, CPU energy is ten folds higher than the DRAMS one.Therefore we will focus on the CPU for this study.
+
+In general, the multi-processing strategy is the most energy efficient one as well as the fastest one. However, unexpectedly, the multithreaded option took more time to execute the code snippet than the sequential one.
+Therefore, we will divide our analysis into two parts: the first one will focus on multithreading versus the sequential strategies, while the second one will study the behavior of the multiprocessing strategy.
+
+\paragraph*{Multithreading vs Sequential}
+The unexpected behavior of the multithreading strategy is due to the fact that the Python interpreter is not thread-safe.
+Because of the \emph{global lock system} (GLS), Python can't run multiple threads at the same time. Therefore, the multithreading strategy is slower than the sequential one.
+On the other hand, a side effect of this is the context switching between threads, which will put the CPU in a lower power state. The multi-threading strategy depicts an average power of $13 Watts$ compared to the sequential one, which is around $22 Watts$. This difference in power consumption has overcome the lack of performance of the multithreading strategy, which leads to better energy efficiency.
 
 
+\paragraph*{Multiprocessing}
+Unlike the multi-threading strategy, the multi-processing strategy is based on forking the program into multiple processes, which are independent from each other. This allows the Python interpreter to run multiple processes at the same time, which explains the better performance of the multi-processing strategy. Howerver, this will increase the Average power consumption of the CPU, which is around $40 Watts$ compared to the sequential one, which is around $22 Watts$. nevertheless, the multi-processing strategy is still the most energy efficient one.
 
 
+Despite, the fact that increasing the number of processes will reduce the execution time because we split the tasks on the number of processes, there is a point where the execution time will increase. As one can see in \Cref{fig:python_multiprocessing}, the energy consumption is correlated with the number of processes until reaching the limit of physical cores, when concurrent processes start to compete for the CPU.
 
-Additionally, \Cref{fig:python_multiprocessing} reports on the energy consumption of Python applications.
-Python applications are single-threaded systems constrained by the \emph{global lock system} (GLS).
-However, due to the increase of cores/threads per CPU, many Python libraries started to take advantage of this hardware feature by allowing concurrent execution of Python processes.
-For example, the multiprocessing library\footnote{\url{https://docs.python.org/3/library/multiprocessing.html}} spawns sub-processes to increase the degree of concurrency of Python applications.
-As one can see in \Cref{fig:python_multiprocessing}, the energy consumption is correlated with the number of threads until reaching the limit of physical cores, when concurrent processes start to compete for the CPU.
-
-% \begin{figure}[hbt]
-%     \centering
-%     \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
-%     \caption{Energy consumption of Python multiprocessing depending on the number of exploited threads.}
-%     \label{fig:python_multiprocessing}
-% \end{figure}
-
-% \begin{figure}[hbt]
-%     \centering
-%     \includegraphics[width=\linewidth]{imgs/multiprocessing_energyvstime}
-%     \caption{Energy consumption of Python multiprocessing depending on the number of exploited threads.}
-%     \label{fig:python_multiprocessing}
-% \end{figure}
 
 Before reaching the limit of physical cores, we also observe that the scheduler of the operating system tends to favor the execution of processes on the same physical core by taking advantage of the hyper-thread feature.
 While this strategy aims to save energy by leveraging the ACPI P-states and C-states of unallocated cores, this leads to increased execution times.
 
-
-
-\Cref{fig:python_multiprocessing} compares the behavior of Python programs when we try to introduce parallelism.
-
-As we know, Python is a single-threaded program thanks to the GLS (\emph{Global Lock System}). However, due to the increase in the number of cores/threads per CPU, many libraries have started to take advantage of this hardware feature by simulating multi-threading as multiple instances of the processor.
-
-
-
-As we can see in Figure~\ref{fig:python_multiprocessing}, the energy consumption correlates with the number of threads until reaching the number of physical cores, then losing the benefit from multiprocessing by facing concurency issues imposed by different sub-processes competing for the CPU resources.
-Another finding is observed when hitting the number of physical cores: there is an increase of execution time, but with a reduced energy.
-The reason behind this is the scheduler of the operating system.
-More specifically, it favors hyper-threads instead of physical cores, hence increasing context switches which cause the performance bottleneck.
-Howerver,the other two physical cores are not consuming energy, neither their hyper-threads, which explains the energy savings.
-In the Chapter , %% reference the work of intern from lyon  
-we discuss this behavior of the scheduler more deeply and we assess that it is not due to Python, but is a more generic behavior.
-%% maybe even this graph should go there 
-% Another key finding is when we hit the number of physical cores. there was an increase of execution time but still reduced energy, the reason behind this is the scheduler of the operating system. Basically it favors the hyper threads than the physical core which will lead to some context switches which cause the slow behavior, however in the other hand the other two physical cores are not consuming energy, neither their hyper threads which explains the gain of the energy consumption in this case.
-% in the Chapter %% reference the work of intern from lyon  
-% we discuss a deeper this behavior of the scheduler and in that case we confirm that it is not related to python but it is more generic behaviour %% maybe even this graph should go there 
-%% todo 
-% add performance 
-% add dram \ a glimps 
+\paragraph*{Synthesis}
+This study demonstrates that the optimal way to reduce the energy consumption of Python applications is to use the multiprocessing strategy, which is the most energy efficient one. However, this strategy should be used with caution as it can lead to increased execution times.
+This study demonstrates that the optimal number of processes is equal to the number of physical cores, which is four in our case.
+By using the multithreading strategy, it was also found that sometimes the performance of the application has to be given up in order to save energy.
 
 \clearpage
 \input{python_interperters.tex}
