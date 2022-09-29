@@ -5,7 +5,7 @@ Moreover, to cope with the increased versatility of developers, multiple compani
 This approach is interesting because it wants to use the best parts of each programming language to meet different needs.
 However, the challenge nowadays is to make the bridge between these platforms.
 We have many initiatives, such as OpenAPI, that try to create a taxonomy for RESTful APIs, while other approaches implement all the different interfaces of the protocol by themselves, such as The Remote Procedure Call (aka RPC) protocol.
-In this Section 
+In this Section
 
 \subsubsection{Research Questions}
 In this section, we first explore the ease of implementation of this protocol, and then we will try to answer the following research questions:
@@ -15,6 +15,7 @@ In this section, we first explore the ease of implementation of this protocol, a
 \end{description}
 
 \subsection{Experimental Protocol}
+
 To answer these questions, we will define an interface using the Proto2~\footnote{\url{https://developers.google.com/protocol-buffers}}language, and then we will implement it in multiple servers, each one using a different programming language.
 We will then compare the energy consumption of each implementation using a custom version of \texttt{GHZ}~\footnote{\url{https://github.com/chakib-belgaid/energy_ghz}}, a tool that allows us to stress test our servers. This fork of \texttt{GHZ} allows us to measure the server's energy consumption during the test's execution and synchronize it with other performance statistics such as Tail latency and the number of requests per second the server can reach.
 \begin{figure}[!hbt]
@@ -23,16 +24,16 @@ We will then compare the energy consumption of each implementation using a custo
     \end{center}
     \caption{Experimental software architecture.}\label{fig:rpcprotocol}
 \end{figure}
-Figure~\ref{fig:rpcprotocol} show the experimental protocol. We will use different messages inserted in the file \texttt{helloworld.proto}. 
+Figure~\ref{fig:rpcprotocol} show the experimental protocol. We will use different messages inserted in the file \texttt{helloworld.proto}.
 The rest of this part will be dedicated to explaining each aspect of the experiment.
 \subsubsection{Measurement Context}
 \paragraph{Hardware settings.}
 All the experiments are run on the cluster \textsf{paravance} of the G5K platform.
-This cluster comprises 72 identical machines; each is equipped with 2 Intel Xeon E5-2630 V3, with 128\,GB of RAM.
+This cluster comprises 72 identical machines equipped with 2 Intel Xeon E5-2630 V3, with 128\,GB of RAM.
 For more accuracy, our SUT (\emph{System Under Test}) runs a minimal version of Debian\,9 (4.9.0 kernel version), which enforces the core processes required for our experiment.
 Furthermore, we used Docker containers technology for reproducibility of the experiments and the isolation of the servers.
 \paragraph{Client \& server environments.}
-To limit the impact of the network on the experiments, we run both the client and the server on the same machine.
+To limit networks' impact on the experiments, we run both the client and the server on the same machine.
 However, we isolate each part on a separate CPU socket to reduce the noise that the client might have on the server and \emph{vice-versa}.
 To do so, for each iteration, we always run the same client on \textsf{socket\,0} and the server that we want to test on \textsf{socket\,1}.
 Both the server and the client use the whole socket for their experiment.
@@ -64,21 +65,26 @@ For the sake of experimental extensibility, we provide a GitHub repository that 
 Adding a new RPC \textbf{candidate} can be achieved by creating a new Docker image and putting it in a new folder named after the language.
 As for the \textbf{workload}, it can be extended easily by adding new files in the folder \textbf{payload} and by changing the number of clients in the benchmarking tool.
 
-% TODO : change php to the interpreted part 
+
 \subsection{Results \& Findings}
+\paragraph{Preparing the Data}
+Before we start our Analysis, we will first clean the data from the outliers using the interquartile range (IQR) method~\cite{leys2013detecting}.
+For each implementation, we will calculate the Q3 and Q1 of the population; then, we will exclude all the values outside the range
+$ [Q1 - 1.5 \times IQR, Q3 + 1.5 \times IQR ]$.
+
 \paragraph{\textsc{RQ}~1: How do RPC implementations consume energy concerning the size of the incoming request?}
 
 The purpose of this question is to study the energy consumption of the RPC server when transferring large objects.
 To do so, we send $80,000$ requests to the server whose size scales from 10 bytes up to 10 Megabytes, resulting in $10,000$ requests per size per server.
 To eliminate extra factors, we let the server handle the rate at which it can answer each request.
-However, we put a 20 seconds timeout deadline for each request.
+However, we put a 20 seconds timeout deadline for each category of requests.
 Therefore, our boundary condition is only the number of requests received by the server.
 For this experiment, we investigate four observable variables:
 \begin{enumerate}
     \item the \textsf{average power consumption} during the scenario indicates the overall behavior of the server when working for long durations,
     \item the \textsf{tail latency} for the 99th percentile, which indicates how efficient the server is,
     \item the \textsf{average number of requests per second}, which indicates the average number of clients that the server can handle,
-    \item the \textsf{average energy cost} of a single request: unlike the first indicator, this one shows how green the implementation is considering performance.
+    \item the \textsf{average energy cost} of a single request: unlike the first indicator, this one shows how green the implementation is, considering performance.
 \end{enumerate}
 
 
@@ -88,6 +94,7 @@ For this experiment, we investigate four observable variables:
     \end{center}
     \caption{Energy consumption based on the request size}\label{fig:energy_cost_payload}
 \end{figure}
+
 Figure~\ref{fig:energy_cost_payload} depicts the overall behavior of each framework based on the request size (payload).
 For each framework, we can distinguish three modes, and they all depend on the payload size:
 \begin{enumerate}
@@ -109,18 +116,18 @@ Overall, we can have three groups when it comes to the cost of each request:
     \item Middle class: Most of the interpreted languages and VM-based ones,
     \item Energy-greedy class: Crystal and Scala.
 \end{itemize}
-
+%  TODO : prove that there is no correlation between energy consumption and the number of clients 
 \subsubsection{Escalation Mode}
 In this mode, the behavior of the server depends on the payload. We observe three cases:
 \begin{enumerate}
     \item drop in performances without an increased power source, such as Net core, Java Micronaut, Crystal, and Dart.
-    In this case, the server uses the same resources, sometimes less, because it takes more time to handle fewer requests.
-    This class of languages tends to be the most energy-consuming when it comes to the cost per request;
+          In this case, the server uses the same resources, sometimes less, because it takes more time to handle fewer requests.
+          This class of languages tends to be the most energy-consuming when it comes to the cost per request;
     \item increase in power without affecting the performance, such as Go or.Net.
-    The energy consumption of a single request is affected slightly but still increases.
-    \item Increase in power and a drop in performance.
-    Despite the increase in power consumption, the server becomes slightly slower, which increases the energy cost per request.
-    This cost is still better than the first case, which concludes that the servers in the first category are on the verge of breaking.
+          The energy consumption of a single request is affected slightly but still increases.
+    \item Increase in power while dropping in performance.
+          Despite the increase in power consumption, the server becomes slightly slower, which increases the energy cost per request.
+          This cost is still better than the first case, which concludes that the servers in the first category are on the verge of breaking.
 \end{enumerate}
 
 We can mention the case of Elixir that keeps scaling despite the lack of performance compared to other compiled languages (Go, CPP)..
@@ -129,7 +136,7 @@ We can mention the case of Elixir that keeps scaling despite the lack of perform
 Only four of the 25 configurations could parse the 10 MB files, and only one of those could achieve a 76\% acceptance rate, which is Elixir. The other 3 had less than a 3\% success rate (Rust, Swift, and Dart).
 The rest could be divided into two categories:
 \begin{itemize}
-    \item \textsf{Timeout} where requests took too much time that the client canceled them, in this category, we find most of the dynamic codes, such as OpenJDK and Kotlin,
+    \item \textsf{Timeout} where requests took too much time that the client canceled them in this category, we find most of the dynamic codes, such as OpenJDK and Kotlin,
     \item \textsf{Size of request} exceeded the maximum size when the implementation could not handle requests with a large size, as observed with .Net, Go, .Net core, CPP, PHP, Scala, Nodejs, Ruby, and Python.
 \end{itemize}
 
@@ -213,7 +220,7 @@ Furthermore, we tend to observe this behavior among other frameworks, such as Py
     \end{center}
     \caption{Number of requests per second based on the request size}\label{fig:rps_payload}
 \end{figure}
-Most of the servers hit their RPS limit after five clients and 100 clients for VM-based servers, and after this, the number keeps constant, which will decrease the average RPS per client.
+Most of the servers hit their RPS limit after five clients and 100 clients for VM-based servers, and after this, the number keeps constant, decreasing the average RPS per client.
 . The Net server is the most performant, followed by Java and Go, while Python and Ruby are the least performant.
 
 \paragraph{Tail Latency}
