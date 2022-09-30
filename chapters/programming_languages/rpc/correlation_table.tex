@@ -3,86 +3,87 @@
 
 \pgfplotstableset{
     color cells/.style={
-        col sep=comma,
-        string type,
-        postproc cell content/.code={%
-                \pgfkeysalso{@cell content=\rule{0cm}{2.4ex}%
-                % \pgfmathsetmacro\y{min(100,max(0,abs(round(##1 * 0.5))))}%
-                \ifnum##1<0.50\edef\temp{\noexpand\cellcolor{blue!\y}}\temp\fi%
-                \ifnum##1>0.5\edef\temp{\noexpand\cellcolor{red!\y}}\temp\fi%
-                \pgfmathtruncatemacro\x\y%
-                \ifnum\x>50 \color{white}\fi%
-                ##1}%
+            col sep=comma,
+            string type,
+            postproc cell content/.code={%
+                    \pgfkeysalso{@cell content=\rule{0cm}{2.4ex}%
+                        % \pgfmathsetmacro\y{min(100,max(0,abs(round(##1 * 0.5))))}%
+                        \ifnum##1<0.50\edef\temp{\noexpand\cellcolor{blue!\y}}\temp\fi%
+                        \ifnum##1>0.5\edef\temp{\noexpand\cellcolor{red!\y}}\temp\fi%
+                        \pgfmathtruncatemacro\x\y%
+                        \ifnum\x>50 \color{white}\fi%
+                        ##1}%
                 }
-    }
+        }
 }
 
 
-\begin{table}\caption{Correlation or something}
-    \centering
-    \pgfplotstabletypeset[color cells]{
-        
-        Language    , Power  per RPS  ,Power  per energy per request, RPS  per Tail latency , RPS per Energy per request     
-        cpp grpc st , -0.68    , 0.89  , -1.00   , -0.86 
-        crystal grpc , 0.40  , -0.40  , -0.80   , -1.00 
-        go grpc , -0.75  , 1.00  , -0.89   , -0.75 
-        rust tonic st , -0.05  , 0.62  , -0.98   , -0.57 
-        swift grpc , -0.17  , 0.31  , -1.00   , -0.88 
-        csharp grpc , -0.14  , 0.04  , -0.96   , -0.96 
-        dotnet grpc , -1.00  , 0.96  , -0.89   , -0.96 
-        java aot , -0.57  , 0.79  , -0.96   , -0.93 
-        java grpc g1gc , -0.61  , 0.71  , -0.89   , -0.71 
-        java grpc pgc , -0.79  , 0.68  , -0.86   , -0.89 
-        java grpc sgc , -0.79  , 0.79  , -1.00   , -0.82 
-        java grpc she , -0.82  , 0.50  , -0.86   , -0.79 
-        java grpc zgc , -0.75  , 0.89  , -0.68   , -0.89 
-        java micronaut , -0.14  , 0.00  , -0.86   , -0.89 
-        kotlin grpc , -0.68  , 0.89  , -0.93   , -0.86 
-        scala akka , 0.77  , -0.60  , -0.83   , -0.94 
-        elixir grpc , -0.93  , 0.93  , -0.98   , -1.00 
-        dart grpc , -0.76  , 0.76  , -0.95   , -0.95 
-        node grpc st , -0.86  , 0.86  , -1.00   , -1.00 
-        node grpcjs st , -0.89  , 0.96  , -0.93   , -0.96 
-        php grpc , -0.96  , 0.96  , -0.89   , -1.00 
-        python grpc , -0.29  , 0.86  , -0.96   , -0.68 
-        ruby grpc , -0.43  , 0.68  , -1.00   , -0.89 
+% \begin{table}\caption{Correlation or something}
+%     \centering
+%     \pgfplotstabletypeset[color cells]{
+%         Language    , Power~RPS  ,Power~energy~request, RPS~Tail~latency , RPS~Energy~request     
+%         cpp~st , -0.68    , 0.89  , -1.00   , -0.86 
+%         crystal  , 0.40  , -0.40  , -0.80   , -1.00 
+%         go  , -0.75  , 1.00  , -0.89   , -0.75 
+%         rust~tonic~st , -0.05  , 0.62  , -0.98   , -0.57 
+%         swift  , -0.17  , 0.31  , -1.00   , -0.88 
+%         csharp  , -0.14  , 0.04  , -0.96   , -0.96 
+%         dotnet  , -1.00  , 0.96  , -0.89   , -0.96 
+%         java aot , -0.57  , 0.79  , -0.96   , -0.93 
+%         java~g1gc , -0.61  , 0.71  , -0.89   , -0.71 
+%         java~pgc , -0.79  , 0.68  , -0.86   , -0.89 
+%         java~sgc , -0.79  , 0.79  , -1.00   , -0.82 
+%         java~she , -0.82  , 0.50  , -0.86   , -0.79 
+%         java~zgc , -0.75  , 0.89  , -0.68   , -0.89 
+%         java~micronaut , -0.14  , 0.00  , -0.86   , -0.89 
+%         kotlin  , -0.68  , 0.89  , -0.93   , -0.86 
+%         scala  , 0.77  , -0.60  , -0.83   , -0.94 
+%         elixir  , -0.93  , 0.93  , -0.98   , -1.00 
+%         dart  , -0.76  , 0.76  , -0.95   , -0.95 
+%         node~st , -0.86  , 0.86  , -1.00   , -1.00 
+%         node~js~st , -0.89  , 0.96  , -0.93   , -0.96 
+%         php  , -0.96  , 0.96  , -0.89   , -1.00 
+%         python  , -0.29  , 0.86  , -0.96   , -0.68 
+%         ruby  , -0.43  , 0.68  , -1.00   , -0.89 
+%         }
+
+% \end{table}
+
+
+\begin{table*}[!htb]
+
+    \raggedright
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}{|l|c|c|c|c|}
+            \toprule
+            Language       & Power / RPS & Power / energy per request & RPS / Tail latency & RPS/ Energy per request \\
+            \midrule
+            cpp grpc st    & -0.68       & 0.89                       & -1.00              & -0.86                   \\
+            crystal grpc   & 0.40        & -0.40                      & -0.80              & -1.00                   \\
+            go grpc        & -0.75       & 1.00                       & -0.89              & -0.75                   \\
+            rust tonic st  & -0.05       & 0.62                       & -0.98              & -0.57                   \\
+            swift grpc     & -0.17       & 0.31                       & -1.00              & -0.88                   \\
+            csharp grpc    & -0.14       & 0.04                       & -0.96              & -0.96                   \\
+            dotnet grpc    & -1.00       & 0.96                       & -0.89              & -0.96                   \\
+            java aot       & -0.57       & 0.79                       & -0.96              & -0.93                   \\
+            java grpc g1gc & -0.61       & 0.71                       & -0.89              & -0.71                   \\
+            java grpc pgc  & -0.79       & 0.68                       & -0.86              & -0.89                   \\
+            java grpc sgc  & -0.79       & 0.79                       & -1.00              & -0.82                   \\
+            java grpc she  & -0.82       & 0.50                       & -0.86              & -0.79                   \\
+            java grpc zgc  & -0.75       & 0.89                       & -0.68              & -0.89                   \\
+            java micronaut & -0.14       & 0.00                       & -0.86              & -0.89                   \\
+            kotlin grpc    & -0.68       & 0.89                       & -0.93              & -0.86                   \\
+            scala akka     & 0.77        & -0.60                      & -0.83              & -0.94                   \\
+            elixir grpc    & -0.93       & 0.93                       & -0.98              & -1.00                   \\
+            dart grpc      & -0.76       & 0.76                       & -0.95              & -0.95                   \\
+            node grpc st   & -0.86       & 0.86                       & -1.00              & -1.00                   \\
+            node grpcjs st & -0.89       & 0.96                       & -0.93              & -0.96                   \\
+            php grpc       & -0.96       & 0.96                       & -0.89              & -1.00                   \\
+            python grpc    & -0.29       & 0.86                       & -0.96              & -0.68                   \\
+            ruby grpc      & -0.43       & 0.68                       & -1.00              & -0.89                   \\
+            \bottomrule
+        \end{tabular}
     }
-
-\end{table}
-
-
-% \begin{table*}[!htb]
-
-%     \center
-%     \begin{tabular}{l|c|c|c|c}
-%         \toprule
-%         Language    & Power \/ RPS  &Power \/ energy per request& RPS \/ Tail latency & RPS\/ Energy per request     \\
-%         \midrule
-%         cpp grpc st & -0.68    & 0.89  & -1.00 & -0.86 \\
-%         crystal grpc & 0.40  & -0.40  & -0.80 & -1.00 \\
-%         go grpc & -0.75  & 1.00  & -0.89 & -0.75 \\
-%         rust tonic st & -0.05  & 0.62  & -0.9ki8 & -0.57 \\
-%         swift grpc & -0.17  & 0.31  & -1.00 & -0.88 \\
-%         csharp grpc & -0.14  & 0.04  & -0.96 & -0.96 \\
-%         dotnet grpc & -1.00  & 0.96  & -0.89 & -0.96 \\
-%         java aot & -0.57  & 0.79  & -0.96 & -0.93 \\
-%         java grpc g1gc & -0.61  & 0.71  & -0.89 & -0.71 \\
-%         java grpc pgc & -0.79  & 0.68  & -0.86 & -0.89 \\
-%         java grpc sgc & -0.79  & 0.79  & -1.00 & -0.82 \\
-%         java grpc she & -0.82  & 0.50  & -0.86 & -0.79 \\
-%         java grpc zgc & -0.75  & 0.89  & -0.68 & -0.89 \\
-%         java micronaut & -0.14  & 0.00  & -0.86 & -0.89 \\
-%         kotlin grpc & -0.68  & 0.89  & -0.93 & -0.86 \\
-%         scala akka & 0.77  & -0.60  & -0.83 & -0.94 \\
-%         elixir grpc & -0.93  & 0.93  & -0.98 & -1.00 \\
-%         dart grpc & -0.76  & 0.76  & -0.95 & -0.95 \\
-%         node grpc st & -0.86  & 0.86  & -1.00 & -1.00 \\
-%         node grpcjs st & -0.89  & 0.96  & -0.93 & -0.96 \\
-%         php grpc & -0.96  & 0.96  & -0.89 & -1.00 \\
-%         python grpc & -0.29  & 0.86  & -0.96 & -0.68 \\
-%         ruby grpc & -0.43  & 0.68  & -1.00 & -0.89 \\
-%         \bottomrule
-%     \end{tabular}
-%     \caption{Corellation between multiple metrics for each server }
-%     \label{table:correlation}
-% \end{table*}
+    \caption{Corellation between multiple metrics for each server }
+    \label{table:correlation}
+\end{table*}
