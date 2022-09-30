@@ -128,6 +128,7 @@ Furthermore, we tend to observe this behavior among other frameworks, such as Py
     \caption{Number of requests per second based on the number of clients}\label{fig:rps_clients}
 \end{figure}
 %  TODO : REname the frameworks based on their dockerfile 
+
 Figure~\ref{fig:rps_clients} presents the number of requests per second for each implementation. The heatmap is colored in a logarithmic scale to visualize the results better.
 As one can observe, most of the servers hit their RPS limit after five clients and 100 clients for VM-based servers, and after this, the number keeps constant, decreasing the average RPS per client.
 .Net server is the most performant, followed by Java and Go, while Python and Ruby are the least performant.
@@ -157,13 +158,13 @@ However, Dart tends to become slower when we increase the number of clients unti
 After separating the energy and the performances, we have seen that most performance servers tend to be energy-greedy, so we propose investigating this trade-off between energy and performance.
 To do so, we report the average cost of a single request in millijoules in Figure~\ref{fig:energy_cost_clients}.
 
-Except for GraalVM (aka Java AOT), the cost of the single request decreases when we add more clients.Java, .Net, and go are the most energy efficient, while Python and Ruby may cost up to 10x more. 
+Except for GraalVM (aka Java AOT), the cost of the single request decreases when we add more clients.Java, .Net, and go are the most energy efficient, while Python and Ruby may cost up to 10x more.
 Despite its low power, textsfCrystal exhibits greedy behavior when dealing with requests from fewer clients. Such behavior is caused by the low number of requests per second, which also results in high latency.
 Therefore, we conclude that the number of clients does not significantly impact energy consumption.
 Then, we study how the payload size of the requests impacts the energy consumption of the framework.
 
 
-\paragraph{Synthesis}: 
+\paragraph{Synthesis}:
 Depending on the number of clients, most frameworks exhibit two distinct behaviors. When dealing with a small number of clients, frameworks, regardless of programming category, tend to be energy-efficient and performant.
 However, as the number of clients grows, the frameworks become more energy-hungry and less performant. Interpreted languages suffer the most, particularly in terms of latency and the cost of a single request.
 \textsf{Crystal}, interestingly, acted. It behaves oppositely. The cost of a single request increases as the number of clients decreases.
@@ -215,12 +216,13 @@ For this experiment, we investigate four observable variables:
 
 \input{correlation_table.tex}
 
+Table~\ref{table:correlation} presents the correlation between the different observable variables. As one can see, most of the variables are highly correlated, which allows us to reduce the search space into two variables, average power and performance.
 
 For each framework, we can distinguish three modes, and they all depend on the payload size:
 \begin{enumerate}
     \item \textsf{Stress-free} mode when the server has enough resources to satisfy the requests, as they require a memory less than a certain threshold (depends on the language and the platform),
     \item \textsf{Escalation} mode when the requests tend to be bigger, but the server can still manage to handle them, at the price of a change in the energy and performance behaviors,
-    \item \textsf{Broken state} mode when the size of requests exceeds 1MB, most of the servers cannot handle them, and they tend to crash. After 10MB, except Elixir, no server could handle those requests.  
+    \item \textsf{Broken state} mode when the size of requests exceeds 1MB, most of the servers cannot handle them, and they tend to crash. After 10MB, except Elixir, no server could handle those requests.
 \end{enumerate}
 
 
