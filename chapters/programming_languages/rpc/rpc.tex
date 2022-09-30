@@ -178,12 +178,33 @@ However, we put a 20 seconds timeout deadline for each category of requests.
 Therefore, our boundary condition is only the number of requests received by the server.
 For this experiment, we investigate four observable variables:
 \begin{enumerate}
-    \item the \textsf{average power consumption} during the scenario indicates the overall behavior of the server when working for long durations,
-    \item the \textsf{tail latency} for the 99th percentile, which indicates how efficient the server is,
-    \item the \textsf{average number of requests per second}, which indicates the average number of clients that the server can handle,
-    \item the \textsf{average energy cost} of a single request: unlike the first indicator, this one shows how green the implementation is, considering performance.
+    \item the \textsf{average power consumption} during the scenario indicates the overall behavior of the server when working for long durations, Figure~\ref{fig:power_consumption_payload},
+    \item the \textsf{tail latency} for the 99th percentile, which indicates how efficient the server is, Figure~\ref{fig:tail99_payload}
+    \item the \textsf{average number of requests per second}, which indicates the average number of clients that the server can handle, Figure~\ref{fig:rps_payload}
+    \item the \textsf{average energy cost} of a single request: unlike the first indicator, this one shows how green the implementation is, considering performance, Figure~\ref{fig:energy_cost_payload}
 \end{enumerate}
 
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/power_consumption_payload}
+    \end{center}
+    \caption{Average power consumption based on the request size}\label{fig:power_consumption_payload}
+\end{figure}
+
+
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/tail99_payload}
+    \end{center}
+    \caption{Tail latency (99\%) based on the request size}\label{fig:tail99_payload}
+\end{figure}
+
+\begin{figure}[!hbt]
+    \begin{center}
+        \includegraphics[width=1.2\linewidth]{imgs/rps_payload}
+    \end{center}
+    \caption{Number of requests per second based on the request size}\label{fig:rps_payload}
+\end{figure}
 
 \begin{figure}[!hbt]
     \begin{center}
@@ -192,13 +213,16 @@ For this experiment, we investigate four observable variables:
     \caption{Energy consumption based on the request size}\label{fig:energy_cost_payload}
 \end{figure}
 
-Figure~\ref{fig:energy_cost_payload} depicts the overall behavior of each framework based on the request size (payload).
+\input{correlation_table.tex}
+
+
 For each framework, we can distinguish three modes, and they all depend on the payload size:
 \begin{enumerate}
     \item \textsf{Stress-free} mode when the server has enough resources to satisfy the requests, as they require a memory less than a certain threshold (depends on the language and the platform),
     \item \textsf{Escalation} mode when the requests tend to be bigger, but the server can still manage to handle them, at the price of a change in the energy and performance behaviors,
-    \item \textsf{Broken state} mode when the requests are much heavier and the server break—like 10 MB.%ROMAIN unclear to me what this means
+    \item \textsf{Broken state} mode when the size of requests exceeds 1MB, most of the servers cannot handle them, and they tend to crash. After 10MB, except Elixir, no server could handle those requests.  
 \end{enumerate}
+
 
 \subsubsection{Stress-Free Mode}
 The compiled languages consume fewer resources (average power) in this mode.
@@ -213,7 +237,7 @@ Overall, we can have three groups when it comes to the cost of each request:
     \item Middle class: Most of the interpreted languages and VM-based ones,
     \item Energy-greedy class: Crystal and Scala.
 \end{itemize}
-%  TODO : prove that there is no correlation between energy consumption and the number of clients 
+
 \subsubsection{Escalation Mode}
 In this mode, the behavior of the server depends on the payload. We observe three cases:
 \begin{enumerate}
@@ -227,7 +251,7 @@ In this mode, the behavior of the server depends on the payload. We observe thre
           This cost is still better than the first case, which concludes that the servers in the first category are on the verge of breaking.
 \end{enumerate}
 
-We can mention the case of Elixir that keeps scaling despite the lack of performance compared to other compiled languages (Go, CPP)..
+We can mention the case of \textsf{Elixir} that keeps scaling despite the lack of performance compared to other compiled languages (Go, CPP).
 
 \subsubsection{Broken state mode }
 Only four of the 25 configurations could parse the 10 MB files, and only one of those could achieve a 76\% acceptance rate, which is Elixir. The other 3 had less than a 3\% success rate (Rust, Swift, and Dart).
@@ -244,22 +268,4 @@ The rest could be divided into two categories:
 
 \subsection{Conclusion \note{missing}}
 
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/power_consumption_payload}
-    \end{center}
-    \caption{Average power consumption based on the request size}\label{fig:power_consumption_payload}
-\end{figure}
-
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/rps_payload}
-    \end{center}
-    \caption{Number of requests per second based on the request size}\label{fig:rps_payload}
-\end{figure}
-\begin{figure}[!hbt]
-    \begin{center}
-        \includegraphics[width=1.2\linewidth]{imgs/tail99_payload}
-    \end{center}
-    \caption{Tail latency (99\%) based on the request size}\label{fig:tail99_payload}
-\end{figure}
+\clearpage
