@@ -164,10 +164,10 @@ Therefore, we conclude that the number of clients does not significantly impact 
 Then, we study how the payload size of the requests impacts the energy consumption of the framework.
 
 
-\paragraph{Synthesis}:
-Depending on the number of clients, most frameworks exhibit two distinct behaviors. When dealing with a small number of clients, frameworks, regardless of programming category, tend to be energy-efficient and performant.
-However, as the number of clients grows, the frameworks become more energy-hungry and less performant. Interpreted languages suffer the most, particularly in terms of latency and the cost of a single request.
-\textsf{Crystal}, interestingly, acted. It behaves oppositely. The cost of a single request increases as the number of clients decreases.
+% \paragraph{Synthesis}:
+% Depending on the number of clients, most frameworks exhibit two distinct behaviors. When dealing with a small number of clients, frameworks, regardless of programming category, tend to be energy-efficient and performant.
+% However, as the number of clients grows, the frameworks become more energy-hungry and less performant. Interpreted languages suffer the most, particularly in terms of latency and the cost of a single request.
+% \textsf{Crystal}, interestingly, acted. It behaves oppositely. The cost of a single request increases as the number of clients decreases.
 
 
 \subsubsection{\textsc{RQ}~2: How do RPC implementations consume energy concerning the size of the incoming request?}
@@ -184,6 +184,32 @@ For this experiment, we investigate four observable variables:
     \item the \textsf{average number of requests per second}, which indicates the average number of clients that the server can handle, Figure~\ref{fig:rps_payload}
     \item the \textsf{average energy cost} of a single request: unlike the first indicator, this one shows how green the implementation is, considering performance, Figure~\ref{fig:energy_cost_payload}
 \end{enumerate}
+
+% NOTE : discuss this with Romain later (90% chances that it is not needed)
+% \paragraph{overall analysis}
+% \input{correlation_table.tex}
+% in order to reduce the space of research, we processed to do a correlation test between the different variables. We used the Pearson Spearman rank correlation~\cite{zar2005spearman}. 
+
+% Table~\ref{table:correlation} presents the correlation between the different observable variables. As one can see,  There is a high correlation between the number of requests, the 99\% tail latency, and the average energy cost. This means that the more requests are answered, the less energy is consumed, and the more latency is observed. However, the correlation between the average power consumption and the other variables is low, which means that the power consumption is not directly related to the other variables.  
+% As one can see, except for rust-based implementation, the correlation between the energy consumption per request and the tail latency was extremely high. 
+% Therefore we will focus on two main variables 
+% \begin{itemize}
+%     \item average power consumption - that will represent the energetic behavior of the server 
+%     \item average request per second: that will be our representative variable to estimate the performance 
+% \end{itemize}
+
+% We chose these two variables because they are both expressed in seconds, which will narrow our analysis to the present behavior of the server at any given time and not along the whole execution process.  
+
+% As one can notice in the first column of table~\ref{table:correlation}
+% There are three main categories of servers. 
+% \begin{enumerate}
+%     \item Positive correlation between the energy and performance :  
+% \end{enumerate}
+
+
+
+
+% \paragraph{metric based analysis}
 
 \begin{figure}[!hbt]
     \begin{center}
@@ -213,10 +239,6 @@ For this experiment, we investigate four observable variables:
     \end{center}
     \caption{Energy consumption based on the request size}\label{fig:energy_cost_payload}
 \end{figure}
-
-\input{correlation_table.tex}
-
-Table~\ref{table:correlation} presents the correlation between the different observable variables. As one can see, most of the variables are highly correlated, which allows us to reduce the search space into two variables, average power and performance.
 
 For each framework, we can distinguish three modes, and they all depend on the payload size:
 \begin{enumerate}
@@ -266,7 +288,20 @@ The rest could be divided into two categories:
 
 % \subsection{Threads to Validity \note{missing}}
 
-\subsection{Conclusion \note{missing}}
+\subsection{Conclusion}
 
+This section presents a study on the impact of programming languages on the energy for request handling. To do that, we used an implementation of 25 frameworks based on 17 programming languages. 
+These servers use the official RPC protocol, reducing programmers' bias toward specific languages.
+
+
+The results show that the number of clients had a binary effect on the servers. 
+With a small number of clients, there was no typical behavior between different categories. On the other hand, when dealing with a more significant number of clients,  interpreted languages and compiled ones dropped in terms of performance while keeping the same average power, unlike the Vm~based ones that increased their average power while keeping the same performances. Overall the second strategy had a better impact on the single request cost than the first one.   
+
+As for the evolution of the query size, we have seen three modes of behavior for each framework, depending on the size of the requests: the stress-free mode, the escalation mode, and the broken state mode. 
+We start with the stress-free mode. The leader class was the compiled languages, while the VM-based ones tended to consume more energy. 
+Finally, with the escalation mode. one could observe three strategies to deal with the increase in request size. The first strategy was to drop in performance while keeping the same power; the second was to increase the average power consumption without impacting the performance; the third was a combination of both previous strategies with an increase in power and a drop in performance. Interestingly the third strategy had a lower cost per request than the first one. 
+Finally, most implementations could not handle requests heavier than 10 MB for the broken mode. Elixir was an exception to this limit despite its low performance compared to other languages
+
+This study shows the absence of a universal language when dealing with RPC requests. Moreover, each implementation had a different way of dealing with scalability. While some chose to increase the average power consumption, others dropped in performance. Both of these strategies led to a higher cost of a single request. 
 
 \clearpage

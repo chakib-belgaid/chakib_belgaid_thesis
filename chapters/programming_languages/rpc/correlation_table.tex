@@ -42,33 +42,33 @@
 
     \raggedright
     \resizebox{\linewidth}{!}{
-        \begin{tabular}{|l|c|c|c|c|}
+        \begin{tabular}{|l|c|c|c|c|c|}
             \toprule
-            Language       & Power / RPS     & Power / energy per request & RPS / Tail latency & RPS/ Energy per request \\
+            Language       & Power / RPS   &  Power / Tail latency & Power / energy per request & RPS / Tail latency & RPS/ Energy per request \\
             \midrule
-            cpp grpc st    & \average{-0.68} & \high{0.89 }               & \high{-1.00}       & \high{-0.86}            \\
-            crystal grpc   & \average{0.40}  & \average{-0.40}            & \high{-0.80}       & \high{-1.00}            \\
-            go grpc        & \high{-0.75}    & \high{1.00 }               & \high{-0.89}       & \high{-0.75}            \\
-            rust tonic st  & \nocorr{-0.05}  & \average{0.62 }            & \high{-0.98}       & \average{-0.57}         \\
-            swift grpc     & \nocorr{-0.17}  & \low{0.31 }                & \high{-1.00}       & \high{-0.88}            \\
-            csharp grpc    & \nocorr{-0.14 } & \nocorr{0.04 }             & \high{-0.96}       & \high{-0.96}            \\
-            dotnet grpc    & \nocorr{-1.00}  & \high{0.96 }               & \high{-0.89}       & \high{-0.96}            \\
-            java aot       & \average{-0.57} & \high{0.79 }               & \high{-0.96}       & \high{-0.93}            \\
-            java grpc g1gc & \average{-0.61} & \average{0.71 }            & \high{-0.89}       & \high{-0.71}            \\
-            java grpc pgc  & \high{-0.79}    & \average{0.68 }            & \high{-0.86}       & \high{-0.89}            \\
-            java grpc sgc  & \high{-0.79}    & \high{0.79 }               & \high{-1.00}       & \high{-0.82}            \\
-            java grpc she  & \high{-0.82}    & \average{0.50 }            & \high{-0.86}       & \high{-0.79}            \\
-            java grpc zgc  & \high{-0.75}    & \high{0.89 }               & \high{-0.68}       & \high{-0.89}            \\
-            java micronaut & \nocorr{-0.14}  & \nocorr{0.00 }             & \high{-0.86}       & \high{-0.89}            \\
-            kotlin grpc    & \average{-0.68} & \high{0.89 }               & \high{-0.93}       & \high{-0.86}            \\
-            scala akka     & \high{0.77 }    & \average{-0.60}            & \high{-0.83}       & \high{-0.94}            \\
-            elixir grpc    & \high{-0.93}    & \high{0.93 }               & \high{-0.98}       & \high{-1.00}            \\
-            dart grpc      & \high{-0.76}    & \high{0.76 }               & \high{-0.95}       & \high{-0.95}            \\
-            node grpc st   & \high{-0.86}    & \high{0.86 }               & \high{-1.00}       & \high{-1.00}            \\
-            node grpcjs st & \high{-0.89}    & \high{0.96 }               & \high{-0.93}       & \high{-0.96}            \\
-            php grpc       & \high{-0.96}    & \high{0.96 }               & \high{-0.89}       & \high{-1.00}            \\
-            python grpc    & \low{-0.29}     & \high{0.86 }               & \high{-0.96}       & \high{-0.68}            \\
-            ruby grpc      & \low{-0.43}     & \average{0.68 }            & \high{-1.00}       & \high{-0.89}            \\
+            cpp grpc st    & \average{-0.68} & \average{0.68 }& \high{0.89}               & \high{-1.00}       & \high{-0.86}            \\
+            crystal grpc   & \average{0.40}  & \average{-0.20}& \average{-0.40}            & \high{-0.80}       & \high{-1.00}            \\
+            go grpc        & \high{-0.75}    & \average{0.64 }& \high{1.00}               & \high{-0.89}       & \high{-0.75}            \\
+            rust tonic st  & \nocorr{-0.05}  &  \nocorr{0.02 }& \average{0.62}            & \high{-0.98}       & \average{-0.57}         \\
+            swift grpc     & \nocorr{-0.17}  &  \nocorr{0.17 }& \low{0.31}                & \high{-1.00}       & \high{-0.88}            \\
+            csharp grpc    & \nocorr{-0.14} &  \nocorr{0.21 }& \nocorr{0.04}             & \high{-0.96}       & \high{-0.96}            \\
+            dotnet grpc    & \nocorr{-1.00}  &  \high{0.89 }& \high{0.96}               & \high{-0.89}       & \high{-0.96}            \\
+            java aot       & \average{-0.57} & \average {0.68 }& \high{0.79}               & \high{-0.96}       & \high{-0.93}            \\
+            java grpc g1gc & \average{-0.61} &  \average{0.54 }& \average{0.71}            & \high{-0.89}       & \high{-0.71}            \\
+            java grpc pgc  & \high{-0.79}    &  \low{0.46 }& \average{0.68}            & \high{-0.86}       & \high{-0.89}            \\
+            java grpc sgc  & \high{-0.79}    &  \high{0.79 }& \high{0.79}               & \high{-1.00}       & \high{-0.82}            \\
+            java grpc she  & \high{-0.82}    &  \high{0.96 }& \average{0.50}            & \high{-0.86}       & \high{-0.79}            \\
+            java grpc zgc  & \high{-0.75}    &  \high{0.79 }& \high{0.89}               & \high{-0.68}       & \high{-0.89}            \\
+            java micronaut & \nocorr{-0.14}  &  \nocorr{-0.18}& \nocorr{0.00}             & \high{-0.86}       & \high{-0.89}            \\
+            kotlin grpc    & \average{-0.68} &  \average{0.68 }& \high{0.89}               & \high{-0.93}       & \high{-0.86}            \\
+            scala akka     & \high{0.77}    &  \low{-0.49}& \average{-0.60}            & \high{-0.83}       & \high{-0.94}            \\
+            elixir grpc    & \high{-0.93}    &  \high{0.90 }& \high{0.93}               & \high{-0.98}       & \high{-1.00}            \\
+            dart grpc      & \high{-0.76}    &  \high{0.76 }& \high{0.76}               & \high{-0.95}       & \high{-0.95}            \\
+            node grpc st   & \high{-0.86}    &  \high{0.86 }& \high{0.86}               & \high{-1.00}       & \high{-1.00}            \\
+            node grpcjs st & \high{-0.89}    &  \high{0.75 }& \high{0.96}               & \high{-0.93}       & \high{-0.96}            \\
+            php grpc       & \high{-0.96}    &  \high{0.82 }& \high{0.96}               & \high{-0.89}       & \high{-1.00}            \\
+            python grpc    & \low{-0.29}     &  \low{0.32 }& \high{0.86}               & \high{-0.96}       & \high{-0.68}            \\
+            ruby grpc      & \low{-0.43}     &  \low{0.40 }& \average{0.68}            & \high{-1.00}       & \high{-0.89}            \\
             \bottomrule
         \end{tabular}
     }
