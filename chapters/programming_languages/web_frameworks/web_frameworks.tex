@@ -305,14 +305,10 @@ If we calculate the correlation when we have a fixed number of clients, like in 
 Figure~\ref{fig:scatter_db} demonstrates such a behavior.
 As one can notice, for each level, we observe a linear clustering.
 Therefore, we can safely focus our analysis on two variables, \emph{number of requests per second} and \emph{average energy consumption}.
-The first one will indicate the performance of the solution. Meanwhile, the second one will be used to measure how green a framework is.
+The first one will indicate the performance of the solution. Meanwhile, the second one will measure how green a framework is.
 
-\begin{figure}[bht]
-    \centering
-    \includegraphics[width=.9\columnwidth ]{imgs/all_boxplot}
-    \caption{Energy consumption per request for each family of programming languages}
-    \label{fig:all_boxplot}
-\end{figure}
+
+
 %  THIS might be completely changed , i think we need to check the limits of the data base 
 
 
@@ -321,7 +317,7 @@ The first one will indicate the performance of the solution. Meanwhile, the seco
 
 \subsubsection{Scenario-based Analysis}
 This section will focus on the behavior of all the scenarios' implementations.
-For visibility purposes, we will group the frameworks not by language but by family so that we will have 5 families:
+For visibility purposes, we will group the frameworks not by language but by family so that we will have five families:
 \begin{itemize}
     \item \textbf{compiled languages}: Rust, C, GO and C++;
     \item \textbf{interpreted languages}: Python, PHP and Javascript;
@@ -330,6 +326,7 @@ For visibility purposes, we will group the frameworks not by language but by fam
     \item \textbf{Other VM-based languages}: Dart and Elixir.
 \end{itemize}
 
+% TODO : change figure to table all langauges that we havent solved yet 
 Figure~\ref{fig:all_boxplot} depicts the programming language and the family for each framework.
 
 \paragraph{Idle behviour}
@@ -474,7 +471,7 @@ This is also explained by the fact that the high level of stress is on the top, 
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/power_requests_plaintext}
-    \caption{Total request Vs average power consumption for plainText benchmark (size of circles represents the number of clients)}
+    \caption{Total request vs. average power consumption for plainText benchmark (size of circles represents the number of clients)}
     \label{fig:power_requests_plaintext}
 \end{figure}
 
@@ -490,7 +487,13 @@ We are aware of the bias induced by the implementation of candidates. Therefore 
 Regarding a new framework, a new workload, a new database, etc.
 
 \subsection{Summary\note{missing}}
-
+to conclude we summarized the results in the following figure 
+\begin{figure}[bht]
+    \centering
+    \includegraphics[width=.9\columnwidth ]{imgs/all_boxplot}
+    \caption{Energy consumption per request for each family of programming languages}
+    \label{fig:all_boxplot}
+\end{figure}
 % \begin{figure}[bht]
 %     \centering
 %     \includegraphics[width=
