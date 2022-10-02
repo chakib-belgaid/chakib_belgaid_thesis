@@ -1,11 +1,11 @@
-\subsection{Introduction}
+
 With the success of the Internet and the emergence of cloud technologies, many communication protocols compete to take the lead.
 In particular, most software architectures are now based on multi-services and micro-service technologies.
 Moreover, to cope with the increased versatility of developers, multiple companies choose to open their services to different programming languages.
 This approach is interesting because it wants to use the best parts of each programming language to meet different needs.
 However, the challenge nowadays is to make the bridge between these platforms.
 We have many initiatives, such as OpenAPI, that try to create a taxonomy for RESTful APIs, while other approaches implement all the different interfaces of the protocol by themselves, such as The Remote Procedure Call (aka RPC) protocol.
-In this Section
+In order to provide a universal implementation of this protocol, Google developed GRPC, a contemporary open-source RPC framework that may run in any environment. Pluggable load balancing, tracing, health monitoring, and authentication support may efficiently link services within and across data centers. It is also valuable for the final mile of distributed computing, connecting devices, mobile apps, and browsers to backend services.
 
 \subsubsection{Research Questions}
 In this section, we first explore the ease of implementation of this protocol, and then we will try to answer the following research questions:
@@ -16,7 +16,7 @@ In this section, we first explore the ease of implementation of this protocol, a
 
 \subsection{Experimental Protocol}
 
-To answer these questions, we will define an interface using the Proto2~\footnote{\url{https://developers.google.com/protocol-buffers}}language, and then we will implement it in multiple servers, each one using a different programming language.
+To answer these questions, we will define an interface using the Proto2\footnote{\url{https://developers.google.com/protocol-buffers}} language, and then we will implement it in multiple servers, each one using a different programming language.
 We will then compare the energy consumption of each implementation using a custom version of \texttt{GHZ}~\footnote{\url{https://github.com/chakib-belgaid/energy_ghz}}, a tool that allows us to stress test our servers. This fork of \texttt{GHZ} allows us to measure the server's energy consumption during the test's execution and synchronize it with other performance statistics such as Tail latency and the number of requests per second the server can reach.
 \begin{figure}[!hbt]
     \begin{center}
@@ -153,7 +153,7 @@ However, Dart tends to become slower when we increase the number of clients unti
     \begin{center}
         \includegraphics[width=1.2\linewidth]{imgs/energy_cost_clients}
     \end{center}
-    \caption{The cost of a single request based on the number of clients (mj)}\label{fig:energy_cost_clients}
+    \caption{The cost of a single request based on the number of clients (mJ)}\label{fig:energy_cost_clients}
 \end{figure}
 After separating the energy and the performances, we have seen that most performance servers tend to be energy-greedy, so we propose investigating this trade-off between energy and performance.
 To do so, we report the average cost of a single request in millijoules in Figure~\ref{fig:energy_cost_clients}.
@@ -192,7 +192,7 @@ For this experiment, we investigate four observable variables:
 
 % Table~\ref{table:correlation} presents the correlation between the different observable variables. As one can see,  There is a high correlation between the number of requests, the 99\% tail latency, and the average energy cost. This means that the more requests are answered, the less energy is consumed, and the more latency is observed. However, the correlation between the average power consumption and the other variables is low, which means that the power consumption is not directly related to the other variables.  
 % As one can see, except for rust-based implementation, the correlation between the energy consumption per request and the tail latency was extremely high. 
-% Therefore we will focus on two main variables 
+% Therefore, we will focus on two main variables 
 % \begin{itemize}
 %     \item average power consumption - that will represent the energetic behavior of the server 
 %     \item average request per second: that will be our representative variable to estimate the performance 
@@ -290,18 +290,18 @@ The rest could be divided into two categories:
 
 \subsection{Conclusion}
 
-This section presents a study on the impact of programming languages on the energy for request handling. To do that, we used an implementation of 25 frameworks based on 17 programming languages. 
+This section presents a study on the impact of programming languages on the energy for request handling. To do that, we used an implementation of 25 frameworks based on 17 programming languages.
 These servers use the official RPC protocol, reducing programmers' bias toward specific languages.
 
 
-The results show that the number of clients had a binary effect on the servers. 
-With a small number of clients, there was no typical behavior between different categories. On the other hand, when dealing with a more significant number of clients,  interpreted languages and compiled ones dropped in terms of performance while keeping the same average power, unlike the Vm~based ones that increased their average power while keeping the same performances. Overall the second strategy had a better impact on the single request cost than the first one.   
+The results show that the number of clients had a binary effect on the servers.
+With a small number of clients, there was no typical behavior between different categories. On the other hand, when dealing with a more significant number of clients,  interpreted languages and compiled ones dropped in terms of performance while keeping the same average power, unlike the Vm~based ones that increased their average power while keeping the same performances. Overall the second strategy had a better impact on the single request cost than the first one.
 
-As for the evolution of the query size, we have seen three modes of behavior for each framework, depending on the size of the requests: the stress-free mode, the escalation mode, and the broken state mode. 
-We start with the stress-free mode. The leader class was the compiled languages, while the VM-based ones tended to consume more energy. 
-Finally, with the escalation mode. one could observe three strategies to deal with the increase in request size. The first strategy was to drop in performance while keeping the same power; the second was to increase the average power consumption without impacting the performance; the third was a combination of both previous strategies with an increase in power and a drop in performance. Interestingly the third strategy had a lower cost per request than the first one. 
+As for the evolution of the query size, we have seen three modes of behavior for each framework, depending on the size of the requests: the stress-free mode, the escalation mode, and the broken state mode.
+We start with the stress-free mode. The leader class was the compiled languages, while the VM-based ones tended to consume more energy.
+Finally, with the escalation mode. one could observe three strategies to deal with the increase in request size. The first strategy was to drop in performance while keeping the same power; the second was to increase the average power consumption without impacting the performance; the third was a combination of both previous strategies with an increase in power and a drop in performance. Interestingly the third strategy had a lower cost per request than the first one.
 Finally, most implementations could not handle requests heavier than 10 MB for the broken mode. Elixir was an exception to this limit despite its low performance compared to other languages
 
-This study shows the absence of a universal language when dealing with RPC requests. Moreover, each implementation had a different way of dealing with scalability. While some chose to increase the average power consumption, others dropped in performance. Both of these strategies led to a higher cost of a single request. 
+This study shows the absence of a universal language when dealing with RPC requests. Moreover, each implementation had a different way of dealing with scalability. While some chose to increase the average power consumption, others dropped in performance. Both of these strategies led to a higher cost of a single request.
 
 \clearpage

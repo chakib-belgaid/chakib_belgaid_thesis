@@ -1,34 +1,63 @@
 \chapter{Energy Footprint of Distributed Programming Frameworks}
 \label{chapter:porgramming_langauges}
 
-% TODO : repphrase this 
+% After looking at Django's studies, we wanted to expand our study to other programming languages and frameworks.
+% The idea behind this study is to expand the work of Pereira et al. from the micro benchmarking level to get closer to real-world applications.
+% First, we will start with studying the RPC protocol since it offers a multi-language interface. Therefore we will reduce the developer expertise bias
+% after that; we will enlarge this study to cover the most popular web frameworks. In this study, we will focus on the energy footprint of the web frameworks and the RPC protocol in the context of an unlimited time. Therefore the factor time will have less impact, unlike the micro benchmarking study.
 
-After looking at Django's studies, we wanted to expand our study to other programming languages and frameworks.
-The idea behind this study is to expand the work of Pereira et al. from the micro benchmarking level to get closer to real-world applications.
-First, we will start with studying the RPC protocol since it offers a multi-language interface. Therefore we will reduce the developer expertise bias
-after that; we will enlarge this study to cover the most popular web frameworks. In this study, we will focus on the energy footprint of the web frameworks and the RPC protocol in the context of an unlimited time. Therefore the factor time will have less impact, unlike the micro benchmarking study.
+% This chapter studies how the programming framework affects the energy the software consumes.
+% We suggest starting with general micro-benchmarking and watching how each programming framework performs with the CPU and memory.
+% The main goal of this chapter is to advise developers on choosing a programming framework based on their project's needs to make their product use the least amount of energy possible.
+% For such a question, no answer is obvious.
+% Nonetheless, there are some features we can take from each programming framework, such as:
+% \begin{itemize}
+%     \item performance,
+%     \item community support,
+%     \item scalability,
+%     \item energy consumption,
+%     \item memory usage.
+% \end{itemize}
 
-This chapter studies how the programming framework affects the energy the software consumes.
-We suggest starting with general micro-benchmarking and watching how each programming framework performs with the CPU and memory.
-The main goal of this chapter is to advise developers on how to choose a programming framework based on their project's needs to make their product use the least amount of energy possible.
-For such a question, no answer is obvious.
-Nonetheless, there are some features we can take from each programming framework, such as:
-\begin{itemize}
-    \item performance,
-    \item community support,
-    \item scalability,
-    \item energy consumption,
-    \item memory usage.
-\end{itemize}
+\section*{Introduction}
+Nowadays, web applications dominate online systems.
+From Google to Facebook, web applications are widely deployed across organizations and continuously accessed by end-users for personal and professional daily tasks.
+In practice, the development of these web applications heavily relies on a vast ecosystem of \emph{web frameworks}, intended to ease and foster the development process.
 
-As we saw in the previous chapter, one of the most important things about a benchmark is how well it \textsc{reflects} the production environment.
-Therefore, we extend our study to cover real-world use cases, including two case studies reported in the following sections.
+However, once deployed, the applications developed with such web frameworks do not exhibit the same performance as reported by the \emph{Web Framework Benchmarks} peri odically published by the \textsc{TechEmpower} company~\footnote{\url{https://www.techempower.com/benchmarks}}.
+
+Thanks to such benchmarks, developers can make informed decisions on the most efficient technology to adopt to implement their web applications.
+
+Unfortunately, when selecting a web framework, developers and benchmark providers focus primarily on popularity and performance criteria, with little regard for the resource consumption implications of their choice.
+This is especially unfortunate, given that developers increasingly turn to cloud providers to host their web applications.
+In such a context, the energy consumption of web applications is a critical factor, as it directly impacts the cost of hosting the applications.
+While cloud providers provide a convenient elastic provision of resources to scale based on application requirements, this convenience may come at a high cost to their business.
+Indeed, the energy consumption of cloud data centers is a primary concern for cloud providers, as it represents a significant portion of their operational costs.
+Beyond the economic cost of web applications, one can also question the global impact of web applications on worldwide carbon emissions.
+
+Given the tremendous success of web applications, their deployment has severely increased over the last few years, thus causing a rebound effect on the power consumption of server infrastructure hosted or supported by cloud providers.
+
+While one can challenge the relevance of features that developers continuously deploy to keep engaging end-users, reconciling economic and environmental concerns remains an open challenge to address.
+
+Given this context, this chapter intends to address this challenge by investigating the energy footprint of web frameworks.
+In particular, we aim to support the developers of web applications with relevant guidelines that can help them to choose the web framework that is not only the most popular or provides the best performance but also exhibits a low energy footprint.
+
+By minimizing the energy consumed to process user requests with no service quality penalty, developers can reduce the operational cost of their web applications and contribute to reducing worldwide carbon emissions from ICT.
+
+To achieve this objective, we consider two study cases.
+First, we study the impact of programming languages while handling requests from the Remote Procedure Call protocol (RPC).
+RPC is a protocol that allows a computer to call a procedure stored in another address space (usually on another computer on a shared network) without the user having to explicitly code the details for this remote interaction.
+We compare multiple implementations of \textsc{gRPC} library, a new RPC library developed by Google and based on \textsc{Protocol Buffers}, a popular serialization protocol.
+As for section~\ref{sec:webframework}, we study the impact of web framework stacks on energy consumption. To do so, we implement a simple web application using the most popular web frameworks and compare their performance, latency, and energy consumption.  We leverage the \textsc{TechEmpower} \emph{Web Framework Benchmarks} to incorporate server-side energy measurements obtained from a software-defined power meter, named \textsc{PowerAPI}~\cite{fieni2020smartwatts}.
+These measurements are then analyzed in depth to understand the critical criteria that can impact the power consumption of web frameworks and derive guidelines for supporting developers in picking the most energy-efficient web frameworks according to their requirements.
+
+
 
 \section{Investigating Remote Procedure Call Frameworks}
 \import{\currfiledir/rpc}{rpc}
 
 
-\section{Investigating Web Application Frameworks}
+\section{Investigating Web Application Frameworks}\label{sec:webframework}
 \import{\currfiledir/web_frameworks}{web_frameworks}
 
 \section{Conclusion \note{missing}}
