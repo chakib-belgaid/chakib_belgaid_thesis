@@ -1,10 +1,8 @@
 % \newpage
 
 % \subsection{Research questions \note{missing}}
-\motivation{Comparison of Web Frameworks}
-Many studies have been conducted to compare the performance of web frameworks.
-One can cite \cite{gajewski_analysis_2019} who compared two of the most famous Java frameworks---Play and Spring---or the work of \cite{benmoussa_new_2019} who compared different PHP frameworks using six criteria: intrinsic durability, industrialized solution, technical adaptability, strategy, technical architecture, and speed.
-In our context, we push a $7^{th}$ criterion that impacts the economic outcome of the project.
+% \subsection{motivation}
+
 
 % \subsubsection{Energy Efficiency in Software Engineering}
 % % Move this to soa or remove it 
@@ -23,54 +21,70 @@ In our context, we push a $7^{th}$ criterion that impacts the economic outcome o
 % % As we saw in the previous chapter, one of the most important things about a benchmark is how well it \textsc{reflects} the production environment.
 % Therefore, we extend our study to cover real-world use cases, including two case studies reported in the following sections.
 
+% TODO : incomplete and need rephrasing 
+
+After studying the impact of the programming languages on energy consumption while handling the RPC requests, we found that the programing language and the web framework significantly impact energy consumption. Therefore, we want to delve deeper into this way.
+This section will study not only the impact of programming languages but also the web frameworks on the energy consumption of the server.
+Many studies have been conducted to compare the performance of web frameworks.
+One can cite \cite{gajewski_analysis_2019} who compared two of the most famous Java frameworks---Play and Spring---or the work of \cite{benmoussa_new_2019} who compared different PHP frameworks using six criteria: intrinsic durability, industrialized solution, technical adaptability, strategy, technical architecture, and speed.
+In our context, we push a $7^{th}$ criterion that impacts the economic outcome of the project.
+
+We study the impact of web framework stacks on energy consumption. To do so, we implement a simple web application using the most popular web frameworks and compare their performance, latency, and energy consumption.  We leverage the \textsc{TechEmpower} \emph{Web Framework Benchmarks} to incorporate server-side energy measurements obtained from a software-defined power meter, named \textsc{PowerAPI}~\cite{fieni2020smartwatts}.
+These measurements are then analyzed in depth to understand the critical criteria that can impact the power consumption of web frameworks and derive guidelines for supporting developers in picking the most energy-efficient web frameworks according to their requirements.
+
 \subsection{Experimental Protocol}
-This section describes the environment we used during the experiments, covering hardware features, framework experiments, and methodology.
 
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=.8\columnwidth]{imgs/architecture}
+    \caption[Architecture]{Architecture of the experiments.}
+    \label{fig:architecture}
+\end{figure}
+
+This section describes the environment we used during the experiments. Using the framework presented in \cref*{chapter:benchmarking}, we prepared a framework to measure the energy consumption of the web frameworks. The architecture of the experiments is presented in \cref{fig:architecture}. 
+As one can see, the system is composed of five key components: 
+
+\begin{itemize}
+    \item \textsf{Orchestrator} is responsible for creating Docker images for each server, starting the server, and launching the benchmarks that the client should run,
+    \item \textsf{web server}, or the \emph{system-under-test} (SUT), It is the server that we want to measure its energy consumption. The server is encapsulated in a Docker container to ease the deployment of the machine and ensure the reproducibility of the experiments,
+    \item \textsf{database server} offers the database that all the frameworks will use during the benchmarks. It is separated from the application server to avoid the impact of the database on the energy consumption of the server,
+    \item \textsf{client machine} It is responsible for stressing the web server using the scenarios provided by the orchestrator. To avoid the bottleneck on the client's side, we use \texttt{WRK}\footnote{\url{https://github.com/wg/wrk}}, a modern HTTP benchmarking tool,  capable of creating a large load, thanks to its multithreaded design and scalable event notification technologies such Epoll~\footnote{\url{https://man7.org/linux/man-pages/man7/epoll.7.html}} and Kqueue~\footnote{\url{https://man.openbsd.org/kqueue.2}}.
+    \item \textsf{recorder} collects the power measurements from the SUT and the critical performance metrics collected by the clients, so later can be used for our empirical analysis.
+\end{itemize}
+
+Each component runs on a different machine to limit the outside impact on the server and the client. Such as the overhead of the database, creating and launching the servers, and storing the records of the experiments.
+Moreover, all the machines belong to the same cluster to avoid network overhead.
+ 
+% We will detail each component of the experiment and the tools we used to perform them.
+
+% First, we start with the measurement context, which will cover the hardware and software components of the experiment.
+
+\subsubsection*{Measurement Context}
+This part describes the hardware and software components of the experiment.  
+\paragraph*{Hardware Settings} 
+All the tests have been executed in machines from the cluster \textsf{chetemi}~\footnote{\url{https://www.grid5000.fr/w/Hardware}} of the grid5000~\ref{cappello2010grid5000} platform.
+This cluster comprises 15 machines with 2 Intel Xeon E5-2630 v4 processors, 256 GB of RAM,  600 GB HDD + 300 GB HDD hard disk.
+For our experiment, we consider using four machines from this cluster, one for the orchestrator, one for the database server, one for the client, and one for the web server. As for the recorder part , the measures will be stored in a MongoDB Database that runs on a separate virtual machine. 
+\paragraph*{Software Settings}
+Except for the recorder, all machines run a minimal version of Debian\,9 (4.9.0 kernel version), which enforces the core processes required for our experiment. Equipped with Docker, we can quickly deploy the web and database servers in a container. 
 \subsubsection{Measurement Context}
-This experiment aims to highlight the energy impact of the technology stack used to develop a web application once in production.
-
-
+This experiment aims to highlight the energy impact of the technology stack used to develop web applications once in production.
+To do so, we will use a web application composed of several URLs; each one will be used to simulate a test scenario. Therefore the clients will be agnostic to the technology stack used by the server.
+Moreover, spilling the database on a remote server simulates a real-world scenario where the database is not hosted on the same machine as the web application. It allows us to isolate the energy consumption of the server, on the other hand.
 
 \paragraph{Candidate Frameworks}
+\input{table-counting.tex}
 Overall, we selected 210 web frameworks to be evaluated in this study.
-Each framework may have multiple configurations based on the database, alternative interpreters, etc.
-Table~\ref{tab:frameworks_all} lists the frameworks that we selected for this study.
-
-
-
-
-% \input{frameworks_table.tex}
-
+Each framework may have several configurations depending on the database, alternative interpreters, and so on.
 Table~\ref{table:frameworks_count} highlights the number of frameworks used in the experiment per benchmark category.
 As we see in this table, some of the frameworks worked on certain conditions, while they failed on other benchmarks, such as Nickel (based on Rust).
 While it might be one of the most energy-efficient Rust frameworks, Nickel does not work with databases.
 Therefore, it cannot be used for any situation, but if a (stateless) web application does not interact with a database, it might be the best choice.
-Many reasons are behind the observed failures; there was no implementation, or some errors were raised when handling the request.
-
-
-\input{table-counting.tex}
-
-\todo{ROMAIN: Something is missing here}
-\begin{itemize}
-    \item \textsf{orchestrator} is responsible for creating Docker images, selecting and launching the benchmarks,
-    \item \textsf{web server}, or the \emph{system-under-test} (SUT), is the machine responsible for launching the framework by means of the pre-installed power meter,
-    \item \textsf{database server} offers the database that will be used by all the frameworks during the benchmarks.
-          % To ensure the same database for all the frameworks, and to remove the impact of the database on the energy consumption, on the System-Under-Test (SUT)
-          %(is seperated from the application server to neglect its contribution in energy calculation?) 
-    \item \textsf{client machines} avoid the bottleneck on the client's side, client requests are sent from another machine (one or many) that simulates hundreds of concurrent connections to the framework,
-    \item \textsf{recorder} collects the power measurements from the SUT and the key performance metrics collected by the clients \todo{add a link to the measurement process}.
-\end{itemize}
-
-The tests have been executed in machines from the cluster \textsf{chetemi}~\footnote{\url{https://www.grid5000.fr/w/Hardware}} of the grid5000~\ref{wiki:g5000} platform.
-
-\todo{add hardware description}
-
-\paragraph{Note}
-It has been proven in the work of \citeauthor{eddie_antonio_santos_how} that Docker does not impact energy consumption.
-Thus, using containers and isolation avoids any noise of the operating system after executing one benchmark and contributes to the reproducibility of our results.
+Many reasons are behind the observed failures; there was no implementation, some errors were raised when handling the request, or simply the framework does not support such a feature.
 
 \subsubsection{Input Workload}
-To compare the energy consumption and performance efficiency between multiple frameworks, each framework is used to implement the same web application---\emph{i.e.}, replying to the same HTTP endpoints and requesting the same database. Then, we run the same sequence for all the SUT:
+
+In order to compare the energy consumption and performance efficiency of various frameworks, each framework is used to implement the same web application---\emph{i.e.}, replying to the same HTTP endpoints and requesting the same database. Then, we run the same sequence for all the SUT:
 \begin{enumerate}
     \item lunch the web application,
     \item wait for the 20s for the warmup,
@@ -87,20 +101,20 @@ The following sections describe each type of experiment and its purpose by givin
 \paragraph{Test Scenarios}
 We have seven categories of benchmarks:
 \paragraph{Idle}
-In this benchmark, we measure the web framework's idle energy consumption; this reflects an application's average energy consumption during periods without connections.
-For example, a company website beyond working hours or an online shop at night.
+In this benchmark, we measure the web framework's idle energy consumption; this reflects an application's average energy consumption during periods without connections, for example, a company website beyond working hours or an online shop at night.
 
 \paragraph{Single Query}
-During this benchmark, each request is processed by fetching a single row from a simple database table.
-This row is then serialized as a JSON response and returned to the client.
-This is the most common type of request in a web application.
-For this benchmark, we use a variable number of clients to measure the energy consumption of the web framework when it is under load.
+Each request in this scenario is handled by retrieving a single row from a simple database table.
+This row is then serialized and returned to the client as a JSON response.
+In a web application, this is the most common sort of request.
+We employ a variable number of clients to measure the energy usage of the web framework when it is under load for this benchmark.
 
 
 
 \paragraph{Multiple Queries}
 This benchmark aims to observe the behavior of a web framework when it processes multiple entries from the database.
 Therefore, each request is processed by fetching multiple rows from a simple database table and serializing these rows as a JSON response.
+This benchmark's purpose is to observe a web framework's behavior while increasing the number of rows.
 In this case, we will use 512 clients.
 % and alter the
 %The benchmark is run multiple times: benchmarking 1, 5, 10, 15, and 20 queries per request. All benchmarks are run at 512 concurrency.
@@ -108,36 +122,26 @@ In this case, we will use 512 clients.
 %  The benchmark is run multiple times: benchmarking 1, 5, 10, 15, and 20 cached object fetches per request. All benchmarks are run at 512 concurrency. Conceptually, this is similar to the multiple-queries benchmark except the fact that it uses a caching layer.
 
 \paragraph{Fortunes}
-In this benchmark, the framework's ORM is used to fetch all rows from a database table containing an unknown number of Unix fortune cookie messages (the table has 12 rows, but the code cannot have foreknowledge of the table's size).
-At runtime, an additional fortune cookie message is inserted into the list, and then the list is sorted by the message text.
-Finally, the list is delivered to the client using a server-side HTML template.
-The message text must be untrusted and properly escaped, and the UTF-8 fortune messages must be rendered properly.
-% maybe i should remove it 
-% \begin{listing}[language=html]
-%     HTTP/1.1 200 OK
-%     Content-Length: 1196
-%     Content-Type: text/html; charset=UTF-8
-%     Server: Example
-%     Date: Wed, 17 Apr 2013 12:00:00 GMT
-
-%     <!DOCTYPE html><html><head><title>Fortunes</title></head><body><table><tr><th>id</th><th>message</th></tr><tr><td>11</td><td>\&lt;script\&gt;alert(\&quot;This should not be displayed in a browser alert box.\&quot;);\&lt;/script\&gt;</td></tr><tr><td>4</td><td>A bad random number generator: 1, 1, 1, 1, 1, 4.33e+67, 1, 1, 1</td></tr><tr><td>5</td><td>A computer program does what you tell it to do, not what you want it to do.</td></tr><tr><td>2</td><td>A computer scientist is someone who fixes things that aren\&apos;t broken.</td></tr><tr><td>8</td><td>A list is only as strong as its weakest link. — Donald Knuth</td></tr><tr><td>0</td><td>Additional fortune added at request time.</td></tr><tr><td>3</td><td>After enough decimal places, nobody gives a damn.</td></tr><tr><td>7</td><td>Any program that runs right is obsolete.</td></tr><tr><td>10</td><td>Computers make very fast, very accurate mistakes.</td></tr><tr><td>6</td><td>Emacs is a nice operating system, but I prefer UNIX. — Tom Christaensen</td></tr><tr><td>9</td><td>Feature: A bug with seniority.</td></tr><tr><td>1</td><td>fortune: No such file or directory</td></tr><tr><td>12</td><td>hello world</td></tr></table></body></html>
-% \end{listing}
+The purpose of this scenario is to study the behavior of a web framework when it processes a request that requires a database query and a template rendering.
+To do so, we ask the framework to retrieve all the rows from our database (in our case, 12 rows) and then send the response as a generated HTML page. 
+The stress level varies according to the number of parallel clients. 
 
 \paragraph{Update Queries}
-This benchmark exercises the database writes.
-Each request is processed by fetching multiple rows from a simple database table, converting the rows to in-memory objects, modifying one attribute of each object in memory, updating each associated row in the database individually, and then serializing the list of objects as a JSON response.
-The maximum number of clients is 512.
-%  The benchmark is run multiple times: benchmarking 1, 5, 10, 15, and 20 updates per request. It is important that the number of statements per request is twice the number of updates since each update is paired with one query to fetch the object. All benchmarks are run at 512 concurrency.
-The response is analogous to the multiple-query benchmark.
+This scenario puts the database write to the test.
+Each request is handled by retrieving numerous rows from a simple database table, turning the rows into in-memory objects, altering one attribute of each object in memory, individually updating each related row in the database, and serializing the list of objects as a JSON response.
+Like the previous benchmarks, we will use 512 clients and vary the number of rows retrieved from the database according to the stress level.
 
 \paragraph{Plain Text}
-In this benchmark, the framework responds with the most straightforward response: a \texttt{"Hello, World"} message rendered as plain text.
+In this scenario, the framework responds with the most straightforward response: a \texttt{"Hello, World"} message rendered as plain text.
 The response size is kept small so that gigabit Ethernet is not the limiting factor for all implementations.
 HTTP pipelining is enabled, and higher client-side concurrency levels are used for this benchmark.
 
 \paragraph{JSON Serialization}
-In this benchmark, each response is a JSON serialization of a freshly-instantiated object that maps the critical message to the value \texttt{"Hello, World!"}.
-For each of the above scenarios, we consider different stress levels, and Table~\ref{frameworks:stress-levels} shows the different levels for each scenario.
+In this scenario, the server returns a new instance of a JSON object with the following structure. \texttt{\{"message": "Hello, World!"\}}.
+
+\paragraph{Recap}
+
+Table~\ref{frameworks:stress-levels} recaps different stress levels of each scenario above. Whenever the stress level is based on the size request, we use the same size of clients (512); otherwise, we use the number of clients as the stress level.
 
 \begin{table*}[bth]
     \raggedright
@@ -160,13 +164,11 @@ For each of the above scenarios, we consider different stress levels, and Table~
 \end{table*}
 
 To include additional scenarios, one might implement a Python class that handles the metadata of the workload, such as the query route, the query parameters, and the expected results.
+
 \subsubsection{Key Performance Metrics}
 We focus on comparing the energy behavior of different frameworks in multiple scenarios.
 To measure the energy consumption of those frameworks, we launch each one for a fixed duration, and then all the clients send multiple requests simultaneously.
 We compute the number of satisfied responses, which reflects the performance of the framework, the average latency, and the global energy consumed during the whole period, to deduce the energy cost of each request.
-
-\paragraph{Remark}:
-Before each benchmark, we consider a warmup period of 10 seconds to let the framework reach its steady state.
 
 \paragraph{Runtime Measurements}
 \begin{itemize}
@@ -186,27 +188,16 @@ Before each benchmark, we consider a warmup period of 10 seconds to let the fram
           %   we have 4 metrics :
     \item Total cost of the energy during each period,
     \item Total number of requests,
-    \item Average latency,
+    \item latency of the responses,
     \item Average energy cost per request.
 \end{itemize}
-
+\paragraph{Notes}
 Due to technical problems, not all the web frameworks returned the tail latency (99\%). Therefore we substitute it with the average latency during this study.
 However, for further details, the reader can always check the available values in our public repository.\footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}
 
 
-\paragraph{Architecture}
-We aim to compare the energy consumption of different web frameworks.
-For this, we consider the web framework a black box and the response to the six previous scenarios using the same database.
-To isolate the energy consumption of the web framework, the benchmark is run in a separate machine with the minimum services and the power meter.
-Figure~\ref{fig:architecture} illustrates the architecture of our system.
-
-\begin{figure}[bht]
-    \centering
-    \includegraphics[width=.8\columnwidth]{imgs/architecture}
-    \caption[Architecture]{Architecture of the experiments.}
-    \label{fig:architecture}
-\end{figure}
-
+It has been proven in the work of \citeauthor{eddie_antonio_santos_how} that Docker does not impact energy consumption.
+Thus, using containers and isolation avoids any noise of the operating system after executing one benchmark and contributes to the reproducibility of our results.
 
 \paragraph{Bias Analysis}
 We are aware of potential bias analysis regarding estimating the total energy cost, the interference of other system processes during the execution, and some external events.
@@ -219,6 +210,7 @@ Additionally, to configure the \textbf{workload} we provide the option \texttt{-
 The choice of the database is included in the Docker image.
 
 \subsection{Results \& Findings}
+
 Overall we had $8,750$ benchmarks, and all can be found in the online repository.\footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}
 In this section, we discuss these results to answer the following questions:
 \begin{itemize}
@@ -327,7 +319,7 @@ If we look at each of the programming languages from Java separately in Figure~\
 
 \paragraph{Single query}
 As mentioned before, the purpose of this scenario is to benchmark the framework efficiency to handle a single entry.
-We will first start with an average power consumption histogram to determine the frameworks' general behavior.
+We will start with an average power consumption histogram to determine the frameworks' general behavior.
 Figure~\ref{fig:av_power_db} reports the density plot of average power consumptions for all the experiments depending on the number of concurrent clients.
 As one can observe, there are three main states:
 \begin{enumerate}
@@ -440,8 +432,7 @@ This drop comes with a slight decrease in average power.
 \paragraph{Plain Text and JSON Serialization}
 In this scenario, the client hits its limit before servers, as highlighted in Figures~\ref{fig:power_requests_plaintext},\ref{fig:power_requests_json}.
 The ceiling is almost linear for the compiled frameworks and the JVM-based ones.
-This is also explained by the fact that the high level of stress is on the top, unlike in other scenarios.
-
+This is also explained by the fact that, unlike in other scenarios, the high-stress level is on top.
 \begin{figure}[hbt]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/power_requests_plaintext}
@@ -513,4 +504,3 @@ to conclude, we summarized the results in the following figure
 % \newpage
 
 % \subsubsection{tools}
-% %TODO : add a table with a single scenarios / check the website for the table
