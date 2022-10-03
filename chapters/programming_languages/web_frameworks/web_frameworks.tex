@@ -41,8 +41,8 @@ These measurements are then analyzed in depth to understand the critical criteri
     \label{fig:architecture}
 \end{figure}
 
-This section describes the environment we used during the experiments. Using the framework presented in \cref*{chapter:benchmarking}, we prepared a framework to measure the energy consumption of the web frameworks. The architecture of the experiments is presented in \cref{fig:architecture}. 
-As one can see, the system is composed of five key components: 
+This section describes the environment we used during the experiments. Using the framework presented in \cref*{chapter:benchmarking}, we prepared a framework to measure the energy consumption of the web frameworks. The architecture of the experiments is presented in \cref{fig:architecture}.
+As one can see, the system is composed of five key components:
 
 \begin{itemize}
     \item \textsf{Orchestrator} is responsible for creating Docker images for each server, starting the server, and launching the benchmarks that the client should run,
@@ -54,19 +54,19 @@ As one can see, the system is composed of five key components:
 
 Each component runs on a different machine to limit the outside impact on the server and the client. Such as the overhead of the database, creating and launching the servers, and storing the records of the experiments.
 Moreover, all the machines belong to the same cluster to avoid network overhead.
- 
+
 % We will detail each component of the experiment and the tools we used to perform them.
 
 % First, we start with the measurement context, which will cover the hardware and software components of the experiment.
 
 \subsubsection*{Measurement Context}
-This part describes the hardware and software components of the experiment.  
-\paragraph*{Hardware Settings} 
+This part describes the hardware and software components of the experiment.
+\paragraph*{Hardware Settings}
 All the tests have been executed in machines from the cluster \textsf{chetemi}~\footnote{\url{https://www.grid5000.fr/w/Hardware}} of the grid5000~\ref{cappello2010grid5000} platform.
 This cluster comprises 15 machines with 2 Intel Xeon E5-2630 v4 processors, 256 GB of RAM,  600 GB HDD + 300 GB HDD hard disk.
-For our experiment, we consider using four machines from this cluster, one for the orchestrator, one for the database server, one for the client, and one for the web server. As for the recorder part , the measures will be stored in a MongoDB Database that runs on a separate virtual machine. 
+For our experiment, we consider using four machines from this cluster, one for the orchestrator, one for the database server, one for the client, and one for the web server. As for the recorder part , the measures will be stored in a MongoDB Database that runs on a separate virtual machine.
 \paragraph*{Software Settings}
-Except for the recorder, all machines run a minimal version of Debian\,9 (4.9.0 kernel version), which enforces the core processes required for our experiment. Equipped with Docker, we can quickly deploy the web and database servers in a container. 
+Except for the recorder, all machines run a minimal version of Debian\,9 (4.9.0 kernel version), which enforces the core processes required for our experiment. Equipped with Docker, we can quickly deploy the web and database servers in a container.
 \subsubsection{Measurement Context}
 This experiment aims to highlight the energy impact of the technology stack used to develop web applications once in production.
 To do so, we will use a web application composed of several URLs; each one will be used to simulate a test scenario. Therefore the clients will be agnostic to the technology stack used by the server.
@@ -123,8 +123,8 @@ In this case, we will use 512 clients.
 
 \paragraph{Fortunes}
 The purpose of this scenario is to study the behavior of a web framework when it processes a request that requires a database query and a template rendering.
-To do so, we ask the framework to retrieve all the rows from our database (in our case, 12 rows) and then send the response as a generated HTML page. 
-The stress level varies according to the number of parallel clients. 
+To do so, we ask the framework to retrieve all the rows from our database (in our case, 12 rows) and then send the response as a generated HTML page.
+The stress level varies according to the number of parallel clients.
 
 \paragraph{Update Queries}
 This scenario puts the database write to the test.
@@ -212,30 +212,35 @@ The choice of the database is included in the Docker image.
 \subsection{Results \& Findings}
 
 Overall we had $8,750$ benchmarks, and all can be found in the online repository.\footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}
-In this section, we discuss these results to answer the following questions:
+Due to the extensive number of results (261 frameworks), we could not compare frameworks individually. Instead, we will aggregate our results based on the language family. However, in the end, we provide a dashboard that allows the reader to explore the results in more detail and compare several frameworks.
+We will group the frameworks not by language but by family so that we will have five families:
 \begin{itemize}
-    \item is there a dominating programming language when it comes to performance, energy consumption, and latency?
-    \item which class of programming language is performing well?
-    \item is there a correlation between energy consumption and latency?
-    \item is there an impact on the server when it comes to changing the database?
+    \item \textbf{compiled languages}: Rust, Go, Haskell, C++, C, Vala, Nim, Swift, Prolog, V, Ocaml, Crystal, and D;
+    \item \textbf{interpreted languages}: Javascript, Python, Lua, Php, Cfml, Racket, Ruby, Common lisp, Perl, Julia, Groovy, and Typescript;
+    \item \textbf{JVM-based languages}: Java, Kotlin, Scala, and Clojure;
+    \item \textbf{.Net-based languages}: C\#, F\# and VB;
+    \item \textbf{Other VM-based languages}: Dart and Elixir and Erlang.
 \end{itemize}
-
-Since most of the companies use the same stack, we do not aggregate the results as it may lead to confusion.
-For example, comparing the average energy consumption of each programming language will not reflect reality, particularly when we have two web frameworks at opposite ends of the spectrum.
+% In this section, we discuss these results to answer the following questions:
+% \begin{itemize}
+%     \item [\textsc{RQ}~1:] is there a dominating family language regarding performance, energy consumption, and latency?
+%     \item [\textsc{RQ}~2:] which class of family language is performing well?
+%     \item [\textsc{RQ}~3:] is there a correlation between energy consumption and latency?
+%     \item [\textsc{RQ}~4:] is there an impact on the server when it comes to changing the database?
+% \end{itemize}
 
 \subsubsection{Overall Statistics}
-% To determine which web framework/stack is performing well we need to establish some general idea about the average.
+
 To determine which web framework/stack is performing well, we need to establish some general idea about the average energy consumption and latency of the frameworks under study.
 Instead of reporting the raw energy consumption of those frameworks, we will provide some green factors to determine which one is eco-friendly and which is greedy.
 In this part, we will discuss the average behavior of the frameworks, highlight some trends, and eliminate the outliers.
-As we said in the threats to validity, being an outlier, in this case, does not mean that the web framework is not performing well; it means that the web framework is not performing well in the same way as the others within the context of this experiment.
+A gentle reminder that being an outlier, in this case, does not mean that the web framework is not performing well; it means that the web framework is not performing well in the same way as the others within the context of this experiment.
 
-On the other hand, the cost of a single request is proportional to the number of requests per second of the web framework.
-We will find a correlation between the metrics to narrow the research space.
-The Pearson correlation coefficient~\cite{zar2005spearman} will be used to determine this correlation.
-Because the Shapiro-Wilk~\cite{shapiro1968comparative} test yielded a $p$-value of 0.0 for all metrics.
-% TODO : REPHRASE THIS SENTENCE
-\begin{figure}[htb]
+First, we will perform a correlation test between the metrics to narrow the research space.
+
+Because the Shapiro-Wilk~\cite{shapiro1968comparative} test yielded a $p$-value of 0.0 for all metrics, our data do not follow a normal distribution. Therefore, we use The non-parametric test known as Pearson correlation coefficient~\cite{zar2005spearman}
+
+\begin{figure}[!h]
     \centering
     \includegraphics[width=\textwidth]{imgs/correlation_all}
     \caption{Spearman Rank Correlation between different metrics}
@@ -243,7 +248,7 @@ Because the Shapiro-Wilk~\cite{shapiro1968comparative} test yielded a $p$-value 
 \end{figure}
 
 Figure~\ref{fig:correlation} depicts the correlation between the metrics for the 6 scenarios.
-The Pearson correlation coefficient quantifies the linear correlation between two variables X and Y.
+The Pearson correlation coefficient quantifies the linear correlation between two variables, X and Y.
 It ranges from -1 to +1, with 1 being total positive linear correlation, 0 representing no linear correlation, and -1 representing whole negative linear correlation.
 The stronger the correlation, the closer the value is to 1 or -1.
 The weaker the correlation, the closer the value is to zero.
@@ -255,23 +260,20 @@ Therefore, this study will focus more on CPU energy consumption.
 For more insights about the DRAM consumption, we refer the reader to our GitHub repository.\footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}
 
 Another strong correlation is between the number of requests per second and the average cost of a single request.
-This is because the cost of a single request is proportionate to the number of requests per second of the framework since the Average Power consumption remains constant after a certain threshold of clients.
+This strong correlation happens because the cost of a single request is proportionate to the number of requests per second since the Average Power consumption remains constant after a certain threshold of clients; one should remember that this limit is different for each framework.
 
-Unlike the \emph{multiple queries and update} queries, another scenario depicts a weak correlation between latency and the number of requests per second.
+Unlike the \emph{multiple queries and update} queries, the single query scenario depicts a weak correlation between latency and the number of requests per second.
 The reason behind such an anomaly is the fact that we summarized the data when we had multiple numbers of clients.
-If we calculate the correlation when we have a fixed number of clients, like in the case of update queries (512 clients), one can notice a strong correlation.
+If we calculate the correlation when we have a fixed number of clients, like in the case of update queries (512 clients), one can notice a strong correlation. Figure~\ref{fig:scatter_db} demonstrates such a behavior. As one can notice, for each level, we observe a linear clustering.
 
-\begin{figure}[bht]
+\begin{figure}[!h]
     \centering
     \includegraphics[width=.9\columnwidth ]{imgs/scatter_db_latency_rps}
     \caption{Correlation of latency and number of requests per second for a single query}
     \label{fig:scatter_db}
 \end{figure}
 
-Figure~\ref{fig:scatter_db} demonstrates such a behavior.
-As one can notice, for each level, we observe a linear clustering.
-Therefore, we can safely focus our analysis on two variables, \emph{number of requests per second} and \emph{average energy consumption}.
-The first one will indicate the performance of the solution. Meanwhile, the second one will measure how green a framework is.
+Therefore, we can safely focus our analysis on two variables, \emph{number of requests per second} and \emph{average energy consumption}. The first one will indicate the performance of the solution. Meanwhile, the second one will measure how green a framework is.
 
 
 
@@ -282,24 +284,13 @@ The first one will indicate the performance of the solution. Meanwhile, the seco
 
 
 \subsubsection{Scenario-based Analysis}
-This section will focus on the behavior of all the scenarios' implementations.
-For visibility purposes, we will group the frameworks not by language but by family so that we will have five families:
-\begin{itemize}
-    \item \textbf{compiled languages}: Rust, C, GO and C++;
-    \item \textbf{interpreted languages}: Python, PHP and Javascript;
-    \item \textbf{JVM-based languages}: Java, Kotlin, Scala and Clojure;
-    \item \textbf{.Net-based languages}: C\#, F\# and VB;
-    \item \textbf{Other VM-based languages}: Dart and Elixir.
-\end{itemize}
-
-% TODO : change figure to table all langauges that we havent solved yet 
-Figure~\ref{fig:all_boxplot} depicts the programming language and the family for each framework.
+After establishing the general idea about the average behavior of the frameworks, we will now focus on the analysis of each scenario.
 
 \paragraph{Idle behviour}
 This part will treat average power behavior when the framework is in a rest mode.
 Figure~\ref{fig:av_power_idle} presents, a density plot for each family.
 
-\begin{figure}[bht]
+\begin{figure}[!h]
     \centering
     \includegraphics[width=1.0\columnwidth]{imgs/av_power_idle}
     \caption{Average power consumption for the idle scenario}
@@ -308,9 +299,9 @@ Figure~\ref{fig:av_power_idle} presents, a density plot for each family.
 
 As one can notice at rest, most families consume between 20 and 40 Watts, and 6\% of the compiled language frameworks consume less than 15 Watts.
 However, 50\% of Java solutions tend to consume around 50 Watts, which makes it the most greedy family.
-If we look at each of the programming languages from Java separately in Figure~\ref{fig:av_power_java_idle}, we find that Java-based implementations tend to consume around 50 Watts, while Kotlin, Clojure, and Scala consume around 30 Watts.
+If we look at each of the programming languages from Java separately in Figure~\ref{fig:av_power_java_idle}, we find that Java-based implementations tend to consume around 50 Watts. In contrast, Kotlin, Clojure, and Scala consume around 30 Watts, the same consumption as the other families.
 
-\begin{figure}[bht]
+\begin{figure}[!h]
     \centering
     \includegraphics[width=1.0\columnwidth]{imgs/av_power_java_idle}
     \caption{Average power consumption for Java-based languages in the idle scenario case}
@@ -325,54 +316,53 @@ As one can observe, there are three main states:
 \begin{enumerate}
     \item \emph{relaxed state} where the number of clients is less than 16: most of the frameworks consume around 70 Watts;
     \item \emph{average state} where the number of clients is between 16 and 64: most of the frameworks consume around 100 Watts;
-    \item Finally, the \emph{stress state} beyond 128 concurrent clients: most frameworks have a stable power consumption regardless of the number of clients.
-          This is due to the database server, which reached its maximum capacity.
+    \item Finally, the \emph{stress state} beyond 128 concurrent clients: most frameworks have a stable power consumption regardless of the number of clients. This increase in power consumption is due to the database server, which reached its maximum capacity.
 \end{enumerate}
 
-\begin{figure}[hbt]
+\begin{figure}[!h]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/histogram_av_power_cpu_db}
-    \caption{Average power consumption for the Single query test }
+    \caption{Distribution of the average power consumption for \emph{single query} scenario }
     \label{fig:av_power_db}
 \end{figure}
 
 Now that we have seen the overall distribution of the power within the single query scenario.
 We analyze each family separately.
 In addition, we include the number of \emph{requests per second} (RPS) as a performance metric of interest.
-In Figure~\ref{fig:power_requests_db}, each run is represented by a circle, and the size of the circle represents the number of concurrent clients: The smaller the circle the fewer clients.
-On the one hand, one can notice that compiled languages are the most efficient in terms of performance, despite their low energy consumption.
+In Figure~\ref{fig:power_requests_db}, each run is represented by a circle, and the size of the circle indicates the number of concurrent clients: The smaller the circle, the fewer clients.
+On the one hand, one can notice that compiled languages are the most efficient in terms of performance, despite their average energy consumption.
 Moreover, there is no significant change in the average power consumption when we increase the number of concurrent clients.
 On the other hand, the JVM-based frameworks tend to consume the most energy while reporting the same performance as the .Net-based ones.
-Finally, the interpreted languages lack performance while keeping low average power, except for PHP, as it has one of the highest RPS with a half million RPS which got beaten only by C++ and Rust.
+Finally, the interpreted languages lack performance while keeping low power, except for PHP, as it has one of the highest RPS with a half million RPS which got beaten only by C++ and Rust.
 
-\begin{figure}[hbt]
-    % \centering
+\begin{figure}[!h]
     \includegraphics[height=\textwidth,width=\textheight,keepaspectratio,angle=90]{imgs/power_requests_db}
-    \caption{Total request vs. average power consumption for the \emph{single query} benchmark (size of circles represents the number of clients)}
+    \caption{Total request vs. average power consumption for the \emph{single query} scenario (size of circles represents the number of clients)}
     \label{fig:power_requests_db}
 \end{figure}
 
 \paragraph{Multiple queries}
-This scenario benchmarks the framework's efficiency in handling multiple row queries.
-As mentioned before, this study focuses on a fixed number of concurrent clients while we increase the request size per level.
-Figure~\ref{fig:av_power_query} reports on the average power consumption for each level.
-As one can notice, the query size has no substantial impact on the average power consumption.
-Furthermore, one can notice a slight decrease in the average power consumption (from 110 watts to 90 watts) when the size is more significant than ten rows.
-This might be related to the time taken by the database to process the query.
-Therefore, one can conclude that the query size has more impact on the database than the framework itself.
-
-\begin{figure}[hbt]
+\begin{figure}[!h]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/histogram_av_power_cpu_query}
-    \caption{Average power consumption for the multiple queries }
+    \caption{Distribution of average power consumption for the \emph{multiple queries} scenario }
     \label{fig:av_power_query}
 \end{figure}
 
-Table~\ref{table:query_db_row} details the average power consumption per level for each database.
-One can see that for MySQL, there were no changes regardless of the query size, while for Postgres and MongoDB, there is a slight decrease in the average power consumption when the query size is more significant than ten rows.
-%  should add into perspective to study the energy consumption of the data base server itself 
+This scenario benchmarks the framework's efficiency in handling multiple row queries.
+As mentioned before, this study focuses on a fixed number of concurrent clients while we increase the request size per level.
 
-\begin{table*}[bth]
+Figure~\ref{fig:av_power_query} reports on the distribution average power consumption for each level.
+As one can notice, the query size has no substantial impact on the average power consumption.
+Furthermore, one can notice a slight decrease in the average power consumption (from 110 watts to 90 watts) when the size is more significant than ten rows.
+This unexpected behavior might be related to the time the database takes to process the query; therefore, the client is resting while waiting for the database answer.
+Therefore, one can conclude that the query size has more impact on the database than the framework itself.
+To verify this hypothesis, we compare the average power consumption of the database by combining all the frameworks for each database.
+Table~\ref{table:query_db_row} details the average power consumption per level for each database.
+One can see that for MySQL, there were no changes regardless of the query size, while for Postgres and MongoDB, there is a slight decrease in the average power consumption when the query size is more significant than ten rows. Therefore we can conclude that the type of database had more impact on the average power consumption than the size of the request.
+
+
+\begin{table*}[!h]
     \raggedright
     \caption{Average power consumption of frameworks based on the database type}
     \label{table:query_db_row}
@@ -388,77 +378,92 @@ One can see that for MySQL, there were no changes regardless of the query size, 
         \end{tabular}}
 \end{table*}
 
-Now that we have seen the overall distribution of power within the multiple query scenario, we can analyze each family separately.
-We consider the number of requests per second (aka RPS) as a related performance metric.
-Figure~\ref{fig:power_requests_query} presents the total RPS per level for each framework on a logarithmic scale.
-As one can notice, the difference between the best performing framework, aka Lithium,\footnote{\url{https://matt-42.github.io/lithium/}} and the worst one, aka hapi-Nginx,\footnote{\url{https://github.com/hapijs/hapi}} is $4,000$ times, while the average in power consumption is five times (120 for lithium vs. 25 for hapi).
-This highlight the importance of the target scale of the application when choosing the framework.
-Java-based frameworks tend to consume more power compared to other languages, with a slight increase in performance.
-PHP remains one of the most efficient frameworks in terms of performance while keeping low average power consumption.
 
-\begin{figure}[hbt]
+\begin{figure}[!h]
     % \centering
     \includegraphics[height=\textwidth,width=\textheight,keepaspectratio,angle=90]{imgs/power_requests_query_log}
-    \caption{Total request vs. average power consumption for the single query benchmark (size of circles represents the number of clients) }
+    \caption{Total request vs. average power consumption for \emph{multiple queries} scenario (size of circles represents the number of clients)}
     \label{fig:power_requests_query}
 \end{figure}
 
-\paragraph{Update}
-This scenario benchmarked the framework's efficiency in handling update queries.
-As mentioned before, for this study, we will focus on the fixed number of parallel clients while increasing the request size per each level.
-Figure~\ref{fig:av_power_update} presents the average power consumption for each level.
-As one can notice, the query size does not strongly impact the average power consumption.
-Moreover, the overall average power consumption decreased by 20 Watts.
+After looking at the power distribution within the multiple query scenario, we will analyze each family separately.
 
-\begin{figure}[hbt]
+We consider the number of requests per second (aka RPS) as a related performance metric.
+Figure~\ref{fig:power_requests_query} presents the total RPS per level for each framework on a logarithmic scale due to the significant performance scale between multiple frameworks.
+As one can notice, the difference between the best performing framework, aka Lithium,\footnote{\url{https://matt-42.github.io/lithium/}} and the worst one, aka Hapi-Nginx,\footnote{\url{https://github.com/hapijs/hapi}} is $4,000$ times. At the same time, the average power consumption is five times (120 for lithium vs. 25 for Hapi).This highlight the importance of the clients' number when choosing the framework.
+
+Moreover, one can notice that Java-based frameworks tend to consume more power compared to other languages, with a slight increase in performance.
+
+Finally, PHP remains one of the most efficient frameworks in terms of performance while keeping low average power consumption.
+
+
+
+\paragraph{Update}
+
+This scenario tests the framework's efficiency in handling update queries.
+As mentioned before, for this study, we will focus on the fixed number of parallel clients while increasing the request size per each level.
+Figure~\ref{fig:av_power_update} presents the distribution of average power consumption for each level.
+As one can notice, the query size does not strongly impact the average power consumption.
+Moreover, the overall average power consumption decreased by 20 Watts. This decrease might be again related to the database processing time.
+
+\begin{figure}[!h]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/histogram_av_power_cpu_update}
-    \caption{Average power consumption for the update scenario}
+    \caption{Distribution of the average power consumption for the \emph{update} scenario}
     \label{fig:av_power_update}
 \end{figure}
 
-Figure~\ref{fig:power_requests_update} reports on the number of RPS per level for each framework.
-Swoole dropped in terms of performance while reducing the average power, unlike compiled languages-based frameworks, such as lithium and actise.net, gained in terms of performance while keeping the same power consumption.
-Another interesting observation is the linearity between the drop in performance regarding requests with more than ten rows.
-This drop comes with a slight decrease in average power.
-
-\begin{figure}[hbt]
+\begin{figure}[!h]
     % \centering
     \includegraphics[height=\textwidth,width=\textheight,keepaspectratio,angle=90]{imgs/power_requests_update}
-    \caption{Total request vs. average power consumption for the Update benchmark (size of circles represents the number of clients)}
+    \caption{Total request vs. average power consumption for the \emph{Update} scenario (size of circles represents the number of clients)}
     \label{fig:power_requests_update}
 \end{figure}
+Figure~\ref{fig:power_requests_update} reports on the number of RPS per level for each framework.
+Swoole dropped in terms of performance while reducing the average power, unlike compiled languages-based frameworks, such as lithium and actise.net, which kept the same performance ranking and average power consumption.
+Another interesting observation is that for the compiled languages, both the performance and the average power consumption decrease when the size of the requests increase.
+This drop comes with a slight decrease in average power.
+
+\paragraph{Fortunes}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/power_requests_fortune}
+    \caption{Total request vs. average power consumption for \emph{Fortunes}  scenario (size of circles represents the number of clients)}
+    \label{fig:power_requests_fortunes}
+\end{figure}
+The primary purpose of this test is to show the behavior of frameworks when rendering webpages with dynamic content.
+As one can see in Figure~\ref{fig:power_requests_fortunes}, Unlike the \emph{single query} scenario. the more clients are connected, the more the performance performances increased. Moreover, we notice a drop in the performance of all interpreted lanauges, including PHP, that exceeded many compiled frameworks in the other scenarios.
 
 \paragraph{Plain Text and JSON Serialization}
-In this scenario, the client hits its limit before servers, as highlighted in Figures~\ref{fig:power_requests_plaintext},\ref{fig:power_requests_json}.
+Unforntantly, In these scenario, the client hits its limit before servers, as highlighted in Figures~\ref{fig:power_requests_plaintext},\ref{fig:power_requests_json}.
 The ceiling is almost linear for the compiled frameworks and the JVM-based ones.
 This is also explained by the fact that, unlike in other scenarios, the high-stress level is on top.
-\begin{figure}[hbt]
+\begin{figure}[!h]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/power_requests_plaintext}
-    \caption{Total request vs. average power consumption for plainText benchmark (size of circles represents the number of clients)}
+    \caption{Total request vs. average power consumption for \emph{plainText} scenario (size of circles represents the number of clients)}
     \label{fig:power_requests_plaintext}
 \end{figure}
 
-\begin{figure}[hbt]
+\begin{figure}[!h]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{imgs/power_requests_json}
-    \caption{total request vs. average power consumption for JSON Serialization test (size of circles represents the number of clients)}
+    \caption{total request vs. average power consumption for \emph{JSON Serialization} scenario (size of circles represents the number of clients)}
     \label{fig:power_requests_json}
 \end{figure}
 
-% \subsection{Threats to Validity\note{missing}}
-We are aware of the bias induced by the implementation of candidates. Therefore we propose the framework (see the part of the extension) to allow the readers to confirm any new hypothesis.
-Regarding a new framework, a new workload, a new database, etc.
-
-\subsection{Summary\note{missing}}
-to conclude, we summarized the results in the following figure
-\begin{figure}[bht]
+\section{Conclusion}
+\begin{figure}[!h]
     \centering
     \includegraphics[width=.9\columnwidth ]{imgs/all_boxplot}
     \caption{Energy consumption per request for each family of programming languages}
     \label{fig:all_boxplot}
 \end{figure}
+This section presents a study on several web frameworks' performance and power consumption. To do so, we used the \emph{TechEmpower}\footnote{\url{https://www.techempower.com/benchmarks}} benchmark suite, which is a set of tests that measure the performance of several web frameworks. We tested 261 frameworks using seven scenarios.
+We found that JAVA-based frameworks are the most power-consuming, while the complied ones are the most efficient in terms of performance. Moreover, PHP remains one of the most efficient frameworks in terms of performance and energy desptie being an interpreted language. This behavior is mainly due to the optimizaion done on the Zend engine\footnote{\url{https://www.zend.com/}} to fit the website's requirements. Furthermore, we found that the database impacts the energy consumption and the average power of the servers enven when they are not on the same machine.
+To summarize our findings, we present \cref{fig:all_boxplot}. An overall comparison of the energy consumption per request for each scenario. While we have seen in the previous results that\emph{JAVA} based frameworks depict the highest energy; they still provide greener requests compared to the interpreted frameworks; this is mainly because the interpreted lacks in performance.
+
+
 % \begin{figure}[bht]
 %     \centering
 %     \includegraphics[width=
