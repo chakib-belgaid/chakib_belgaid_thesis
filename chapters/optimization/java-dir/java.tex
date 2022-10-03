@@ -611,7 +611,7 @@ We provide practitioners with some prerequisites to check before software deploy
 
 
 \section{Tools and contributions}
-\textsf{J-Referral} is an open-source tool designed to assist developers and practitioners in selecting the most energy-efficient JVM configuration for their software..
+\textsf{J-Referral} is an open-source tool designed to assist developers and practitioners in selecting the most energy-efficient JVM configuration for their software.
 \Cref{table:j-referral} illustrates an example of the final report returned by \textsf{J-Referral}.
 The tool was tested for 2 Java projects: \textsf{Zip4J}\footnote{\url{https://github.com/srikanth-lingala/zip4j}} and \textsf{K-nucleotide}.\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/performance/knucleotide.html}}
 \textsf{Zip4J} runs a large file compression, while \textsf{K-nucleotide} extracts a DNA sequence, and updates a hashtable of k-nucleotide keys to count specific values.
@@ -644,13 +644,13 @@ The tool is available as \emph{open-source software} (OSS) from our GitHub repos
 \section{Summary}
 
 This chapter describes an empirical investigation of contrast in energy consumption that some of the most well-known and widely supported JVM platforms can exhibit as well as the important factors that can influence this energy consumption.
-During our experiments, we investigated 12 well-known and diverse-purpose Java benchmarks, as well as 52 JVMs, including many versions of 11 different distributions. 
+During our experiments, we investigated 12 well-known and diverse-purpose Java benchmarks, as well as 52 JVMs, including many versions of 11 different distributions.
 Our findings revealed that various JVMs share energy efficiency and may be classified into three major classes: \textsc{HotSpot}, \textsc{J9}, and \textsc{GraalVM}.
 However, the three JVM classes can show substantially different energy efficiency depending on the workloads and/or application.
 While there was no clear champion in terms of energy consumption,\textsc{GraalVM} recorded the highest energy efficiency for the most of benchmarks. Nevertheless, depending on the workload, each JVM can achieve higher or worse efficiency.
 One explanation could be thread management policy, as seen with \textsc{J9} when running \textsf{Avrora}.
 
-Additionally, numerous JVM settings can cause changes in energy consumption. Our experiments revealed that the JVM's default JIT compiler is frequently near-optimal in at least 80\% of the experiments. 
+Additionally, numerous JVM settings can cause changes in energy consumption. Our experiments revealed that the JVM's default JIT compiler is frequently near-optimal in at least 80\% of the experiments.
 
 On the other hand , the default GC outperformed the other strategies in just half of our experiments, with some significant benefits reported when employing different GCs based on the application characteristics. Our primary observations and recommendations can be stated as follows:
 \begin{inparaenum}[\em i)]

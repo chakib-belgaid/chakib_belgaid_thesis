@@ -279,8 +279,7 @@ Therefore, we can safely focus our analysis on two variables, \emph{number of re
 
 %  THIS might be completely changed , i think we need to check the limits of the data base 
 
-
-% intersently there is no correlation between the energy consumption of the CPU and the latency, which means that we can achieve both a low latency and a low energy consumption at the same time. 
+% inherently there is no correlation between the energy consumption of the CPU and the latency, which means that we can achieve both a low latency and low energy consumption simultaneously. 
 
 
 \subsubsection{Scenario-based Analysis}
@@ -432,7 +431,7 @@ This drop comes with a slight decrease in average power.
     \label{fig:power_requests_fortunes}
 \end{figure}
 The primary purpose of this test is to show the behavior of frameworks when rendering webpages with dynamic content.
-As one can see in Figure~\ref{fig:power_requests_fortunes}, Unlike the \emph{single query} scenario. the more clients are connected, the more the performance performances increased. Moreover, we notice a drop in the performance of all interpreted lanauges, including PHP, that exceeded many compiled frameworks in the other scenarios.
+As one can see in Figure~\ref{fig:power_requests_fortunes}, Unlike the \emph{single query} scenario. the more clients are connected, the more the performance performances increase. Moreover, we notice a drop in the performance of all interpreted languages, including PHP, that exceeded many compiled frameworks in the other scenarios.
 
 \paragraph{Plain Text and JSON Serialization}
 Unforntantly, In these scenario, the client hits its limit before servers, as highlighted in Figures~\ref{fig:power_requests_plaintext},\ref{fig:power_requests_json}.
@@ -452,7 +451,23 @@ This is also explained by the fact that, unlike in other scenarios, the high-str
     \label{fig:power_requests_json}
 \end{figure}
 
-\section{Conclusion}
+\subsection{Tools}\label{sec:tools}
+\textsf{GreenBoard}\url{https://github.com/chakib-belgaid/greenboard} is an open-source dashboard designed to assist developers and practitioners in selecting the most energy-efficient web framework based on their requirements.
+It enables the user to compare the performance and energy consumption of different frameworks. As well as filtering the frameworks based on their programming language, the database type, and other criteria.
+This dashboard is designed based on the latest results obtained from our experiments and we will keep updating it with the latest results.
+\cref*{fig:raw_table_example} presents an example of the raw obtained after selecting 7 frameworks. For the sake of versatility, we will consider the \emph{single query} scenario with two levels of clients (64 and 256).
+As one can see, although \textsf{Spark} depicts the highest amount of powers (235W), it is ranked 6th when it comes to the energy consumed per request. On the other hand, \textsf{Flask-pypy} consumed half of its power (118W) but it pays in terms of performance with ten times slower latency, and its requests cost seven times more than \textsf{Spark's} requests.
+In terms of performance and energy consumption, PHP, on the other hand, contained both, the best and the worst frameworks. Therefore one should be careful when choosing a framework and its configurations rather than just the language.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{example/thesis_exp_raw_table}
+    \caption{Example of measurement for the \emph{single query} scenario}
+    \label{fig:raw_table_example}
+\end{figure}
+
+
+\subsection{Conclusion}
 \begin{figure}[!h]
     \centering
     \includegraphics[width=.9\columnwidth ]{imgs/all_boxplot}
@@ -460,7 +475,7 @@ This is also explained by the fact that, unlike in other scenarios, the high-str
     \label{fig:all_boxplot}
 \end{figure}
 This section presents a study on several web frameworks' performance and power consumption. To do so, we used the \emph{TechEmpower}\footnote{\url{https://www.techempower.com/benchmarks}} benchmark suite, which is a set of tests that measure the performance of several web frameworks. We tested 261 frameworks using seven scenarios.
-We found that JAVA-based frameworks are the most power-consuming, while the complied ones are the most efficient in terms of performance. Moreover, PHP remains one of the most efficient frameworks in terms of performance and energy desptie being an interpreted language. This behavior is mainly due to the optimizaion done on the Zend engine\footnote{\url{https://www.zend.com/}} to fit the website's requirements. Furthermore, we found that the database impacts the energy consumption and the average power of the servers enven when they are not on the same machine.
+We found that JAVA-based frameworks are the most power-consuming, while the complied ones are the most efficient in terms of performance. Moreover, PHP remains one of the most efficient frameworks in terms of performance and energy despite being an interpreted language. This behavior is mainly due to the optimization done on the Zend engine\footnote{\url{https://www.zend.com/}} to fit the website's requirements. Furthermore, we found that the database impacts the energy consumption and the average power of the servers even when they are not on the same machine.
 To summarize our findings, we present \cref{fig:all_boxplot}. An overall comparison of the energy consumption per request for each scenario. While we have seen in the previous results that\emph{JAVA} based frameworks depict the highest energy; they still provide greener requests compared to the interpreted frameworks; this is mainly because the interpreted lacks in performance.
 
 
@@ -500,11 +515,11 @@ To summarize our findings, we present \cref{fig:all_boxplot}. An overall compari
 %     \label{fig:power_requests_json}
 % \end{figure}
 % to reduce the space of research we will be looking for some correlation 
-% same thing for the number of clients , mayebe we gonna consider 3 cases - 0 , low and high 
+% same thing for the number of clients, maybe we gonna consider 3 cases - 0, low and high 
 
-%  when comparing static vs dynamic programming langauges we exclude the ones that uses reflection aka C# and JAVA
+%  when comparing static vs dynamic programming languages we exclude the ones that use reflection aka C# and JAVA
 
-%% for more about the syntax we recommand cheking this website https://learnxinyminutes.com/
+%% for more about the syntax we recommend checking this website https://learnxinyminutes.com/
 
 % \newpage
 
