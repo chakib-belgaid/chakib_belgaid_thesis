@@ -33,7 +33,7 @@ A low PUE implies that the majority of energy is utilized to power the data cent
 We will place a greater emphasis on the software level to decrease the amount of energy that is used, more particularly in the execution phase of the program cycle.
 We will be proceeding through an empirical analysis of the energy consumption of the software while changing some components of the source code without impacting its behavior.
 To do this, we will elaborate on a benchmarking process and a set of tools intended to assist practitioners in better comprehending and optimizing the energy usage of their applications.
-Thus, we will begin by examining state of the art in empirical analysis and retrieving the best empirical experimentation methodologies in the research field. Then, we will narrow these practices down to computer science so we can finally adapt them to energy consumption.
+Thus, we will begin by examining the state of the art in empirical analysis and retrieving the best empirical experimentation methodologies in the research field. Then, we will narrow these practices down to computer science so we can finally adapt them to energy consumption.
 
 Section~\ref{sec:soa_benchmarking} will discuss the pitfalls and best practices associated with empirical research before applying them to our field of interest.
 After that Section~\ref{sec:soa_energymeasurement} describes software energy measurements.
@@ -221,7 +221,7 @@ Such as \em{IBM EnergyScale technology}~\cite{mccreary2007energyscale,caldeira20
 As said earlier, the true purpose of those tools is more monitoring than analyzing energy consumption.
 %% add something to link with wattsup pro 
 WattsUp Pro is a device that can be installed between the power source of the machine and the system under test.
-It allows a sampling frequency of up to 1\,Hz. It has an internal memory to store a wide variety of data, such as the maximum voltage and current, that can later be exported via USB port for personal usage or lined to graph programs like Logger Pro or LabQuest.
+It allows a sampling frequency of up to 1\,Hz. It has an internal memory to store a wide variety of data, such as the maximum voltage and current, that can later be exported via a USB port for personal usage or lined to graph programs like Logger Pro or LabQuest.
 The main advantage of this tool is the ability to monitor the energy consumption from a different device which will reduce the risk of interference with the energy consumption of the test~\cite{hirst2013watts}
 Despite its high temporal sampling, WattsUp Pro lacks spatial granularity since it monitors the energy consumption of the whole system.
 To have finer granularity, we need to isolate the energy consumption of each component.
@@ -334,7 +334,7 @@ Applying the benchmarking guidelines and repeating the same experiment within th
 This difference---also called \emph{energy variation} (EV)---has seriously threatened the accuracy of experimental evaluations.
 
 Figure~\ref{fig:motivation} illustrates this variation problem as a violin plot of $20$ executions of the benchmark \emph{Conjugate Gradient} (\textsf{CG}) taken from the \emph{NAS Parallel Benchmarks} (NBP) suite~\cite{Bailey:1991:NPB:125826.125925}, on $4$ nodes of an homogeneous cluster (the cluster \textsf{Dahu} described in Table~\ref{table:g5k}) at 50\,\% workload.
-We can observe a consedirable variation of the energy consumption, not only among homogeneous nodes but also at the scale of a single node, reaching up to $25\,\%$ in this example.
+We can observe a considerable variation of the energy consumption, not only among homogeneous nodes but also at the scale of a single node, reaching up to $25\,\%$ in this example.
 
 \begin{figure}%[!htb]
     \center{\includegraphics[width=.9\linewidth]{imgs/motivation}}
@@ -386,10 +386,7 @@ The first part of this section will focus on energy optimizations in the concept
 
 We start with the work of \citeauthor{pereira_energy_2017} where they did an energy consumption comparison analysis of the most popular programming languages.
 The paper recommends combining some of these languages to enhance code quality while considering execution time, memory utilization, and energy consumption using the Pareto optimum~\cite{hochman1969pareto}. Some of the study's findings demonstrate that interpreted languages, such as Python, have lower energy efficiency than compiled languages, such as C or Rust. The research also offers language combinations that developers might use to improve energy economy, execution speed, and memory utilization.
-This paper's findings were based on the game benchmark, the most famous benchmark comparing several programming languages.
-
-
-This paper defines a ranking of energy efficiency in programming languages. We considered a set of computing problems implemented in ten well-known programming languages and monitored the energy consumed when executing each language. Our preliminary results show that although the fastest languages tend to be the lowest energy-consuming ones, there are other interesting cases where slower languages are more energy-efficient than faster ones.
+This paper's findings were based on the game benchmark\footnote{\url{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}}, the most famous benchmark comparing several programming languages.
 
 \citeauthor{couto2017towards} investigated the influence of programming language choice on the energy consumption of software during execution. In their paper~\cite{couto2017towards}, they examined a set of computing problems written in ten well-known programming languages while observing the energy required when running each language. They also found exciting situations where slower languages use less energy than faster ones, even though fast languages usually use the least energy.
 Finally, they produced an energy efficiency rating of programming languages.
@@ -524,7 +521,7 @@ As for python, \citeauthor{redondo_comprehensive_2015} compared the performance 
 
 
 \section{Conclusion}
-As we have seen in state of the art, many methods have been proposed to reduce the ICT's energy footprint, which can be applied in different parts of the program's lifecycle, from consumption to execution.
+As we have seen in the state of the art, many methods have been proposed to reduce the ICT's energy footprint, which can be applied in different parts of the program's lifecycle, from consumption to execution.
 Furthermore, the execution phase took the attention of many researchers because it is the part where the most energy is consumed.
 This thesis will focus on that aspect as well.
 However, unlike most work done on the hardware aspect, we will target the software impact on this energy, starting from the choice of the programming language to how to tune some features of a framework to make the software consumes less energy.
