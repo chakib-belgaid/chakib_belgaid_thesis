@@ -468,16 +468,23 @@ In terms of performance and energy consumption, PHP, on the other hand, containe
 \end{figure}
 
 
-\subsection{Conclusion}
+\subsection{Summary}
 \begin{figure}[!h]
     \centering
     \includegraphics[width=.9\columnwidth ]{imgs/all_boxplot}
     \caption{Energy consumption per request for each family of programming languages}
     \label{fig:all_boxplot}
 \end{figure}
-This section presents a study on several web frameworks' performance and power consumption. To do so, we used the \emph{TechEmpower}\footnote{\url{https://www.techempower.com/benchmarks}} benchmark suite, which is a set of tests that measure the performance of several web frameworks. We tested 261 frameworks using seven scenarios.
-We found that JAVA-based frameworks are the most power-consuming, while the complied ones are the most efficient in terms of performance. Moreover, PHP remains one of the most efficient frameworks in terms of performance and energy despite being an interpreted language. This behavior is mainly due to the optimization done on the Zend engine\footnote{\url{https://www.zend.com/}} to fit the website's requirements. Furthermore, we found that the database impacts the energy consumption and the average power of the servers even when they are not on the same machine.
-To summarize our findings, we present \cref{fig:all_boxplot}. An overall comparison of the energy consumption per request for each scenario. While we have seen in the previous results that \emph{JAVA} based frameworks depict the highest energy; they still provide greener requests compared to the interpreted frameworks; this is mainly because the interpreted lacks in performance.
+
+This section presents a study on several web frameworks' performance and power consumption.
+To do so, we used the \emph{TechEmpower}\footnote{\url{https://www.techempower.com/benchmarks}} benchmark suite, which is a set of tests that measure the performance of several web frameworks.
+We tested $261$ frameworks using $7$ scenarios.
+We found that Java-based frameworks are the most power-consuming, while the complied ones are the most efficient in terms of performance.
+Moreover, PHP remains one of the most efficient frameworks in terms of performance and energy despite being an interpreted language.
+This behavior is mainly due to the optimization done on the Zend engine\footnote{\url{https://www.zend.com/}} to fit the website's requirements.
+Furthermore, we found that the database impacts the energy consumption and the average power of the servers even when they are not on the same machine.
+To summarize our findings, we present in \cref{fig:all_boxplot} a comparison of the energy consumption per request for each scenario. 
+While we have seen in the previous results that Java-based frameworks depict the highest energy; they still provide greener requests compared to the interpreted frameworks; this is mainly because their interpreters report lower performances.
 
 
 % \begin{figure}[bht]

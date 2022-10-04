@@ -288,19 +288,29 @@ The rest could be divided into two categories:
 
 % \subsection{Threads to Validity \note{missing}}
 
-\subsection{Conclusion}
+\subsection{Summary}
 
-This section presents a study on the impact of programming languages on the energy for request handling. To do that, we used an implementation of 25 frameworks based on 17 programming languages.
+This section reports on a study on the impact of programming languages on the energy for request handling.
+To do that, we used an implementation of $25$ frameworks based on $17$ programming languages.
 These servers use the official RPC protocol, reducing programmers' bias toward specific languages.
 
 The results show that the number of clients had a binary effect on the servers.
-With a small number of clients, there was no typical behavior between different categories. On the other hand, when dealing with a more significant number of clients,  interpreted languages and compiled ones dropped in terms of performance while keeping the same average power, unlike the Vm~based ones that increased their average power while keeping the same performances. Overall the second strategy had a better impact on the single request cost than the first one.
+With a small number of clients, there was no typical behavior between different categories.
+On the other hand, when dealing with a more significant number of clients, interpreted languages and compiled ones dropped in terms of performance while keeping the same average power, unlike the VM-based ones that increased their average power while keeping the same performances.
+Overall, the second strategy had a better impact on the single request cost than the first one.
 
 As for the evolution of the query size, we have seen three modes of behavior for each framework, depending on the size of the requests: the stress-free mode, the escalation mode, and the broken state mode.
-We start with the stress-free mode. The leader class was the compiled languages, while the VM-based ones tended to consume more energy.
-Finally, with the escalation mode. one could observe three strategies to deal with the increase in request size. The first strategy was to drop in performance while keeping the same power; the second was to increase the average power consumption without impacting the performance; the third was a combination of both previous strategies with an increase in power and a drop in performance. Interestingly the third strategy had a lower cost per request than the first one.
-Finally, most implementations could not handle requests heavier than 10 MB for the broken mode. Elixir was an exception to this limit despite its low performance compared to other languages
+We start with the stress-free mode.
+The leader class was the compiled languages, while the VM-based ones tended to consume more energy.
+Finally, with the escalation mode, one could observe three strategies to deal with the increase in request size.
+The first strategy tends to drop performances while consuming the same power; the second was to increase the average power consumption without impacting the performances; the third was a combination of both previous strategies with an increase in power and a drop in performance.
+Interestingly, the third strategy had a lower cost per request than the first one.
+Finally, most implementations could not handle requests heavier than 10 MB for the broken mode.
+Elixir was an exception to this limit despite its low performance compared to other languages.
 
-This study shows the absence of a universal language when dealing with RPC requests. Moreover, each implementation had a different way of dealing with scalability. While some chose to increase the average power consumption, others dropped in performance. Both of these strategies led to a higher cost of a single request.
+This study shows the absence of a universal language when dealing with RPC requests.
+Moreover, each implementation had a different way of dealing with scalability.
+While some chose to increase the average power consumption, others dropped in performance.
+Both of these strategies led to a higher cost of a single request.
 
 \clearpage

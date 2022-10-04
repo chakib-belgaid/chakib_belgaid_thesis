@@ -59,21 +59,32 @@ These measurements are then analyzed in depth to understand the critical criteri
 
 \import{\currfiledir/web_frameworks}{web_frameworks}
 
-\section{Summary}
-
-this chapter aims to extend the work of \citeauthor{pereira_energy_2017}~\cite{pereira_energy_2017} by studying the energy footprint on other aspects than micro-benchmarking.
-The main focus of this chapter is the behavior of programming languages within the context of web servers. To do so, we have chosen to study cases.
-The first experiment is the impact of programming languages when handling the RPC protocol. We used the official implementation of \textsc{gRPC} library to build 25 frameworks using 17 programming languages.
+\section{Conclusion}
+This chapter aims to extend the work of \citeauthor{pereira_energy_2017}~\cite{pereira_energy_2017} by studying the energy footprint on other aspects than micro-benchmarking.
+The main focus of this chapter is the behavior of programming languages within the context of web applications.
+To do so, we have covered two case studies.
+The first experiment is the impact of programming languages when developing RPC services.
+We used the official implementation of \textsc{gRPC} library to build $25$ frameworks using $17$ programming languages.
 In the second experiment, we look at how web frameworks affect energy consumption by creating a basic web application and comparing its performance, latency, and energy usage using the most common web frameworks.
 Overall we had $261$ implementation using $35$ and three different databases.
-For each implementation, we considered seven typical scenarios. Each scenario is tested with several stress levels to study the scalability of the web frameworks. Therefore the final results are an $8,750$ use case.
+For each implementation, we considered $7$ representative scenarios.
+Each scenario is tested with several stress levels to study the scalability of the web frameworks.
+Therefore, the final results cover $8,750$ use cases.
 
-Our studies revealed the absence of a clear winner in terms of energy efficiency. However, when we take into consideration the cost of a single request. C++ and Rust were the top-ranked. These results confrim the work done by \citeauthor{pereira_energy_2017}. On the other hand, Unlike the results shown in the paper \cite{pereira_energy_2017}, \textsf{PHP} exhibits a higher performance while keeping an average power consumption 
+Our studies revealed the absence of a clear winner in terms of energy efficiency.
+However, when we take into consideration the cost of a single request.
+C++ and Rust were the top-ranked, hence assessing the work done by \citeauthor{pereira_energy_2017}.
+On the other hand, Unlike the results shown in the paper \cite{pereira_energy_2017}, \textsf{PHP} exhibits a higher performance while keeping a high power consumption on average.
 This result is due to the nature of \textsf{PHP} language, which is dedicated to the web and not general-purpose programming. 
-While most of the frameworks consumed around $100 watts$, \textsf{JAVA} based frameworks consumed around $220 watts$. which made it one of the most energy-consuming in the long run, especially when considering the times when there is low traffic.  
+While most of the frameworks consumed around $100 watts$, \textsf{Java}-based frameworks consumed around $220 watts$.
+This made \textsf{Java} one of the most energy-consuming in the context of online services, especially when considering the periods with low traffic.  
 
-Finally, this study revealed that each framework had different behaviors toward scalability. Some of them increased the average power consumption while trying to keep up with the performance. Others, on the other hand, could keep the average power consumption while decreasing the performance. Furthermore, there was a case where there was a mix between both strategies. 
+Finally, this study revealed that each framework had different behaviors towards scalability.
+Some of them increased the average power consumption while trying to keep up with the performance.
+Others, on the other hand, could keep the average power consumption while decreasing the performance.
+Furthermore, there was a case where there was a mix between both strategies. 
 
-As there is no final answer to the question of which framework is the most energy-efficient, we provide developers with a tool to help them compare between frameworks based on their needs. The criteria we used to compare frameworks are the scenario type, the stress level, and the database type.
+As there is no final answer to the question of which framework is the most energy-efficient, we provide developers with a tool to help them compare between frameworks based on their needs.
+The criteria we used to compare frameworks are the scenario type, the stress level, and the database type.
 
 % The tool is available at \url{https://github.com/chakib-belgaid/greenboard}
