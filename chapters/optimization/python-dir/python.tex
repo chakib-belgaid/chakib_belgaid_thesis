@@ -440,7 +440,7 @@ We discovered that this energy consumption increases exponentially while the mod
 As a result, a reduction in accuracy can result in considerable energy savings.
 We investigated how data structures, parallelism, and iterative methods affect energy use.
 
-As for web development, we looked at a website built with Django, which is one of the most popular web frameworks in the Python community.
+As for web development, we study a website built with Django, which is one of the most popular web frameworks in the Python community.
 We found that fetching the data from the database consumes most of the energy during the request processing phase.
 Therefore, Django-based web servers can use up to ten times less energy if the developer chooses the write strategy to fetch the data.
 
@@ -449,11 +449,11 @@ We found that the built-in functions and the best practices for writing Python c
 This energy efficiency is because most of these built-in functions are written in a lower programming language, C.
 
 Finally, we studied the impact of concurrency on energy consumption for Python applications.
- We found that the multi-processing strategy is the most energy-efficient one.
- However, this strategy should be used cautiously.
- This study demonstrates that the optimal number of processes is equal to the number of physical cores, and exceeding this number will cause the application to loose its efficiency in both performance and energy consumption.
- As for the multithreading strategy, we found that the Python interpreter is not thread-safe, which leads to a slower performance than the sequential one.
- However, this also leads to lower power consumption, which sometimes overcomes the lack of performance to make the application more energy-efficient.
+We found that the multi-processing strategy is the most energy-efficient one.
+However, this strategy should be used cautiously.
+This study demonstrates that the optimal number of processes is equal to the number of physical cores, and exceeding this number will cause the application to lose its efficiency in both performance and energy consumption.
+As for the multithreading strategy, we found that the Python interpreter is not thread-safe, which leads to a slower performance than the sequential one.
+However, this also leads to lower power consumption, which sometimes overcomes the lack of performance to make the application more energy-efficient.
 
 In the second section, we presented a non-intrusive technique to optimize the energy consumption of Python-based apps without making substantial changes to the code.
 This technique consists in guiding the choice of the Python runtime implementation.
