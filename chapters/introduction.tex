@@ -1,4 +1,4 @@
-\chapter{Introduction }
+\chapter{Introduction}
 \label{chapter:introduction}
 
 Nowadays, computers are invading our daily lives, from work to leisure, from fancy smartphones to embedded peacemakers that regulate the heartbeat of people.
@@ -20,7 +20,7 @@ Meanwhile, the second solution is to provide new sources of energy, such as nucl
 While there are many fields where one can optimize energy consumption. Our focus is on the Information and Communication Technology (ICT) sector, which is expected to account for around 4\% of global greenhouse gas (GHG) emissions in 2020, with an alarming 8\% growth rate, according to the French think tank The Shift Project\footnote{\url{ https://www.theshiftproject.org/article/ict-environmental-impact/}}. 
 According to \emph{Statista}, the Energy consumption of ICT increased from 4.3 exajoules in 2018 to 5.8 exajoules in 2025\footnote{\url{https://www.statista.com/statistics/271139/energy-consumption-of-ict-worldwide}}.
 \begin{figure}[!h]
-    \includegraphics[width=\linewidth]{chapters/distribution_of_ict_consumption.png}
+    \includegraphics[width=0.8\linewidth]{chapters/distribution_of_ict_consumption.png}
     \caption{Final energy consumption of digital technologies by item in 2017}
     \label{fig:distribution_of_ict_consumption}
 \end{figure}
@@ -52,19 +52,33 @@ The best way to do so is to formulate a theory behind the energy consumption of 
 Unfortunately, this is not possible in the current state of the art. Due to the lack of knowledge about the energy consumption of the algorithms, and the strong correlation between this consumption and the hardware configuration.
 Unlike algorithm optimization in the field of performance, which is agnostic toward the platform, the energy consumption of the algorithms is dependent on the execution environment.
 Therefore, for the moment we will start by formulating some hypotheses and explore them using empirical analysis.
-Figure~\ref{fig:thesis_position} highlights this thesis's position on the sustainability of ICT; while this thesis only addresses a small portion of ICT's energy usage, we feel it is a step in the right direction for additional solutions to mature in order to preserve humanity.
-
-\subsection*{Objectives}
-As seen in  our thesis is positioned in the brick of software optimization in the field of energy consumption. 
-Our main objective is to reduce the energy consumption using 
-% \url{https://www.statista.com/statistics/871513/worldwide-data-created/}
-% https://www.iea.org/reports/data-centres-and-data-transmission-networks
-
+Figure~\ref{fig:thesis_position} highlights this thesis's position on the sustainability of ICT\@; while this thesis only addresses a small portion of ICT's energy usage, we feel it is a step in the right direction for additional solutions to mature in order to preserve humanity.
 \begin{figure}[!h]
     \caption{Our position in the IT sustainability research}
     \label{fig:thesis_position}
     \includegraphics[width=0.8\textwidth,height=\textheight,keepaspectratio]{chapters/thesis_position.pdf}
 \end{figure}
+\subsection*{Objectives}
+
+The purpose of this thesis is to help developers build more energy-efficient software. Unfortunately, when it comes to the energy consumption of programs, there is a lack of awareness and knowledge among software developers~\cite{ournani2020reducing,pang2015programmers,pinto2014mining}. This is mainly due to the lack of tools that can help developers understand the energy consumption of their programs. Therefore we aim, to provide clear, understandable, and easy-to-use tools and guidelines that can help developers reduce the energy consumption of their programs. 
+
+First, we create a benchmarking protocol that serves researchers and practitioners, experimenting with their approaches and solutions to reduce the energy consumption of programs. 
+Then. using this protocol, we analyze and try to optimize the energy consumption of one of the most popular programming languages, Python. We first study python within its most use cases, machine learning, and web Development. Then we try to optimize the energy consumption on the outer side, this can be achieved by targeting the interpreter itself. 
+
+After that, we continue our non-intrusive approach, by targeting the impact of the virtual machine on the JAVA code. This not only helps practitioners improve their software energy without changing their code, but is also beneficial for reducing the energy consumption of the legacy code with almost zero cost. 
+
+Finally, we will shift our focus to other programming languages and compare the energy consumption of different programming languages. 
+We consider two main use cases. The RPC protocol, and web servers.
+
+
+
+
+
+
+% \url{https://www.statista.com/statistics/871513/worldwide-data-created/}
+% https://www.iea.org/reports/data-centres-and-data-transmission-networks
+
+
 
 
 
@@ -77,10 +91,6 @@ Our main objective is to reduce the energy consumption using
 %     \item : we will present the impact of programming languages on the energy consumption of the algorithms especially when it comes to web services.
 %     \item : as a perspective, we introduce the impact of parallelism on the energy consumption on time agnostic cases
 % \end{enumerate}
-
-
-\section{Motivation}
-
 
 \section{Research Contributions}
 
