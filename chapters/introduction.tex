@@ -1,74 +1,89 @@
-\newpage
-
-\chapter{Introduction \note{missing}}
-
+\chapter{Introduction }
 \label{chapter:introduction}
 
-Nowadays, computers are invading our daily lives, from work to leisure, from fancy smartphones to an embedded peacemaker that regulates the heartbeat of people.
-As human beings, we are known to use tools to enhance our bodies. And thanks to computers, we pushed that step even further, to the point where now we are using machines to extend our brains. Some even argue that one day they will replace us, and therefore we have created our own ending.
+Nowadays, computers are invading our daily lives, from work to leisure, from fancy smartphones to embedded peacemakers that regulate the heartbeat of people.
+As human beings, we are known to use tools to enhance our bodies. Moreover, thanks to computers, we pushed that step even further, to the point where now we are using machines to extend our brains, from equation solvers to tools to recommend to us where we should invest our money, what we should eat, and even who fits best as our partner.
+One major aspect of computers that became omnipresent in our lives is the Internet, which is a network of networks that connects millions of computers all over the world. According to Internet World Stats\footnote{\url{https://www.internetworldstats.com/stats.htm}}. The number of people connected to the Internet has increased by 4.4 billion in 2019, reaching 4.54 billion worldwide, or 59.2\% of the world population.
 
+The internet has evolved from a place where government researchers share information in the 60s to a means of Communication at the beginning of the century, and now it is a place where we can find almost anything we want, from information to entertainment, from social media to e-commerce.
 
-from 4.3 exajoules in 2018 to 5.8 exajoules in 2025\footnote{\url{https://www.statista.com/statistics/271139/energy-consumption-of-ict-worldwide}}.
-https://www.iea.org/reports/data-centres-and-data-transmission-networks
+At present, a large chunk of the global economy and most governments have shifted their operations to the Internet, at least partially and sometimes wholly; this includes online shops, banking, advertising, video and music consumption, and even public functions. 
 
-The Internet of Things (IoT) is one of the most popular topics in computer science and engineering, and it is expected to be a very important part of our lives in the future
-However, the energy consumption of ICT equipment is also expected to increase,
+Moreover, Due to The pandemic caused by COVID-19 disease, the world has been forced to adapt to a new way of living, which has been accelerated by the Internet. The Internet has become a necessity for people to work, study~\cite{naresh2020education}, and even health consultations \cite{liaw2021primary}.
 
-Well, this is the problem for the future generations. For the moment, the main concern of humanity is to keep this planet liveable until we find another alternative.
-The number of data centers is expected to increase from 1.6 million in 2018 to 2.1 million in 2025, according to [16].
+On the other hand, as humanity, we face a major challenge, which is climate change. The Intergovernmental Panel on Climate Change (IPCC) has warned that the world has only 12 years to limit the global temperature rise to 1.5\degree C and that the world has to reach net-zero emissions by 2050 to avoid the worst effects of climate change. The IPCC has also warned that the world has to reduce its emissions by 45\% by 2030 to reach the 1.5\degree C target~\cite{portner2022climate}.
 
-The number of people connected to the Internet has increased by 4.4 billion in 2019, reaching 4.54 billion worldwide, or 59.2\% of the world population, according to the Internet World Stats\footnote{\url{https://www.internetworldstats.com/stats.htm}}.
+To survive, we have come up with three solutions,
+The first one includes finding a new planet that we can populate and live on\footnote{\url{https://en.wikipedia.org/wiki/Interstellar_(film)}}, which is called the Planetary Migration~\cite{mapstone2022cyanobacteria}.
+Meanwhile, the second solution is to provide new sources of energy, such as nuclear energy, wind energy, and even fusion energy~\cite{gross1984fusion}. The third solution is to reduce our emissions, which is the main focus of this thesis.
 
-\begin{figure}
+While there are many fields where one can optimize energy consumption. Our focus is on the Information and Communication Technology (ICT) sector, which is expected to account for around 4\% of global greenhouse gas (GHG) emissions in 2020, with an alarming 8\% growth rate, according to the French think tank The Shift Project\footnote{\url{ https://www.theshiftproject.org/article/ict-environmental-impact/}}. 
+According to \emph{Statista}, the Energy consumption of ICT increased from 4.3 exajoules in 2018 to 5.8 exajoules in 2025\footnote{\url{https://www.statista.com/statistics/271139/energy-consumption-of-ict-worldwide}}.
+\begin{figure}[!h]
     \includegraphics[width=\linewidth]{chapters/distribution_of_ict_consumption.png}
     \caption{Final energy consumption of digital technologies by item in 2017}
     \label{fig:distribution_of_ict_consumption}
 \end{figure}
 
-All these new activities have increased the overall environmental footprint of the Information and Communication Technology (ICT) sector, which is estimated to be responsible for approximately 4\% of the greenhouse gaz (GHG) emissions worldwide in 2020 with a worrying 8\% growth rate, according to the French think tank The Shift Project [137], or 2\% according to [13], a similar number to the aviation sector contribution.
+Figure~\ref{fig:distribution_of_ict_consumption} shows the distribution of ICT consumption in 2018, where the largest chunk of the energy consumption is due to data usage, aka 55\% of the energy consumed where 35\% of this energy is used by data centers. Reducing energy consumption means reducing the impact 19\% of the ICT energy consumption has on the environment. 
 
-    [137]: https://www.theshiftproject.org/article/ict-environmental-impact/
+In 2020, the market for data center services was worth 48.9 billion\$. It is thought that this number will go up to 105.6 billion\$ by 2026~\cite{inshakova2022data}. This growth is caused mainly by:
+\begin{itemize}
+    \item Shift to remote lifestyle: work, education, and entertainment.
+    \item Increase in the number of connected devices (IoT)
+    \item Development of data-hungry technologies such as Machine learning, AI, Big data, and so on.
+    \item Edge computing and 5G.
+\end{itemize} 
 
-[13]: https://www.theguardian.com/environment/2020/jan/06/tech-industry-emissions-soar-at-double-rate-of-aviation-and-shipping
+With this increase in the number of data centers comes an increase in energy consumption, which is a major problem for the environment. 
+in 2018 datacenters consumed around 205 terawatt-hours (TWh)\cite{schneider2021world} which is equivalent to the energy consumption of 1\% of the total world's electricity. This ratio increased up to 1.5 \% in 2020 according to the Journal of Science~\cite{mytton2021data}.Figure~\ref{fig:data_centers_power_distribution}, as one can see, While 40\% of the energy consumed by data centers is used for cooling, another 40\% is used by the servers themselves. Therefore optimizing these two aspects can have a major impact on the energy consumption of data centers.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{chapters/data_centers_power_distribution}
+    \caption{Distribtuion of power consumption in a data-center\cite{rong2016optimizing}}
+    \label{fig:data_centers_power_distribution}
+\end{figure}
 
+Researchers are trying to reduce the energy consumption of data centers through different angles. Some of the works are focused on the hardware side, such as using new hardware architectures that are more energy-friendly, such as the use of GPUs instead o ARM processors instead of CPUs~\cite{aroca2012towards}. Others are trying to optimize the cooling system, this can be achieved by using more efficient cooling systems, putting data centers in cold locations or under water~\cite{simon2018project}, or even using the waste heat for other purposes such as heating buildings\cite{bouzel2021distributed,cao2021carbon}. 
 
+A third approach is to optimize the software, by making software more energy-efficient. In this thesis, we focus on this approach, and we try to optimize the software by reducing the number of computations that are done by the software. 
 
-Unfortunately those machines doesn't help that much. as according to .... ....
-
-
-Researchers are trying to solve this issue through different angles.
-While some scientists are trying to find an alternative green source to generate energy. others focus on reducing this energy consumption.
-In computer science we are concerned with the ladder solution %reference.
-Therefore most of the works are done on tunning the software and the hardware in order to have a more efficient way use this energy. %more efficient way of producing programs from electricity? 
-%say about hardware (i.e. superconductive materials with zero resistance)
-In this thesis we are trying to find a way to make the energy consumption of the computer to be as low as possible. %on the software level
-%More precisely, the purpose of this thesis is to highlight (attract attention to?) the impact of programers' choices on energy comsumption of software while running the code and to advise them with the strategies to write the greenest possible code.
-Our approach is to reduce the energy consumption of the software services by changing certain parameters, such as platform, programming language, and/or the design pattern.
-
-The best way to do so is to formulate a theory behind the energy consumption of algorithm, such as the complexity and the o notation.
-Unfortunately this is not possible in the current state of the art. due to the lack of knowledge about the energy consumption of the algorithms, and the strong correlation between this consumption and the hardware configuration.
-
-Unlike algorithm optimization in the field of performance, which is agnostic toward the platform, the energy consumption of the algorithms is dependent on execution environment.
-Therefore, for the moment we will start by formulating some hypothesis and explore them using empirical analysis.
-
-Our work will be presented through the following chapters:
-\begin{enumerate}
-    \item \ref{chapter:literature_review}: Where we discuss the work done on the energy consumption and optimization in software engineering
-    \item \ref{chapter:benchmarking}: It will present a set of guidelines and tools to help practitioners measure the energy consumption of their algorithms.
-    \item : it will discuss the behaviour of python and the possibile ways to tune it in ordrer to reduce the energy consumpion
-    \item : will present a study on java programming language and the impact of the JVM choice on the energy consumpion
-    \item \item : we will present the impact of programming languages on the energy consumption of the algorithms specially when it comes to web services .
-    \item : as a prespective we introduce the impact of parallelisme on the enrgy consumption on time agnostic cases
-\end{enumerate}
+The best way to do so is to formulate a theory behind the energy consumption of algorithms, such as the complexity and the o notation.
+Unfortunately, this is not possible in the current state of the art. due to the lack of knowledge about the energy consumption of the algorithms, and the strong correlation between this consumption and the hardware configuration.
+Unlike algorithm optimization in the field of performance, which is agnostic toward the platform, the energy consumption of the algorithms is dependent on the execution environment.
+Therefore, for the moment we will start by formulating some hypotheses and explore them using empirical analysis.
 
 
 
+\subsection*{Objectives}
 
-....
+% \url{https://www.statista.com/statistics/871513/worldwide-data-created/}
+
+
+
+% https://www.iea.org/reports/data-centres-and-data-transmission-networks
+
+
+\begin{figure}[!h]
+    \caption{Our position in the IT sustainability research}
+    \label{fig:thesis_position}
+    \includegraphics[width=0.8\textwidth,height=\textheight,keepaspectratio]{chapters/thesis_position.pdf}
+\end{figure}
+
+
+
+% Our work will be presented in the following chapters:
+% \begin{enumerate}
+%     \item \ref{chapter:literature_review}: Where we discuss the work done on energy consumption and optimization in software engineering
+%     \item \ref{chapter:benchmarking}: It will present a set of guidelines and tools to help practitioners measure the energy consumption of their algorithms.
+%     \item : it will discuss the behavior of python and the possible ways to tune it in order to reduce the energy consumption
+%     \item : will present a study on java programming language and the impact of the JVM choice on the energy consumption
+%     \item : we will present the impact of programming languages on the energy consumption of the algorithms especially when it comes to web services.
+%     \item : as a perspective, we introduce the impact of parallelism on the energy consumption on time agnostic cases
+% \end{enumerate}
 
 
 \section{Motivation}
-....
 
 
 \section{Research Contributions}
