@@ -113,7 +113,7 @@ We employ a variable number of clients to measure the energy usage of the web fr
 
 \paragraph{Multiple Queries}
 This benchmark aims to observe the behavior of a web framework when it processes multiple entries from the database.
-Therefore, each request is processed by fetching multiple rows from a simple database table and serializing these rows as a JSON response.
+Therefore, as a result, each request is handled by retrieving numerous rows from a simple database table,then serializing them as a JSON response.
 This benchmark's purpose is to observe a web framework's behavior while increasing the number of rows.
 In this case, we will use 512 clients.
 % and alter the
@@ -127,14 +127,14 @@ To do so, we ask the framework to retrieve all the rows from our database (in ou
 The stress level varies according to the number of parallel clients.
 
 \paragraph{Update Queries}
-This scenario puts the database write to the test.
+This scenario puts the database \texttt{write} to the test.
 Each request is handled by retrieving numerous rows from a simple database table, turning the rows into in-memory objects, altering one attribute of each object in memory, individually updating each related row in the database, and serializing the list of objects as a JSON response.
 Like the previous benchmarks, we will use 512 clients and vary the number of rows retrieved from the database according to the stress level.
 
 \paragraph{Plain Text}
-In this scenario, the framework responds with the most straightforward response: a \texttt{"Hello, World"} message rendered as plain text.
-The response size is kept small so that gigabit Ethernet is not the limiting factor for all implementations.
-HTTP pipelining is enabled, and higher client-side concurrency levels are used for this benchmark.
+In this scenario, the server responds with a simple message, \texttt{"Hello, World!"} in plain text.
+Thanks to the small message size, we can enable the HTTP pipelining on the client side, which leads to greater client-side concurrency levels.
+
 
 \paragraph{JSON Serialization}
 In this scenario, the server returns a new instance of a JSON object with the following structure. \texttt{\{"message": "Hello, World!"\}}.
@@ -483,7 +483,7 @@ We found that Java-based frameworks are the most power-consuming, while the comp
 Moreover, PHP remains one of the most efficient frameworks in terms of performance and energy despite being an interpreted language.
 This behavior is mainly due to the optimization done on the Zend engine\footnote{\url{https://www.zend.com/}} to fit the website's requirements.
 Furthermore, we found that the database impacts the energy consumption and the average power of the servers even when they are not on the same machine.
-To summarize our findings, we present in \cref{fig:all_boxplot} a comparison of the energy consumption per request for each scenario. 
+To summarize our findings, we present in \cref{fig:all_boxplot} a comparison of the energy consumption per request for each scenario.
 While we have seen in the previous results that Java-based frameworks depict the highest energy; they still provide greener requests compared to the interpreted frameworks; this is mainly because their interpreters report lower performances.
 
 

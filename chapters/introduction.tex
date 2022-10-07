@@ -9,7 +9,7 @@ The internet has evolved from a place where government researchers share informa
 
 At present, a large chunk of the global economy and most governments have shifted their operations to the Internet, at least partially and sometimes wholly; this includes online shops, banking, advertising, video and music consumption, and even public functions.
 
-Moreover, Due to The pandemic caused by COVID-19 disease, the world has been forced to adapt to a new way of living, which has been accelerated by the Internet. The Internet has become a necessity for people to work, study~\cite{naresh2020education}, and even health consultations \cite{liaw2021primary}.
+Moreover, Due to The pandemic caused by COVID-19 disease, the world has been forced to adapt to a new way of living, which has been accelerated by the Internet. The Internet has become a necessity for people to work, study~\cite{naresh2020education}, and even health consultations~\cite{liaw2021primary}.
 
 On the other hand, as humanity, we face a major challenge, which is climate change. The Intergovernmental Panel on Climate Change (IPCC) has warned that the world has only 12 years to limit the global temperature rise to 1.5\degree C and that the world has to reach net-zero emissions by 2050 to avoid the worst effects of climate change. The IPCC has also warned that the world has to reduce its emissions by 45\% by 2030 to reach the 1.5\degree C target~\cite{portner2022climate}.
 
@@ -37,7 +37,7 @@ In 2020, the market for data center services was worth 48.9 billion\$. It is tho
 \end{itemize}
 
 With this increase in the number of data centers comes an increase in energy consumption, which is a major problem for the environment.
-in 2018 datacenters consumed around 205 terawatt-hours (TWh)\cite{schneider2021world} which is equivalent to the energy consumption of 1\% of the total world's electricity. This ratio increased up to 1.5 \% in 2020 according to the Journal of Science~\cite{mytton2021data}.Figure~\ref{fig:data_centers_power_distribution}, as one can see, While 40\% of the energy consumed by data centers is used for cooling, another 40\% is used by the servers themselves. Therefore optimizing these two aspects can have a major impact on the energy consumption of data centers.
+in 2018 datacenters consumed around 205 terawatt-hours (TWh)\cite{schneider2021world} which is equivalent to the energy consumption of 1\% of the total world's electricity. This ratio increased up to 1.5 \% in 2020 according to the Journal of Science~\cite{mytton2021data}. Figure~\ref{fig:data_centers_power_distribution}, as one can see, While 40\% of the energy consumed by data centers is used for cooling, another 40\% is used by the servers themselves. Therefore optimizing these two aspects can have a major impact on the energy consumption of data centers.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.6\linewidth]{chapters/data_centers_power_distribution}
@@ -54,6 +54,7 @@ Unfortunately, this is not possible in the current state of the art. Due to the 
 Unlike algorithm optimization in the field of performance, which is agnostic toward the platform, the energy consumption of the algorithms is dependent on the execution environment.
 Therefore, for the moment we will start by formulating some hypotheses and explore them using empirical analysis.
 Figure~\ref{fig:thesis_position} highlights this thesis's position on the sustainability of ICT\@; while this thesis only addresses a small portion of ICT's energy usage, we feel it is a step in the right direction for additional solutions to mature in order to preserve humanity.
+
 \begin{figure}[!h]
     \caption{Our position in the IT sustainability research}
     \label{fig:thesis_position}
@@ -61,38 +62,45 @@ Figure~\ref{fig:thesis_position} highlights this thesis's position on the sustai
     \includegraphics[width=0.8\textwidth,height=\textheight,keepaspectratio]{chapters/thesis_position.pdf}
 \end{figure}
 \subsection*{Objectives}
-
 The purpose of this thesis is to help developers build more energy-efficient software. Unfortunately, when it comes to the energy consumption of programs, there is a lack of awareness and knowledge among software developers~\cite{ournani2020reducing,pang2015programmers,pinto2014mining}. This is mainly due to the lack of tools that can help developers understand the energy consumption of their programs. Therefore we aim, to provide clear, understandable, and easy-to-use tools and guidelines that can help developers reduce the energy consumption of their programs.
 
+d
+In order to reduce the energy consumption of software, we can use three strategies.
+The first one consists of \emph{reducing energy consumption by reducing the execution time of the program}. The most intuitive way for developers, as the optimization of software's performance, is a key metric for most programs.
+
+
 First, we create a benchmarking protocol that serves researchers and practitioners, experimenting with their approaches and solutions to reduce the energy consumption of programs.
-Then. using this protocol, we analyze and try to optimize the energy consumption of one of the most popular programming languages, Python. We first study python within its most use cases, machine learning, and web Development. Then we try to optimize the energy consumption on the outer side, this can be achieved by targeting the interpreter itself.
-
+Then, using this protocol, we analyze and try to optimize the energy consumption of one of the most popular programming languages, Python. We first study python within its most use cases, machine learning, and web Development. Then we try to optimize the energy consumption on the outer side, this can be achieved by targeting the interpreter itself.
 After that, we continue our non-intrusive approach, by targeting the impact of the virtual machine on the JAVA code. This not only helps practitioners improve their software energy without changing their code, but is also beneficial for reducing the energy consumption of the legacy code with almost zero cost.
-
 Finally, we will shift our focus to other programming languages and compare the energy consumption of different programming languages.
 We consider two main use cases. The RPC protocol, and web servers.
 
-
+% we have three scenarios, to reduce energy consumption :
+% 1. win-win, reducing energy consumption by enhancing the performance: the first one is done by default by most of the developers and performance engineers, which is to optimize the code itself
+% 3. win neutral, reducing energy consumption while keeping the same performance: the second one is finding reducing the energy consumption while trying to keep the same performance, which the work of this theses 
+% 2. win loose, reducing energy consumption by reducing the performance: optimizing  the energy consumption by sacrificing the performance of the program itself which is what we call  green faas  we will talk about this in the perspective section
 
 
 % \url{https://www.statista.com/statistics/871513/worldwide-data-created/}
 % https://www.iea.org/reports/data-centres-and-data-transmission-networks
 
-
-
-
-
 % Our work will be presented in the following chapters:
 % \begin{enumerate}
 %     \item \ref{chapter:literature_review}: Where we discuss the work done on energy consumption and optimization in software engineering
-%     \item \ref{chapter:benchmarking}: It will present a set of guidelines and tools to help practitioners measure the energy consumption of their algorithms.
-%     \item : it will discuss the behavior of python and the possible ways to tune it in order to reduce the energy consumption
-%     \item : will present a study on java programming language and the impact of the JVM choice on the energy consumption
-%     \item : we will present the impact of programming languages on the energy consumption of the algorithms especially when it comes to web services.
-%     \item : as a perspective, we introduce the impact of parallelism on the energy consumption on time agnostic cases
+%     \item \ref{chapter: benchmarking}: It will present a set of guidelines and tools to help practitioners measure the energy consumption of their algorithms.
+%     \item: it will discuss the behavior of python and the possible ways to tune it in order to reduce the energy consumption
+%     \item: will present a study on java programming language and the impact of the JVM choice on the energy consumption
+%     \item: we will present the impact of programming languages on the energy consumption of the algorithms especially when it comes to web services.
+%     \item: as a perspective, we introduce the impact of parallelism on energy consumption in time-agnostic cases
 % \end{enumerate}
-
 % \subsection*{Contributions}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.8\textwidth,height=\textheight,keepaspectratio]{chapters/thesis_contributions.pdf}
+    \caption{Contributions done during this thesis }
+    \label{fig:thesis_contributions}
+\end{figure}
 
 
 \clearpage
@@ -110,13 +118,14 @@ We consider two main use cases. The RPC protocol, and web servers.
     \item \bibentry{Belgaid_JouleHunter_an_2021}
     \item \bibentry{Belgaid_JRefferal_Which_JVM_2021}
     \item \bibentry{Belgaid_Jouleit_a_2020}
-    \item \bibentry{Belgaid_Ijoules_Python_library_2020}
+          % \item \bibentry{Belgaid_Ijoules_Python_library_2020}
     \item \bibentry{Belgaid_Pyjoules_Python_library_2019}
 \end{itemize}
 
 \subsection*{Posters}
 \begin{itemize}
     \item \emph{PyRAPL\@: Make your python green again}
+          % TODO : ask romain about the date and the name of the event 
 \end{itemize}
 \subsection*{Future Work}
 \begin{itemize}
