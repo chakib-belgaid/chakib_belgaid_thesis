@@ -64,16 +64,31 @@ Figure~\ref{fig:thesis_position} highlights this thesis's position on the sustai
 \subsection*{Objectives}
 The purpose of this thesis is to help developers build more energy-efficient software. Unfortunately, when it comes to the energy consumption of programs, there is a lack of awareness and knowledge among software developers~\cite{ournani2020reducing,pang2015programmers,pinto2014mining}. This is mainly due to the lack of tools that can help developers understand the energy consumption of their programs. Therefore we aim, to provide clear, understandable, and easy-to-use tools and guidelines that can help developers reduce the energy consumption of their programs.
 
-d
 In order to reduce the energy consumption of software, we can use three strategies.
-The first one consists of \emph{reducing energy consumption by reducing the execution time of the program}. The most intuitive way for developers, as the optimization of software's performance, is a key metric for most programs.
+The first one consists of \emph{reducing energy consumption by reducing the execution time of the program}. The most intuitive way for developers, as the optimization of software's performance, is a key metric for most programs. There fore in this case, reducing the energy consumption of software is just a happy side effect of optimizing the performance of the software.
 
 
-First, we create a benchmarking protocol that serves researchers and practitioners, experimenting with their approaches and solutions to reduce the energy consumption of programs.
-Then, using this protocol, we analyze and try to optimize the energy consumption of one of the most popular programming languages, Python. We first study python within its most use cases, machine learning, and web Development. Then we try to optimize the energy consumption on the outer side, this can be achieved by targeting the interpreter itself.
-After that, we continue our non-intrusive approach, by targeting the impact of the virtual machine on the JAVA code. This not only helps practitioners improve their software energy without changing their code, but is also beneficial for reducing the energy consumption of the legacy code with almost zero cost.
-Finally, we will shift our focus to other programming languages and compare the energy consumption of different programming languages.
-We consider two main use cases. The RPC protocol, and web servers.
+The second strategy is \emph{optimizing the energy while trying to keep performance}. In this strategy, we aim to reduce the energy consumption of software without impacting its performance of the software. This is a more challenging task, as it requires a deeper understanding of the software's energy consumption. The main focus of this thesis is to provide tools and guidelines that can help developers in this task.
+
+
+The final strategy consists of \emph{deleberately reducing the performance of the software in order to reduce its energy consumption}. The goal of this method is to reduce energy usage by sacrificing execution time. This strategy is useful while dealing with services since the task has an unlimited execution time. The second part is to use some. opportunistic schedulers, which will stop the software if it is estimated to spend more energy. This strategy will be discussed first in Chapter~\ref{chapter:porgramming_langauges}, then we will continue with this strategy in the perspectives section.
+
+
+
+\subsection*{Organization}
+Figure\ref{fig:thesis_contributions} summarizes the work done in this thesis. As mentioned in the previous section, this thesis aims to assist developers to reduce the energy consumption of their programs in the execution phase. To do so, we will use an empirical approach. Therefore we will need some tools to help us in this task. We will start by providing a tool that can help developers measure the energy consumption of their programs. The remainder of the document is summarized below.
+
+\begin{itemize}
+    \item \cref{chapter:literature_review} provides a literature review of the energy consumption of software. This chapter will help us understand the current state of the art and the challenges that we will face in this thesis.
+\end{itemize}
+
+
+
+% First, we create a benchmarking protocol that serves researchers and practitioners, experimenting with their approaches and solutions to reduce the energy consumption of programs.
+% Then, using this protocol, we analyze and try to optimize the energy consumption of one of the most popular programming languages, Python. We first study python within its most use cases, machine learning, and web Development. Then we try to optimize the energy consumption on the outer side, this can be achieved by targeting the interpreter itself.
+% After that, we continue our non-intrusive approach, by targeting the impact of the virtual machine on the JAVA code. This not only helps practitioners improve their software energy without changing their code, but is also beneficial for reducing the energy consumption of the legacy code with almost zero cost.
+% Finally, we will shift our focus to other programming languages and compare the energy consumption of different programming languages.
+% We consider two main use cases. The RPC protocol, and web servers.
 
 % we have three scenarios, to reduce energy consumption :
 % 1. win-win, reducing energy consumption by enhancing the performance: the first one is done by default by most of the developers and performance engineers, which is to optimize the code itself
