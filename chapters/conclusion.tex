@@ -2,27 +2,46 @@
 \chapter{Discussion and Conclusion}
 \label{chapter:conclusion}
 
-\section{Conclusion\note{missing}}
-\label{section:Conclusion}
+This manuscript made numerous contributions to measuring and reducing software's energy consumption. We used a three-step strategy to lower software energy:  benchmarking, measuring, and optimizing. 
+We started with the benchmarking phase. Chapter 2 discussed the challenges of a successful benchmarking strategy: reproducibility, accuracy, and representativeness. We reasoned that "docker" would be the best fit to ensure that energy studies could be reproduced. We then extended this reproducibility to an evolving protocol that helps researchers keep up with the rapid pace of software development. 
+Then we targeted the accuracy by studying the hardware and software factors that can impact the energy variation and how practitioners can tune them to harness this energy variation. 
+
+After establishing a robust benchmarking protocol to create energy-based experiments, we shifted our focus to the optimization side. We opted to start with Python, the most popular yet energy-hungry programming language. As a result, we began by examining the energy behavior of Python code in its most common usage. Then we presented a non-intrusive method to lessen its energy use. Following that, we applied the same strategy to another programming language known for its legacy code base, Java, to prove that we can still cut the energy usage of existing running applications without incurring high costs. 
+
+Lastly, we used the flexibility of the micro-services architecture to look at how each programming language uses energy in different web scenarios. We first examined the effects of the various programming languages when dealing with the Remote Procedure Call (RPC) Protocol. Then we extended this study to a more practical application by comparing $261$ web frameworks, each implementing the same website using seven use cases. Then, we provided practitioners with a dashboard to determine which stack is best for a given situation. 
 
 
-\section{Summary of Contributions\note{missing}}
+\section{Summary of Contributions}
 \label{section:SummaryofContributions}
 
-This section will describe the contributions of this thesis.  These can be summarized as follows:
+The contributions made by this thesis are covered in this section. The following is a summary of them:
 
+\subsection*{Articles}
 \begin{enumerate}
-      \item \textbf{First Idea:}
-            We proposed ...
-      \item \textbf{Second Idea:}
-            We investigated ...
-      \item \textbf{Third Idea:}
-            We addressed ...
+      \item \textbf{Taming energy consumption variations in systems benchmarking}: We investigate the phenomenon of variation when measuring the energy consumption of experiments in this study. In this paper, we discuss various hardware and software factors that can amplify variations in recorded energy measures, with a focus on the following research questions:
+      \begin{description}
+            \item[\textsc{RQ}~1:] Does the benchmarking protocol affect the energy variation?
+            \item[\textsc{RQ}~2:] How important is the impact of the processor features on the energy variation?
+            \item[\textsc{RQ}~3:] What effect does the operating system have on energy variation?
+            \item[\textsc{RQ}~4:] Does the choice of processor make a difference in reducing the energy variation?
+      \end{description}
+        
+      This contribution shows how processor features can significantly affect the variation in energy use between the benchmarking protocol and the operating system. Finally, this study presents several guidelines for controllable parameters that practitioners could easily change to increase the accuracy of their experiments. 
 
+      \bibentry{ournani2020taming} 
+
+
+      \item \textbf{Evaluating the impact of Java virtual machines on energy consumption}: In this article, we thoroughly investigate how JVMs affect software energy usage. In order to address the following research concerns, we reveal through this study several trials on hundreds of JVMs versions provided by various providers:
+      \begin{description}
+            \item[\textsc{RQ}~1:] What is the impact of existing JVM distributions on the energy consumption of Java-based software services?
+            \item [\textsc{RQ}~1:] What are the relevant JVM settings that can reduce the energy consumption of a given software service?
+        \end{description}
+        The findings demonstrate that choosing the right JVM platform can significantly reduce energy usage depending on the software and use case. This optimization can also be achieved by properly configuring the JIT and GC parameters.
+
+      \bibentry{ournani2021evaluating}
 \end{enumerate}
 
-\section{Limitations and Challenges\note{missing}}
-\label{section:limitations}
+
 
 \section{Future Work\note{missing}}
 .... Some potential areas for future efforts could include the following:
