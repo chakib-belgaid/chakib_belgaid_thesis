@@ -88,12 +88,11 @@ We will use an empirical approach to accomplish this. As a result, we will requi
 
 \begin{itemize}
     \item \cref{chapter:literature_review} provides a literature review of the energy consumption of software. First, it introduces the challenges that one can encounter when running an empirical study, \emph{reproducibiliy}, \emph{accuracy}, and \emph{representativeness}, the ways in the state of the art overcome these challenges in the field of computer sciences. Then, it narrows down to the energy consumption of software and the challenges that one can encounter when measuring the energy consumption of software. In this section, we provide the literature approaches used to measure energy consumption and classify them, compare them and discuss their pros and cons when used for our research. After that, we will tackle the challenge of accuracy within the field of energy consumption, and discuss how the literature tried to overcome these challenges. Finally, we will present some of the most recent works in the field of software energy consumption optimization.
-    % We conclude this chapter by providing a simple method that we will use for the rest of the thesis to optimize the energy consumption of software. \textbf{BMO} : benchmark , measure and optimize.  
+          % We conclude this chapter by providing a simple method that we will use for the rest of the thesis to optimize the energy consumption of software. \textbf{BMO} : benchmark , measure and optimize.  
     \item \cref{chapter:benchmarking} This chapter will discuss two facets of empirical tests and how we adapt them to energy consumption measurements. First, we will discuss the reproducibility challenge and how to overcome it with the usage of containers, then we will push this approach further by proposing and new protocol to make tests not only reproducible but able to be extended with other features to overcome the rapid pace of software evolution. The second part of this chapter will discuss the aspect of accuracy when it comes to energy consumption measurements. This section demonstrates how energy measurements might differ and produce conflicting results for the same work when run on identical machines or even the same machine. Then it will provide some solutions to reduce this energy variation and improve the accuracy of the measurements.
     \item After setting the ground for energy benchmarks in the previous chapter, we start to discuss energy consumption one of the most popular programming languages in the world Python, in \cref{chapter:python}. This chapter starts by presenting how much python costs in terms of energy consumption compared to other languages. then it provides some statistics about its popularity and typical use cases. Then in section \ref{python:sec_insights} we will present the impact of python on energy consumption in three typical use cases, machine learning, web servers, and data manipulation. For each use case, we compare the energy consumption of several approaches and provide guidelines on how to optimize the energy consumption of python programs in these use cases. Finally, we provide a nonintrusive way to optimize energy consumption without altering the code of the program. We will do this by using a different implementation of the python interpreter. This not only allows developers to spend less time optimizing their code but also allows them to use it on the legacy code that they cannot modify.
     \item Motivated by the outcomes of the nonintrusive optimization, we follow this strategy on one of the most popular legacy code base applications programming languages, JAVA. In \cref{chapter:java}, we try to optimize the java code, using by changing the default JVM implementation. We will compare the energy consumption of $12$ benchmarks using $52$ implementation, each benchmark is dedicated to a typical use case. After that, we study two of the JVM features, JIT, AND GC, and show their impact on the energy consumption of the JAVA code.
-    \item On the other hand \cref{chapter:porgramming_langauges} will present a different aspect of the impact of energy consumption. In this chapter, we will analyze the energy consumption of services, where the execution time is not bounded. To do so, we will present two study cases.
-    multiple programming languages, microservices architecture, web servers, the impact of energy consumption within a timeless context  \note{I haven't this part yet }
+    \item In contrast, \cref{chapter:porgramming_langauges} will use the flexibility provided by the micro-services architecture~\cite{dmitry2014micro} to analyze each programming language's energy behavior in light of various web scenarios to optimize the energy use of web services. We will first examine the effects of the various programming languages when dealing with the Remote Procedure Call (RPC) Protocol. In this instance, we will use two scaling factors: the number of concurrent clients and the size of the requests. Then we will compare $261$ web frameworks, each implementing the same website using seven use cases. This analysis aims to look at how each technology uses energy in different kinds of web situations.
     \item Finally, we conclude our work in \cref{chapter:conclusion} by summarizing the work done in this thesis and discussing the future work that can be done to further reduce the energy consumption of software.
 \end{itemize}
 
@@ -142,11 +141,11 @@ The contributions of this thesis are summarized as follows:
     \item \bibentry{Belgaid_Pyjoules_Python_library_2019}
 \end{itemize}
 
-\subsection*{Posters}
-\begin{itemize}
-    \item \emph{PyRAPL\@: Make your python green again}
-          % TODO : ask romain about the date and the name of the event 
-\end{itemize}
+% \subsection*{Posters}
+% \begin{itemize}
+%     \item \emph{PyRAPL\@: Make your python green again}
+%           % TODO : ask romain about the date and the name of the event 
+% \end{itemize}
 \subsection*{Future Work}
 \begin{itemize}
     \item Reducing the energy consumption of Python using non-intrusive techniques
