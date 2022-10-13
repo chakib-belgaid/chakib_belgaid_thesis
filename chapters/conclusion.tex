@@ -85,11 +85,28 @@ The following is a summary of the tools that were developed during this thesis:
 .... Some potential areas for future efforts could include the following:
 
 \begin{enumerate}
-      \item ...
-      \item ...
-      \item ...
+      \item  vulgarisation of the energy consumption -> abstract numbers aren't enough 
+      \item  Evolution of the energy consumption according to python version 
+      \item Django vs Dlask vs Fast API, how do the ORMs affect the energy consumption while interacting with different web servers
+      \item Deeper analysis for some web frameworks ( what is the reason behind an increase in power consumption while scaling ) 
+      \item automation of the greenboard dashboard - the ability to run extra tests and add them to the dashboard 
+      \item implementing multiple physical clients to techempower benchmarks platform - synchronisation problem - 
+      \item a deeper analysis between the JVM optimizations and the JVM based programming languages 
+      \item using github copilot ( codelabs) to compare the energy consumption of generated code -> extend the work of programming langauges 
+      \item higher level progrmaming languges and the optimized target -> haxe -> java , check with other higher level lanagues 
+      \item impact of LLVM on the energy consumption of the target language  compilation flags ..etc 
 
 \end{enumerate}
 
+
+\subsection*{Representativeness} : 
+What is the purpose of doing optimizations if they cannot be applied to real-world applications? 
+\begin{enumerate}
+      \item CI/CD energy tests  - joulediff - 
+      \item Green commits 
+      \item lazy code, sacrificing the performance in order to get a better energy consumption --> green faas 
+      \item more representative benchmarks, using several CPU saturation levels 
+      \item measuring the energy impact instead of the row energy consumption. ( the highway analogy when a single application consumes less energy, however the total energy consumption of the system increases )
+\end{enumerate}
 \vfill \strut  % to fill the rest of the page with blank lines
 \cleardoublepage
