@@ -274,7 +274,7 @@ Many software measuring tools understand a power model's behavior and estimate e
 This model is then used to allocate the observed energy consumption among different execution entities, such as processes, control groups, threads, or code lines.
 
 The first examples of software measurement tools are PowerAPI~\cite{colmant2018next}, SmartWatts formula~\cite{fieni2020smartwatts} and SelfWatts~\cite{fieni2021selfwatts}.
-These tools collect global energy consumption measurements from RAPL and use other system events such as cache misses/hits and CPU frequency evolution (DVFS) via a sensor to construct a power model of the control groups (system control groups, docker containers, Kubernetes pods, etc.) using a Ridge regression.
+These tools collect global energy consumption measurements from RAPL and use other system events such as cache misses/hits and CPU frequency scaling (DVFS) via a sensor to construct a power model of the control groups (system control groups, docker containers, Kubernetes pods, etc.) using a Ridge regression.
 The model continuously learns and improves its real-time energy usage data precision with a maximum frequency of 100 Hz.
 The instrument has a decentralized, lightweight design.
 Only the lightest sensors required for data collection and transmission are put into the monitored devices.
@@ -528,11 +528,11 @@ This thesis will focus on that aspect as well.
 However, unlike most work done on the hardware aspect, we will target the software impact on this energy, starting from the choice of the programming language to how to tune some features of a framework to make the software consumes less energy.
 To do so, we use the empirical approach due to its consistency for the moment.
 Unlike the performance, which is essentially related to the algorithm's complexity, the energy consumption is more impacted by the hardware.
-Therefore, to optimize the energy consumption, we choose a spiral method based on 3 phases:
+Therefore, to optimize energy consumption, we choose a spiral method based on 3 phases:
 \begin{enumerate}
-    \item executes the code,
-    \item measure the program,
-    \item infers the guidelines.
+    \item execute the code,
+    \item measure program's energy consumption,
+    \item infer the guidelines.
 \end{enumerate}
 
 \begin{figure}[!hbt]
