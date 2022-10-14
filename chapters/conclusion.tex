@@ -12,7 +12,7 @@ Then, we targeted the accuracy by studying the hardware and software factors tha
 
 After establishing a robust benchmarking protocol to create energy-based experiments, we shifted our focus to the optimization side.
 We opted to start with Python, the most popular yet energy-hungry programming language.
-As a result, we began by examining the energy behavior of Python code in its most common usage. 
+As a result, we began by examining the energy behavior of Python code in its most common usage.
 Then, we presented a non-intrusive method to lessen its energy use.
 Following that, we applied the same strategy to another programming language known for its legacy code base, Java, to prove that we can still cut the energy usage of existing running applications without incurring high costs.
 
@@ -27,37 +27,37 @@ Then, we provided practitioners with a dashboard to determine which stack is bes
 The contributions reported in this thesis are covered in this section.
 The following is a summary of them:
 
-\subsection{Published Articles}
+\subsection{Published Papers}
 This part summarizes the contributions that have been already accepted in conferences and journals.
 
 \begin{enumerate}
       \item \textbf{Taming energy consumption variations in systems benchmarking}:
-      We investigate the phenomenon of variation when measuring the energy consumption of experiments in this study.
-      In this paper, we discuss various hardware and software factors that can amplify variations in recorded energy measures, with a focus on the following research questions:
-      \begin{description}
-            \item[\textsc{RQ}~1:] Does the benchmarking protocol affect the energy variation?
-            \item[\textsc{RQ}~2:] How important is the impact of the processor features on the energy variation?
-            \item[\textsc{RQ}~3:] What effect does the operating system have on energy variation?
-            \item[\textsc{RQ}~4:] Does the choice of processor make a difference in reducing the energy variation?
-      \end{description}
+            We investigate the phenomenon of variation when measuring the energy consumption of experiments in this study.
+            In this paper, we discuss various hardware and software factors that can amplify variations in recorded energy measures, with a focus on the following research questions:
+            \begin{description}
+                  \item[\textsc{RQ}~1:] Does the benchmarking protocol affect the energy variation?
+                  \item[\textsc{RQ}~2:] How important is the impact of the processor features on the energy variation?
+                  \item[\textsc{RQ}~3:] What effect does the operating system have on energy variation?
+                  \item[\textsc{RQ}~4:] Does the choice of processor make a difference in reducing the energy variation?
+            \end{description}
 
-      This contribution shows how processor features can significantly affect the variation in energy use between the benchmarking protocol and the operating system.
-      Finally, this study presents several guidelines for controllable parameters that practitioners could easily change to increase the accuracy of their experiments.
+            This contribution shows how processor features can significantly affect the variation in energy use between the benchmarking protocol and the operating system.
+            Finally, this study presents several guidelines for controllable parameters that practitioners could easily change to increase the accuracy of their experiments.
 
-      \bibentry{ournani2020taming}
+            \bibentry{ournani2020taming}
 
 
       \item \textbf{Evaluating the impact of Java virtual machines on energy consumption}:
-      In this paper, we thoroughly investigate how JVMs affect software energy usage.
-      To address the following research concerns, we reveal through this study several trials on hundreds of JVMs versions provided by various providers:
-      \begin{description}
-            \item[\textsc{RQ}~1:] What is the impact of existing JVM distributions on the energy consumption of Java-based software services?
-            \item [\textsc{RQ}~1:] What are the relevant JVM settings that can reduce the energy consumption of a given software service?
-      \end{description}
-      The findings demonstrate that choosing the right JVM platform can significantly reduce energy usage depending on the software and use case.
-      This optimization can also be achieved by properly configuring the JIT and GC parameters.
+            In this paper, we thoroughly investigate how JVMs affect software energy usage.
+            To address the following research concerns, we reveal through this study several trials on hundreds of JVMs versions provided by various providers:
+            \begin{description}
+                  \item[\textsc{RQ}~1:] What is the impact of existing JVM distributions on the energy consumption of Java-based software services?
+                  \item [\textsc{RQ}~1:] What are the relevant JVM settings that can reduce the energy consumption of a given software service?
+            \end{description}
+            The findings demonstrate that choosing the right JVM platform can significantly reduce energy usage depending on the software and use case.
+            This optimization can also be achieved by properly configuring the JIT and GC parameters.
 
-      \bibentry{ournani2021evaluating}
+            \bibentry{ournani2021evaluating}
 \end{enumerate}
 
 \subsection{Softwares and Tools}
@@ -78,34 +78,53 @@ The following is a summary of the tools that were developed during this thesis:
       \item Reducing the energy consumption of Python using non-intrusive techniques,
       \item Empirical analysis on the energy consumption of different web frameworks,
       \item The impact of programming languages on energy consumption of web services (a case study of RPC protocol),
-      \item THow do ORMs affect how much energy is used? A case study of Django and Flask.
+      \item How do ORMs affect how much energy is used? A case study of Django .
 \end{itemize}
 
-\section{Future Work\note{missing}}
-.... Some potential areas for future efforts could include the following:
+\section{Future Work\note{ In Draft }}
+While our contributions are a good start to the energy-aware software engineering field, there are still many challenges to overcome. This is just the tip of the iceberg. The following are some of the challenges that we would like to address in the future:
+
+\subsection{Short Term Challenges}
+Before starting a journey looking for a new mine, one should first look at the resources available to him. In the same way, we need to first look at the resources available to us before we start looking for new challenges. The following are some of the challenges that we can address in the short term:
+
+\paragraph{The evolution of python interpreters}
+In Chapter \ref{chapter:python} we compared several python interpeters. However, most of these alternative solutions were based on python2 which is now deprecated. On the other hand, the default python interpreter (aka . CPython) has included many features and optimization since our last study, such as the introduction of Python introduced the \texttt{dataclasses} in version 3.7 (PEP 557\footnote{\url{https://peps.python.org/pep-0557/}}) that can be used to reduce the memory footprint of python objects,
+the new parser in python 3.9~\footnote{\url{https://docs.python.org/3/whatsnew/3.9.html}}, the user type alias in python3.10~\footnote{\url{https://peps.python.org/pep-0613/}}.
+And the most interesting changes for us occurred in CPython 3.11 which is claimed to be 25\% faster than python 3.10 \footnote{\url{https://github.com/faster-cpython/ideas}}. We need to re-evaluate the impact of these changes on the energy consumption of python programs.
+
+\paragraph{The impact of ORMS}
+We continue with our work with Python, and this time we will delve deeper into the impact of the ORMS, As shown in Section\ref{sec:webdev}, The ORMs are the most energy-consuming part of a web application. We intend to widen this analysis to other python ORMS such as SQLAlchemy\link{https://www.sqlalchemy.org/} and Peewee\link{http://docs.peewee-orm.com/en/latest/}. We will also explore the real relationship between the ORM, the database, and the web framework.
+
+\paragraph{Python and machine learning}
+In chapter \ref{chapter:python}, we showed that training accuracy has a huge cost on the energy using a single model. However, in the real world, we often use multiple models to solve a problem. We will explore the impact of using multiple models on the energy consumption of a machine learning application As well as compare the energy consumption of different machine learning frameworks such as PyTorch\link{https://pytorch.org/}, scikit-learn\link{https://scikit-learn.org/stable/} and TensorFlow \link{https://www.tensorflow.org/}.
+
+
+
+\paragraph{ Which is the greenest couple? a comparative study of JVMs and JVM based programming languages}
+As we have seen in Chapter \ref{chapter:java} the choice of the JVM can greatly impact the energy consumption of the the program. On the other hand, we have seen in Chapter \ref{chapter:porgramming_langauges} that other JVM-based languages depicted half power consumption of the JAVA code, was it only because of the web framework ? or there is a real difference between the JVMs and the JVM based languages? We will explore this question by comparing the energy consumption of different JVMs and JVM-based languages such as Scala, Kotlin, Groovy, and Clojure.
+
+
+
 
 \begin{enumerate}
-      \item  vulgarisation of the energy consumption -> abstract numbers aren't enough 
-      \item  Evolution of the energy consumption according to python version 
-      \item Django vs Dlask vs Fast API, how do the ORMs affect the energy consumption while interacting with different web servers
-      \item Deeper analysis for some web frameworks ( what is the reason behind an increase in power consumption while scaling ) 
-      \item automation of the greenboard dashboard - the ability to run extra tests and add them to the dashboard 
-      \item implementing multiple physical clients to techempower benchmarks platform - synchronisation problem - 
-      \item a deeper analysis between the JVM optimizations and the JVM based programming languages 
-      \item using github copilot ( codelabs) to compare the energy consumption of generated code -> extend the work of programming langauges 
-      \item higher level progrmaming languges and the optimized target -> haxe -> java , check with other higher level lanagues 
-      \item impact of LLVM on the energy consumption of the target language  compilation flags ..etc 
+      \item  vulgarisation of the energy consumption -> abstract numbers aren't enough
+      \item Deeper analysis for some web frameworks ( what is the reason behind an increase in power consumption while scaling )
+      \item automation of the greenboard dashboard - the ability to run extra tests and add them to the dashboard
+      \item implementing multiple physical clients to techempower benchmarks platform - synchronization problem -
+      \item a deeper analysis between the JVM optimizations and the JVM based programming languages
+      \item using github copilot (codelabs) to compare the energy consumption of generated code -> extend the work of programming langauges
+      \item higher level programming languages and the optimized target -> haxe -> java, check with other higher level languages
 
 \end{enumerate}
 
 
-\subsection*{Representativeness} : 
-What is the purpose of doing optimizations if they cannot be applied to real-world applications? 
+\subsection*{Representativeness}:
+What is the purpose of doing optimizations if they cannot be applied to real-world applications?
 \begin{enumerate}
-      \item CI/CD energy tests  - joulediff - 
-      \item Green commits 
-      \item lazy code, sacrificing the performance in order to get a better energy consumption --> green faas 
-      \item more representative benchmarks, using several CPU saturation levels 
+      \item CI/CD energy tests  - joulediff -
+      \item Green commits
+      \item lazy code, sacrificing the performance in order to get a better energy consumption --> green faas
+      \item more representative benchmarks, using several CPU saturation levels
       \item measuring the energy impact instead of the row energy consumption. ( the highway analogy when a single application consumes less energy, however the total energy consumption of the system increases )
       \item https://www.oneapi.io/open-source/
 \end{enumerate}

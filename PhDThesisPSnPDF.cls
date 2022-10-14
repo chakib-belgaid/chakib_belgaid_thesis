@@ -905,6 +905,7 @@ wish to left align your text}
 \newcommand{\@nomenclaturesubscripts}{Subscripts}
 \newcommand{\@nomenclatureothers}{Other Symbols}
 
+\newcommand{\link}[1]{\footnote{\url{#1}}}
 
 % These macros define an environment for front matter that is always
 % single column even in a double-column document.
