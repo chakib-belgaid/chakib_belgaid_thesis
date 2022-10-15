@@ -100,8 +100,15 @@ In chapter \ref{chapter:python}, we showed that training accuracy has a huge cos
 
 
 
-\paragraph{ Which is the greenest couple? a comparative study of JVMs and JVM based programming languages}
-As we have seen in Chapter \ref{chapter:java} the choice of the JVM can greatly impact the energy consumption of the the program. On the other hand, we have seen in Chapter \ref{chapter:porgramming_langauges} that other JVM-based languages depicted half power consumption of the JAVA code, was it only because of the web framework ? or there is a real difference between the JVMs and the JVM based languages? We will explore this question by comparing the energy consumption of different JVMs and JVM-based languages such as Scala, Kotlin, Groovy, and Clojure.
+\paragraph{ Which is the greenest couple? a comparative study of JVMs and JVM-based programming languages}
+As we have seen in Chapter \ref{chapter:java} the choice of the JVM can greatly impact the energy consumption of the program. On the other hand, we have seen in Chapter \ref{chapter:porgramming_langauges} that other JVM-based languages depicted half power consumption of the JAVA code, was it only because of the web framework ? or there is a real difference between the JVMs and the JVM based languages? We will explore this question by comparing the energy consumption of different JVMs and JVM-based languages such as Scala, Kotlin, Groovy, and Clojure.
+
+\paragraph{the impact of programming languages on energy consumption, do translators helps in reducing the energy cost of a program?}
+One of the hardest challenges when comparing the energy consumption of multiple programming languages was the bias of the expertise of the programmer. One solution was to create a reference benchmark that allows one to compare several programming lanagues \link{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}, this was used for many researchers such as the work of \citeauthor{couto2017towards} \cite{couto2017towards}, others were to use some basic algorithms like \cite{noureddine_preliminary_2012} where they compare the energy consumption using the Hanoi tower problem \link{https://en.wikipedia.org/wiki/Tower_of_Hanoi} using different programming languages using the same algorithm.or other simple benchmarks using the Rosettacode base \link{https://rosettacode.org/wiki/Rosetta_Code}
+however this scope is limited to single algorithms. and does not help cover the production mode, this is why we shifted to the web frameworks.  Now that are semantinc analysers issued from the openai project\link{https://openai.com/} like the automatic test generator ponicode\link{https://www.ponicode.com/} and the ai code geneator \link{https://github.com/features/copilot}
+an interesting new feature provided by the GitHub copilot is github copilot labs\link{https://githubnext.com/projects/copilot-labs/} is the ability to automatically translate the code from one language to another. We will explore the impact of this feature on the energy consumption of a program.
+
+
 
 
 
@@ -109,11 +116,8 @@ As we have seen in Chapter \ref{chapter:java} the choice of the JVM can greatly 
 \begin{enumerate}
       \item  vulgarisation of the energy consumption -> abstract numbers aren't enough
       \item Deeper analysis for some web frameworks ( what is the reason behind an increase in power consumption while scaling )
-      \item automation of the greenboard dashboard - the ability to run extra tests and add them to the dashboard
-      \item implementing multiple physical clients to techempower benchmarks platform - synchronization problem -
-      \item a deeper analysis between the JVM optimizations and the JVM based programming languages
-      \item using github copilot (codelabs) to compare the energy consumption of generated code -> extend the work of programming langauges
-      \item higher level programming languages and the optimized target -> haxe -> java, check with other higher level languages
+
+
 
 \end{enumerate}
 
