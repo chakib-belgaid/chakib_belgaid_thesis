@@ -104,37 +104,40 @@ In chapter \ref{chapter:python}, we showed that training accuracy has a huge cos
 As we have seen in Chapter \ref{chapter:java} the choice of the JVM can greatly impact the energy consumption of the program. On the other hand, we have seen in Chapter \ref{chapter:porgramming_langauges} that other JVM-based languages depicted half power consumption of the JAVA code, was it only because of the web framework ? or there is a real difference between the JVMs and the JVM based languages? We will explore this question by comparing the energy consumption of different JVMs and JVM-based languages such as Scala, Kotlin, Groovy, and Clojure.
 
 \paragraph{the impact of programming languages on energy consumption, do translators helps in reducing the energy cost of a program?}
-One of the hardest challenges when comparing the energy consumption of multiple programming languages was the bias of the expertise of the programmer. One solution was to create a reference benchmark that allows one to compare several programming lanagues \link{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}, this was used for many researchers such as the work of \citeauthor{couto2017towards} \cite{couto2017towards}, others were to use some basic algorithms like \cite{noureddine_preliminary_2012} where they compare the energy consumption using the Hanoi tower problem \link{https://en.wikipedia.org/wiki/Tower_of_Hanoi} using different programming languages using the same algorithm.or other simple benchmarks using the Rosettacode base \link{https://rosettacode.org/wiki/Rosetta_Code}
-however this scope is limited to single algorithms. and does not help cover the production mode, this is why we shifted to the web frameworks.  Now that are semantinc analysers issued from the openai project\link{https://openai.com/} like the automatic test generator ponicode\link{https://www.ponicode.com/} and the ai code geneator \link{https://github.com/features/copilot}
-an interesting new feature provided by the GitHub copilot is github copilot labs\link{https://githubnext.com/projects/copilot-labs/} is the ability to automatically translate the code from one language to another. We will explore the impact of this feature on the energy consumption of a program.
+One of the hardest challenges when comparing the energy consumption of multiple programming languages was the bias of the expertise of the programmer. One solution was to create a reference benchmark that allows one to compare several programming languages \link{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}, this was used for many researchers such as the work of \citeauthor{couto2017towards} \cite{couto2017towards}, others were to use some basic algorithms like \cite{noureddine_preliminary_2012} where they compare the energy consumption using the Hanoi tower problem \link{https://en.wikipedia.org/wiki/Tower_of_Hanoi} using different programming languages using the same algorithm.or other simple benchmarks using the Rosettacode base \link{https://rosettacode.org/wiki/Rosetta_Code}
+however, this scope is limited to single algorithms. and does not help cover the production mode, this is why we shifted to the web frameworks.  Now that our semanticc analyzers issued from the OpenAI project\link{https://openai.com/} like the automatic test generator ponicode\link{https://www.ponicode.com/} and the ai code generator \link{https://github.com/features/copilot}
+an interesting new feature provided by the GitHub copilot is GitHub copilot labs\link{https://githubnext.com/projects/copilot-labs/} is the ability to automatically translate the code from one language to another. We will explore the impact of this feature on the energy consumption of a program.
 
 
 \paragraph{raising awareness of the energy consumption of the Softwares}
-While this thesis's main focus was to optimize energy consumption using comparative studies, it was easier to say that approach X is greener than approach Y no matter which metric we were using. however, it won't be the case for developers while measuring the energy consumption of their programs, some tried to give labels such as (A,B,C ..etc) while others transtaled this raw metrics in an equivalent of a fuel consumption (e.g. 1 liter of fuel per 1000 lines of code). most of the approaches where to use the carbon emmision, such as\cite{patterson2021carbon} or ecograder~\link{https://ecograder.com/}
-we will explore these approaches and see how they can be used to rise the awareness of the energy consumption of their code
+While this thesis's main focus was to optimize energy consumption using comparative studies, it was easier to say that approach X is greener than approach Y no matter which metric we were using. however, it won't be the case for developers while measuring the energy consumption of their programs, some tried to give labels such as (A,B,C ..etc) while others translated these raw metrics in an equivalent of fuel consumption (e.g. 1 liter of fuel per 1000 lines of code). most of the approaches were to use the carbon emission, such as\cite{patterson2021carbon} or ecograder~\link{https://ecograder.com/}
+we will explore these approaches and see how they can be used to rise awareness of the energy consumption of their code
 
-
-
-
-
-\begin{enumerate}
-
-      \item Deeper analysis for some web frameworks ( what is the reason behind an increase in power consumption while scaling )
-
-
-
-\end{enumerate}
 
 
 \subsection*{Representativeness}:
+
+As we have seen in the state of the art, a successful benchmark meets three criteria, reproducibility, accuracy, and representativeness, During this thesis we discussed two of these criteria, reproducibility, and accuracy, however, we did not discuss the representativeness of our benchmarks. We relied on state-of-the-art benchmarks to represent real-world applications. However, the gap between these benchmarks and the industry is getting bigger and bigger due to the extreme pace of the software development. In this Section, we will tackle the issue of representativeness and discuss how we can improve our protocol to fit real-world applications.
 What is the purpose of doing optimizations if they cannot be applied to real-world applications?
+
+First, we will consider taking advantage of the popularity of CI/CD among developers to provide some insights into the energy consumption of their code.
+We did provide a sonar tool with our intern that can provide the energy consumption of JAVA-based code repository, figure~\ref{fig:JunitSonarplugin} shows the work of our intern that used a sonar plugin to highlight the energy evolution of java application across the time. This prototype got even more sophisticated to become Joule-dff\link{https://github.com/davidson-consulting/diff-jjoules}  is a tool to be added in the project continuous integration in order to highlight the energy evolution of the java programs.
+We intend to push this even further to detect the  commits responsible for an increase or the optimization within the source code
+
+\begin{figure}[!h]
+      \centering
+      \includegraphics[width=0.8\linewidth]{chapters/JunitSonarplugin}
+      \caption{Sonar plugin for Junit}
+      \label{fig:JunitSonarplugin}
+\end{figure}
+
+
+
 \begin{enumerate}
-      \item CI/CD energy tests  - joulediff -
-      \item Green commits
+
       \item lazy code, sacrificing the performance in order to get a better energy consumption --> green faas
       \item more representative benchmarks, using several CPU saturation levels
       \item measuring the energy impact instead of the row energy consumption. ( the highway analogy when a single application consumes less energy, however the total energy consumption of the system increases )
-      \item https://www.oneapi.io/open-source/
 \end{enumerate}
 \vfill \strut  % to fill the rest of the page with blank lines
 \cleardoublepage
