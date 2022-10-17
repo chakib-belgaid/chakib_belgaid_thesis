@@ -78,51 +78,78 @@ The following is a summary of the tools that were developed during this thesis:
       \item Reducing the energy consumption of Python using non-intrusive techniques,
       \item Empirical analysis on the energy consumption of different web frameworks,
       \item The impact of programming languages on energy consumption of web services (a case study of RPC protocol),
-      \item How do ORMs affect how much energy is used? A case study of Django .
+      \item How do ORMs affect how much energy is used? A case study of Django.
 \end{itemize}
 
 \section{Future Work\note{ In Draft }}
-While our contributions are a good start to the energy-aware software engineering field, there are still many challenges to overcome. This is just the tip of the iceberg. The following are some of the challenges that we would like to address in the future:
+While our contributions are a good start to the energy-aware software engineering field, there are still many challenges to overcome.
+This is just the tip of the iceberg.
+The following perspectives are some of the challenges that we would like to address in the future.
 
-\subsection{Short Term Challenges}
-Before starting a journey looking for a new mine, one should first look at the resources available to him. In the same way, we need to first look at the resources available to us before we start looking for new challenges. The following are some of the challenges that we can address in the short term:
+\subsection{Short-Term Challenges}
+Before starting a journey looking for a new mine, one should first look at the available resources.
+In the same way, we need to first look at the resources available to us before we start looking for new challenges.
+The following are some of the challenges that we can address in the short term.
 
-\paragraph{The evolution of python interpreters}
-In Chapter \ref{chapter:python} we compared several python interpeters. However, most of these alternative solutions were based on python2 which is now deprecated. On the other hand, the default python interpreter (aka . CPython) has included many features and optimization since our last study, such as the introduction of Python introduced the \texttt{dataclasses} in version 3.7 (PEP 557\footnote{\url{https://peps.python.org/pep-0557/}}) that can be used to reduce the memory footprint of python objects,
-the new parser in python 3.9~\footnote{\url{https://docs.python.org/3/whatsnew/3.9.html}}, the user type alias in python3.10~\footnote{\url{https://peps.python.org/pep-0613/}}.
-And the most interesting changes for us occurred in CPython 3.11 which is claimed to be 25\% faster than python 3.10 \footnote{\url{https://github.com/faster-cpython/ideas}}. We need to re-evaluate the impact of these changes on the energy consumption of python programs.
+\paragraph{Studying the evolution of Python interpreters.}
+In Chapter~\ref{chapter:python}, we compared several python interpreters.
+However, most of these alternative solutions were based on Python\,2, which is now deprecated. 
+On the other hand, the default python interpreter (aka CPython) has included many features and optimization since our last study, such as the introduction of Python introduced the \texttt{dataclasses} in version 3.7 (PEP~557)\footnote{\url{https://peps.python.org/pep-0557/}} that can be used to reduce the memory footprint of Python objects, the new parser in Python\,3.9,\footnote{\url{https://docs.python.org/3/whatsnew/3.9.html}} the user type alias in Python\,3.10.\footnote{\url{https://peps.python.org/pep-0613/}}
+And, the most interesting changes for us occurred in CPython 3.11, which is claimed to be 25\% faster than Python\,3.10.\footnote{\url{https://github.com/faster-cpython/ideas}}.
+We need to re-evaluate the impact of these changes on the energy consumption of Python programs.
 
-\paragraph{The impact of ORMS}
-We continue with our work with Python, and this time we will delve deeper into the impact of the ORMS, As shown in Section\ref{sec:webdev}, The ORMs are the most energy-consuming part of a web application. We intend to widen this analysis to other python ORMS such as SQLAlchemy\link{https://www.sqlalchemy.org/} and Peewee\link{http://docs.peewee-orm.com/en/latest/}. We will also explore the real relationship between the ORM, the database, and the web framework.
+\paragraph{Studying the impact of ORMs.}
+We continue with our work with Python, and this time we will dive deeper into the impact of the ORMs.
+As shown in Section~\ref{sec:webdev}, the ORMs are the most energy-consuming part of a web application.
+We intend to widen this analysis to other Python ORMs, such as \textsc{SQLAlchemy}\link{https://www.sqlalchemy.org/} and \textsc{Peewee}.\link{http://docs.peewee-orm.com/en/latest/}
+We will also explore the real relationship between the ORM, the database, and the web framework.
 
-\paragraph{Python and machine learning}
-In chapter \ref{chapter:python}, we showed that training accuracy has a huge cost on the energy using a single model. However, in the real world, we often use multiple models to solve a problem. We will explore the impact of using multiple models on the energy consumption of a machine learning application As well as compare the energy consumption of different machine learning frameworks such as PyTorch\link{https://pytorch.org/}, scikit-learn\link{https://scikit-learn.org/stable/} and TensorFlow \link{https://www.tensorflow.org/}.
+\paragraph{Studying the impact of Machine learning.}
+In Chapter~\ref{chapter:python}, we showed that training accuracy has a huge cost on the energy using a single model.
+However, in practice, we often use multiple models to address a given problem.
+We will explore the impact of using multiple models on the energy consumption of a machine learning application, as well as compare the energy consumption of different machine learning frameworks, such as \textsc{PyTorch},\link{https://pytorch.org/} \textsc{SciKit-Learn},\link{https://scikit-learn.org/stable/} and \textsc{TensorFlow}.\link{https://www.tensorflow.org/}
 
 
 
-\paragraph{ Which is the greenest couple? a comparative study of JVMs and JVM-based programming languages}
-As we have seen in Chapter \ref{chapter:java} the choice of the JVM can greatly impact the energy consumption of the program. On the other hand, we have seen in Chapter \ref{chapter:porgramming_langauges} that other JVM-based languages depicted half power consumption of the JAVA code, was it only because of the web framework ? or there is a real difference between the JVMs and the JVM based languages? We will explore this question by comparing the energy consumption of different JVMs and JVM-based languages such as Scala, Kotlin, Groovy, and Clojure.
+\paragraph{Studying the impact of JVM bytecode.}
+As we have seen in Chapter~\ref{chapter:java}, the choice of the JVM can greatly impact the energy consumption of hosted applications.
+On the other hand, we have seen in Chapter~\ref{chapter:porgramming_langauges} that other JVM-based languages depicted half power consumption of the Java code.
+Was it only because of the adopted web framework? 
+Or is there a real difference between the JVMs and the bytecode handled by JVM-based languages? 
+We will explore this question by comparing the energy consumption of different JVMs and JVM-based languages, such as Scala, Kotlin, Groovy, and Clojure.
 
-\paragraph{the impact of programming languages on energy consumption, do translators helps in reducing the energy cost of a program?}
-One of the hardest challenges when comparing the energy consumption of multiple programming languages was the bias of the expertise of the programmer. One solution was to create a reference benchmark that allows one to compare several programming languages \link{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}, this was used for many researchers such as the work of \citeauthor{couto2017towards} \cite{couto2017towards}, others were to use some basic algorithms like \cite{noureddine_preliminary_2012} where they compare the energy consumption using the Hanoi tower problem \link{https://en.wikipedia.org/wiki/Tower_of_Hanoi} using different programming languages using the same algorithm.or other simple benchmarks using the Rosettacode base \link{https://rosettacode.org/wiki/Rosetta_Code}
-however, this scope is limited to single algorithms. and does not help cover the production mode, this is why we shifted to the web frameworks.  Now that our semanticc analyzers issued from the OpenAI project\link{https://openai.com/} like the automatic test generator ponicode\link{https://www.ponicode.com/} and the ai code generator \link{https://github.com/features/copilot}
-an interesting new feature provided by the GitHub copilot is GitHub copilot labs\link{https://githubnext.com/projects/copilot-labs/} is the ability to automatically translate the code from one language to another. We will explore the impact of this feature on the energy consumption of a program.
+\paragraph{Revisiting the impact of programming languages.}
+One of the hardest challenges when comparing the energy consumption of multiple programming languages was the bias of the expertise of the programmer.
+One solution was to create a reference benchmark that allows one to compare several programming languages.\link{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}
+This benchmark has been adopted by many researchers, such as the work of \citeauthor{couto2017towards}~\cite{couto2017towards}, while others were to use some basic algorithms, like \cite{noureddine_preliminary_2012} who compare the energy consumption using the Hanoi tower problem\link{https://en.wikipedia.org/wiki/Tower_of_Hanoi} using different programming languages, or even simpler benchmarks, like the Rosettacode base.\link{https://rosettacode.org/wiki/Rosetta_Code}
+However, this scope is limited to single algorithms and does not help to cover production-like conditions, this is why we shifted to the web frameworks.
+Nonetheless, semantic analyzers issued from the OpenAI project\link{https://openai.com/} like the automatic test generator \textsc{Ponicode}\link{https://www.ponicode.com/} and AI code generator,\link{https://github.com/features/copilot} an interesting new feature provided by the GitHub copilot is GitHub copilot labs\link{https://githubnext.com/projects/copilot-labs/} is the ability to automatically translate the code from one language to another.
+We will explore the impact of this feature on the energy consumption of a program.
 
 
 \paragraph{raising awareness of the energy consumption of the Softwares}
-While this thesis's main focus was to optimize energy consumption using comparative studies, it was easier to say that approach X is greener than approach Y no matter which metric we were using. however, it won't be the case for developers while measuring the energy consumption of their programs, some tried to give labels such as (A,B,C ..etc) while others translated these raw metrics in an equivalent of fuel consumption (e.g. 1 liter of fuel per 1000 lines of code). most of the approaches were to use the carbon emission, such as\cite{patterson2021carbon} or ecograder~\link{https://ecograder.com/}
-we will explore these approaches and see how they can be used to rise awareness of the energy consumption of their code
+While this thesis's main focus was to optimize energy consumption using comparative studies, it was easier to say that approach \texttt{X} is greener than approach \texttt{Y}, no matter which metric we were using.
+However, it will not be the case for developers when measuring the energy consumption of their programs.
+Some tried to give labels, such as (A,B,C\dots), while others translated these raw metrics in an equivalent of fuel consumption (e.g., 1 liter of fuel per 1000 lines of code).
+Most of the approaches were to use the carbon emission, such as~\cite{patterson2021carbon} or ecograder~\link{https://ecograder.com/} as a pivot metrics to quantify the environmental cost of osftware.
+We intend to explore these approaches and study how they can be used to increase awareness of the energy consumption of their code.
 
 
 
 \subsection*{Representativeness}:
-
-As we have seen in the state of the art, a successful benchmark meets three criteria, reproducibility, accuracy, and representativeness, During this thesis we discussed two of these criteria, reproducibility, and accuracy, however, we did not discuss the representativeness of our benchmarks. We relied on state-of-the-art benchmarks to represent real-world applications. However, the gap between these benchmarks and the industry is getting bigger and bigger due to the extreme pace of the software development. In this Section, we will tackle the issue of representativeness and discuss how we can improve our protocol to fit real-world applications.
+As reported in the state of the art, a successful benchmark meets three criteria: reproducibility, accuracy, and representativeness.
+This PhD thesis mostly discussed two of these criteria: reproducibility, and accuracy.
+However, we did not discuss the representativeness of our benchmarks.
+We relied on state-of-the-art benchmarks to represent real-world applications.
+Nevertheless, the gap between these benchmarks and the industry is getting bigger and bigger, due to the extreme pace of software development.
+In the future, we would like to tackle the issue of representativeness and discuss how we can improve our protocol to fit real-world applications.
 What is the purpose of doing optimizations if they cannot be applied to real-world applications?
 
 First, we will consider taking advantage of the popularity of CI/CD among developers to provide some insights into the energy consumption of their code.
-We did provide a sonar tool with our intern that can provide the energy consumption of JAVA-based code repository, figure~\ref{fig:JunitSonarplugin} shows the work of our intern that used a sonar plugin to highlight the energy evolution of java application across the time. This prototype got even more sophisticated to become Joule-dff\link{https://github.com/davidson-consulting/diff-jjoules}  is a tool to be added in the project continuous integration in order to highlight the energy evolution of the java programs.
-We intend to push this even further to detect the  commits responsible for an increase or the optimization within the source code
+We did prototype a sonar tool that can report on the energy consumption of Java-based code repository.
+Figure~\ref{fig:JunitSonarplugin} shows the work of our intern who used a Sonar plugin to highlight the energy evolution of Java applications along time.
+This prototype got even more sophisticated to become Joule-dff\link{https://github.com/davidson-consulting/diff-jjoules}, which is a tool to be added in a continuous integration to highlight the energy evolution of the Java programs.
+We intend to push this even further to detect the commits responsible for an increase or the optimization within the source code.
 
 \begin{figure}[!h]
       \centering
