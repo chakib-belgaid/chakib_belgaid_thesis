@@ -1,12 +1,11 @@
 \section{Python Interpreters}\label{python:sec_interpreters}
 We used the official version of Python for the first studies because the goal was mainly to highlight the code structure's impact on energy consumption.
 One main drawback of the previous method is the work to be done to update the existing code base to reduce energy consumption.
-Despite the availability of numerous tools for code refactoring and automatic code optimization, the optimization process remains a manual effort. This is because code optimization is a task that requires extensive understanding of both the codebase and the language itself.
+Despite the availability of numerous tools for code refactoring and automatic code optimization, the optimization process remains a manual effort. This is because code optimization is a task that requires an extensive understanding of both the codebase and the language itself.
 
-To avoid such hustle, we tried to find a non-intrusive approach to make the Python code more eco-friendly without altering its structure.
+To avoid a such hustle, we tried to find a non-intrusive approach to make the Python code more eco-friendly without altering its structure.
 Python is an interpreted language, which led to many initiatives to implement their interpreter to improve one or many aspects of the Python code. 
-Therefore, in this section, we will examine at how different Python interpreters affect the energy consumption of software, and in which ca
-se, one should use a non-conventional interpreter to save the energy consumption of their application. 
+Therefore, in this section, we will examine how different Python interpreters affect the energy consumption of software, and in which case, one should use a non-conventional interpreter to save the energy consumption of their application. 
 
 \subsection{Python Runtimes}\label{python:sec_interpreters}
 To do so, we gathered a list of interpreters, transpilers, and other optimization libraries that can contribute to reducing the energy consumption of legacy Python applications:
@@ -58,12 +57,12 @@ To do so, we gathered a list of interpreters, transpilers, and other optimizatio
       \item \textbf{Stackless\,Python}:\footnote{\url{https://github.com/stackless-dev/stackless/wiki}}
             An interpreter that focuses on enhancing multi-threading programming;
       \item \textbf{Pyjion}:\footnote{\url{https://github.com/microsoft/pyjion}}
-            A JIT API for CPython, same purpose as Parakeet and Hope;
+            A JIT API for CPython, the same purpose as Parakeet and Hope;
       \item \textbf{Pyston}:\footnote{\url{https://blog.pyston.org}}
             A performance-oriented Python implementation built using LLVM and modern JIT techniques.
             The project is funded by Dropbox;
       \item \textbf{Grumpy}:\footnote{\url{https://github.com/google/grumpy}}
-            A source-to-source transpiler that translates the Python code into Go before being compiled to a binary executable.
+            A source-to-source transpiler that translates the Python code into Go before being compiled into a binary executable.
             It also offers an interpreter, called \emph{grumprun}, which can directly execute the Python code.
             Unfortunately, we cannot use it because the project is already outdated (the last commit was in 2017), and it has many limitations in terms of supporting the Python language, such as some built-in functions and standard libraries;
       \item \textbf{Psyco}:\footnote{\url{http://psyco.sourceforge.net}}
@@ -178,7 +177,7 @@ Before further proceeding with the list of candidate runtime for Python applicat
       \end{tabular}
 \end{table}
 
-We did not consider other implementations because either the project aborted many years ago or it has insufficient Python features.
+We did not consider other implementations because either the project was aborted many years ago or it has insufficient Python features.
 After the inventory of those implementations, we filtered them.
 To keep only the versions that are still maintained and support most Python features.
 We then classified them into three categories depending on their integration with the Python code.
@@ -282,7 +281,7 @@ Finally, they should be included in the Python candidates.
 \subsection{Results \& Findings}
 This part will be dedicated to the results of the experiments and statistical analysis of these results.
 First and foremost, we want to know whether our samples have a normal distribution. As a result, we ran a Shapiro-Wilk~\cite{shapiro1968comparative} test on our data.
-Even though some implementations had a $p$-value higher than $a=0.05$ (such as CPython and ActivePython), other implementations like PyPy and Numba presented a $p$-values smaller than 0.01, which leads to rejecting the hypothesis $H0$ that all the distributions follow a normal distribution.
+Even though some implementations had a $p$-value higher than $a=0.05$ (such as CPython and ActivePython), other implementations like PyPy and Numba presented $p$-values smaller than 0.01, which leads to rejecting the hypothesis $H0$ that all the distributions follow a normal distribution.
 Therefore, to compare the different implementations, we performed the non-parametric Mann-Whitney U test~\cite{zimmerman1987comparative}, with CPython2 and CPython3 as base references.
 
 The Mann-Whitney U test results for each implementation are shown in Table \ref{table:manwithyu}. The first column shows the average energy usage of the implementation, while the second shows the p-value of the test when compared to the reference Python implementation. If the p-value is less than 0.05, the test result is significant, indicating that the energy consumption of the given implementation differs significantly from that of the reference implementation.
@@ -309,7 +308,7 @@ Moreover, each implementation is the closest to its reference Python version.
 The interpreters that are based on other virtual machines, such as Jython with JVM and IronPython with .NET, behave slightly differently from the reference implementation.
 As for the MicroPython, It is the furthest from the references due to his behavior toward exceptions.
 The second cluster groups the interpreter implementations that are based on a JIT compiler (PyPy2 and PyPy3).
-Closer to them, we find Shedskin, which is a translator that converts the Python code into C++ code to be later compiled into binary code.
+Closer to them, we find Shedskin, which is a translator that converts Python code into C++ code to be later compiled into binary code.
 Table~\ref{table:manwithyu} shows that this cluster is by far the most energy-efficient one.
 While Numba2 and Numba3 are also JIT libraries, they differ from PyPy due to their manual optimization.
 Unlike PyPy, which decides the code parts to optimize, Numba gives this responsibility to the developer.

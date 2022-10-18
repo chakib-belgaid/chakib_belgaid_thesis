@@ -1,5 +1,62 @@
 % ************************** Thesis Abstract *****************************
 % Use `abstract' as an option in the document class to print only the titlepage and the abstract.
+
 \begin{abstract}
-    This is where you write your abstract \ldots
+The ICT sector is claimed to account for 2\% of global emissions. Even though this might seem like a small number, the success of ICT technologies will always lead to more greenhouse gas emissions. 
+In 2019, the number of data centers worldwide was 1.5 million, which is expected to reach 2.5 million by 2025. 
+In this situation, lowering the emissions from the ICT sector depends on reducing the amount of energy used by data centers. 
+There are three main methods to achieve this goal: improving the hardware's efficiency, lowering the cooling systems' energy consumption, or decreasing the energy consumption of the servers themselves. 
+This thesis focuses on the last approach, which I believe is the most affordable one, as it does not require any physical changes to data centers. 
+My goal is to assist developers in making more eco-friendly software services by providing them with tools and guidelines to create software that runs on servers while consuming less energy. 
+To do so, I decided to pursue an empirical approach consisting of three steps: test, measure, and optimize.
+
+The reason for such a decision is to follow the rapid pace of the software industry. 
+In fact, the software industry has one of the fastest growth rates, which makes it challenging to keep up with the newest technologies. 
+So, instead of just reporting my insights, I gave practitioners the means and protocols to allow them to test their hypotheses. 
+I believe that some of the insights shared as part of this thesis might already have become obsolete when published. 
+
+Due to the urgency of the climate change issue, I decided first to harness the most popular yet energy-hungry programming language, Python. 
+Therefore, I started by analyzing Python's code's energy behavior during its most commonly used cases. 
+Then, I provided a non-intrusive technique to reduce its energy consumption. 
+After that, I extended this strategy to another programming language famous for its legacy code base, Java, to show that we can still reduce the energy consumption of already running applications without paying a considerable price. 
+
+Finally, I adopted a more systemic approach. 
+Instead of optimizing one single application, can one reduce the energy consumption of the data center as a whole entity? Thanks to the micro-services architecture, one application can be constructed using many services, each independent of the other. 
+This type of architecture releases us from the bond of adopting a single programming language as the monolithic application does. And with this, one can use multiple programming languages and take advantage of the strengths of each one for a specific scenario. The last chapter analyzed the energy behavior of several programming languages regarding web services while opening a new path toward sustainability within timeless applications.
 \end{abstract}
+
+% Recent years had a worrisome increase in the number of wildfires, droughts, heatwaves, floods, melting ice and other natural disatesrs giving us clear sign of global warming. The effects of climate change are already being felt on the whole planet and will continue to worsen in the future. According to NASA, the global temperatures increased by around 1.1 °C from 1901 to 2020. some argues that this cycle has been already happend before, resulting five major ice ages before, and their main cause was the change of distance between earth and sun resulting in an overall alteration in the earth temperature, and the rise of the carbon dioxide level in the atmosphere, this is the first time that we exceed the level of 300 parts / per million was in 1950 within a span of 800000 years, even worse, this number has risen up 420. This level of carbon dioxide is the first within the last 800000. 
+% Global warming is the gradual increase of the Earth's average surface temperature. It is caused by the increased levels of greenhouse gases in the atmosphere, which trap energy from the sun and cause the Earth to warm which traps the energy of solar rays in the earth leading to an increase on the overall temperature. 
+% Carbon dioxide from human activities is increasing about 250 times faster than it did from natural sources after the last Ice Age
+% Greenhouse gas concentrations are at their highest levels in 2 million years, and the rate of increase is unprecedented in at least the last 800,000 years.
+% it is not too late, according to scientists if we keep the rise of temperature below 1.5 degrees Celsius, we can still avoid the worst effects of climate change. howerver it is projected that the temperature will increase by 3.2 by 2100. 
+% According to the Sustainable Development Goals, the UN Framework Convention on Climate Change and the Paris Agreement. Three broad categories of action are: cutting emissions, adapting to climate impacts and financing required adjustments.
+% While a growing coalition of countries is committing to net zero emissions by 2050.  
+\clearpage
+\selectlanguage{french}
+% \begin{otherlanguage}{french} 
+\begin{abstract_fr}
+Le secteur des TIC serait responsable de 2\% des émissions mondiales. Même si ce chiffre peut paraître faible, le succès des technologies TIC entraînera toujours une augmentation des émissions de gaz à effet de serre.
+En 2019, le nombre de centres de données dans le monde était de 1,5 million, et devrait atteindre 2,5 millions d'ici 2025.
+Dans cette situation, la diminution des émissions du secteur des TIC dépend de la réduction de la consommation énergétique des centres de données.
+Il existe trois méthodes principales pour atteindre cet objectif : améliorer l'efficacité du matériel, faire baisser la consommation énergétique des systèmes de refroidissement, ou diminuer la consommation énergétique des serveurs eux-mêmes.
+Cette thèse se focalise sur la dernière approche, qui me semble être la plus abordable, car elle ne nécessite aucun changement physique dans les centres de données.
+
+Mon objectif est d'aider les développeurs à créer des logiciels plus écologiques en leur fournissant des outils et des directives pour créer des applications qui tournent sur des serveurs tout en consommant moins d'énergie.
+Pour ce faire, j'ai décidé d'adopter une approche empirique en trois étapes : tester, mesurer et optimiser.
+
+La raison d'une telle décision est de suivre le rythme rapide de l'industrie du logiciel. En fait, le secteur du logiciel connaît l'un des taux de croissance les plus rapides, ce qui rend difficile de suivre les nouvelles technologies. Ainsi, au lieu de me contenter de rapporter juste mes réflexions, j'ai fourni aux praticiens les moyens et les protocoles nécessaires pour leur permettre de tester leurs hypothèses. Je suis convaincu que certaines des conclusions partagées dans le cadre de cette thèse pourraient déjà être obsolètes au moment de leur publication. 
+
+Vue l'urgence de la question du changement climatique, j'ai décidé d'abord d'exploiter le langage de programmation le plus populaire et pourtant le plus gourmand en énergie, Python.
+ J'ai donc commencé par analyser le comportement énergétique du code Python dans ses utilisations les plus courantes.
+ J'ai ensuite proposé une technique non intrusive pour réduire sa consommation énergétique.
+ Ensuite, j'ai étendu cette stratégie à un autre langage de programmation célèbre pour sa base de code ancienne, Java, pour montrer que nous pouvons encore réduire la consommation d'énergie d'applications déjà en cours d'exécution sans payer un prix considérable.
+
+Enfin, j'ai adopté une approche plus systémique.
+Au lieu d'optimiser une seule application, peut-on réduire la consommation d'énergie du centre de données dans son ensemble ? Grâce à l'architecture micro-services, une application peut être construite à l'aide de nombreux services, tous indépendants les uns des autres.
+Ce type d'architecture nous libère de l'obligation d'adopter un seul langage de programmation comme le fait l'application monolithique. 
+Et avec cela, on peu employer plusieurs langages de programmation et profiter des forces de chacun d'eux pour un scénario spécifique. 
+Le dernier chapitre a analysé le comportement énergétique de plusieurs langages de programmation concernant les services Web tout en ouvrant une nouvelle voie vers la durabilité au sein des applications intemporelles. 
+\end{abstract_fr}
+% \end{otherlanguage}
+\selectlanguage{english}

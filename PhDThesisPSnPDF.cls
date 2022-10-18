@@ -895,6 +895,7 @@ wish to left align your text}
 
 % Abstract title text
 \newcommand{\@abstracttitle}{Abstract}
+\newcommand{\@abstracttitlefr}{Résumé}
 
 % Names for the nomenclature groups
 \newcommand{\@nomenclatureromans}{Roman Symbols}
@@ -904,6 +905,7 @@ wish to left align your text}
 \newcommand{\@nomenclaturesubscripts}{Subscripts}
 \newcommand{\@nomenclatureothers}{Other Symbols}
 
+\newcommand{\link}[1]{\footnote{\url{#1}}}
 
 % These macros define an environment for front matter that is always
 % single column even in a double-column document.
@@ -1140,6 +1142,24 @@ wish to left align your text}
 \fi
 }
 
+
+\newenvironment{abstract_fr} {
+\ifPHD@abstract
+% Separate abstract as per Student Registry guidelines
+  \thispagestyle{empty}
+  \setsinglecolumn
+  \begin{center}
+    { \Large {\bfseries {\@title}} \par}
+    {{\large \vspace*{1em} \@author} \par}
+  \end{center}
+\else
+% Normal abstract in the thesis
+  \cleardoublepage
+  \setsinglecolumn
+  \chapter*{\centering \Large \@abstracttitlefr}
+  \thispagestyle{empty}
+\fi
+}
 
 % ******************** To compute empty space in title page *******************
 % Boxes below are used to space different contents on the title page

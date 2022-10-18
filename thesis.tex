@@ -1,13 +1,15 @@
 % ******************************* PhD Thesis Template **************************
 % Please have a look at the README.md file for info on how to use the template
 
-\documentclass[a4paper,12pt,times,numbered,print,index,doublelinesep]{PhDThesisPSnPDF}
-
-
+\documentclass[a4paper,12pt,times,numbered,print,index,doublelinesep,notitlepage]{PhDThesisPSnPDF}
+% for the correlation table 
+\usepackage[table]{xcolor}
+\usepackage{pgfplotstable}
+\usepackage{bibentry}
 \usepackage{import}
-
 \usepackage{paralist}
-\usepackage[english]{babel}
+\usepackage[french,english]{babel}
+\usepackage[utf8]{inputenc}
 \usepackage{cleveref}
 \usepackage{xstring}
 \usepackage{xcolor}
@@ -30,6 +32,12 @@
 \usepackage{listing}
 \usepackage{algorithm,algpseudocode}
 \usepackage[abspath]{currfile}
+\usepackage{multirow}
+\usepackage{tikz}
+% \usepackage{booktabs}
+% \usepackage{hyperref} 
+% \usepackage[table]{xcolor}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%% extra commands %%%%%%%%%%%%%%%%%% 
 %%%%%%%%highlighting 
@@ -39,7 +47,7 @@
 \newcommand\same[1]{\textcolor{orange}{ \em #1}}
 \newcommand\wow[1]{\textcolorcolor{orange}{\em #1}}
 \newcommand\yes[0]{\checkmark}
-\newcommand\no[0]{--}
+% \newcommand\no[0]{--}
 
 \newcommand\fnurl[2]{%
 \href{#2}{#1}\footnote{\url{#2}}%
@@ -177,8 +185,8 @@
 
 \maketitle
 
-\include{chapters/dedication}
-\include{chapters/declaration}
+% \include{chapters/dedication}
+% \include{chapters/declaration}
 \include{chapters/acknowledgement}
 \include{chapters/abstract}
 
@@ -208,7 +216,7 @@
 \include{chapters/optimization/optimization}
 \include{chapters/programming_languages/programming_languages}
 \input{chapters/conclusion}
-\include{chapters/appendices/appendices} % Appendices
+% \include{chapters/appendices/appendices} % Appendices
 
 % ********************************** Back Matter *******************************
 % Backmatter should be commented out, if you are usPing appendices after References
