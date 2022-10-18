@@ -133,7 +133,7 @@ They also outlined the overall design of the experimental method and demonstrate
 This practical book will appeal to anybody seeking a comprehensive yet intuitive grasp of computer system performance analysis.
 
 \citeauthor{bukh1992art} wrote a book about computer performance analysis, where they discussed some familiar topics that are relevant to statistical analysis, such as null hypotheses, chi-squared tests, regression, discrete event simulation, Bayes' theorem, how and when to use them for experimental design, measurement, simulation, and modeling for computer systems.
-The article~\cite{brown2018issues} provides an intellectual framework for understanding the pervasiveness of mistakes in the scientific discovery process and presents methodological, cultural, and system-level techniques for minimizing the frequency of often seen errors.
+The article~\cite{brown2018issues} provides an intellectual framework for understanding the pervasiveness of mistakes in the scientific discovery process and presents methodological, cultural, and system-level techniques for minimizing the frequency of often-seen errors.
 
 Another article~\cite{patil2018training} expands on this line of thought by evaluating the uncertainty caused by replications in the new research.
 They offered some strategies to capture uncertainty in inferential investigations, such as cross-study validation and ensemble models.
@@ -243,7 +243,7 @@ PowerInsight~\cite{laros2013powerinsight} is another fine-grained measurement to
 % On the other hand, GreenMiner \cite{hindle2014greenminer}, %%i dont think that  mobile measurement will be relevent for my case 
 powerpack~\cite{ge2009powerpack} in the other hand, is an API that synchronizes the data gathered from other monitoring tools such as Watt’s Up Pro, NI and RadioShack pro and the lines of code. %% maybe remove this one from the list because it is not well known.
 
-Other monitor tools have been realized by the manufacturers, such as IBM Power executive~\cite{koomey2011growth}, which allows their customers to monitor the power consumption and thermal behavior of the of BladeCenter systems in the data center.
+Other monitor tools have been realized by the manufacturers, such as IBM Power executive~\cite{koomey2011growth}, which allows their customers to monitor the power consumption and thermal behavior of the BladeCenter systems in the data center.
 
 
 Accoring to the work of \citeauthor{vasques2019review} and\citeauthor{wang2018modelling}
@@ -335,7 +335,7 @@ Applying the benchmarking guidelines and repeating the same experiment within th
 This difference---also called \emph{energy variation} (EV)---has seriously threatened the accuracy of experimental evaluations.
 
 Figure~\ref{fig:motivation} illustrates this variation problem as a violin plot of $20$ executions of the benchmark \emph{Conjugate Gradient} (\textsf{CG}) taken from the \emph{NAS Parallel Benchmarks} (NBP) suite~\cite{Bailey:1991:NPB:125826.125925}, on $4$ nodes of an homogeneous cluster (the cluster \textsf{Dahu} described in Table~\ref{table:g5k}) at 50\,\% workload.
-We can observe a considerable variation of the energy consumption, not only among homogeneous nodes but also at the scale of a single node, reaching up to $25\,\%$ in this example.
+We can observe a considerable variation of energy consumption, not only among homogeneous nodes but also at the scale of a single node, reaching up to $25\,\%$ in this example.
 
 \begin{figure}%[!htb]
     \center{\includegraphics[width=.9\linewidth]{imgs/motivation}}
@@ -346,7 +346,7 @@ Some researchers started investigating the hardware impact of the energy variati
 As an example, one can cite~\cite{borkar_designing_2005,tschanz_adaptive_2002} who reported that the leading cause of the variation of the power consumption between different machines is due to the \textbf{CMOS} manufacturing process of transistors in a chip.
 \cite{heinrich_predicting} described this variation as a set of parameters, such as CPU Frequency and the thermal effect.
 \subsection{Studying Hardware Factors}
-This variation has often been related to the manufacturing process~\cite{coles_comparing_2014}. However, it has also been a subject of many studies, considering several aspects that could impact and vary the energy consumption across executions and on different chips.
+This variation has often been related to the manufacturing process~\cite{coles_comparing_2014}. However, it has also been the subject of many studies, considering several aspects that could impact and vary the energy consumption across executions and on different chips.
 On the one hand, the correlation between processor temperature and energy consumption was one of the most explored paths.
 Kistowski~\emph{et~al.} showed in~\cite{joakim_v_kisroski_variations_2016} that identical processors could exhibit significant energy consumption variation with no close correlation with the processor temperature and performance.
 On the other hand, the authors of~\cite{wang_potential_2018} claimed that the processor thermal effect is one of the most contributing factors to the energy variation, and the CPU temperature and the energy consumption variation are tightly coupled (up to 16\% increase in the variation when the temperature changed from 37.7°C to 74.5°C ).
@@ -397,7 +397,7 @@ Other works have studied the impact of website technology on energy consumption,
 
 % Other works examined software energy consumption efficiency through source code changes and optimizations. For example, some papers [42, 122] studied the effect of Java collections on energy consumption, depending on the collection size and/or the most executed tasks on the collection (insertion, removal, search). They provided some insights into the energy efficiency of some collections for multiple scenarios. For example, Hasan et al. [52] compared the energy consumption of several Java data structures, analyzing the bytecode using the Wala framework8 and assessing the evolution of the energy consumption in different scenarios (insertion at the beginning, iteration, etc.). They also used some automated replacements of LinkedList and ArrayList to simulate best-and worst-case energy consumption scenarios in real production applications. Their study showed that using inappropriate collection can cause up to 300\% of energy consumption inefficiency.
 
-As for the impact of the source code on the energy consumption, we can cite~\cite{pinto_comprehensive_2016,fernandes_assisting_2017} where the authors investigated the impact of Java collections on energy usage based on collection size and its usage (insertion, removal, search) and They provide some insights into the energy efficiency of specific collections under various scenarios.
+As for the impact of the source code on energy consumption, we can cite~\cite{pinto_comprehensive_2016,fernandes_assisting_2017} where the authors investigated the impact of Java collections on energy usage based on collection size and its usage (insertion, removal, search) and They provide some insights into the energy efficiency of specific collections under various scenarios.
 
 \citeauthor{hasan_energy_2016} examined the energy consumption of multiple Java data structures, analyzing the bytecode and evaluating the change in energy consumption in various circumstances(research, insertion, deletion, etc.). They also simulated best- and worst-case energy usage scenarios in real-world production systems by replacing the LinkedList and ArrayList and discovered that incorrect collection could result in a 300\% increase in energy consumption~\cite{hasan_energy_2016}.
 
@@ -408,7 +408,7 @@ Other studies~\cite{longo_reducing_2019,kumar_energy_2017} looked into the energ
 \subsection{Energy Optimizations in the Execution Phase}
 The second part of this section will focus on energy optimization in the execution phase. The goal is to optimize this energy consumption for already developed software without changing the source code. The goal is to set up and create an environment where software can run with the least amount of energy. This could involve process scheduling, system tunning, and so on.
 
-We begin with Aequitas~\cite{ribic2016aequitas}, a system that allows parallel applications to live on co-managed power domains (sharing the same CPU). The technology is founded on the premise that coexisting programs can regard power-management hardware as a shared resource and collaborate on power management decisions. As a result, it accomplishes its purpose by scheduling these applications with a time-slicing technique (for example, round robin). The authors claim that their strategy achieves a 12.9\% improvement while incurring only a 2.5\% performance cost.
+We begin with Aequitas~\cite{ribic2016aequitas}, a system that allows parallel applications to live on co-managed power domains (sharing the same CPU). The technology is founded on the premise that coexisting programs can regard power-management hardware as a shared resource and collaborate on power-management decisions. As a result, it accomplishes its purpose by scheduling these applications with a time-slicing technique (for example, round robin). The authors claim that their strategy achieves a 12.9\% improvement while incurring only a 2.5\% performance cost.
 
 As for virtual machines, \citeauthor{kurpicz2016much} analyzed the total energy consumption of a VM in a data center while emphasizing the fixed cost versus the dynamic one. In this paper~\cite{kurpicz2016much}, the authors introduced the transparent, reproducible, and predictive cost calculator model EPAVE for VM-based environments. The purpose of EPAVE is to provide the static cost of each VM on the server, including the air conditioning, power distribution, and the dynamic cost related to the VM activities.
 
@@ -540,10 +540,10 @@ Therefore, to optimize energy consumption, we choose a spiral method based on 3 
     \caption{the spiral method of energy optimization }\label{fig:spirals}
 \end{figure}
 
-
-%  TODO : rephrase this to fit the order of the chapters 
 This work aims to present a set of guidelines to create a benchmarking system to measure different programs' energy consumption.
-After that, we will use this system to compare the energy consumption of different programming languages. We will extend the work of \citeauthor{pereira_energy_2017} to a closer distance to the production environment by comparing a set of use cases.
+Following that, we will investigate the energy consumption of two well-known programming languages: Java and Python.
+Finally, we extend this analysis to cover various programming languages
+In this study, We will extend the work of \citeauthor{pereira_energy_2017} to a closer distance to the production environment.
 
 % we will  starting with the GRPC framework and a set of Web Frameworks.
 % Finally, we will discuss the impact of the execution environment on the energy consumption of two of the most famous programming languages Java and Python, and present how tunning the Virtual Machine can reduce energy consumption.

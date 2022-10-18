@@ -2,9 +2,9 @@
 \subsection{Introduction}
 
 Empirical measurements are critical to capture the effect of developers' choices on software energy consumption.
-To accomplish this, one should not overlook the benchmarking pitfalls highlighted in the state of the art~\cite{van_der_kouwe_benchmarking_2018}.
+To accomplish this, one should not overlook the benchmarking pitfalls highlighted in the state-of-the-art~\cite {van_der_kouwe_benchmarking_2018}.
 
-Second, one should not ignore tremendous progress in computer science, which has led to a rise in the number of obsolete results.
+Second, one should not ignore the tremendous progress in computer science, which has led to a rise in the number of obsolete results.
 Furthermore, when it comes to comparative research, the execution environment may impact the study itself.
 Finally, between the exploratory experiment and the publication of the results, new candidates may have emerged, and others may have changed.
 
@@ -79,7 +79,7 @@ Figure~\ref{environement:virtualization_technique} depicts the architectural dif
 
 
 \subsection{Docker Vs. Virtual Machine}
-Despite the fact that Type 1 is more performant than Type 2, the latter is the most used in research, as most researchers tend to conduct their experiments on their own machines. Docker, on the other hand, is the most well-known container technology. In our case, we are more likely to promote Docker for two reasons:
+Even though Type 1 is more performant than Type 2, the latter is the most used in research, as most researchers tend to conduct their experiments on their machines. Docker, on the other hand, is the most well-known container technology. In our case, we are more likely to promote Docker for two reasons:
 \begin{enumerate}
     \item As previously stated in literature~\cite{van2016power,morabito_power_2015}, we require a lightweight orchestrator to limit the overhead on the energy usage of our experiments
     \item We need to communicate with the host OS because we are using hardware sensors to measure energy consumption.
@@ -160,7 +160,7 @@ The orchestrator provides three interfaces:
 \begin{itemize}
     \item \emph{Workload interface}: provides a set of functions that the workload should implement to be called by each candidate in the experiment. This interface is responsible for extending the experiment with new benchmarks.
     \item \emph{Observer interface}: provides a set of metrics that the orchestrator collects during the experiment. Implementing the observer interface allows the user to extend the experiment with new metrics.
-    \item \emph{The Candidate interface}: It provides a set of functions that the candidate should implement to called  by the orchestrator. This interface is responsible for extending the experiment with new solutions.
+    \item \emph{The Candidate interface}: It provides a set of functions that the candidate should implement to be called by the orchestrator. This interface is responsible for extending the experiment with new solutions.
 \end{itemize}
 
 \paragraph{Data}

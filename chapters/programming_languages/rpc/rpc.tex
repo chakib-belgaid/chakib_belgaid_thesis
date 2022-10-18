@@ -31,7 +31,7 @@ The rest of this part will be dedicated to explaining each aspect of the experim
 All the experiments are run on the cluster \textsf{paravance} of the G5K platform.
 This cluster comprises 72 identical machines equipped with 2 Intel Xeon E5-2630 V3, with 128\,GB of RAM.
 For more accuracy, our SUT (\emph{System Under Test}) runs a minimal version of Debian\,9 (4.9.0 kernel version), which enforces the core processes required for our experiment.
-Furthermore, we used Docker containers technology for reproducibility of the experiments and the isolation of the servers.
+Furthermore, we used Docker containers technology for the reproducibility of the experiments and the isolation of the servers.
 \paragraph{Client \& server environments.}
 To limit networks' impact on the experiments, we run both the client and the server on the same machine.
 However, we isolate each part on a separate CPU socket to reduce the noise that the client might have on the server and \emph{vice-versa}.
@@ -46,7 +46,7 @@ To report on energy consumption, we used the \texttt{HWPC} sensor\footnote{\url{
 For better accuracy, we ran the HwPC sensor with a frequency of 1~Hz, and we used the same machine for all the experiments to reduce the variability~\cite{ilsche_power_2015}.
 
 \paragraph{Performances.}
-For better accuracy and more details, We updated the open source RPC benchmarking tool GHZ (\url{https://ghz.sh/}).
+For better accuracy and more details, We updated the open-source RPC benchmarking tool GHZ (\url{https://ghz.sh/}).
 The modified version allows us to monitor the average power for each request from both the server and the client sides.
 The new version is available in the repository.\footnote{\url{https://github.com/chakib-belgaid/energy_ghz}}
 
@@ -110,7 +110,7 @@ this paragraph will cover the number of requests per second processed per server
 Here, we consider three observable variables:
 \begin{itemize}
     \item \textsf{Satisfaction ratio}: how many requests have been satisfied among the total requests,
-    \item \textsf{Request Per Seconds}: The number of the requests that have been answered from the server,
+    \item \textsf{Request Per Seconds}: The number of requests that have been answered from the server,
     \item \textsf{Tail Latency at 99\%}: one of the best metrics to evaluate the performances of a server.
 \end{itemize}
 
@@ -129,7 +129,7 @@ Furthermore, we tend to observe this behavior among other frameworks, such as Py
 \end{figure}
 %  TODO : REname the frameworks based on their dockerfile 
 
-Figure~\ref{fig:rps_clients} presents the number of requests per second for each implementation. The heatmap is colored in a logarithmic scale to visualize the results better.
+Figure~\ref{fig:rps_clients} presents the number of requests per second for each implementation. The heatmap is colored with a logarithmic scale to visualize the results better.
 As one can observe, most of the servers hit their RPS limit after five clients and 100 clients for VM-based servers, and after this, the number keeps constant, decreasing the average RPS per client.
 .Net server is the most performant, followed by Java and Go, while Python and Ruby are the least performant.
 
@@ -244,7 +244,7 @@ For each framework, we can distinguish three modes, and they all depend on the p
 \begin{enumerate}
     \item \textsf{Stress-free} mode when the server has enough resources to satisfy the requests, as they require a memory less than a certain threshold (depends on the language and the platform),
     \item \textsf{Escalation} mode when the requests tend to be bigger, but the server can still manage to handle them, at the price of a change in the energy and performance behaviors,
-    \item \textsf{Broken state} mode when the size of requests exceeds 1MB, most of the servers cannot handle them, and they tend to crash. After 10MB, except Elixir, no server could handle those requests.
+    \item \textsf{Broken state} mode when the size of requests exceeds 1MB, most of the servers cannot handle them, and they tend to crash. After 10MB, except for Elixir, no server could handle those requests.
 \end{enumerate}
 
 
@@ -296,7 +296,7 @@ These servers use the official RPC protocol, reducing programmers' bias toward s
 
 The results show that the number of clients had a binary effect on the servers.
 With a small number of clients, there was no typical behavior between different categories.
-On the other hand, when dealing with a more significant number of clients, interpreted languages and compiled ones dropped in terms of performance while keeping the same average power, unlike the VM-based ones that increased their average power while keeping the same performances.
+On the other hand, when dealing with a more significant number of clients, interpreted languages and compiled ones dropped in terms of performance while keeping the same average power, unlike the VM-based ones that increased their average power while keeping the same performance.
 Overall, the second strategy had a better impact on the single request cost than the first one.
 
 As for the evolution of the query size, we have seen three modes of behavior for each framework, depending on the size of the requests: the stress-free mode, the escalation mode, and the broken state mode.

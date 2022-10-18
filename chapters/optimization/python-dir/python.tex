@@ -377,9 +377,9 @@ To do so, we run a simple code snippet that computes the sum of the first $N$ nu
 We run the following strategies using a Desktop machine with Intel(R) Core(TM) i7-4800MQ CPU @ 2.70GHz with four cores and four hyper-threads.
 %  N ==5e5
 \begin{itemize}
-    \item \textsf{Sequential}: we compute the sum of the first $N$ numbers with no concurency;
+    \item \textsf{Sequential}: we compute the sum of the first $N$ numbers with no concurrency;
     \item \textsf{Multithreading}: we use the \texttt{ThreadPoolExecutor} library to compute the sum of the first $N$ numbers. We divide $N$ by the number of threads, and each thread will compute the sum of the numbers in its range. For our case, we used four threads;
-    \item \textsf{Multiprocessing}: we use the \texttt{ProcessPoolExecutor} library to compute the sum of the first $N$ numbers. We divide $N$ by the number of processes, and each process sums the numbers in its range. In this situation, we considered 2, 4, 8, and 16 processes iteratively.
+    \item \textsf{Multiprocessing}: we use the \texttt{ProcessPoolExecutor} library to compute the sum of the first $N$ numbers. We divide $N$ by the number of processes, and each process sums the numbers in its range. In this situation, we considered the 2, 4, 8, and 16 processes iteratively.
 \end{itemize}
 
 Figure~\ref{fig:python_multiprocessing} shows the results of the experiment regarding four metrics: power, execution time, DRAM energy, and CPU energy.

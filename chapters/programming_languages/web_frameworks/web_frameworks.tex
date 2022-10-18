@@ -62,9 +62,10 @@ Moreover, all the machines belong to the same cluster to avoid network overhead.
 \subsubsection*{Measurement Context}
 This part describes the hardware and software components of the experiment.
 \paragraph*{Hardware Settings}
-All the tests have been executed in machines from the cluster \textsf{chetemi}~\footnote{\url{https://www.grid5000.fr/w/Hardware}} of the grid5000~\ref{cappello2010grid5000} platform.
+
+All the tests have been executed in machines from the cluster \textsf{chetemi}~\footnote{\url{https://www.grid5000.fr/w/Hardware}} of the grid5000~\cite{cappello2010grid5000} platform.
 This cluster comprises 15 machines with 2 Intel Xeon E5-2630 v4 processors, 256 GB of RAM,  600 GB HDD + 300 GB HDD hard disk.
-For our experiment, we consider using four machines from this cluster, one for the orchestrator, one for the database server, one for the client, and one for the web server. As for the recorder part , the measures will be stored in a MongoDB Database that runs on a separate virtual machine.
+For our experiment, we consider using four machines from this cluster, one for the orchestrator, one for the database server, one for the client, and one for the web server. As for the recorder part, the measures will be stored in a MongoDB Database that runs on a separate virtual machine.
 \paragraph*{Software Settings}
 Except for the recorder, all machines run a minimal version of Debian\,9 (4.9.0 kernel version), which enforces the core processes required for our experiment. Equipped with Docker, we can quickly deploy the web and database servers in a container.
 \subsubsection{Measurement Context}
@@ -207,7 +208,7 @@ Thus, we run experiments multiple times and compute the average values.
 To follow the guidelines that we presented in Chapter~\ref{chapter:benchmarking}, we provide a GitHub repository\footnote{\url{https://github.com/chakib-belgaid/FrameworkBenchmarks}} where one can add extra \textbf{candidates} by creating a new project using the option \texttt{--new}.
 Then, interested practitioners must fill out the template and provide the Docker image file.
 Additionally, to configure the \textbf{workload} we provide the option \texttt{--concurrency-levels} and \texttt{--duration}.
-The choice of the database is included in the Docker image.
+The choice of database is included in the Docker image.
 
 \subsection{Results \& Findings}
 
@@ -258,7 +259,7 @@ This correlation coefficient is also known as the Pearson product-moment correla
 One can notice that there is a strong correlation between the energy consumption of the CPU and the DRAM for most of the scenarios.
 Moreover, the average energy consumption of DRAM is one-sixth of the CPU energy consumption.
 Therefore, this study will focus more on CPU energy consumption.
-For more insights about the DRAM consumption, we refer the reader to our GitHub repository.\footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}
+For more insights about DRAM consumption, we refer the reader to our GitHub repository.\footnote{\url{https://github.com/chakib-belgaid/frameworks-benchmarks-results}}
 
 Another strong correlation is between the number of requests per second and the average cost of a single request.
 This strong correlation happens because the cost of a single request is proportionate to the number of requests per second since the Average Power consumption remains constant after a certain threshold of clients; one should remember that this limit is different for each framework.
@@ -286,7 +287,7 @@ Therefore, we can safely focus our analysis on two variables, \emph{number of re
 \subsubsection{Scenario-based Analysis}
 After establishing the general idea about the average behavior of the frameworks, we will now focus on the analysis of each scenario.
 
-\paragraph{Idle behviour}
+\paragraph{Idle behavior}
 This part will treat average power behavior when the framework is in a rest mode.
 Figure~\ref{fig:av_power_idle} presents, a density plot for each family.
 
@@ -454,7 +455,7 @@ This is also explained by the fact that, unlike in other scenarios, the high-str
 
 \subsection{Tools}\label{sec:tools}
 \textsf{GreenBoard}\url{https://github.com/chakib-belgaid/greenboard} is an open-source dashboard designed to assist developers and practitioners in selecting the most energy-efficient web framework based on their requirements.
-It enables the user to compare the performance and energy consumption of different frameworks. As well as filtering the frameworks based on their programming language, the database type, and other criteria.
+It enables the user to compare the performance and energy consumption of different frameworks. As well as filtering the frameworks based on their programming language, database type, and other criteria.
 This dashboard is designed based on the latest results obtained from our experiments and we will keep updating it with the latest results.
 \cref*{fig:raw_table_example} presents an example of the raw obtained after selecting 7 frameworks. For the sake of versatility, we will consider the \emph{single query} scenario with two levels of clients (64 and 256).
 As one can see, although \textsf{Spark} depicts the highest amount of powers (235W), it is ranked 6th when it comes to the energy consumed per request. On the other hand, \textsf{Flask-pypy} consumed half of its power (118W) but it pays in terms of performance with ten times slower latency, and its requests cost seven times more than \textsf{Spark's} requests.
