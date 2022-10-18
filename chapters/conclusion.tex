@@ -138,19 +138,18 @@ We intend to explore these approaches and study how they can be used to increase
 
 \subsection*{Representativeness}:
 As reported in the state of the art, a successful benchmark meets three criteria: reproducibility, accuracy, and representativeness.
-This PhD thesis mostly discussed two of these criteria: reproducibility, and accuracy.
+This Ph.D. thesis mostly discussed two of these criteria: reproducibility, and accuracy.
 However, we did not discuss the representativeness of our benchmarks.
 We relied on state-of-the-art benchmarks to represent real-world applications.
 Nevertheless, the gap between these benchmarks and the industry is getting bigger and bigger, due to the extreme pace of software development.
 In the future, we would like to tackle the issue of representativeness and discuss how we can improve our protocol to fit real-world applications.
-What is the purpose of doing optimizations if they cannot be applied to real-world applications?
+After all, what is the purpose of doing optimizations if they cannot be applied to real-world applications?
 
 First, we will consider taking advantage of the popularity of CI/CD among developers to provide some insights into the energy consumption of their code.
 We did prototype a sonar tool that can report on the energy consumption of Java-based code repository.
-Figure~\ref{fig:JunitSonarplugin} shows the work of our intern who used a Sonar plugin to highlight the energy evolution of Java applications along time.
+Figure~\ref{fig:JunitSonarplugin} shows the work of our intern who used a Sonar plugin to highlight the energy evolution of Java applications over time.
 This prototype got even more sophisticated to become Joule-dff\link{https://github.com/davidson-consulting/diff-jjoules}, which is a tool to be added in continuous integration to highlight the energy evolution of the Java programs.
 We intend to push this even further to detect the commits responsible for an increase or the optimization within the source code.
-
 \begin{figure}[!h]
       \centering
       \includegraphics[width=0.8\linewidth]{chapters/JunitSonarplugin}
@@ -159,20 +158,38 @@ We intend to push this even further to detect the commits responsible for an inc
 \end{figure}
 
 
-we urge energy-efficiency benchmark developers to report measurements at nonpeak activity levels for a more complete characterization of a system's energy behavior\cite{barroso2007case}.
+\subsubsection{Energy impact vs Energy consumption}
+To make the software more eco-friendly, both state-of-the-art and this thesis focused on reducing software energy consumption. To accomplish this, we sought to isolate the energy consumption of the software under test as much as possible, primarily by running the tests on an isolated machine that runs only a few services. Others tried to infer the energy consumption of a single process using additional metrics that vary from the CPU usage, such as \cite{noureddine-issta-2016} to more sophisticated models like~\cite{fieni2020smartwatts,fieni2021selfwatts}.
 
+However, by the end of this thesis, I realized that isolating the energy consumption by running the tests on an isolated machine does not represent real-world conditions; many processes are running in parallel. On the other hand, our benchmark can compete with other processes for resources such as CPU, memory, and network. Therefore, this program can increase the energy consumption of other processes running on the same machine, although its energy consumption is low.
 
+This is why I've started to work on a new project called \textsc{Energy Impact} that aims to measure the energy impact of software.
+According to the work of \citeauthor{barroso2007case}~\cite{barroso2007case}, servers operate most of the time at between 10 and 50 percent of their maximum utilization levels. Moreover, as shown in Figure~\ref{fig:soa_energy_efficiency} with 50\% of the servers' capacity, the server operates only with  75\% of its maximum power. In other words, it will cost us only 25\% of the energy to operate the extra 50\% of the servers' capacity.
 
-\subsubsection*{greenFaas}
-servers operate most of the time at between 10 and 50 percent of their maximum utilization levels \cite{barroso2007case}
+\begin{figure}[!h]
+      \centering
+      \includegraphics[width=0.9\linewidth,keepaspectratio]{chapters/soa_energy_efficiency}
+      \caption{Power efficiency vs power consumption\cite{barroso2007case}}
+      \label{fig:soa_energy_efficiency}
+\end{figure}
 
 \begin{figure}[!h]
       \centering
       \caption{Evolution of CPU power}
       \label{fig:power_evolution_greenfaas}
       \includegraphics[width=\linewidth]{chapters/power_evolution_greenfaas}
-
 \end{figure}
+
+In order to confirm whether this hypothesis still holds. We run the following experiment.
+First, we took a machine with minimal services, then created a process that stresses one core by doing some mathematical operations, and each second we introduced a copy of this process. after a while, we removed these copies one by one.
+Figure~\ref{fig:power_evolution_greenfaas} displays the machine's power consumption during this experiment. As one can notice, the introduction of the first copies had a greater cost than the other ones, despite not sharing the same core. And the more we approach the peak of power, the less significance the introduction of a new process has on power consumption to be almost zero after the 9th copy.
+One should note that this experiment was conducted on a machine with the following configuration:
+Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz, with 4 physical cores and 4 hyperthreads, 16GB RAM, and 687GB HDD.
+Therefore with the introduction of the eighth copy, we have already saturated the machine's capacity, and the introduction of the ninth copy had no impact on the power consumption.
+
+
+
+
 
 
 \begin{figure}[!h]
@@ -180,20 +197,35 @@ servers operate most of the time at between 10 and 50 percent of their maximum u
       \caption{Evolution of CPU behavior during multiple contexts }
       \label{fig:green_faas}
       \includegraphics[width=\linewidth]{chapters/green_faas_duration}
-      \includegraphics[width=\linewidth]{chapters/green_faas_energy}
-      \includegraphics[width=\linewidth]{chapters/green_faas_power}
-      \includegraphics[width=\linewidth]{chapters/green_faas_impact}
-      \includegraphics[width=\linewidth]{chapters/soa_energy_efficiency}
-
 \end{figure}
+
+\begin{figure}[!h]
+      \centering
+      \caption{Evolution of CPU behavior during multiple contexts }
+      \label{fig:green_faas}
+      \includegraphics[width=\linewidth]{chapters/green_faas_energy}
+\end{figure}
+
+\begin{figure}[!h]
+      \centering
+      \caption{Evolution of CPU behavior during multiple contexts }
+      \label{fig:green_faas}
+      \includegraphics[width=\linewidth]{chapters/green_faas_power}
+\end{figure}
+
+\begin{figure}[!h]
+      \centering
+      \caption{Evolution of CPU behavior during multiple contexts }
+      \label{fig:green_faas}
+      \includegraphics[width=\linewidth]{chapters/green_faas_impact}
+\end{figure}
+
 
 exp graph coloration benchmark
 \url{https://github.com/chakib-belgaid/lazy-green-code-test}
 
 
-setup
-Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz
-8 cores 16 GB RAM
+
 \begin{enumerate}
 
       \item lazy code, sacrificing the performance in order to get a better energy consumption --> green faas
