@@ -144,7 +144,7 @@ We will explore the impact of using multiple models on the energy consumption of
 
 \paragraph{Studying the impact of JVM bytecode.}
 As we have seen in Chapter~\ref{chapter:java}, the choice of the JVM can greatly impact the energy consumption of hosted applications.
-On the other hand, we have seen in Chapter~\ref{chapter:porgramming_langauges} that other JVM-based languages depicted half power consumption of the Java code.
+On the other hand, we have seen in Chapter~\ref{chapter:porgramming_langauges} that other JVM-based languages depicted half the power consumption of the Java code.
 Was it only because of the adopted web framework?
 Or is there a real difference between the JVMs and the bytecode handled by JVM-based languages?
 We will explore this question by comparing the energy consumption of different JVMs and JVM-based languages, such as Scala, Kotlin, Groovy, and Clojure.
@@ -159,15 +159,15 @@ We will explore the impact of this feature on the energy consumption of a progra
 
 
 \paragraph{Raising awareness about the energy consumption of software}
-As the core focus of this PhD thesis was to optimize energy consumption using comparative studies, it was straightforward to claim that approach \texttt{X} is greener than \texttt{Y}, no matter the metrics we were using.
+As the core focus of this Ph.D. thesis was to optimize energy consumption using comparative studies, it was straightforward to claim that approach \texttt{X} is greener than \texttt{Y}, no matter the metrics we were using.
 However, this cannot be the case for developers when measuring the energy consumption of their programs.
 Some tried to give labels, such as (A,B,C\dots), while others translated these raw metrics in an equivalent of fuel consumption (e.g., 1 liter of fuel per $1,000$ lines of code).
-Most of the approaches were to use the carbon emission, such as~\cite{patterson2021carbon} or ecograder,\link{https://ecograder.com/} as a pivot metrics to quantify the environmental cost of software.
+Most of the approaches were to use the carbon emission, such as~\cite{patterson2021carbon} or ecograder,\link{https://ecograder.com/} as a pivot metric to quantify the environmental cost of the software.
 We intend to explore these approaches and study how they can be used to increase awareness of the energy consumption of their code.
 
 \subsection*{Representativeness}
 As reported in the state of the art, a successful benchmark meets three criteria: reproducibility, accuracy, and representativeness.
-This PhD thesis mostly discussed two of these criteria: reproducibility, and accuracy.
+This Ph.D. thesis mostly discussed two of these criteria: reproducibility, and accuracy.
 However, we did not discuss the representativeness of our benchmarks.
 We relied on state-of-the-art benchmarks to represent real-world applications.
 Nevertheless, the gap between these benchmarks and the industry is getting bigger and bigger, due to the extreme pace of software development.
@@ -175,7 +175,7 @@ In the future, we would like to tackle the issue of representativeness and discu
 After all, what is the purpose of doing optimizations if they cannot be applied to real-world applications?
 
 First, we will consider taking advantage of the popularity of CI/CD among developers to provide some insights into the energy consumption of their code.
-We did prototype a sonar tool that can report on the energy consumption of Java-based code repository.
+We did prototype a sonar tool that can report on the energy consumption of a Java-based code repository.
 Figure~\ref{fig:JunitSonarplugin} shows the work of our intern who used a Sonar plugin to highlight the energy evolution of Java applications over time.
 This prototype got even more sophisticated to become Joule-diff,\link{https://github.com/davidson-consulting/diff-jjoules} which is a tool to be included in a CI/CD workflow to highlight the energy evolution of the Java programs.
 We intend to push this even further to detect the commits responsible for an increase or the optimization within the source code.
@@ -247,7 +247,7 @@ As when we saturated only 50\% of the CPU capacity, this increase did not happen
 
 On the other hand, as we can see in Figure~\ref{fig:green_faas_power}, the average power behavior of the system had different behavior.
 With the 100\% saturation scenario, the power consumption hit its peak as soon as we hit the 4 core usage 3 from the context and 1 from the benchmark), and it kept fluctuating until the $8^{th}$ core saturation, after that, it was in a constant decrease.
-This was because the processes were competing with each others for cache usage, which led to a significant number of cache misses that slowed down the CPU frequency and led to a decrease in power consumption.
+This was because the processes were competing with each other for cache usage, which led to a significant number of cache misses that slowed down the CPU frequency and led to a decrease in power consumption.
 
 \begin{figure}[!h]
       \centering
