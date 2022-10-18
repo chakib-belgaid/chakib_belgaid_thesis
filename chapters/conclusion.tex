@@ -96,8 +96,8 @@ Each scenario is tested with several stress levels to study the scalability of t
 Therefore, the final results cover $8,750$ use cases.
 
 Both studies revealed that each framework had different behaviors toward scalability.
-While the absence of a clear winner, we found out that most compiled languages are more energy-efficient because of their performance, Java tends to depict more power, and the interpreted languages lacked in terms of performance while keeping a low power consumption. PHP was an exception as its performance was compared to the compiled languages. 
-The results of this work resulted in creating a dashboard to help developers choose the right programming language and framework for their application based on the context. The dashboard can be found at (\url{github.com/chakib-belgaid/greenboard}):
+While the absence of a clear winner, we found out that most compiled languages are more energy-efficient because of their performance. Java tends to depict more power, and the interpreted languages lacked performance while maintaining low power consumption. PHP was an exception, as its performance was compared to the compiled languages. 
+This work resulted in creating a dashboard to help developers choose the correct programming language and framework for their application based on the context. The dashboard can be found at (\url{github.com/chakib-belgaid/greenboard}):
 
 
 
@@ -248,28 +248,30 @@ When we try to measure the energy consumption of this experiment, we find that t
 
 However, if we calculate the energy impact of the benchmark which we define as: 
 \begin{equation}
-      Ipact_{Benchmark} =E_{Benchmark} - E_{System_before}
+      Impact_{Benchmark} =E_{Benchmark} - E_{Before}
 \end{equation}
-
 Wich can be approximated by: 
 \begin{equation}
-      Ipact_{Benchmark} =E_{Benchmark} - P_{System_before} * T_{Benchmark}
+      Impact_{Benchmark} =E_{Benchmark} - P_{Before} * T_{Benchmark}
 \end{equation}
+
+Where $Impact_{Benchmark}$ is the energetical impact of the benchmark, $E_{Benchmark}$ is the energy of the system when the benchmark is running, $E_{Before}$ is the energy of the system before the benchmark is running, $P_{Before}$ is the power of the system before the benchmark is running, and $T_{Benchmark}$ is the time of the benchmark execution.
+
 One can notice that the energy impact of our benchmark did not have the same behavior as the system's energy consumption. Sometimes introducing the benchmark had a \emph{negative} impact on the system's energy consumption, which made it even greener. This is because it reduces power consumption.This is shown in Figure~\ref{fig:green_faas_impact}
 
 We are aware that during this analysis, we have not considered the execution time of the context, and it will be affected by the benchmark - mainly, it will increase when we use more cores and/or higher CPU saturation -. However, this action was motivated by the fact that most of the could Software are web services, as we have seen in chapter\ref{chapter:porgramming_langauges} where the execution time is not bounded, and each service can run for an unlimited amount of time.
-
-\section{Conclusion}
-This experiment shows that the context can have a significant impact on the energy consumption of the system, and sometimes measuring only the energy consumption of an application does not represent the real impact of this application on the energy consumption of the whole system, especially when we are dealing with timeless Softwares aka services. 
-In the future, we tend to extend this experiment with more data, such as the energy consumption of the application itself instead of the whole system using \cite{fieni2020smartwatts} and comparing the strategies that were mentioned in this thesis using multiple contexts instead of just a minimal version of the operating system.
-
-
 \begin{figure}[!t]
       \centering
       \caption{Evolution of CPU behavior during multiple contexts }
       \includegraphics[width=\linewidth]{chapters/green_faas_impact}\
       \label{fig:green_faas_impact}
 \end{figure}
+\paragraph*{Synthesis}
+This experiment shows that the context can have a significant impact on the energy consumption of the system, and sometimes measuring only the energy consumption of an application does not represent the real impact of this application on the energy consumption of the whole system, especially when we are dealing with timeless Softwares aka services. 
+In the future, we tend to extend this experiment with more data, such as the energy consumption of the application itself instead of the whole system using \cite{fieni2020smartwatts} and comparing the strategies that were mentioned in this thesis using multiple contexts instead of just a minimal version of the operating system.
+
+
+
 
 
 % \begin{enumerate}
