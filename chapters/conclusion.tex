@@ -183,45 +183,64 @@ According to the work of \citeauthor{barroso2007case}~\cite{barroso2007case}, se
 In order to confirm whether this hypothesis still holds. We run the following experiment.
 First, we took a machine with minimal services, then created a process that stresses one core by doing some mathematical operations, and each second we introduced a copy of this process. after a while, we removed these copies one by one.
 Figure~\ref{fig:power_evolution_greenfaas} displays the machine's power consumption during this experiment. As one can notice, the introduction of the first copies had a greater cost than the other ones, despite not sharing the same core. And the more we approach the peak of power, the less significance the introduction of a new process has on power consumption to be almost zero after the 9th copy.
+
 One should note that this experiment was conducted on a machine with the following configuration:
-Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz, with 4 physical cores and 4 hyperthreads, 16GB RAM, and 687GB HDD.
+Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz, with 4 physical cores and 4 hyper threads, 16GB RAM, and 687GB HDD.
 Therefore with the introduction of the eighth copy, we have already saturated the machine's capacity, and the introduction of the ninth copy had no impact on the power consumption.
-
-
-
-
-
-
 \begin{figure}[!h]
       \centering
-      \caption{Evolution of CPU behavior during multiple contexts }
-      \label{fig:green_faas}
       \includegraphics[width=\linewidth]{chapters/green_faas_duration}
+      \caption{Evolution of CPU behavior during multiple contexts }
+      \label{fig:green_faas_duration}
 \end{figure}
 
+To push this experiment further, we created a stressing tool that allows us to fix the number of cores and \% usage of each core to simulate a production context. we then run a benchmark( graph coloration algrothim\link{https://github.com/chakib-belgaid/lazy-green-code-test/tree/master/exp01}) using multiple configurations.
+Figure~\ref{fig:green_faas_duration} displays the overall performance of the benchmark. As one can see, the execution time remained the same when the context was using 3 cores at any saturation level,
+this is because we have 4 physical CPU cores, therefore each process was running a different core,(3 cores were used by the context and the other one was used by the benchmark). However, behavior changes when the context consumes more than 3 cores. CPU saturation tends to have a great impact on the performance of the benchmark. when the benchmark was using a hyper thread of the same core as one of the context workers it took almost double the time to finish the same job.
+As when we saturated only 50\% of the CPU capacity, this increase didn't happen until the context used 7 cores, and in the worst-case scenario ( 10 extra processes) it took only 75 seconds to finish the job.
+
+\begin{figure}[!h]
+      \centering
+      \includegraphics[width=\linewidth]{chapters/green_faas_power}
+      \caption{Evolution of CPU behavior during multiple contexts }
+      \label{fig:green_faas_power}
+\end{figure}
+
+On the other hand, as we can see in Figure~\ref{fig:green_faas_power}, the average power behavior of the system had different behavior. With the 100\% saturation scenario, the power consumption hit its peak as soon as we hit the 4 core usage 3 from the context and 1 from the benchmark), and it kept fluctuating until the 8th core saturation, after that it was in a constant decrease. This was because the processes were competing with each other for cache usage, which led to a significant number of cache defaults that slowed down the CPU frequency which led to a decrease in power consumption.
+
+However, when we used 50\% of the CPU capacity, the power kept increasing by adding the number of extra processes. As for the scenarios where we used more than 50\% of the CPU capacity, the power consumption kept increasing until it hit its peak then it start to decrease; this number of processes needed to reach the peak varies according to the saturation level.
+
+
+
+
+
 \begin{figure}[!h]
       \centering
       \caption{Evolution of CPU behavior during multiple contexts }
-      \label{fig:green_faas}
+      \label{fig:green_faas_energy}
       \includegraphics[width=\linewidth]{chapters/green_faas_energy}
 \end{figure}
 
-\begin{figure}[!h]
-      \centering
-      \caption{Evolution of CPU behavior during multiple contexts }
-      \label{fig:green_faas}
-      \includegraphics[width=\linewidth]{chapters/green_faas_power}
-\end{figure}
+On the other hand, as shown in Figure~\ref{fig:green_faas_energy} the energy started increasing from the beginning, this is due to an increase in power that we will discuss
+
+
+
+
+
+
+
+
+
 
 \begin{figure}[!h]
       \centering
       \caption{Evolution of CPU behavior during multiple contexts }
-      \label{fig:green_faas}
+      \label{fig:green_faas_impact}
       \includegraphics[width=\linewidth]{chapters/green_faas_impact}
 \end{figure}
 
 
-exp graph coloration benchmark
+
 \url{https://github.com/chakib-belgaid/lazy-green-code-test}
 
 
