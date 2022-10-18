@@ -93,7 +93,7 @@ The following are some of the challenges that we can address in the short term.
 
 \paragraph{Studying the evolution of Python interpreters.}
 In Chapter~\ref{chapter:python}, we compared several python interpreters.
-However, most of these alternative solutions were based on Python\,2, which is now deprecated. 
+However, most of these alternative solutions were based on Python\,2, which is now deprecated.
 On the other hand, the default python interpreter (aka CPython) has included many features and optimization since our last study, such as the introduction of Python introduced the \texttt{dataclasses} in version 3.7 (PEP~557)\footnote{\url{https://peps.python.org/pep-0557/}} that can be used to reduce the memory footprint of Python objects, the new parser in Python\,3.9,\footnote{\url{https://docs.python.org/3/whatsnew/3.9.html}} the user type alias in Python\,3.10.\footnote{\url{https://peps.python.org/pep-0613/}}
 And, the most interesting changes for us occurred in CPython 3.11, which is claimed to be 25\% faster than Python\,3.10.\footnote{\url{https://github.com/faster-cpython/ideas}}.
 We need to re-evaluate the impact of these changes on the energy consumption of Python programs.
@@ -114,8 +114,8 @@ We will explore the impact of using multiple models on the energy consumption of
 \paragraph{Studying the impact of JVM bytecode.}
 As we have seen in Chapter~\ref{chapter:java}, the choice of the JVM can greatly impact the energy consumption of hosted applications.
 On the other hand, we have seen in Chapter~\ref{chapter:porgramming_langauges} that other JVM-based languages depicted half power consumption of the Java code.
-Was it only because of the adopted web framework? 
-Or is there a real difference between the JVMs and the bytecode handled by JVM-based languages? 
+Was it only because of the adopted web framework?
+Or is there a real difference between the JVMs and the bytecode handled by JVM-based languages?
 We will explore this question by comparing the energy consumption of different JVMs and JVM-based languages, such as Scala, Kotlin, Groovy, and Clojure.
 
 \paragraph{Revisiting the impact of programming languages.}
@@ -148,7 +148,7 @@ What is the purpose of doing optimizations if they cannot be applied to real-wor
 First, we will consider taking advantage of the popularity of CI/CD among developers to provide some insights into the energy consumption of their code.
 We did prototype a sonar tool that can report on the energy consumption of Java-based code repository.
 Figure~\ref{fig:JunitSonarplugin} shows the work of our intern who used a Sonar plugin to highlight the energy evolution of Java applications along time.
-This prototype got even more sophisticated to become Joule-dff\link{https://github.com/davidson-consulting/diff-jjoules}, which is a tool to be added in a continuous integration to highlight the energy evolution of the Java programs.
+This prototype got even more sophisticated to become Joule-dff\link{https://github.com/davidson-consulting/diff-jjoules}, which is a tool to be added in continuous integration to highlight the energy evolution of the Java programs.
 We intend to push this even further to detect the commits responsible for an increase or the optimization within the source code.
 
 \begin{figure}[!h]
@@ -158,13 +158,42 @@ We intend to push this even further to detect the commits responsible for an inc
       \label{fig:JunitSonarplugin}
 \end{figure}
 
+
 we urge energy-efficiency benchmark developers to report measurements at nonpeak activity levels for a more complete characterization of a system's energy behavior\cite{barroso2007case}.
+
 
 
 \subsubsection*{greenFaas}
 servers operate most of the time at between 10 and 50 percent of their maximum utilization levels \cite{barroso2007case}
 
+\begin{figure}[!h]
+      \centering
+      \caption{Evolution of CPU power}
+      \label{fig:power_evolution_greenfaas}
+      \includegraphics[width=\linewidth]{chapters/power_evolution_greenfaas}
 
+\end{figure}
+
+
+\begin{figure}[!h]
+      \centering
+      \caption{Evolution of CPU behavior during multiple contexts }
+      \label{fig:green_faas}
+      \includegraphics[width=\linewidth]{chapters/green_faas_duration}
+      \includegraphics[width=\linewidth]{chapters/green_faas_energy}
+      \includegraphics[width=\linewidth]{chapters/green_faas_power}
+      \includegraphics[width=\linewidth]{chapters/green_faas_impact}
+      \includegraphics[width=\linewidth]{chapters/soa_energy_efficiency}
+
+\end{figure}
+
+exp graph coloration benchmark
+\url{https://github.com/chakib-belgaid/lazy-green-code-test}
+
+
+setup
+Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz
+8 cores 16 GB RAM
 \begin{enumerate}
 
       \item lazy code, sacrificing the performance in order to get a better energy consumption --> green faas
