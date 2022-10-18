@@ -383,7 +383,7 @@ We run the following strategies using a Desktop machine with Intel(R) Core(TM) i
 \end{itemize}
 
 Figure~\ref{fig:python_multiprocessing} shows the results of the experiment regarding four metrics: power, execution time, DRAM energy, and CPU energy.
-As one can notice, CPU energy is ten folds higher than the DRAM one.
+As one can notice, CPU energy is ten folds higher than DRAM one.
 Therefore, we will focus on the CPU for this study.
 
 \begin{figure}[!hbt]
@@ -420,7 +420,7 @@ While this strategy aims to save energy by leveraging the ACPI P-states and C-st
 
 \paragraph*{Synthesis}
 This study demonstrates that the optimal way to reduce the energy consumption of Python applications is to adopt the \textsc{Multiprocessing} strategy, which is the most energy-efficient one.
-However, this strategy should be used carefully as it can lead to increased execution times.
+However, this strategy should be used carefully as it can lead to increase power consumption.
 This study demonstrates that the optimal number of processes is equal to the number of physical cores, which is four in our case.
 When using the \textsf{Multithreading} strategy, it was also found that sometimes the performance of the application has to be given up to save energy.
 
@@ -433,7 +433,6 @@ As many software services use Python in public and private cloud infrastructures
 This chapter discusses various ways of optimizing the energy consumption of Python-based applications.
 It first explains why such a choice is relevant.
 Then, it studies the energy behavior of Python within its most commonly employed use cases, which are revealed to be web development and machine learning.
-
 
 First, we studied the energy consumption of a machine learning algorithm using a benchmark of $60,000$ entries to train the \texttt{cifar10-fast} model.
 We discovered that this energy consumption increases exponentially while the model accuracy increases.
@@ -459,7 +458,7 @@ In the second section, we presented a non-intrusive technique to optimize the en
 This technique consists in guiding the choice of the Python runtime implementation.
 We started by categorizing and filtering these implementations into three significant classes (compiler, interpreter, and extra libraries).
 Then, we conducted a series of experiments to compare the energy consumption of these alternatives.
-Our findings indicate the lack of a general solution and the importance of tuning the Python runtime depending on applications.
+Our findings indicate the lack of a general solution and the importance of tuning the Python runtime depending on the application.
 % In some circumstances, some of these answers may be the best, while others may be the worst.
 We found that most interpreters had a similar or worse energy consumption than the official implementation of CPython.
 The reason behind such behavior was that some implementations focused on specific case studies, such as machine learning or security.

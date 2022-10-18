@@ -6,7 +6,7 @@ This manuscript reports on several contributions to measuring and reducing softw
 We used a three-step strategy to lower software energy: benchmarking, measuring, and optimizing.
 We started with the benchmarking phase.
 Chapter~\ref{chapter:literature_review} discussed the challenges of a successful benchmarking strategy: reproducibility, accuracy, and representativeness.
-We concluded that software containers, like "Docker", would be the best fit to ensure that energy studies could be reproduced.
+We concluded that software containerization technologies, like "Docker", are the best fit to ensure that energy studies can be reproduced.
 We then extended this reproducibility to an evolving protocol that helps researchers keep up with the rapid pace of software development.
 Then, we targeted the accuracy by studying the hardware and software factors that can impact the energy variation and how practitioners can tune them to harness this energy variation.
 
@@ -27,61 +27,89 @@ Then, we provided practitioners with a dashboard to determine which stack is bes
 The contributions reported in this thesis are covered in this section.
 The following is a summary of them:
 
-\subsection{Published Papers}
-This part summarizes the contributions that have been already accepted in conferences and journals.
+\paragraph*{Benchmarking Protocol to Measure Software Energy Consumption}
+During this chapter, we tackled two of the main challenges faced by researchers when using empirical analysis to measure software energy consumption: \emph{reproducibility}, \emph{accuracy}.
+First, we discussed the challenge of reproducibility by looking at the existing techniques. We have seen two main methods to encapsulate experimental systems. The first is to use virtual machines, and the second is to use containers. We established that Docker is more suitable for energy-related studies. Then we extended this reproducibility to an evolving protocol that helps researchers keep up with the rapid pace of software development.
 
-\begin{enumerate}
-      \item \textbf{Taming energy consumption variations in systems benchmarking}:
-            We investigate the phenomenon of variation when measuring the energy consumption of experiments in this study.
-            In this paper, we discuss various hardware and software factors that can amplify variations in recorded energy measures, with a focus on the following research questions:
-            \begin{description}
-                  \item[\textsc{RQ}~1:] Does the benchmarking protocol affect the energy variation?
-                  \item[\textsc{RQ}~2:] How important is the impact of the processor features on the energy variation?
-                  \item[\textsc{RQ}~3:] What effect does the operating system have on energy variation?
-                  \item[\textsc{RQ}~4:] Does the choice of processor make a difference in reducing the energy variation?
-            \end{description}
+Finally, We examined the phenomenon of variation when measuring the energy consumption of experiments in order to increase their accuracy. To do so, we investigated the following research questions.:
+\begin{description}
+      \item[\textsc{RQ}~1:] Does the benchmarking protocol affect the energy variation?
+      \item[\textsc{RQ}~2:] How important is the impact of the processor features on the energy variation?
+      \item[\textsc{RQ}~3:] What effect does the operating system have on energy variation?
+      \item[\textsc{RQ}~4:] Does the choice of processor make a difference in reducing the energy variation?
+\end{description}
 
-            This contribution shows how processor features can significantly affect the variation in energy use between the benchmarking protocol and the operating system.
-            Finally, this study presents several guidelines for controllable parameters that practitioners could easily change to increase the accuracy of their experiments.
+We discovered that processor features and the operating system can have a significant impact on the variation in energy consumption between the benchmarking protocol.
 
-            \bibentry{ournani2020taming}
+Finally, we presented several guidelines for controllable parameters that practitioners could easily modify to improve the precision of their experiments.
 
+The results of this work have been published in the following paper:
+\\
+\bibentry{ournani2020taming}
 
-      \item \textbf{Evaluating the impact of Java virtual machines on energy consumption}:
-            In this paper, we thoroughly investigate how JVMs affect software energy usage.
-            To address the following research concerns, we reveal through this study several trials on hundreds of JVMs versions provided by various providers:
-            \begin{description}
-                  \item[\textsc{RQ}~1:] What is the impact of existing JVM distributions on the energy consumption of Java-based software services?
-                  \item [\textsc{RQ}~1:] What are the relevant JVM settings that can reduce the energy consumption of a given software service?
-            \end{description}
-            The findings demonstrate that choosing the right JVM platform can significantly reduce energy usage depending on the software and use case.
-            This optimization can also be achieved by properly configuring the JIT and GC parameters.
+\paragraph*{Impact of Energy-saving Strategies in the Python Ecosystem}
+During this chapter, we tackled the challenge of reducing the energy consumption of Python code.
+To do so, we investigated the energy behavior of the python during its most common usage:
 
-            \bibentry{ournani2021evaluating}
-\end{enumerate}
-
-\subsection{Softwares and Tools}
-While the benchmarking and optimization parts were presented as chapters in this thesis, the measurement part was primarily based on developing tools that measure the energy consumption for a given use case.
-The following is a summary of the tools that were developed during this thesis:
 \begin{itemize}
-      \item \textbf{Jouleit} (\url{github.com/powerapi-ng/jouleit}): a tool that can be used to monitor energy consumption for any Linux program, this tool was used to compare the energy consumption of different JVMs;
-      \item \textbf{JRefferal} (\url{github.com/chakib-belgaid/jreferral}): a tool that allows the user to explore the JVM settings and their impact on the energy consumption of a given Java program. This tool was the result of the second article of this thesis;
+      \item \emph{machine learning}:  we studied the energy consumption of a machine learning algorithm using a benchmark of $60,000$ entries to train the \texttt{cifar10-fast} model. To confirm that the energy consumption of a model is highly impacted by its accuracy, increasing the accuracy from 85\% to 95\% can lead to double the energy consumption.
+      \item \emph{web development}: We examined the Django-based application and discovered that fetching data from the database consumes most of the energy. As a result, we compared three methods for retrieving data from two different databases. We discovered that using an optimized strategy can reduce energy consumption by $20\times$.
+      \item \emph{Data Processing}: In this section, we studied the energy consumption of data structures, iteration algorithms, and concurrency.  following the guidelines and prioritizing built-in functions is the best way to reduce the energy consumption of Python applications.
+      As for the concurrency, we found out that the \textsf{Multithreading} strategy can lead to a decrease in energy consumption despite the increase in execution time; the \textsf{Multiprocessing} was the optimal option, however, it is greatly affected by the number of processes.
+\end{itemize}
+After that, We presented a non-intrusive technique for optimizing the energy consumption of Python-based apps without requiring significant code changes.
+This technique involves using a different Python runtime implementation.
+We began by categorizing and filtering these implementations into three major classes (compiler, interpreter, and extra libraries).
+Then we ran a series of tests to compare the energy consumption of these options.
+Our findings point to the lack of a general solution and the importance of customizing the Python runtime for each application.
+We discovered that while most interpreters consumed as much or more energy than the official CPython implementation, the JIT-based ones tend to consume significantly less energy.
+
+This work resulted in the development of two tools to measure the energy consumption of Python code: 
+\begin{itemize}
       \item \textbf{PyJoules} (\url{pypi.org/project/pyJoules}) is a software toolkit to measure the energy footprint of a host machine along the execution of a piece of Python code. It can measure the energy consumption on the level of script, function, and bloc of code;
       \item \textbf{JouleHunter} (\url{pypi.org/project/joulehunter}): an energy profiler for python applications. It can be used to highlight the functions that consume the most energy in a given Python program. Its main usage is to help developers do an exploratory analysis of their application to scope the functions that should be optimized to be then targeted by PyJoules;
-      \item \textbf{GreenBoard} (\url{github.com/chakib-belgaid/greenboard}): a dashboard designed to help developers choose the best stack for their web application. It is based on the results of the third article of the last chapter.
-\end{itemize}
+     \end{itemize}
+
+
+\paragraph*{Impact of Java Virtual Machine Configurations on Energy Consumption}
+
+In this chapter, we thoroughly explored how JVMs affect software energy consumption by investing the following research questions:
+\begin{description}
+      \item[\textsc{RQ}~1:] What is the impact of existing JVM distributions on the energy consumption of Java-based software services?
+      \item [\textsc{RQ}~1:] What are the relevant JVM settings that can reduce the energy consumption of a given software service?
+\end{description}
+To do so, we compared the energy consumption of $12$ benchmarks using $52$ implementation, each benchmark is dedicated to a typical use case.
+After that, we studied two of the JVM features, JIT and GC, and show their impact on the energy consumption of the Java code;
+The findings demonstrate that choosing the right JVM platform can significantly reduce energy usage depending on the software and use case, and this optimization can also be achieved by properly configuring the JIT and GC parameters.
+
+This work resulted in the development of software called \textbf{JRefferal} (\url{github.com/chakib-belgaid/jreferral}) that allows the user to explore the JVM settings and their impact on the energy consumption of a given Java program and a publication of the following paper : 
+\\
+\bibentry{ournani2021evaluating}
+
+\paragraph*{Energy Footprint of Distributed Programming Frameworks}
+Finally, in Chapter~\ref{chapter:porgramming_langauges}, we extended the work of \citeauthor{pereira_energy_2017}~\cite{pereira_energy_2017} by studying the energy footprint on other aspects than micro-benchmarking by investigating the impact of the programming language on the energy consumption of web services. 
+In the first study, we used the official implementation of \textsc{gRPC} library to build $25$ frameworks using $17$ programming languages. 
+As for the second study, we looked at how web frameworks affect energy consumption by creating a basic web application and comparing its performance, latency, and energy usage using the most common web frameworks.
+We employed $261$ implementation using $35$ distinct programming languages and three different databases.
+For each implementation, we considered $7$ representative scenarios.
+Each scenario is tested with several stress levels to study the scalability of the web frameworks.
+Therefore, the final results cover $8,750$ use cases.
+
+Both studies revealed that each framework had different behaviors toward scalability.
+While the absence of a clear winner, we found out that most compiled languages are more energy-efficient because of their performance, Java tends to depict more power, and the interpreted languages lacked in terms of performance while keeping a low power consumption. PHP was an exception as its performance was compared to the compiled languages. 
+The results of this work resulted in creating a dashboard to help developers choose the right programming language and framework for their application based on the context. The dashboard can be found at (\url{github.com/chakib-belgaid/greenboard}):
 
 
 
-\subsection{Future Submissions}
-\begin{itemize}
-      \item Reducing the energy consumption of Python using non-intrusive techniques,
-      \item Empirical analysis on the energy consumption of different web frameworks,
-      \item The impact of programming languages on energy consumption of web services (a case study of RPC protocol),
-      \item How do ORMs affect how much energy is used? A case study of Django.
-\end{itemize}
+% \subsection{Future Submissions}
+% \begin{itemize}
+%       \item Reducing the energy consumption of Python using non-intrusive techniques,
+%       \item Empirical analysis on the energy consumption of different web frameworks,
+%       \item The impact of programming languages on energy consumption of web services (a case study of RPC protocol),
+%       \item How do ORMs affect how much energy is used? A case study of Django.
+% \end{itemize}
 
-\section{Future Work\note{ In Draft }}
+\section{Future Work}
 While our contributions are a good start to the energy-aware software engineering field, there are still many challenges to overcome.
 This is just the tip of the iceberg.
 The following perspectives are some of the challenges that we would like to address in the future.
@@ -180,7 +208,7 @@ According to the work of \citeauthor{barroso2007case}~\cite{barroso2007case}, se
 
 In order to confirm whether this hypothesis still holds. We run the following experiment\link.
 First, we took a machine with minimal services, then created a process that stresses one core by doing some mathematical operations, and each second we introduced a copy of this process. after a while, we removed these copies one by one.
-The source code of experiment can be found in the following GitHub repository\link{https://github.com/chakib-belgaid/lazy-green-code-test}
+The source code of the experiment can be found in the following GitHub repository\link{https://github.com/chakib-belgaid/lazy-green-code-test}
 Figure~\ref{fig:power_evolution_greenfaas} displays the machine's power consumption during this experiment. As one can notice, the introduction of the first copies had a greater cost than the other ones, despite not sharing the same core. And the more we approach the peak of power, the less significance the introduction of a new process has on power consumption to be almost zero after the 9th copy.
 
 One should note that this experiment was conducted on a machine with the following configuration:
@@ -236,20 +264,12 @@ This experiment shows that the context can have a significant impact on the ener
 In the future, we tend to extend this experiment with more data, such as the energy consumption of the application itself instead of the whole system using \cite{fieni2020smartwatts} and comparing the strategies that were mentioned in this thesis using multiple contexts instead of just a minimal version of the operating system.
 
 
-
-
-
 \begin{figure}[!t]
       \centering
       \caption{Evolution of CPU behavior during multiple contexts }
       \includegraphics[width=\linewidth]{chapters/green_faas_impact}\
       \label{fig:green_faas_impact}
 \end{figure}
-
-
-
-
-
 
 
 % \begin{enumerate}
