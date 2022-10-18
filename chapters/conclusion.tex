@@ -180,12 +180,14 @@ According to the work of \citeauthor{barroso2007case}~\cite{barroso2007case}, se
       \includegraphics[width=\linewidth]{chapters/power_evolution_greenfaas}
 \end{figure}
 
-In order to confirm whether this hypothesis still holds. We run the following experiment.
+In order to confirm whether this hypothesis still holds. We run the following experiment\link.
 First, we took a machine with minimal services, then created a process that stresses one core by doing some mathematical operations, and each second we introduced a copy of this process. after a while, we removed these copies one by one.
+The source code of experiment can be found in the following GitHub repository\link{https://github.com/chakib-belgaid/lazy-green-code-test}
 Figure~\ref{fig:power_evolution_greenfaas} displays the machine's power consumption during this experiment. As one can notice, the introduction of the first copies had a greater cost than the other ones, despite not sharing the same core. And the more we approach the peak of power, the less significance the introduction of a new process has on power consumption to be almost zero after the 9th copy.
 
 One should note that this experiment was conducted on a machine with the following configuration:
-Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz, with 4 physical cores and 4 hyper threads, 16GB RAM, and 687GB HDD.
+Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz, with 4 physical cores and 4 hyper threads, 16GB RAM, and 687GB HDD. As for the operating system, we used Ubuntu 20.04.2 LTS. 
+
 Therefore with the introduction of the eighth copy, we have already saturated the machine's capacity, and the introduction of the ninth copy had no impact on the power consumption.
 \begin{figure}[!h]
       \centering
@@ -209,11 +211,6 @@ As when we saturated only 50\% of the CPU capacity, this increase didn't happen 
 On the other hand, as we can see in Figure~\ref{fig:green_faas_power}, the average power behavior of the system had different behavior. With the 100\% saturation scenario, the power consumption hit its peak as soon as we hit the 4 core usage 3 from the context and 1 from the benchmark), and it kept fluctuating until the 8th core saturation, after that it was in a constant decrease. This was because the processes were competing with each other for cache usage, which led to a significant number of cache defaults that slowed down the CPU frequency which led to a decrease in power consumption.
 
 However, when we used 50\% of the CPU capacity, the power kept increasing by adding the number of extra processes. As for the scenarios where we used more than 50\% of the CPU capacity, the power consumption kept increasing until it hit its peak then it start to decrease; this number of processes needed to reach the peak varies according to the saturation level.
-
-
-
-
-
 \begin{figure}[!h]
       \centering
       \caption{Evolution of CPU behavior during multiple contexts }
@@ -221,34 +218,46 @@ However, when we used 50\% of the CPU capacity, the power kept increasing by add
       \includegraphics[width=\linewidth]{chapters/green_faas_energy}
 \end{figure}
 
-On the other hand, as shown in Figure~\ref{fig:green_faas_energy} the energy started increasing from the beginning, this is due to an increase in power that we will discuss
+When we try to measure the energy consumption of this experiment, we find that the scenario where we used 100\% of the energy consumption was the worst case by faar, and it kept increasing whenever we increase the number of core usage. Figure~\ref{fig:green_faas_energy} present the energy consumption of the system during the experiment.
+
+However, if we calculate the energy impact of the benchmark which we define as: 
+\begin{equation}
+      Ipact_{Benchmark} =E_{Benchmark} - E_{System_before}
+\end{equation}
+
+Wich can be approximated by: 
+\begin{equation}
+      Ipact_{Benchmark} =E_{Benchmark} - P_{System_before} * T_{Benchmark}
+\end{equation}
+One can notice that the energy impact of our benchmark did not have the same behavior as the system's energy consumption. Sometimes introducing the benchmark had a \emph{negative} impact on the system's energy consumption, which made it even greener. This is because it reduces power consumption.This is shown in Figure~\ref{fig:green_faas_impact}
+
+We are aware that during this analysis, we have not considered the execution time of the context, and it will be affected by the benchmark - mainly, it will increase when we use more cores and/or higher CPU saturation -. However, this action was motivated by the fact that most of the could Software are web services, as we have seen in chapter\ref{chapter:porgramming_langauges} where the execution time is not bounded, and each service can run for an unlimited amount of time.
+
+\section{Conclusion}
+This experiment shows that the context can have a significant impact on the energy consumption of the system, and sometimes measuring only the energy consumption of an application does not represent the real impact of this application on the energy consumption of the whole system, especially when we are dealing with timeless Softwares aka services. 
+In the future, we tend to extend this experiment with more data, such as the energy consumption of the application itself instead of the whole system using \cite{fieni2020smartwatts} and comparing the strategies that were mentioned in this thesis using multiple contexts instead of just a minimal version of the operating system.
 
 
 
 
 
-
-
-
-
-
-\begin{figure}[!h]
+\begin{figure}[!t]
       \centering
       \caption{Evolution of CPU behavior during multiple contexts }
+      \includegraphics[width=\linewidth]{chapters/green_faas_impact}\
       \label{fig:green_faas_impact}
-      \includegraphics[width=\linewidth]{chapters/green_faas_impact}
 \end{figure}
 
 
 
-\url{https://github.com/chakib-belgaid/lazy-green-code-test}
 
 
 
-\begin{enumerate}
-      \item lazy code, sacrificing the performance to get a better energy consumption --> green faas
-      \item more representative benchmarks, using several CPU saturation levels
-      \item measuring the energy impact instead of the row energy consumption. ( the highway analogy when a single application consumes less energy, however the total energy consumption of the system increases )
-\end{enumerate}
+
+% \begin{enumerate}
+%       \item lazy code, sacrificing the performance to get a better energy consumption --> green faas
+%       \item more representative benchmarks, using several CPU saturation levels
+%       \item measuring the energy impact instead of the row energy consumption. ( the highway analogy when a single application consumes less energy, however the total energy consumption of the system increases )
+% \end{enumerate}
 \vfill \strut  % to fill the rest of the page with blank lines
 \cleardoublepage
