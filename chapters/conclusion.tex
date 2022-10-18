@@ -1,5 +1,5 @@
 \clearpage
-\chapter{Discussion and Conclusion}
+\chapter{Conclusion \& Perspectives}
 \label{chapter:conclusion}
 
 This manuscript reports on several contributions to measuring and reducing software energy consumption.
@@ -31,7 +31,8 @@ The following is a summary of them:
 During this chapter, we tackled two of the main challenges faced by researchers when using empirical analysis to measure software energy consumption: \emph{reproducibility}, \emph{accuracy}.
 First, we discussed the challenge of reproducibility by looking at the existing techniques. We have seen two main methods to encapsulate experimental systems. The first is to use virtual machines, and the second is to use containers. We established that Docker is more suitable for energy-related studies. Then we extended this reproducibility to an evolving protocol that helps researchers keep up with the rapid pace of software development.
 
-Finally, We examined the phenomenon of variation when measuring the energy consumption of experiments in order to increase their accuracy. To do so, we investigated the following research questions.:
+Finally, We examined the phenomenon of variation when measuring the energy consumption of experiments to increase their accuracy.
+To do so, we investigated the following research questions:
 \begin{description}
       \item[\textsc{RQ}~1:] Does the benchmarking protocol affect the energy variation?
       \item[\textsc{RQ}~2:] How important is the impact of the processor features on the energy variation?
@@ -50,11 +51,10 @@ The results of this work have been published in the following paper:
 \paragraph*{Impact of Energy-saving Strategies in the Python Ecosystem}
 During this chapter, we tackled the challenge of reducing the energy consumption of Python code.
 To do so, we investigated the energy behavior of the python during its most common usage:
-
 \begin{itemize}
       \item \emph{machine learning}:  we studied the energy consumption of a machine learning algorithm using a benchmark of $60,000$ entries to train the \texttt{cifar10-fast} model. To confirm that the energy consumption of a model is highly impacted by its accuracy, increasing the accuracy from 85\% to 95\% can lead to double the energy consumption.
       \item \emph{web development}: We examined the Django-based application and discovered that fetching data from the database consumes most of the energy. As a result, we compared three methods for retrieving data from two different databases. We discovered that using an optimized strategy can reduce energy consumption by $20\times$.
-      \item \emph{Data Processing}: In this section, we studied the energy consumption of data structures, iteration algorithms, and concurrency.  following the guidelines and prioritizing built-in functions is the best way to reduce the energy consumption of Python applications.
+      \item \emph{data processing}: In this section, we studied the energy consumption of data structures, iteration algorithms, and concurrency.  following the guidelines and prioritizing built-in functions is the best way to reduce the energy consumption of Python applications.
       As for the concurrency, we found out that the \textsf{Multithreading} strategy can lead to a decrease in energy consumption despite the increase in execution time; the \textsf{Multiprocessing} was the optimal option, however, it is greatly affected by the number of processes.
 \end{itemize}
 After that, We presented a non-intrusive technique for optimizing the energy consumption of Python-based apps without requiring significant code changes.
@@ -67,13 +67,13 @@ We discovered that while most interpreters consumed as much or more energy than 
 This work resulted in the development of two tools to measure the energy consumption of Python code: 
 \begin{itemize}
       \item \textbf{PyJoules} (\url{pypi.org/project/pyJoules}) is a software toolkit to measure the energy footprint of a host machine along the execution of a piece of Python code. It can measure the energy consumption on the level of script, function, and bloc of code;
-      \item \textbf{JouleHunter} (\url{pypi.org/project/joulehunter}): an energy profiler for python applications. It can be used to highlight the functions that consume the most energy in a given Python program. Its main usage is to help developers do an exploratory analysis of their application to scope the functions that should be optimized to be then targeted by PyJoules;
+      \item \textbf{JouleHunter} (\url{pypi.org/project/joulehunter}): an energy profiler for python applications. It can be used to highlight the functions that consume the most energy in a given Python program. Its main usage is to help developers do an exploratory analysis of their application to scope the functions that should be optimized to be then targeted by PyJoules.
      \end{itemize}
 
 
 \paragraph*{Impact of Java Virtual Machine Configurations on Energy Consumption}
 
-In this chapter, we thoroughly explored how JVMs affect software energy consumption by investing the following research questions:
+In this chapter, we thoroughly explored how JVMs affect software energy consumption by investing in the following research questions:
 \begin{description}
       \item[\textsc{RQ}~1:] What is the impact of existing JVM distributions on the energy consumption of Java-based software services?
       \item [\textsc{RQ}~1:] What are the relevant JVM settings that can reduce the energy consumption of a given software service?
@@ -82,7 +82,7 @@ To do so, we compared the energy consumption of $12$ benchmarks using $52$ imple
 After that, we studied two of the JVM features, JIT and GC, and show their impact on the energy consumption of the Java code;
 The findings demonstrate that choosing the right JVM platform can significantly reduce energy usage depending on the software and use case, and this optimization can also be achieved by properly configuring the JIT and GC parameters.
 
-This work resulted in the development of software called \textbf{JRefferal} (\url{github.com/chakib-belgaid/jreferral}) that allows the user to explore the JVM settings and their impact on the energy consumption of a given Java program and a publication of the following paper : 
+This work resulted in the development of software called \textbf{JReferral} (\url{github.com/chakib-belgaid/jreferral}) that allows the user to explore the JVM settings and their impact on the energy consumption of a given Java program and a publication of the following paper: 
 \\
 \bibentry{ournani2021evaluating}
 
@@ -96,8 +96,11 @@ Each scenario is tested with several stress levels to study the scalability of t
 Therefore, the final results cover $8,750$ use cases.
 
 Both studies revealed that each framework had different behaviors toward scalability.
-While the absence of a clear winner, we found out that most compiled languages are more energy-efficient because of their performance. Java tends to depict more power, and the interpreted languages lacked performance while maintaining low power consumption. PHP was an exception, as its performance was compared to the compiled languages. 
-This work resulted in creating a dashboard to help developers choose the correct programming language and framework for their application based on the context. The dashboard can be found at (\url{github.com/chakib-belgaid/greenboard}):
+While the absence of a clear winner, we found out that most compiled languages are more energy-efficient because of their performance.
+Java tends to depict more power, and the interpreted languages lacked performance but maintained low power consumption.
+PHP was an exception, as its performance was compared to the compiled languages. 
+This work resulted in creating a dashboard to help developers choose the correct programming language and framework for their application based on the context.
+The dashboard can be found at \url{github.com/chakib-belgaid/greenboard}.
 
 
 
