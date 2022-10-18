@@ -138,7 +138,7 @@ We intend to explore these approaches and study how they can be used to increase
 
 \subsection*{Representativeness}:
 As reported in the state of the art, a successful benchmark meets three criteria: reproducibility, accuracy, and representativeness.
-This PhD thesis mostly discussed two of these criteria: reproducibility, and accuracy.
+This PhD thesis mostly discussed two of these criteria: reproducibility and accuracy.
 However, we did not discuss the representativeness of our benchmarks.
 We relied on state-of-the-art benchmarks to represent real-world applications.
 Nevertheless, the gap between these benchmarks and the industry is getting bigger and bigger, due to the extreme pace of software development.
@@ -146,32 +146,30 @@ In the future, we would like to tackle the issue of representativeness and discu
 What is the purpose of doing optimizations if they cannot be applied to real-world applications?
 
 First, we will consider taking advantage of the popularity of CI/CD among developers to provide some insights into the energy consumption of their code.
-We did prototype a sonar tool that can report on the energy consumption of Java-based code repository.
+We did prototype a Sonar plugin that can report on the energy consumption of Java-based code repository.
 Figure~\ref{fig:JunitSonarplugin} shows the work of our intern who used a Sonar plugin to highlight the energy evolution of Java applications along time.
-This prototype got even more sophisticated to become Joule-dff\link{https://github.com/davidson-consulting/diff-jjoules}, which is a tool to be added in continuous integration to highlight the energy evolution of the Java programs.
+This prototype got even more sophisticated to become Joule-diff,\link{https://github.com/davidson-consulting/diff-jjoules} which is a tool to be included in a CI/CD to highlight the energy evolution of the Java programs.
 We intend to push this even further to detect the commits responsible for an increase or the optimization within the source code.
 
 \begin{figure}[!h]
       \centering
       \includegraphics[width=0.8\linewidth]{chapters/JunitSonarplugin}
-      \caption{Sonar plugin for Junit}
+      \caption{Sonar Energy plugin for JUnit}
       \label{fig:JunitSonarplugin}
 \end{figure}
 
 
-we urge energy-efficiency benchmark developers to report measurements at nonpeak activity levels for a more complete characterization of a system's energy behavior\cite{barroso2007case}.
+We urge energy-efficiency benchmark developers to report measurements at non-peak activity levels for a more complete characterization of a system's energy behavior~\cite{barroso2007case}.
 
 
-
-\subsubsection*{greenFaas}
-servers operate most of the time at between 10 and 50 percent of their maximum utilization levels \cite{barroso2007case}
+\subsubsection*{GreenFaaS}
+servers operate most of the time at between 10 and 50 percent of their maximum utilization levels~\cite{barroso2007case}.
 
 \begin{figure}[!h]
       \centering
       \caption{Evolution of CPU power}
       \label{fig:power_evolution_greenfaas}
       \includegraphics[width=\linewidth]{chapters/power_evolution_greenfaas}
-
 \end{figure}
 
 
@@ -184,7 +182,6 @@ servers operate most of the time at between 10 and 50 percent of their maximum u
       \includegraphics[width=\linewidth]{chapters/green_faas_power}
       \includegraphics[width=\linewidth]{chapters/green_faas_impact}
       \includegraphics[width=\linewidth]{chapters/soa_energy_efficiency}
-
 \end{figure}
 
 exp graph coloration benchmark
@@ -195,8 +192,7 @@ setup
 Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz
 8 cores 16 GB RAM
 \begin{enumerate}
-
-      \item lazy code, sacrificing the performance in order to get a better energy consumption --> green faas
+      \item lazy code, sacrificing the performance to get a better energy consumption --> green faas
       \item more representative benchmarks, using several CPU saturation levels
       \item measuring the energy impact instead of the row energy consumption. ( the highway analogy when a single application consumes less energy, however the total energy consumption of the system increases )
 \end{enumerate}
