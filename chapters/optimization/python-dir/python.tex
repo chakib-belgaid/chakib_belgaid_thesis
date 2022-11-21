@@ -100,6 +100,7 @@ Then, we dive deeper into the energy consumption of Python core structures befor
 \subsection{Python for Machine Learning}\label{sec:ml}
 Machine learning is becoming an integral part of our daily lives, growing more potent and energy-hungry each year.
 As machine learning can significantly impact climate change, it is vital to investigate mitigation techniques.
+This part highlights the work of \citeauthor{kaminetzky_energy_2021}~\cite{kaminetzky_energy_2021} during his internship at inria
 
 \subsubsection{Experimental Protocol}
 \paragraph{Measurement Context}
@@ -156,7 +157,7 @@ This highlights the price one should pay to increase the model's accuracy.
 \begin{figure}
     \centering
     \includegraphics[width=1.1\textwidth]{imgs/accuracy_basedonepoch}
-    \caption{Accuracy along epochs.}
+    \caption{Accuracy along epochs~\cite{kaminetzky_energy_2021}.}
     \label{fig:eopochvsaccuracy}
 \end{figure}
 
@@ -167,7 +168,7 @@ Moreover, one can notice that this price is paid mainly by the CPU and GPU, whil
 \begin{figure}
     \centering
     \includegraphics[width=1.1\textwidth]{imgs/cumulative_energy_vs_accuracy}
-    \caption{Cumulative energy consumption vs. accuracy.}
+    \caption{Cumulative energy consumption vs. accuracy~\cite{kaminetzky_energy_2021}.}
     \label{fig:cum_energy_vs_accuracy}
 \end{figure}
 
@@ -177,7 +178,7 @@ However, this gap may increase as the number of epochs increases.
 \begin{figure}
     \centering
     \includegraphics[width=1.1\textwidth]{imgs/cumulative_energy_fast10.pdf}
-    \caption{Average energy for training the model based on the strategy.}
+    \caption{Average energy for training the model based on the strategy~\cite{kaminetzky_energy_2021}.}
     \label{fig:av_energy_setup}
 \end{figure}
 
@@ -189,7 +190,7 @@ This is shown in Figure~\ref{fig:ephoch_power}.
 \begin{figure}
     \centering
     \includegraphics[width=1.1\textwidth]{imgs/power_gpu_baedonepoche.pdf}
-    \caption{Evolution of average GPU power along epochs.}
+    \caption{Evolution of average GPU power along epochs~\cite{kaminetzky_energy_2021}.}
     \label{fig:ephoch_power}
 \end{figure}
 
@@ -200,7 +201,7 @@ The last strategy exhibits more power- even when its duration is not optimal- be
 \begin{figure}
     \centering
     \includegraphics[width=1.1\textwidth]{imgs/epoch_duration.pdf}
-    \caption{Distribution of the durations of each epoch.}
+    \caption{Distribution of the durations of each epoch~\cite{kaminetzky_energy_2021}.}
     \label{fig:epoch_duration}
 \end{figure}
 
@@ -255,7 +256,7 @@ As we can notice, 91.4\% of the total energy consumption is spent on resolving t
 % We have chosen Django as our web framework.
 Therefore, we chose to study if the choice of the database and the ORM impact energy consumption and web application performance.
 % \subsection{Experiment \& Results}
-To accomplish so, we examined the cost of a single request of the prior website using various ways to extract data from the database.
+To accomplish so, we examined the cost of a single request from the prior website using various ways to extract data from the database.
 We considered using two different databases, \textsc{PostgreSQL} and \textsc{SQlite3}, that store the same records and three different ways to fetch the records:
 \begin{enumerate}
     \item \textsf{Vanilla} relies only on the ORM to retrieve the data,
@@ -297,6 +298,8 @@ Moreover, unlike rendering responses, many alternatives can be considered to sto
 \subsection{Python for Data Processing}
 Another field of investigation is the type of data and control structures that might impact energy consumption.
 In this study, we will run some common algorithms with different data structures and control structures to study if there is any difference in energy consumption.
+This part displays the work of \citeauthor{randrianaina_optimisation_2019}\cite{randrianaina_optimisation_2019} during his internship at Inria.
+
 \subsubsection{Experimental Protocol}
 All of the tests in this study are done on the Grid5000 cluster using the same machine, Python interpreter, and library version.
 Due to PowerAPI's frequency constraint, we measure the energy of $1,000$ algorithm iterations for each test.
@@ -332,7 +335,7 @@ Furthermore, we run the same code snippet for each of these implementations with
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{imgs/python_iterations}
-    \caption{Comparison of the energy consumption of different Python loops.}
+    \caption{Comparison of the energy consumption of different Python loops~\cite{randrianaina_optimisation_2019}.}
     \label{fig:pythonloops}
 \end{figure}
 
@@ -362,7 +365,7 @@ Therefore, they are faster and consume less energy.
 \begin{figure}
     \centering
     \includegraphics[width=.9\linewidth]{imgs/python_treatemens}
-    \caption{Comparison of the energy consumption of different methods to convert a list.}
+    \caption{Comparison of the energy consumption of different methods to convert a list~\cite{randrianaina_optimisation_2019}.}
     \label{fig:pythontreatement}
 \end{figure}
 
@@ -407,7 +410,7 @@ This difference in power consumption has overcome the lack of performance of the
 
 
 \paragraph*{Multiprocessing}
-Unlike the \textsf{Multithreading} strategy, the \textsc{Multiprocessing} strategy is based on forking the program into multiple processes, which are independent of each other. 
+Unlike the \textsf{Multithreading} strategy, the \textsc{Multiprocessing} strategy is based on forking the program into multiple processes, which are independent of each other.
 This allows the Python interpreter to run multiple processes simultaneously, hence explaining the better performance of the multi-processing strategy.
 However, this will increase the average power consumption of the CPU, which is around $40 Watts$, compared to the \textsf{Sequential} one, which is around $22 Watts$.
 Nevertheless, the \textsc{Multiprocessing} strategy is still the most energy-efficient one.
