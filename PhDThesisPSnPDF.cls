@@ -994,7 +994,7 @@ wish to left align your text}
 \vspace*{1em}
 
 % Title
-% {\usebox{\PHD@Title}} % subtitle is defined
+{\usebox{\PHD@Title}} % subtitle is defined
 \vspace*{2em}
 
 
