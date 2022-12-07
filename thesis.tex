@@ -156,7 +156,7 @@
 
 % ************************ Thesis Information & Meta-data **********************
 % Thesis title and author information, refernce file for biblatex
-\input{thesis-info}
+
 
 % ***************************** Abstract Separate ******************************
 % To printout only the titlepage and the abstract with the PhD title and the
@@ -178,12 +178,18 @@
  \includeonly{chapters/benchmarking}
 \fi
 
-% ******************************** Front Matter ********************************
+% *********e********************** Front Matter ********************************
 \begin{document}
 
 \frontmatter
-
+\input{thesis-info}
 \maketitle
+
+% \input{thesis-info-fr}
+% \maketitle
+
+% \maketitle
+% \maketitle{thesis-info-fr}
 
 % \include{chapters/dedication}
 % \include{chapters/declaration}
@@ -204,6 +210,7 @@
 \printnomenclature
 
 % ******************************** Main Matter *********************************
+
 \mainmatter
 
 
@@ -216,7 +223,7 @@
 \include{chapters/optimization/optimization}
 \include{chapters/programming_languages/programming_languages}
 \input{chapters/conclusion}
-% \include{chapters/appendices/appendices} % Appendices
+\include{chapters/appendices/appendices} % Appendices
 
 % ********************************** Back Matter *******************************
 % Backmatter should be commented out, if you are usPing appendices after References

@@ -847,19 +847,53 @@ wish to left align your text}
 \newif\ifPHD@collegeshield\PHD@collegeshieldfalse
 \newcommand{\@collegeshield}{}
 \newcommand{\collegeshield}[1]{\renewcommand{\@collegeshield}{#1}\PHD@collegeshieldtrue}
-
-% Supervisor
+% -------------------Supervisor--------------
 \newif\ifPHD@supervisor\PHD@supervisorfalse
 \newcommand{\@supervisor}{}
 \newcommand{\supervisor}[1]{\renewcommand{\@supervisor}{#1}\PHD@supervisortrue}
-
 % Supervisor Title (Supervisor - Default, can be changed)
 \newcommand{\@supervisorrole}{Supervisor: }
 \newcommand{\supervisorrole}[1]{\renewcommand{\@supervisorrole}{#1}}
-
 % Supervisor width to align
 \newcommand{\@supervisorlinewidth}{0.35\textwidth}
 \newcommand{\supervisorlinewidth}[1]{\renewcommand{\@supervisorlinewidth}{#1}}
+% ------------------------------------------
+
+% -------------------Guest--------------
+\newif\ifPHD@guest\PHD@guestfalse
+\newcommand{\@guest}{}
+\newcommand{\guest}[1]{\renewcommand{\@guest}{#1}\PHD@guesttrue}
+% Guest Title (Guest - Default, can be changed)
+\newcommand{\@guestrole}{Guest: }
+\newcommand{\guestrole}[1]{\renewcommand{\@guestrole}{#1}}
+% Guest width to align
+\newcommand{\@guestlinewidth}{0.35\textwidth}
+\newcommand{\guestlinewidth}[1]{\renewcommand{\@guestlinewidth}{#1}}
+% ------------------------------------------
+
+% -------------------Reporters--------------
+\newif\ifPHD@Reporter\PHD@Reporterfalse
+\newcommand{\@Reporter}{}
+\newcommand{\Reporter}[1]{\renewcommand{\@Reporter}{#1}\PHD@Reportertrue}
+% Reporters Title (Reporters - Default, can be changed)
+\newcommand{\@Reporterrole}{Reporters: }
+\newcommand{\Reporterrole}[1]{\renewcommand{\@Reporterrole}{#1}}
+% Reporters width to align
+\newcommand{\@Reporterlinewidth}{0.35\textwidth}
+\newcommand{\Reporterlinewidth}[1]{\renewcommand{\@Reporterlinewidth}{#1}}
+% ------------------------------------------
+
+% -------------------Jurys--------------
+\newif\ifPHD@Jury\PHD@Juryfalse
+\newcommand{\@Jury}{}
+\newcommand{\Jury}[1]{\renewcommand{\@Jury}{#1}\PHD@Jurytrue}
+% Jurys Title (Jurys - Default, can be changed)
+\newcommand{\@Juryrole}{Jurys: }
+\newcommand{\Juryrole}[1]{\renewcommand{\@Juryrole}{#1}}
+% Jurys width to align
+\newcommand{\@Jurylinewidth}{0.35\textwidth}
+\newcommand{\Jurylinewidth}[1]{\renewcommand{\@Jurylinewidth}{#1}}
+% ------------------------------------------
 
 % Advisor
 \newif\ifPHD@advisor\PHD@advisorfalse
@@ -957,27 +991,45 @@ wish to left align your text}
 \vspace{.15\PHD@titlepagespacing}
 \fi
 
-\vspace*{3em}
+\vspace*{1em}
 
 % Title
-{\usebox{\PHD@Title}} % subtitle is defined
-\vspace*{3em}
+% {\usebox{\PHD@Title}} % subtitle is defined
+\vspace*{2em}
 
 
 % Author
 {\usebox{\PHD@author}}
-\vspace*{2em}
+\vspace*{1em}
 
 % Supervisor
 \ifPHD@supervisor%
 {\usebox{\PHD@supervisor}}
-\vspace*{0.5em}
+\vspace*{0.2em}
 \fi
 
 % Advisor
 \ifPHD@advisor%
 {\usebox{\PHD@advisor}}
-\vspace*{0.5em}
+\vspace*{0.2em}
+\fi
+
+
+\ifPHD@Reporter%
+{\usebox{\PHD@Reporter}}
+\vspace*{0.2em}
+\fi
+
+\ifPHD@Jury%
+{\usebox{\PHD@Jury}}
+\vspace*{0.2em}
+\fi
+
+
+% Guest
+\ifPHD@guest%
+{\usebox{\PHD@guest}}
+\vspace*{0.2em}
 \fi
 
 % Department and University
@@ -988,7 +1040,7 @@ wish to left align your text}
 {\usebox{\PHD@submission}}
 
 % College and degree date
-\vfill
+% \vfill
 {\usebox{\PHD@collegedate}}
     
 \end{center}
@@ -1202,14 +1254,14 @@ wish to left align your text}
 \begin{lrbox}{\PHD@author}
   \begin{minipage}[c]{\textwidth}
     \centering \Large \bfseries{\@author}
-      \vspace{0.5em}   
+      \vspace{0.2em}   
   \end{minipage}
 \end{lrbox}
 
 % Supervisor Box
 \newsavebox{\PHD@supervisor}
 \begin{lrbox}{\PHD@supervisor}
-  \begin{minipage}[c]{\textwidth}
+  \begin{minipage}[l]{\textwidth}
     \ifthenelse{\equal{\@supervisor}{}}{
       % supervisor is not defined
     }{
@@ -1219,15 +1271,54 @@ wish to left align your text}
           \@supervisorrole \parbox[t]{\@supervisorlinewidth}{\@supervisor}
         }
       \end{center}
-      \vspace{0.5em}
+      \vspace{0.2em}
     } % supervisor is defined
+  \end{minipage}
+\end{lrbox}
+
+% guest box 
+
+% Reporter box 
+\newsavebox{\PHD@Reporter}
+\begin{lrbox}{\PHD@Reporter}
+  \begin{minipage}[l]{\textwidth}
+    \ifthenelse{\equal{\@Reporter}{}}{
+      % Reporter is not defined
+    }{
+      \begin{center}
+        \makebox[\widthof{Reporterrole} + \@Reporterlinewidth][l]{
+          \Large
+          \@Reporterrole \parbox[t]{\@Reporterlinewidth}{\@Reporter}
+        }
+      \end{center}
+      \vspace{0.2em}
+    } % Reporter is defined
+  \end{minipage}
+\end{lrbox}
+
+
+% Reporter box 
+\newsavebox{\PHD@Jury}
+\begin{lrbox}{\PHD@Jury}
+  \begin{minipage}[l]{\textwidth}
+    \ifthenelse{\equal{\@Jury}{}}{
+      % Jury is not defined
+    }{
+      \begin{center}
+        \makebox[\widthof{Juryrole} + \@Jurylinewidth][l]{
+          \Large
+          \@Juryrole \parbox[t]{\@Jurylinewidth}{\@Jury}
+        }
+      \end{center}
+      \vspace{0.2em}
+    } % Jury is defined
   \end{minipage}
 \end{lrbox}
 
 % Advisor Box
 \newsavebox{\PHD@advisor}
 \begin{lrbox}{\PHD@advisor}
-  \begin{minipage}[c]{\textwidth}
+  \begin{minipage}[l]{\textwidth}
     \ifthenelse{\equal{\@advisor}{}}{
       % advisor is not defined
     }{
@@ -1237,7 +1328,7 @@ wish to left align your text}
           \@advisorrole \parbox[t]{\@advisorlinewidth}{\@advisor}
         }
       \end{center}
-      \vspace{0.5em}
+      \vspace{0.2em}
     } % advisor is defined
   \end{minipage}
 \end{lrbox}
@@ -1283,6 +1374,24 @@ wish to left align your text}
   } % college is defined
 \end{minipage}
 \end{lrbox}
+
+\newsavebox{\PHD@guest}
+\begin{lrbox}{\PHD@guest}
+  \begin{minipage}[l]{\textwidth}
+    \ifthenelse{\equal{\@guest}{}}{
+      % guest is not defined
+    }{
+      \begin{center}
+        \makebox[\widthof{guestrole} + \@guestlinewidth][l]{
+          \Large
+          \@guestrole \parbox[t]{\@guestlinewidth}{\@guest}
+        }
+      \end{center}
+      \vspace{0.2em}
+    } % guest is defined
+  \end{minipage}
+\end{lrbox}
+
 
 %  Now to compute the free vertical space
 \newlength{\PHD@titlepagespacing}
