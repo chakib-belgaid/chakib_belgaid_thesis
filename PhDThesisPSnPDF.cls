@@ -991,7 +991,7 @@ wish to left align your text}
 \vspace{.15\PHD@titlepagespacing}
 \fi
 
-\vspace*{1em}
+% \vspace*{1em}
 
 % Title
 {\usebox{\PHD@Title}} % subtitle is defined
@@ -1034,11 +1034,11 @@ wish to left align your text}
 
 % Department and University
 {\usebox{\PHD@dept}}
-\vspace{.2\PHD@titlepagespacing}
+\vspace{.04\PHD@titlepagespacing}
 
 % Submission Text
 {\usebox{\PHD@submission}}
-
+\vspace{.1\PHD@titlepagespacing}
 % College and degree date
 % \vfill
 {\usebox{\PHD@collegedate}}
