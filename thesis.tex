@@ -34,6 +34,7 @@
 \usepackage[abspath]{currfile}
 \usepackage{multirow}
 \usepackage{tikz}
+\usepackage{afterpage}
 % \usepackage{booktabs}
 % \usepackage{hyperref} 
 % \usepackage[table]{xcolor}
@@ -54,6 +55,13 @@
 }
 
 
+
+
+\newcommand\blankpage{%
+  \null
+  \thispagestyle{empty}%
+  \addtocounter{page}{-1}%
+  \newpage}
 \newcommand{\todo}[1]{{\color{red}\bf\em TODO: #1}}
 \newcommand{\romain}[1]{{\color{blue}\bf\em Cmt[R]: #1}}
 \newcommand{\reference}[1]{{\color{green}\bf\em ADD Reference: #1}}
@@ -182,8 +190,13 @@
 \begin{document}
 
 \frontmatter
-\input{thesis-info}
-\maketitle
+% \input{thesis-info}
+% \maketitle
+\include{title_page}
+
+\include{title_page_fr}
+\afterpage{\blankpage}
+
 
 % \input{thesis-info-fr}
 % \maketitle
@@ -191,10 +204,9 @@
 % \maketitle
 % \maketitle{thesis-info-fr}
 
-% \include{chapters/dedication}
 % \include{chapters/declaration}
 \include{chapters/acknowledgement}
-\include{chapters/abstract}
+% \include{chapters/abstract}
 
 % *********************** Adding TOC and List of Figures ***********************
 
@@ -215,15 +227,15 @@
 
 
 
-\input{chapters/introduction}
-\include{chapters/literature/literature_Review}
-% \part{Benchmarking Programming Technologies}
-\include{chapters/benchmarking/benchmarking}
-% \part{Optimizing Application Runtimes}
-\include{chapters/optimization/optimization}
-\include{chapters/programming_languages/programming_languages}
-\input{chapters/conclusion}
-\include{chapters/appendices/appendices} % Appendices
+% \input{chapters/introduction}
+% \include{chapters/literature/literature_Review}
+% % \part{Benchmarking Programming Technologies}
+% \include{chapters/benchmarking/benchmarking}
+% % \part{Optimizing Application Runtimes}
+% \include{chapters/optimization/optimization}
+% \include{chapters/programming_languages/programming_languages}
+% \input{chapters/conclusion}
+% \include{chapters/appendices/appendices} % Appendices
 
 % ********************************** Back Matter *******************************
 % Backmatter should be commented out, if you are usPing appendices after References
